@@ -1,0 +1,48 @@
+import axios, { AxiosProgressEvent } from "axios";
+import { handleAxiosError } from "@/libs/helpers.ts";
+import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useSession } from "../../useSession.ts";
+
+export interface UploadParams {
+  net: string;
+  orderId: number;
+  data: FormData;
+  onUploadProgress: (progressEvent: AxiosProgressEvent) => void;
+}
+
+/**
+ * useFileService provides access to v1/files endpoint
+ */
+export function useFileService() {
+  const { getChainInfo, address } = useConnectorContext();
+  const { getAccessToken } = useSession();
+
+  /**
+   * Get a user
+   */
+  async function uploadFile(params: UploadParams): Promise<string> {
+    try {
+      const { net, orderId, data, onUploadProgress } = params;
+      const headers = { "Content-Type": "multipart/form-data" };
+
+      const token = getAccessToken(address);
+      headers["authorization"] = token ? `Bearer ${token}` : undefined;
+
+      const resp = await axios({
+        method: "post",
+        url: `${getChainInfo().apiUrl}/v1/files/upload/${net}/${orderId}`,
+        headers,
+        data,
+        onUploadProgress,
+      });
+
+      return Promise.resolve(resp.data.data.hash);
+    } catch (e) {
+      return Promise.reject(handleAxiosError(e as never));
+    }
+  }
+
+  return {
+    uploadFile,
+  };
+}

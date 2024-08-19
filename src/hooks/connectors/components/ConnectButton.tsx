@@ -1,6 +1,6 @@
 import { ConnectKitButton } from "connectkit";
-import { cn } from "../../../libs/utils";
 import { ConnectedButton } from "./ConnectedButton";
+import { cn } from "@/libs/utils.ts";
 
 interface ConnectProps {
   show: () => void;
@@ -9,7 +9,13 @@ interface ConnectProps {
 
 function Connect({ show, className }: ConnectProps) {
   return (
-    <button className={cn("w-full", className)} onClick={show}>
+    <button
+      className={cn(
+        "w-full rounded-full bg-card p-2 px-4 font-semibold tracking-wide text-light-green transition-all duration-500 hover:scale-105",
+        className,
+      )}
+      onClick={show}
+    >
       Connect
     </button>
   );

@@ -1,7 +1,7 @@
 import approx from "approximate-number";
 import { AxiosResponse } from "axios";
 import Decimal from "decimal.js";
-import { formatUnits } from "ethers";
+import { BigNumberish, formatUnits } from "ethers";
 import * as humanizeDuration from "humanize-duration";
 import numeral from "numeral";
 import prettyBytes from "pretty-bytes";
@@ -27,9 +27,29 @@ export function logError(message?: unknown, ...optionalParams: unknown[]) {
   if (isDev() || isLogEnabled()) console.error(message, ...optionalParams);
 }
 
+// powOf returns n * 10^power
+export function powOf(n: BigNumberish, power: number) {
+  return toDec(n.toString())
+    .mul(toDec(pow10(power).toString()))
+    .toFixed(0);
+}
+
 // pow10D returns 10^decimals as a Decimal object
 export function pow10D(decimals: number) {
   return toDec(10).pow(decimals);
+}
+
+// pow10 returns 10^decimals
+export function pow10(decimals: number) {
+  return toDec(10).pow(decimals);
+}
+
+/**
+ * Convert a number to a BigNumber
+ * @param val - The value to convert
+ */
+export function toBigInt(val: BigNumberish) {
+  return BigInt(val);
 }
 
 /**
@@ -39,12 +59,7 @@ export function pow10D(decimals: number) {
  * @param places The amount of places
  * @param stripZeros If true, strips trailing zeros
  */
-export function toHD(
-  amount: bigint | Decimal,
-  decimals = 18,
-  places = 8,
-  stripZeros = true,
-) {
+export function toHD(amount: bigint | Decimal, decimals = 18, places = 8, stripZeros = true) {
   return toHDD(amount, decimals, places, stripZeros).toFixed();
 }
 
@@ -55,12 +70,7 @@ export function toHD(
  * @param places The amount of places
  * @param stripZeros If true, strips trailing zeros
  */
-export function toHDD(
-  amount: bigint | Decimal,
-  decimals = 18,
-  places = 8,
-  stripZeros = true,
-) {
+export function toHDD(amount: bigint | Decimal, decimals = 18, places = 8, stripZeros = true) {
   let val: Decimal = toDec(amount).div(toDec(10).pow(decimals));
   if (places > 0) val = val.toDecimalPlaces(places);
   if (stripZeros && val.lt(1)) return toDec(trimZeros(val.toFixed()));
@@ -98,7 +108,7 @@ export function toLDD(amount: bigint | Decimal, decimals = 18) {
  * Convert a number to a Decimal
  * @param val - The value to convert
  */
-export function toDec(val: string | number | bigint | bigint | Decimal) {
+export function toDec(val: string | number | bigint | Decimal) {
   return new Decimal(val.toString());
 }
 
@@ -106,15 +116,9 @@ export function toDec(val: string | number | bigint | bigint | Decimal) {
  * Handle AXIOS error
  * @param error - The error object
  */
-export function handleAxiosError(error: {
-  response: AxiosResponse;
-  request: unknown;
-}): RequestError {
+export function handleAxiosError(error: { response: AxiosResponse; request: unknown }): RequestError {
   if (error.response) {
-    return new RequestError(
-      error.response.status,
-      error.response.data.error.message,
-    );
+    return new RequestError(error.response.status, error.response.data.error.message);
   } else if (error.request) {
     return new RequestError(500, "request error");
   } else {
@@ -138,16 +142,9 @@ export function isReqErr404(err: Error) {
  * @param places - Decimal places to use when v is a decimal number
  * @param approxAt - Approximate to human-readable format at greater or equal to this value
  */
-export function formatToHighDenom(
-  v: bigint,
-  decimals = 18,
-  format?: string | number,
-  places?: number,
-  approxAt = 0,
-) {
+export function formatToHighDenom(v: bigint, decimals = 18, format?: string | number, places?: number, approxAt = 0) {
   const hd = formatUnits(v, decimals);
-  if (!approxAt || toDec(hd).lt(approxAt))
-    return formatToMoney(hd, format, places);
+  if (!approxAt || toDec(hd).lt(approxAt)) return formatToMoney(hd, format, places);
   return approxNumber(hd, places);
 }
 
@@ -157,18 +154,12 @@ export function formatToHighDenom(
  * @param format - The format to use
  * @param places - Decimal places to use when v is a decimal number
  */
-export function formatToMoney(
-  v: string | number,
-  format?: string | number,
-  places = 6,
-) {
+export function formatToMoney(v: string | number, format?: string | number, places = 6) {
   if (!v) return;
   if (toDec(v).lt(1)) return trimZeros(toDec(v).toFixed(places));
   const param = typeof v === "number" ? v.toLocaleString() : v;
   const fmt = format || (typeof v === "number" ? "0,0.[00]" : "0,0.[0000]");
-  return numeral(param).format(fmt.toString()) !== "NaN"
-    ? numeral(param).format(fmt.toString())
-    : 0;
+  return numeral(param).format(fmt.toString()) !== "NaN" ? numeral(param).format(fmt.toString()) : 0;
 }
 
 /**
@@ -196,10 +187,7 @@ export function shortenAddress2(address: string) {
  * @param num - The number to approximate
  * @param precision - The precision to use
  */
-export function approxNumber(
-  num: number | string | undefined,
-  precision?: number,
-) {
+export function approxNumber(num: number | string | undefined, precision?: number) {
   if (num == undefined) return num;
   if (typeof num === "string") num = parseFloat(num);
   return approx(num, { precision });
@@ -211,15 +199,8 @@ export function approxNumber(
  * @param decimals - The number of decimals
  * @param precision - The precision
  */
-export function toHighDenomAndApprox(
-  v: bigint,
-  decimals = 18,
-  precision?: number,
-) {
-  return approxNumber(
-    toDec(v.toString()).div(toDec(10).pow(decimals)).toNumber(),
-    precision,
-  );
+export function toHighDenomAndApprox(v: bigint, decimals = 18, precision?: number) {
+  return approxNumber(toDec(v.toString()).div(toDec(10).pow(decimals)).toNumber(), precision);
 }
 
 /**

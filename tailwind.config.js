@@ -27,7 +27,14 @@ export default {
       colors: {
         "byzantine-blue": "#1F54DA",
         "alice-blue": "#E3EEF7",
-        "celtic-blue": "#1f6ada",
+        "light-green": "#8DE969",
+        "ragoon-green": "#1D1C1C", // for border
+        "eerie-black": "#16181E", // for background
+        onyx: "#0F1013", // for gradient
+        boulder: "#777777", // for text
+        "baltic-sea": "#262931", // for background (card)
+        "bright-gray": "#3C4051", // for background (card)
+        mirage: "#17181D", // for background (card)
 
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",

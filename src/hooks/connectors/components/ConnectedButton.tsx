@@ -2,15 +2,15 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import EmojiAvatar from "../../../components/avatar/EmojiAvatar.tsx";
-import { AvatarSize } from "../../../components/avatar/useAvatar";
-import { IconSettingsOutline } from "../../../components/icons/IconSettingsOutline.tsx";
-import { logError, shortenAddress, shortenAddress2 } from "../../../libs/helpers.ts";
-import { cn } from "../../../libs/utils.ts";
+import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
+import { logError, shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
+import { cn } from "@/libs/utils.ts";
 import { useAuthService } from "../../services/backend/useAuthService.ts";
 import useStore from "../../store/useStore.ts";
 import { useSession } from "../../useSession.ts";
 import { createSignatureMessage } from "../common.ts";
 import { useConnectorContext } from "../useConnectorContext.tsx";
+import { Settings2, SettingsIcon } from "lucide-react";
 
 export const ConnectedButton = ({
   className,
@@ -66,7 +66,7 @@ export const ConnectedButton = ({
         onClick={() => {}}
       >
         <p className={cn("ml-[4px] hidden rounded-full px-[8px] py-[6px] tracking-[0.19px] text-[#001029] lg:flex")}>
-          <IconSettingsOutline width="17" color="white" />
+          <SettingsIcon width="17" color="white" />
         </p>
         <p className={cn("address text font-poppins font-normal tracking-wider text-gray-100 lg:inline-block", {})}>
           <>
