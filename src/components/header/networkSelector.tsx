@@ -11,7 +11,7 @@ import { ChainInfo, getChain, getChainsID } from "@jointlabs/meta";
 
 export function NetworkSelector() {
   const [open, setOpen] = useState(false);
-  const { switchNetwork, chainId, defaultNetwork } = useConnectorContext();
+  const { switchNetwork, chainId, connected, defaultNetwork } = useConnectorContext();
   const [curChain, setCurChain] = useState<ChainInfo | undefined>(getChain(defaultNetwork));
   const [testnetChainsID, setTestnetChainsID] = useState<number[]>([]);
   const [mainChainsID, setMainChainsID] = useState<number[]>([]);
@@ -56,7 +56,7 @@ export function NetworkSelector() {
         setOpen(open);
       }}
     >
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger disabled={!connected} asChild>
         <div
           className={cn(
             "pointer-events-auto flex cursor-pointer items-center space-x-1 rounded-full bg-card px-1 py-1 font-poppins text-gray-400 transition-all duration-300 hover:scale-[1.02] hover:bg-gray-800/80 hover:text-white",

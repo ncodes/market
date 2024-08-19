@@ -5,7 +5,7 @@ import { NetworkSelector } from "@/components/header/networkSelector.tsx";
 
 export function Header() {
   return (
-    <header className="relative flex items-center justify-between p-4">
+    <header className="relative flex select-none items-center justify-between p-4">
       <div className="relative -top-2 flex items-center space-x-4">
         <div className="flex items-center space-x-2">
           <img src="/images/logo.svg" alt="Logo" />
