@@ -1,4 +1,4 @@
-import { ChainInfo, ContractNames } from "@jointlabs/chains-info";
+import { ChainInfo, ContractNames } from "@jointlabs/meta";
 import { Address, Chain, TransactionReceipt, WalletClient } from "viem";
 
 export interface IConnector {
@@ -53,5 +53,4 @@ export interface IConnector {
 
   setAddress: (address: string) => void;
   setReady: (ready: boolean) => void;
-
 }

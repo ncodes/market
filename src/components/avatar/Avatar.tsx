@@ -1,8 +1,4 @@
-import {
-  Avatar as UIAvatar,
-  AvatarFallback,
-  AvatarImage,
-} from "../ui/avatar.tsx";
+import { Avatar as UIAvatar, AvatarFallback, AvatarImage } from "../ui/avatar.tsx";
 import { ReactNode } from "react";
 import { cn } from "../../libs/utils.ts";
 
@@ -18,13 +14,9 @@ export function Avatar({
   fallbackClassName?: string;
 }) {
   return (
-    <UIAvatar className="w-auto flex items-center">
+    <UIAvatar className="flex w-auto items-center">
       <AvatarImage src={src} className={cn("w-[30px]", className)} />
-      {fallback && (
-        <AvatarFallback className={cn("w-[30px]", fallbackClassName)}>
-          {fallback}
-        </AvatarFallback>
-      )}
+      {fallback && <AvatarFallback className={cn("w-[30px]", fallbackClassName)}>{fallback}</AvatarFallback>}
     </UIAvatar>
   );
 }

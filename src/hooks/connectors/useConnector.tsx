@@ -1,4 +1,4 @@
-import { ChainInfo, ContractNames, getChain } from "@jointlabs/chains-info";
+import { ChainInfo, ContractNames, getChain } from "@jointlabs/meta";
 import { useEffect, useState } from "react";
 import { Address, Chain, PublicClient, TransactionReceipt, createPublicClient, erc20Abi, http } from "viem";
 import { arbitrum } from "viem/chains";
@@ -11,7 +11,7 @@ import {
   useSwitchChain,
   useWalletClient,
 } from "wagmi";
-import { logError } from "../../libs/helpers.ts";
+import { logError } from "@/libs/helpers.ts";
 import { IConnector } from "./interface.ts";
 
 /**

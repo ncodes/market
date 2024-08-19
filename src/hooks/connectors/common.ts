@@ -1,4 +1,4 @@
-import { getChains } from "@jointlabs/chains-info";
+import { getChains } from "@jointlabs/meta";
 import moment from "moment";
 import { hardhat } from "viem/chains";
 import { isProd } from "../../libs/helpers";
@@ -9,11 +9,7 @@ import { isProd } from "../../libs/helpers";
  * @param email - The email to associate with the signer
  * @param expireTimeStr - The time after which signature is considered expired
  */
-export function createSignatureMessage(
-  address: string,
-  email?: string,
-  expireTimeStr = "5 minutes",
-) {
+export function createSignatureMessage(address: string, email?: string, expireTimeStr = "5 minutes") {
   const emailStr = !email ? "" : `Email: ${email}`;
   const msg = `Welcome to ${import.meta.env.VITE_APP_NAME}!
   

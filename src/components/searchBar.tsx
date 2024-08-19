@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label.tsx";
 import { ScrollArea } from "@/components/ui/scroll-area.tsx";
 
 export function SearchBar() {
-  const [showSearch, setShowSearch] = useState(true);
+  const [showSearch, setShowSearch] = useState(false);
 
   return (
     <div
@@ -23,7 +23,7 @@ export function SearchBar() {
       <div className="z-20 w-[500px]">
         <Card
           className={cn(
-            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-gray-700/70 bg-card",
+            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-gray-700/20 bg-card",
             {
               "mx-auto rounded-none rounded-t-2xl border-b-0 border-gray-700/70": showSearch,
             },
@@ -50,11 +50,11 @@ export function SearchBar() {
         {showSearch && (
           <motion.div
             animate={{ minHeight: "200px", maxHeight: "500px" }}
-            className="relative h-auto w-full overflow-hidden rounded-2xl rounded-t-none border border-t-0 border-gray-700/70 bg-eerie-black pl-3"
+            className="relative h-auto w-full overflow-hidden rounded-2xl rounded-t-none border border-t-0 border-gray-700/70 bg-eerie-black"
           >
-            <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto py-1" orientation="vertical">
+            <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto px-3 py-1" orientation="vertical">
               <Label className="tracking-wide text-gray-400">Popular tokens</Label>
-              <ul className="mt-2 flex flex-col space-y-2">
+              <ul className="mx-0.5 mt-2 flex flex-col space-y-2">
                 <Item
                   src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
                   tokenSymbol="UNI"
@@ -115,14 +115,20 @@ export function SearchBar() {
           </motion.div>
         )}
       </div>
-      {showSearch && <Overlay />}
+      {showSearch && (
+        <Overlay
+          onClick={() => {
+            setShowSearch(false);
+          }}
+        />
+      )}
     </div>
   );
 }
 
 function Item({ src, tokenSymbol, name }: { src: string; tokenSymbol: string; name: string }) {
   return (
-    <li className="mr-2 flex cursor-pointer items-center justify-between rounded-3xl pl-1 pr-3 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:bg-bright-gray hover:text-white">
+    <li className="flex cursor-pointer items-center justify-between rounded-3xl pl-1 pr-3 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:bg-bright-gray hover:text-white">
       <div className="flex items-center space-x-3">
         <Avatar src={src} fallback={tokenSymbol} className="h-8 w-8" />
         <div className="flex space-x-2 text-white">

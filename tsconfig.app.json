@@ -31,5 +31,6 @@
   "include": [
     "src",
     "node_modules/@types/node/buffer.d.ts",
+    "node_modules/axios/index.d.ts"
   ]
 }

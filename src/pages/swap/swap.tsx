@@ -1,6 +1,6 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card.tsx";
 import { Button } from "@/components/ui/button.tsx";
-import { Header } from "@/components/header.tsx";
+import { Header } from "@/components/header/header.tsx";
 import { ChevronsUp, Settings } from "lucide-react";
 import { SwapInputField } from "@/pages/swap/SwapInputField.tsx";
 import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
@@ -20,7 +20,7 @@ export default function SwapPage() {
 
       <div className="relative mx-auto flex h-[740px] w-[537px] flex-col overflow-hidden rounded-b-3xl py-10">
         <div className="mb-3 flex items-center justify-between">
-          <h1 className="text-3xl font-medium">Swap</h1>
+          <h1 className="text-3xl font-normal tracking-wider">Swap</h1>
           <Button
             variant="ghost"
             className="h-auto p-0 opacity-80 hover:scale-105 hover:opacity-100"
@@ -80,10 +80,14 @@ export default function SwapPage() {
                 </div>
               </div>
               <div className="mt-2 flex w-full items-center justify-center border-t border-gray-800/50 pt-2 text-sm text-boulder/90">
-                <Button variant="ghost" className="h-auto p-0 hover:text-boulder" onClick={() => {
-                  setDrawerContent("provider-selector");
-                  setOpenDrawer(!openDrawer);
-                }}>
+                <Button
+                  variant="ghost"
+                  className="h-auto p-0 hover:text-boulder"
+                  onClick={() => {
+                    setDrawerContent("provider-selector");
+                    setOpenDrawer(!openDrawer);
+                  }}
+                >
                   Select provider
                   <ChevronsUp className="ml-1 h-4 w-4" />
                 </Button>
