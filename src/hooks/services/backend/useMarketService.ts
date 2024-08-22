@@ -2,6 +2,7 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 import { handleAxiosError } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { AssetType } from "@/types/enums.ts";
 
 export type ListMarketsIDs = "getMarkets" | "searchMarkets" | "getMarketsByCreator" | "getMarketsByAddresses";
 export interface ListMarketsParams {
@@ -83,6 +84,46 @@ export function useMarketService() {
   }
 
   /**
+   * Get market by base and quote address
+   */
+  async function getMarketByBaseAndQuoteAddress(
+    ctx: QueryFunctionContext<
+      [
+        string,
+        {
+          network: string;
+          base: string;
+          quote: string;
+          creator?: string;
+          baseType?: AssetType;
+          quoteType?: AssetType;
+        },
+      ]
+    >,
+  ): Promise<Market> {
+    try {
+      const [, params] = ctx.queryKey;
+      const { network, base, quote, creator } = params;
+      const headers = {};
+      const resp = await axios({
+        method: "get",
+        url: `${getChainInfo().apiUrl}/v1/markets/${base}/${quote}`,
+        params: {
+          net: network,
+          creator,
+          baseType: params.baseType,
+          quoteType: params.quoteType,
+        },
+        headers,
+      });
+
+      return Promise.resolve(resp.data.data);
+    } catch (e) {
+      return Promise.reject(handleAxiosError(e as never));
+    }
+  }
+
+  /**
    * Get top markets
    */
   async function getTopMarkets(ctx: QueryFunctionContext<[string, GetTopMarketsParams]>): Promise<Market[]> {
@@ -110,5 +151,6 @@ export function useMarketService() {
     listMarkets,
     getMarket,
     getTopMarkets,
+    getMarketByBaseAndQuoteAddress,
   };
 }

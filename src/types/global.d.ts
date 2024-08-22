@@ -2,6 +2,8 @@ import { Address } from "viem";
 import { AssetType, Events, NotificationType } from "./enums.ts";
 
 declare global {
+  type SwapSide = "Buy" | "Sell";
+
   interface User {
     id: string;
     email: string;
@@ -182,6 +184,8 @@ declare global {
     lastTimeOnline: string;
     market: Market;
     messagingEnabled: boolean;
+    amountFilled: string;
+    costFilled: string;
   }
 
   interface Swap {
@@ -648,33 +652,11 @@ declare global {
     allocatorAddr: string;
   }
 
-  interface Quest {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-    sn: number;
-    questId?: any;
-    name: string;
-    type: string;
-    link?: any;
-    account: string;
-    tag: string;
-    engageBond: number;
-    verifyBond: number;
-    maxVotes: number;
-    verifyPoints: number;
-    engagePoints: number;
-    pinned: boolean;
-    responderId?: any;
-    responderLink?: any;
-    finalized: boolean;
-    object: string;
-    parent: Quest;
-    responder: User;
-    count: number;
-    marketAddress: string;
-    provider: string;
-    lid: number;
-    market: Market;
+  interface FillInfo {
+    liquidities: Liquidity[];
+    totalAmountFilled: string;
+    totalQuantityFilled: string;
+    amount: string;
+    filled: boolean;
   }
 }

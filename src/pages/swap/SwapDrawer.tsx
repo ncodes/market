@@ -1,43 +1,71 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { SwapDrawerAdvanceSettings } from "@/pages/swap/SwapDrawerAdvanceSettings.tsx";
 import { SwapDrawerTokenSelector } from "@/pages/swap/SwapDrawerTokenSelector.tsx";
 import { SwapDrawerProviderSelector } from "@/pages/swap/SwapDrawerProviderSelector.tsx";
+import { TokenList } from "../../../../jointlabs/meta";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
 
 export type SwapDrawerContent = "advance-settings" | "provider-selector" | "token-selector";
+
+const defaultState: {
+  tokenLists?: TokenList.TokenData;
+  show?: boolean;
+} = {
+  tokenLists: undefined,
+  show: false,
+};
 
 export function SwapDrawer({
   height,
   open,
   content,
   onClose,
+  tokenLists,
+  selectedToken,
+  onTokenSelect,
+  side,
 }: {
   height?: number;
   open?: boolean;
   content?: SwapDrawerContent;
   onClose?: () => void;
+  side?: SwapSide;
+  tokenLists?: TokenList.TokenData;
+  selectedToken?: { sell?: TokenList.Token; buy?: TokenList.Token };
+  onTokenSelect?: (token: TokenList.Token) => void;
 }) {
-  const [show, setShow] = useState(open);
+  const [state, setState] = useState({ ...defaultState, tokenLists });
+  const { chainId } = useConnectorContext();
 
   useEffect(() => {
-    setShow(open);
+    setState((prev) => ({ ...prev, tokenLists }));
+  }, [tokenLists]);
+
+  useEffect(() => {
+    setState((prev) => ({ ...prev, show: open }));
   }, [open]);
+
+  useEffect(() => {
+    setState((prev) => ({ ...prev, show: false }));
+    onClose?.();
+  }, [chainId]);
 
   return (
     <div>
       <AnimatePresence>
-        {show && (
+        {state.show && (
           <motion.div
             id="drawer"
             className="absolute ml-[0.3%] flex w-[99.5%] flex-col justify-end rounded-3xl border-black bg-black/50 backdrop-blur"
             transition={{ ease: "easeOut", duration: 0.2 }}
             style={{
-              bottom: "2px",
+              bottom: "0",
               height: height + "px",
             }}
             onClick={(e) => {
               if ((e.target as HTMLElement).id === "drawer") {
-                setShow(false);
+                setState((prev) => ({ ...prev, show: false }));
                 onClose?.();
               }
             }}
@@ -56,7 +84,7 @@ export function SwapDrawer({
                 {content === "advance-settings" && (
                   <SwapDrawerAdvanceSettings
                     closeRequested={() => {
-                      setShow(false);
+                      setState((prev) => ({ ...prev, show: false }));
                       onClose?.();
                     }}
                   />
@@ -64,22 +92,27 @@ export function SwapDrawer({
 
                 {content === "token-selector" && (
                   <SwapDrawerTokenSelector
+                    side={side}
+                    containerHeight={height}
+                    tokenLists={state.tokenLists as TokenList.TokenData}
+                    selectedToken={selectedToken}
                     closeRequested={() => {
-                      setShow(false);
+                      setState((prev) => ({ ...prev, show: false }));
                       onClose?.();
                     }}
+                    onSelect={onTokenSelect}
                   />
                 )}
 
                 {content === "provider-selector" && (
                   <SwapDrawerProviderSelector
+                    containerHeight={height}
                     closeRequested={() => {
-                      setShow(false);
+                      setState((prev) => ({ ...prev, show: false }));
                       onClose?.();
                     }}
                   />
                 )}
-
               </motion.div>
             </div>
           </motion.div>

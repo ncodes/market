@@ -1,7 +1,8 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
-import axios from "axios";
-import { handleAxiosError } from "@/libs/helpers.ts";
+import axios, { AxiosRequestConfig } from "axios";
+import { handleAxiosError, toLD } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+
 export interface ListLiquidityParams {
   provider?: string;
   network: string;
@@ -73,6 +74,54 @@ export function useLiquidityService() {
   }
 
   /**
+   * Fill an amount of requested liquidity.
+   * @param ctx
+   */
+  async function fill(
+    ctx: QueryFunctionContext<
+      [
+        string,
+        {
+          network: string;
+          marketAddress: string;
+          amount: string;
+          side: SwapSide;
+          decimals: number;
+        },
+      ]
+    >,
+  ): Promise<FillInfo> {
+    try {
+      const headers = {};
+      const [, params] = ctx.queryKey;
+      const { network, marketAddress, decimals } = params;
+
+      let amount = "";
+      let side = "";
+      if (params.side === "Sell") {
+        amount = toLD(params.amount, decimals);
+        side = "quote";
+      } else if (params.side === "Buy") {
+        amount = toLD(params.amount, decimals);
+        side = "base";
+      }
+
+      const resp = await axios({
+        method: "get",
+        url: `${getChainInfo().apiUrl}/v1/liquidities/${marketAddress}/${amount}/${side}/fill`,
+        params: {
+          net: network,
+        },
+        headers,
+      } as AxiosRequestConfig);
+
+      return Promise.resolve(resp.data.data);
+    } catch (e) {
+      return Promise.reject(handleAxiosError(e as never));
+    }
+  }
+
+  /**
    * Get liquidity
    */
   async function getLiquidity(ctx: QueryFunctionContext<[GetLiquidityIDs, GetLiquidityParams]>): Promise<Liquidity> {
@@ -122,5 +171,6 @@ export function useLiquidityService() {
     listLiquidities,
     getLiquidity,
     getEvents,
+    fill,
   };
 }

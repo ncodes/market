@@ -1,16 +1,8 @@
 import { ChainInfo, ContractNames, getChain } from "@jointlabs/meta";
 import { useEffect, useState } from "react";
-import { Address, Chain, PublicClient, TransactionReceipt, createPublicClient, erc20Abi, http } from "viem";
+import { Address, Chain, createPublicClient, erc20Abi, http, PublicClient, TransactionReceipt } from "viem";
 import { arbitrum } from "viem/chains";
-import {
-  useAccount,
-  useChainId,
-  useDisconnect,
-  usePublicClient,
-  useSignMessage,
-  useSwitchChain,
-  useWalletClient,
-} from "wagmi";
+import { useAccount, useChainId, useDisconnect, useSignMessage, useSwitchChain, useWalletClient } from "wagmi";
 import { logError } from "@/libs/helpers.ts";
 import { IConnector } from "./interface.ts";
 
@@ -19,7 +11,9 @@ import { IConnector } from "./interface.ts";
  * @returns
  */
 export default function useConnector() {
-  const defaultNetwork = (getChain(import.meta.env.VITE_DEFAULT_NETWORK) ?? getChain(arbitrum.id))?.chainId;
+  const envDefaultChain = import.meta.env.VITE_DEFAULT_NETWORK;
+  const defaultChain = (getChain(envDefaultChain) ?? getChain(arbitrum.id))?.chainId;
+  const [chainInfo, setChainInfo] = useState<ChainInfo | undefined>(getChain(envDefaultChain) ?? getChain(arbitrum.id));
   const [connected, setConnected] = useState<boolean | undefined>(undefined);
   const [address, setAddress] = useState<string | undefined>(undefined);
   const [ready, setReady] = useState(false);
@@ -30,8 +24,8 @@ export default function useConnector() {
   const { isConnected, address: _address } = useAccount();
   const { switchChain, chains } = useSwitchChain();
   const { data: walletClient } = useWalletClient();
-  const publicClient = usePublicClient();
   const { data: signedData, status: signStatus, signMessageAsync } = useSignMessage();
+  const [publicClient, setPublicClient] = useState<PublicClient | undefined>(undefined);
 
   useEffect(() => {
     setConnected(isConnected);
@@ -40,19 +34,33 @@ export default function useConnector() {
 
   useEffect(() => {
     if (!chainId) return;
-    setChain(getChain(chainId)?.chain);
+    setChain(getChain(chainId)?.chain as Chain);
     setNetwork(getChain(chainId)?.queryName);
     localStorage.setItem("lastChainId", chainId.toString());
   }, [connected, chainId]);
 
   useEffect(() => {
+    const chainInfo = getChainInfo();
+    setChainInfo(chainInfo);
+
+    if (connected && !ready) {
+      setPublicClient(
+        createPublicClient({
+          chain: chains.find((c) => c.id === (chainId as number)),
+          transport: http(chainInfo.rpcUrl),
+        }),
+      );
+    }
+  }, [connected, ready]);
+
+  useEffect(() => {
     setReady(
-      publicClient !== undefined &&
+      publicClient != undefined &&
         connected == true &&
         address !== undefined &&
         chainId !== undefined &&
         walletClient != undefined &&
-        chainId !== undefined,
+        chainId != undefined,
     );
   }, [publicClient, connected, address, chainId, chainId, walletClient]);
 
@@ -173,7 +181,6 @@ export default function useConnector() {
    * @param spenderAddress - The spender's address
    * @param amount - The amount to be approved
    * @param noWait - If true, the function will not wait for the transaction to be mined
-   * @param confirmations - The number of confirmations to wait for
    */
   async function approveAllowance(tokenAddress: Address, spenderAddress: Address, amount: bigint, noWait = false) {
     if (!publicClient) throw new Error("no provider found");
@@ -249,7 +256,6 @@ export default function useConnector() {
    * @param to The recipient's address
    * @param value The amount to be sent
    * @param noWait If true, the function will not wait for the transaction to be mined
-   * @param confirmations The number of confirmations to wait for
    * @returns
    */
   async function sendTransaction(to: string, value: bigint, noWait = false) {
@@ -284,6 +290,7 @@ export default function useConnector() {
     useAltRpc = false,
   ): Promise<T> {
     if (!publicClient) throw new Error("no provider found");
+
     let client = publicClient as PublicClient;
 
     if (useAltRpc) {
@@ -335,7 +342,6 @@ export default function useConnector() {
    * @param targetFunc - The target function to be called
    * @param args - The arguments to be passed to the target function
    * @param noWait - If true, the function will not wait for the transaction to be mined
-   * @param confirmations - The number of confirmations to wait for
    */
   async function simulateAndWriteContract(
     name: ContractNames,
@@ -374,7 +380,6 @@ export default function useConnector() {
    * Withdraw wrapped token
    * @param amount The amount to be withdrawn
    * @param noWait If true, the function will not wait for the transaction to be mined
-   * @param confirmations The number of confirmations to wait for
    * @returns
    */
   async function withdrawWrappedToken(amount: bigint, noWait = false) {
@@ -406,8 +411,8 @@ export default function useConnector() {
   // @throws Error if chainId is unknown
   function getChainInfo(): ChainInfo {
     if (!ready) {
-      if (!defaultNetwork) throw new Error("default network not set");
-      return getChain(defaultNetwork) as ChainInfo;
+      if (!defaultChain) throw new Error("default network not set");
+      return getChain(defaultChain) as ChainInfo;
     }
     const chain = getChain(chainId);
     if (!chain) throw new Error("unknown chain");
@@ -434,6 +439,7 @@ export default function useConnector() {
     writeContract,
     sendTransaction,
     withdrawWrappedToken,
+    getChainInfo,
 
     // ERC20 operations
     getTokenBalance,
@@ -445,9 +451,9 @@ export default function useConnector() {
     getTokenSymbol,
     humanizeErc20Errors,
 
-    // Wallet operations
+    // Connection and chain info
     wallet: walletClient,
-    defaultNetwork,
+    defaultChain,
     ready,
     connected,
     signedData,
@@ -456,12 +462,14 @@ export default function useConnector() {
     chainId,
     chains,
     chain,
+    chainInfo,
     network,
+
+    // Wallet operations
     setReady,
     disconnect,
     sign,
     setAddress,
     switchNetwork,
-    getChainInfo,
   } as IConnector;
 }

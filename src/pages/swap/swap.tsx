@@ -5,28 +5,32 @@ import { ChevronsUp, Settings } from "lucide-react";
 import { SwapInputField } from "@/pages/swap/SwapInputField.tsx";
 import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
 import EmojiAvatar from "@/components/avatar/EmojiAvatar.tsx";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { cn } from "@/libs/utils.ts";
-import { SwapDrawer, SwapDrawerContent } from "@/pages/swap/SwapDrawer.tsx";
+import { SwapDrawer } from "@/pages/swap/SwapDrawer.tsx";
+import { ConnectButton } from "@/hooks/connectors/components/ConnectButton.tsx";
+import { TokenList } from "@jointlabs/meta";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useSwapLogic } from "@/pages/swap/useSwapLogic.ts";
+import { SwapPageType } from "@/pages/swap/types.ts";
 
 export default function SwapPage() {
   const swapSectionRef = useRef<HTMLDivElement | null>(null);
-  const [drawerContent, setDrawerContent] = useState<SwapDrawerContent>();
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const { ready } = useConnectorContext();
+  const { state, setState } = useSwapLogic();
 
   return (
     <div className="overflow-hidden font-poppins text-white">
       <Header />
-
-      <div className="relative mx-auto flex h-[740px] w-[537px] flex-col overflow-hidden rounded-b-3xl py-10">
+      <div className="relative mx-auto mt-10 flex w-[537px] flex-col overflow-hidden rounded-b-3xl">
         <div className="mb-3 flex items-center justify-between">
           <h1 className="text-3xl font-normal tracking-wider">Swap</h1>
           <Button
             variant="ghost"
             className="h-auto p-0 opacity-80 hover:scale-105 hover:opacity-100"
             onClick={() => {
-              setDrawerContent("advance-settings");
-              setOpenDrawer(!openDrawer);
+              setState((prev) => ({ ...prev, drawerContent: "advance-settings" }));
+              setState((prev) => ({ ...prev, openDrawer: !prev.openDrawer }));
             }}
           >
             <div className="rounded-xl border border-ragoon-green bg-eerie-black p-2">
@@ -37,35 +41,65 @@ export default function SwapPage() {
         <Card
           ref={swapSectionRef}
           className={cn(
-            "w-full rounded-3xl border border-gray-800 bg-gradient-to-b from-eerie-black to-onyx p-4 pb-0 text-gray-300",
+            "w-full rounded-3xl border border-gray-800/50 bg-gradient-to-b from-eerie-black to-onyx p-4 pb-0 text-gray-300",
           )}
         >
           <CardContent className="space-y-4 p-0">
             <SwapInputField
               direction="Sell"
-              avatarSrc="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
-              tokenSymbol="UNI"
-              value="34.5"
-              price="45.66"
-              onRequestModal={() => {
-                setDrawerContent("token-selector");
-                setOpenDrawer(!openDrawer);
+              value={state.sellAmount}
+              price="0"
+              side="Sell"
+              tokenLists={state.tokenLists}
+              selected={state.sellToken}
+              onRequestModal={(selected?: TokenList.Token) => {
+                setState((prev) => ({
+                  ...prev,
+                  openDrawer: !prev.openDrawer,
+                  drawerContent: "token-selector",
+                  sellToken: selected,
+                  openDrawerSide: "Sell",
+                }));
+              }}
+              onChange={(value) => {
+                setState((prev) => ({ ...prev, sellAmount: value }));
+              }}
+              onFocus={() => {
+                setState((prev) => ({ ...prev, focusSide: "Sell" }));
+              }}
+              onBlur={() => {
+                setState((prev) => ({ ...prev, focusSide: undefined }));
               }}
             />
 
             <SwapInputField
               direction="Buy"
-              avatarSrc="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x221657776846890989a759BA2973e427DfF5C9bB/logo.png"
-              tokenSymbol="REP"
-              value="120.43"
-              price="20.33"
-              onRequestModal={() => {
-                setDrawerContent("token-selector");
-                setOpenDrawer(!openDrawer);
+              value={state.buyAmount}
+              price="0"
+              side="Buy"
+              selected={state.buyToken}
+              tokenLists={state.tokenLists}
+              onRequestModal={(selected?: TokenList.Token) => {
+                setState((prev) => ({
+                  ...prev,
+                  openDrawer: !prev.openDrawer,
+                  drawerContent: "token-selector",
+                  buyToken: selected,
+                  openDrawerSide: "Buy",
+                }));
+              }}
+              onChange={(value) => {
+                setState((prev) => ({ ...prev, buyAmount: value }));
+              }}
+              onFocus={() => {
+                setState((prev) => ({ ...prev, focusSide: "Buy" }));
+              }}
+              onBlur={() => {
+                setState((prev) => ({ ...prev, focusSide: undefined }));
               }}
             />
 
-            <div className="rounded-2xl bg-mirage p-2 px-0">
+            <div className="hidden rounded-2xl bg-mirage p-2 px-0">
               <p className="px-4 text-sm font-light tracking-wide text-boulder">Provider</p>
               <div className="flex justify-between px-4">
                 <div className="mt-2 flex items-center space-x-2">
@@ -84,8 +118,7 @@ export default function SwapPage() {
                   variant="ghost"
                   className="h-auto p-0 hover:text-boulder"
                   onClick={() => {
-                    setDrawerContent("provider-selector");
-                    setOpenDrawer(!openDrawer);
+                    setState((prev) => ({ ...prev, drawerContent: "provider-selector", openDrawer: !prev.openDrawer }));
                   }}
                 >
                   Select provider
@@ -94,7 +127,7 @@ export default function SwapPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-mirage p-2 px-0 text-boulder">
+            <div className="hidden rounded-2xl bg-mirage p-2 px-0 text-boulder">
               <div className="flex justify-between px-4 text-sm font-light tracking-wide text-gray-400">
                 <span className="font-medium">Swap Fee</span>
                 <span>
@@ -112,19 +145,73 @@ export default function SwapPage() {
             </div>
           </CardContent>
           <CardFooter className="p-4 px-0">
-            <Button className="h-auto w-full rounded-2xl bg-light-green/90 py-3 text-xl font-medium text-black hover:bg-light-green">
-              Swap
-            </Button>
+            {ready && (
+              <Button
+                className={cn(
+                  "h-auto w-full rounded-2xl bg-light-green/90 py-3 text-xl font-medium text-black animate-in fade-in-10 hover:bg-light-green",
+                  {
+                    "bg-baltic-sea text-gray-500": !canSwap(state),
+                  },
+                )}
+                disabled={!canSwap(state)}
+              >
+                {!state.insufficientLiquidity && (
+                  <>
+                    {canSwap(state) && "Swap"}
+                    {!state.isMarketUnknown && !isTokensSelected(state) && "Select a token"}
+
+                    {state.isMarketUnknown && "Market not found"}
+
+                    {!state.isMarketUnknown &&
+                      isTokensSelected(state) &&
+                      (isEmptyOrZero(state.sellAmount) || isEmptyOrZero(state.buyAmount)) &&
+                      "Enter an amount"}
+                  </>
+                )}
+
+                {state.insufficientLiquidity && "Insufficient liquidity"}
+              </Button>
+            )}
+
+            {!ready && (
+              <ConnectButton
+                connectBtnText="Connect wallet"
+                renderNullOnConnect={true}
+                className="h-auto w-full rounded-2xl bg-light-green/30 py-3 text-xl font-medium text-[#AAFA8A] animate-in fade-in-30 hover:scale-[1.01] hover:bg-light-green hover:bg-light-green/35"
+              />
+            )}
           </CardFooter>
         </Card>
-
         <SwapDrawer
-          open={openDrawer}
+          open={state.openDrawer}
           height={swapSectionRef.current?.clientHeight}
-          content={drawerContent}
-          onClose={() => setOpenDrawer(false)}
+          content={state.drawerContent}
+          tokenLists={state.tokenLists}
+          selectedToken={{ sell: state.sellToken, buy: state.buyToken }}
+          side={state.openDrawerSide}
+          onClose={() => setState((prev) => ({ ...prev, openDrawer: false }))}
+          onTokenSelect={(token: TokenList.Token) => {
+            if (state.openDrawerSide === "Sell") {
+              setState((prev) => ({ ...prev, sellToken: token }));
+            } else {
+              setState((prev) => ({ ...prev, buyToken: token }));
+            }
+          }}
         />
       </div>
     </div>
   );
+}
+
+function isTokensSelected(state: SwapPageType) {
+  return !!state.sellToken && !!state.buyToken;
+}
+
+function canSwap(state: SwapPageType) {
+  if (state.isMarketUnknown || state.insufficientLiquidity) return false;
+  return state.sellToken && state.buyToken && !isEmptyOrZero(state.sellAmount) && !isEmptyOrZero(state.buyAmount);
+}
+
+function isEmptyOrZero(value?: number | string) {
+  return !value || value === 0 || value === "";
 }

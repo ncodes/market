@@ -5,9 +5,10 @@ import { cn } from "@/libs/utils.ts";
 interface ConnectProps {
   show: () => void;
   className?: string;
+  connectBtnText?: string;
 }
 
-function Connect({ show, className }: ConnectProps) {
+function Connect({ show, className, connectBtnText }: ConnectProps) {
   return (
     <button
       className={cn(
@@ -16,7 +17,7 @@ function Connect({ show, className }: ConnectProps) {
       )}
       onClick={show}
     >
-      Connect
+      {connectBtnText || "Connect"}
     </button>
   );
 }
@@ -39,26 +40,34 @@ export function ConnectButton({
   className,
   connectedClassName,
   noSessionCreation,
+  connectBtnText,
+  renderNullOnConnect,
 }: {
   className?: string;
   connectedClassName?: string;
   noSessionCreation?: boolean;
+  renderNullOnConnect?: boolean;
+  connectBtnText?: string;
 }) {
   return (
     <ConnectKitButton.Custom>
       {({ isConnected, show }) => {
         return (
-          <span>
+          <div className="w-full">
             {!isConnected ? (
-              <Connect className={className} show={show as () => void} />
+              <Connect className={className} connectBtnText={connectBtnText} show={show as () => void} />
             ) : (
-              <Connected
-                className={connectedClassName}
-                show={show as () => void}
-                noSessionCreation={noSessionCreation}
-              />
+              <>
+                {!renderNullOnConnect && (
+                  <Connected
+                    className={connectedClassName}
+                    show={show as () => void}
+                    noSessionCreation={noSessionCreation}
+                  />
+                )}
+              </>
             )}
-          </span>
+          </div>
         );
       }}
     </ConnectKitButton.Custom>

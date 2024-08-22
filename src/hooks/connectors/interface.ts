@@ -2,7 +2,7 @@ import { ChainInfo, ContractNames } from "@jointlabs/meta";
 import { Address, Chain, TransactionReceipt, WalletClient } from "viem";
 
 export interface IConnector {
-  defaultNetwork: number;
+  defaultChain: number;
 
   readContract<T>(name: ContractNames, targetFunc: string, args: unknown[], useAltRpc?: boolean): Promise<T>;
   writeContract(name: ContractNames, targetFunc: string, args: unknown[]): Promise<Address>;
@@ -48,6 +48,7 @@ export interface IConnector {
   chainId: number;
   chains: readonly Chain[];
   chain: Chain;
+  chainInfo?: ChainInfo;
   network: string;
   getChainInfo(): ChainInfo;
 

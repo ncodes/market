@@ -1,12 +1,108 @@
 import { Button } from "@/components/ui/button.tsx";
 import { GlobeIcon, SearchIcon, XIcon } from "lucide-react";
-import React from "react";
 import { Avatar } from "@/components/avatar/Avatar.tsx";
 import { Link } from "react-router-dom";
+import { TokenList } from "../../../../jointlabs/meta";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useEffect, useRef, useState } from "react";
+import { useMotionValueEvent, useScroll } from "framer-motion";
 
-export function SwapDrawerTokenSelector({ closeRequested }: { closeRequested?: () => void }) {
+const defaultState: {
+  tokenListsPages: TokenList.Token[][];
+  page: number;
+  searchQuery?: string;
+} = {
+  tokenListsPages: [],
+  page: 0,
+  searchQuery: "",
+};
+
+export function SwapDrawerTokenSelector({
+  tokenLists,
+  closeRequested,
+  selectedToken,
+  side,
+  onSelect,
+  containerHeight,
+}: {
+  closeRequested?: () => void;
+  tokenLists: TokenList.TokenData;
+  selectedToken?: { sell?: TokenList.Token; buy?: TokenList.Token };
+  side?: SwapSide;
+  onSelect?: (token: TokenList.Token) => void;
+  containerHeight?: number;
+}) {
+  const { chainInfo } = useConnectorContext();
+  const [state, setState] = useState(defaultState);
+  const listRef = useRef(null);
+  const { scrollYProgress } = useScroll({ container: listRef });
+
+  useEffect(() => {
+    setState((prev) => ({ ...prev, mounted: true }));
+  }, []);
+
+  useEffect(() => {
+    setState((prev) => ({ ...prev, tokenListsPages: paginate(tokenLists.tokens) }));
+  }, [tokenLists]);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest > 0.9) {
+      setState((prev) => ({ ...prev, page: prev.page + 1 }));
+    }
+  });
+
+  useEffect(() => {
+    findTokens(state.searchQuery || "");
+  }, [state.searchQuery]);
+
+  function paginate(tokenLists: TokenList.Token[], limit = 10) {
+    const pages: TokenList.Token[][] = [];
+    for (let i = 0; i < tokenLists.length; i += limit) {
+      pages.push(tokenLists.slice(i, i + limit));
+    }
+    return pages;
+  }
+
+  function isSelected(token: TokenList.Token) {
+    const { buy, sell } = selectedToken || {};
+    const { address, symbol } = token;
+    if (side == "Buy") return buy?.address === token.address && buy?.symbol === symbol;
+    return sell?.address === address && sell?.symbol === symbol;
+  }
+
+  function getPage(page: number) {
+    if (state.tokenListsPages.length == 0) return [];
+
+    if (page >= state.tokenListsPages.length) {
+      page = state.tokenListsPages.length - 1;
+    }
+
+    const pages: TokenList.Token[] = [];
+    for (let i = 0; i <= page; i++) {
+      pages.push(...state.tokenListsPages[i]);
+    }
+
+    return pages;
+  }
+
+  function findTokens(query: string) {
+    query = query.trim();
+    const result: TokenList.Token[] = [];
+    for (let i = 0; i < tokenLists.tokens.length; i++) {
+      const token = tokenLists.tokens[i];
+      if (token.name!.toLowerCase().includes(query.toLowerCase())) {
+        result.push(token);
+      } else if (token.symbol!.toLowerCase().includes(query.toLowerCase())) {
+        result.push(token);
+      } else if (token.address!.toLowerCase().includes(query.toLowerCase())) {
+        result.push(token);
+      }
+    }
+    setState((prev) => ({ ...prev, tokenListsPages: paginate(result), page: 0 }));
+  }
+
   return (
-    <div className="relative m-0 max-w-[650px] rounded-3xl py-4 pb-0">
+    <div className="relative m-0 rounded-3xl py-4 pb-0">
       <div>
         <h2 className="mb-4 flex items-center justify-between px-4 font-medium tracking-wider text-white">
           <span>Select a token</span>
@@ -29,105 +125,75 @@ export function SwapDrawerTokenSelector({ closeRequested }: { closeRequested?: (
             type="text"
             placeholder="Search by name, ticker or address"
             className="w-full rounded-full bg-baltic-sea px-4 py-3 pl-10 text-lg font-medium text-white placeholder:text-[#6b6b6b] focus:outline-none"
+            value={state.searchQuery}
+            onChange={(e) => {
+              setState((prev) => ({ ...prev, searchQuery: e.target.value }));
+            }}
           />
         </div>
       </div>
 
-      <div className="max-h-[400px] min-h-[200px] w-full overflow-auto">
+      <div
+        ref={listRef}
+        className="min-h-[200px] w-full overflow-auto"
+        style={{ maxHeight: containerHeight! * 0.6 + "px" }}
+      >
         <ul className="pb-2">
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
-            tokenSymbol="UNI"
-            name="Uniswap"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x221657776846890989a759BA2973e427DfF5C9bB/logo.png"
-            tokenSymbol="REP"
-            name="Reputation"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />{" "}
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />{" "}
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEX"
-            name="HEX"
-          />{" "}
-          <TokenItem
-            src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-            tokenSymbol="HEXx"
-            name="HEXx"
-          />
+          {getPage(state.page).map((token) => (
+            <TokenItem
+              key={token.name + "_" + token.address}
+              token={token}
+              blockExplorer={chainInfo?.blockExplorer}
+              isSelected={isSelected(token)}
+              onClick={(token: TokenList.Token) => {
+                onSelect?.(token);
+                closeRequested?.();
+              }}
+            />
+          ))}
         </ul>
       </div>
     </div>
   );
 }
 
-function TokenItem({ src, tokenSymbol, name }: { src: string; tokenSymbol: string; name: string }) {
+function TokenItem({
+  token,
+  blockExplorer,
+  isSelected,
+  onClick,
+}: {
+  token: TokenList.Token;
+  blockExplorer?: string;
+  isSelected?: boolean;
+  onClick?: (token: TokenList.Token) => void;
+}) {
+  if (isSelected) return;
+
   return (
-    <li className="mx-2 flex cursor-pointer items-center justify-between rounded-3xl px-2 py-2 pr-4 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:bg-bright-gray hover:text-white">
-      <div className="flex items-center space-x-3">
-        <Avatar src={src} fallback={tokenSymbol} className="h-10 w-10" />
+    <li className="mx-2 flex cursor-pointer items-center justify-between rounded-3xl px-2 py-2 pr-4 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/40 hover:bg-bright-gray hover:text-white">
+      <Button
+        onClick={() => {
+          onClick?.(token);
+        }}
+        variant="ghost"
+        className="m-0 flex flex-1 items-center justify-start space-x-3 rounded-none p-0"
+      >
+        <Avatar
+          src={token.logoURI as string}
+          fallback={token.symbol}
+          fallbackClassName="w-10 h-10"
+          className="h-10 w-10"
+        />
         <div className="flex space-x-2 text-white">
-          <span className="font-bold">{name}</span> <span className="text-[#6b6b6b]">{tokenSymbol}</span>
+          <span className="font-bold">{token.name}</span> <span className="text-[#6b6b6b]">{token.symbol}</span>
         </div>
-      </div>
-      <Link to={""} className="opacity-90 hover:opacity-100">
-        <GlobeIcon className="h-4 w-4 text-[#6b6b6b]" />
-      </Link>
+      </Button>
+      {!token.native && (
+        <Link to={`${blockExplorer}/token/${token.address}`} className="opacity-90 hover:opacity-100" target="_blank">
+          <GlobeIcon className="h-4 w-4 text-[#6b6b6b]" />
+        </Link>
+      )}
     </li>
   );
 }

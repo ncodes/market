@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button.tsx";
 import { XIcon } from "lucide-react";
 import { Input } from "@/components/ui/input.tsx";
-import React from "react";
 
 export function SwapDrawerAdvanceSettings({ closeRequested }: { closeRequested?: () => void }) {
   return (
