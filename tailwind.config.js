@@ -28,6 +28,7 @@ export default {
         "byzantine-blue": "#1F54DA",
         "alice-blue": "#E3EEF7",
         "light-green": "#8DE969",
+        "screaming-green": "#A1FF7C",
         "ragoon-green": "#1D1C1C", // for border
         "eerie-black": "#16181E", // for background
         onyx: "#0F1013", // for gradient
@@ -98,6 +99,7 @@ export default {
       },
       fontFamily: {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
+        dosis: ["Dosis", ...defaultTheme.fontFamily.sans],
       },
       transitionDelay: {
         10000: "50s",

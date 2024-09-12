@@ -2,6 +2,7 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { handleAxiosError, toLD } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { SwapSide } from "@/pages/swap/types.ts";
 
 export interface ListLiquidityParams {
   provider?: string;
@@ -74,7 +75,7 @@ export function useLiquidityService() {
   }
 
   /**
-   * Fill an amount of requested liquidity.
+   * Fill returns liquidities sufficient to fill the given amount of the given side.
    * @param ctx
    */
   async function fill(
@@ -82,6 +83,7 @@ export function useLiquidityService() {
       [
         string,
         {
+          address: string;
           network: string;
           marketAddress: string;
           amount: string;
@@ -90,11 +92,11 @@ export function useLiquidityService() {
         },
       ]
     >,
-  ): Promise<FillInfo> {
+  ): Promise<FillResult> {
     try {
       const headers = {};
       const [, params] = ctx.queryKey;
-      const { network, marketAddress, decimals } = params;
+      const { network, marketAddress, address, decimals } = params;
 
       let amount = "";
       let side = "";
@@ -111,6 +113,7 @@ export function useLiquidityService() {
         url: `${getChainInfo().apiUrl}/v1/liquidities/${marketAddress}/${amount}/${side}/fill`,
         params: {
           net: network,
+          taker: address,
         },
         headers,
       } as AxiosRequestConfig);

@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { SwapDrawerAdvanceSettings } from "@/pages/swap/SwapDrawerAdvanceSettings.tsx";
-import { SwapDrawerTokenSelector } from "@/pages/swap/SwapDrawerTokenSelector.tsx";
-import { SwapDrawerProviderSelector } from "@/pages/swap/SwapDrawerProviderSelector.tsx";
-import { TokenList } from "../../../../jointlabs/meta";
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { SwapDrawerAdvancedSettings } from "@/pages/swap/SwapDrawerAdvancedSettings.tsx";
+import { SwapDrawerProviderSelector } from "@/pages/swap/SwapDrawerProviderSelector.tsx";
+import { SwapDrawerTokenSelector } from "@/pages/swap/SwapDrawerTokenSelector.tsx";
+import { SwapSide } from "@/pages/swap/types.ts";
+import { TokenList } from "@jointlabs/meta";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
 export type SwapDrawerContent = "advance-settings" | "provider-selector" | "token-selector";
 
@@ -17,6 +19,7 @@ const defaultState: {
 };
 
 export function SwapDrawer({
+  canSwap,
   height,
   open,
   content,
@@ -25,7 +28,12 @@ export function SwapDrawer({
   selectedToken,
   onTokenSelect,
   side,
+  slippage,
+  expires,
+  updateSlippage,
+  updateExpires,
 }: {
+  canSwap?: boolean;
   height?: number;
   open?: boolean;
   content?: SwapDrawerContent;
@@ -34,9 +42,14 @@ export function SwapDrawer({
   tokenLists?: TokenList.TokenData;
   selectedToken?: { sell?: TokenList.Token; buy?: TokenList.Token };
   onTokenSelect?: (token: TokenList.Token) => void;
+  slippage?: number;
+  expires?: number;
+  updateSlippage?: (slippage: number) => void;
+  updateExpires?: (expires: number) => void;
 }) {
   const [state, setState] = useState({ ...defaultState, tokenLists });
   const { chainId } = useConnectorContext();
+  const ref = useRef(null);
 
   useEffect(() => {
     setState((prev) => ({ ...prev, tokenLists }));
@@ -51,8 +64,13 @@ export function SwapDrawer({
     onClose?.();
   }, [chainId]);
 
+  useOnClickOutside(ref, () => {
+    setState((prev) => ({ ...prev, show: false }));
+    onClose?.();
+  });
+
   return (
-    <div>
+    <div ref={ref}>
       <AnimatePresence>
         {state.show && (
           <motion.div
@@ -82,7 +100,12 @@ export function SwapDrawer({
                 }}
               >
                 {content === "advance-settings" && (
-                  <SwapDrawerAdvanceSettings
+                  <SwapDrawerAdvancedSettings
+                    canSwap={canSwap}
+                    slippage={slippage}
+                    expires={expires}
+                    updateSlippage={updateSlippage}
+                    updateExpires={updateExpires}
                     closeRequested={() => {
                       setState((prev) => ({ ...prev, show: false }));
                       onClose?.();

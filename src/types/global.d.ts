@@ -2,8 +2,6 @@ import { Address } from "viem";
 import { AssetType, Events, NotificationType } from "./enums.ts";
 
 declare global {
-  type SwapSide = "Buy" | "Sell";
-
   interface User {
     id: string;
     email: string;
@@ -184,8 +182,13 @@ declare global {
     lastTimeOnline: string;
     market: Market;
     messagingEnabled: boolean;
+
+    providerIndex: number;
     amountFilled: string;
-    costFilled: string;
+    quantityFilled: string;
+    quantityFilledAfterFees;
+    protoFee: string;
+    mktCreatorFee: string;
   }
 
   interface Swap {
@@ -652,11 +655,19 @@ declare global {
     allocatorAddr: string;
   }
 
-  interface FillInfo {
+  interface FillResult {
     liquidities: Liquidity[];
-    totalAmountFilled: string;
-    totalQuantityFilled: string;
+    marketAddress: string;
     amount: string;
     filled: boolean;
+    totalAmountFilled: string;
+    totalQuantityFilled: string;
+    totalQuantityFilledAfterFees: string;
+    totalFees: string;
+    totalProtoFee: string;
+    totalMktFee: string;
+    protoFeePct: number;
+    mktFeePct: number;
+    side: "base" | "quote";
   }
 }

@@ -10,6 +10,7 @@ export interface IConnector {
     name: ContractNames,
     targetFunc: string,
     args: unknown[],
+    value?: bigint,
     noWait?: boolean,
   ): Promise<[`0x${string}`, TransactionReceipt]>;
   sendTransaction(to: string, value: bigint, noWait?: boolean, confirmations?: number): Promise<Address>;
@@ -37,7 +38,7 @@ export interface IConnector {
   disconnect: () => Promise<void>;
   getBalance: () => Promise<bigint>;
   ready: boolean;
-  address: string;
+  address: `0x${string}`;
 
   sign: (msg: string) => Promise<string>;
   signedData: string;

@@ -1,9 +1,9 @@
+import { logError } from "@/libs/helpers.ts";
 import { ChainInfo, ContractNames, getChain } from "@jointlabs/meta";
 import { useEffect, useState } from "react";
 import { Address, Chain, createPublicClient, erc20Abi, http, PublicClient, TransactionReceipt } from "viem";
 import { arbitrum } from "viem/chains";
 import { useAccount, useChainId, useDisconnect, useSignMessage, useSwitchChain, useWalletClient } from "wagmi";
-import { logError } from "@/libs/helpers.ts";
 import { IConnector } from "./interface.ts";
 
 /**
@@ -15,7 +15,7 @@ export default function useConnector() {
   const defaultChain = (getChain(envDefaultChain) ?? getChain(arbitrum.id))?.chainId;
   const [chainInfo, setChainInfo] = useState<ChainInfo | undefined>(getChain(envDefaultChain) ?? getChain(arbitrum.id));
   const [connected, setConnected] = useState<boolean | undefined>(undefined);
-  const [address, setAddress] = useState<string | undefined>(undefined);
+  const [address, setAddress] = useState<`0x${string}` | undefined>(undefined);
   const [ready, setReady] = useState(false);
   const [network, setNetwork] = useState<string | undefined>(undefined);
   const { disconnectAsync } = useDisconnect();
@@ -341,13 +341,17 @@ export default function useConnector() {
    * @param name - The name of the contract
    * @param targetFunc - The target function to be called
    * @param args - The arguments to be passed to the target function
-   * @param noWait - If true, the function will not wait for the transaction to be mined
+   * @param value - The value to be sent (in wei)
+   * @param wait - If true, the function will not wait for the transaction to be mined
+   * @param confirms - The number of confirmations required for the transaction to be considered successful
    */
   async function simulateAndWriteContract(
     name: ContractNames,
     targetFunc: string,
     args: unknown[] = [],
-    noWait = false,
+    value?: bigint,
+    wait = true,
+    confirms = 0,
   ): Promise<[Address, TransactionReceipt]> {
     if (!publicClient) throw new Error("no provider found");
     if (!walletClient) throw new Error("wallet not connected");
@@ -361,14 +365,15 @@ export default function useConnector() {
       functionName: targetFunc,
       args: args,
       account: address,
+      value: value,
     });
 
     const txHash = await walletClient.writeContract(request);
     let receipt: TransactionReceipt | undefined = undefined;
-    if (!noWait) {
+    if (wait) {
       receipt = await publicClient.waitForTransactionReceipt({
         hash: txHash,
-        confirmations: 0,
+        confirmations: confirms,
         timeout: 1800000,
       });
     }
@@ -427,6 +432,8 @@ export default function useConnector() {
     if (error instanceof Error) {
       // if (error.message.includes("MC: MARKET_EXIST"))
       //   return "Market already exists";
+
+      if (error.message.includes("User denied transaction signature")) return "Transaction request rejected";
     }
     return "Transaction failed";
   }

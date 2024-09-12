@@ -1,7 +1,7 @@
 import approx from "approximate-number";
 import { AxiosResponse } from "axios";
 import Decimal from "decimal.js";
-import { BigNumberish, formatUnits } from "ethers";
+import { BigNumberish } from "ethers";
 import * as humanizeDuration from "humanize-duration";
 import numeral from "numeral";
 import prettyBytes from "pretty-bytes";
@@ -59,7 +59,7 @@ export function toBigInt(val: BigNumberish) {
  * @param places The amount of places
  * @param stripZeros If true, strips trailing zeros
  */
-export function toHD(amount: bigint | Decimal, decimals = 18, places = 8, stripZeros = true) {
+export function toHD(amount: bigint | Decimal | string, decimals = 18, places = 8, stripZeros = true) {
   return toHDD(amount, decimals, places, stripZeros).toFixed();
 }
 
@@ -70,7 +70,7 @@ export function toHD(amount: bigint | Decimal, decimals = 18, places = 8, stripZ
  * @param places The amount of places
  * @param stripZeros If true, strips trailing zeros
  */
-export function toHDD(amount: bigint | Decimal, decimals = 18, places = 8, stripZeros = true) {
+export function toHDD(amount: bigint | Decimal | string, decimals = 18, places = 8, stripZeros = true) {
   let val: Decimal = toDec(amount).div(toDec(10).pow(decimals));
   if (places > 0) val = val.toDecimalPlaces(places);
   if (stripZeros && val.lt(1)) return toDec(trimZeros(val.toFixed()));
@@ -100,7 +100,7 @@ export function toLD(amount: bigint | Decimal, decimals = 18) {
  * @param amount
  * @param decimals
  */
-export function toLDD(amount: bigint | Decimal, decimals = 18) {
+export function toLDD(amount: bigint | Decimal | string, decimals = 18) {
   return toDec(amount.toString()).mul(toDec(10).pow(decimals));
 }
 
@@ -142,8 +142,14 @@ export function isReqErr404(err: Error) {
  * @param places - Decimal places to use when v is a decimal number
  * @param approxAt - Approximate to human-readable format at greater or equal to this value
  */
-export function formatToHighDenom(v: bigint, decimals = 18, format?: string | number, places?: number, approxAt = 0) {
-  const hd = formatUnits(v, decimals);
+export function formatToHighDenom(
+  v: bigint | string | Decimal,
+  decimals = 18,
+  format?: string | number,
+  places?: number,
+  approxAt = 0,
+) {
+  const hd = toHD(v, decimals);
   if (!approxAt || toDec(hd).lt(approxAt)) return formatToMoney(hd, format, places);
   return approxNumber(hd, places);
 }

@@ -37,7 +37,10 @@ export function ToolTip(props: {
         <TooltipPortal>
           <TooltipContent
             side={props.side || "top"}
-            className={cn("relative !z-50 border border-gray-600 font-light", props.className2)}
+            className={cn(
+              "relative !z-50 border border-bright-gray/60 bg-baltic-sea text-sm font-light",
+              props.className2,
+            )}
           >
             {props.tip}
           </TooltipContent>

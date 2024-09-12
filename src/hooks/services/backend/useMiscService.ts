@@ -200,6 +200,43 @@ export function useMiscService() {
     }
   }
 
+  /**
+   * Compute swap fees
+   * @returns
+   */
+  async function computeFees(
+    ctx: QueryFunctionContext<
+      [string, { network: string; market: string; provider: string; taker: string; amount: string; price: string }]
+    >,
+  ): Promise<{
+    protoFee: string;
+    mktCreatorFee: string;
+    feeBp: string;
+    mktFeeBp: string;
+  }> {
+    try {
+      const [, params] = ctx.queryKey;
+      const { network, market, provider, taker, amount, price } = params;
+      const apiUrl = getChainInfo().apiUrl;
+      const resp = await axios({
+        method: "get",
+        url: `${apiUrl}/v1/misc/compute-fees`,
+        params: {
+          net: network,
+          mid: market,
+          provider,
+          taker,
+          orderAmount: amount,
+          orderPrice: price,
+        },
+      } as AxiosRequestConfig);
+
+      return resp.data.data;
+    } catch (e) {
+      return Promise.reject(handleAxiosError(e as never));
+    }
+  }
+
   return {
     getCryptoRate,
     getSynthRate,
@@ -209,5 +246,6 @@ export function useMiscService() {
     getPointsPerEnergon,
     getContractParams,
     getRequestCountryCode,
+    computeFees,
   };
 }

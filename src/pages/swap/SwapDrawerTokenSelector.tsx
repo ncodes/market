@@ -1,11 +1,12 @@
-import { Button } from "@/components/ui/button.tsx";
-import { GlobeIcon, SearchIcon, XIcon } from "lucide-react";
 import { Avatar } from "@/components/avatar/Avatar.tsx";
-import { Link } from "react-router-dom";
-import { TokenList } from "../../../../jointlabs/meta";
+import { Button } from "@/components/ui/button.tsx";
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
-import { useEffect, useRef, useState } from "react";
+import { SwapSide } from "@/pages/swap/types.ts";
+import { TokenList } from "@jointlabs/meta";
 import { useMotionValueEvent, useScroll } from "framer-motion";
+import { GlobeIcon, SearchIcon, XIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const defaultState: {
   tokenListsPages: TokenList.Token[][];
@@ -171,7 +172,7 @@ function TokenItem({
   if (isSelected) return;
 
   return (
-    <li className="mx-2 flex cursor-pointer items-center justify-between rounded-3xl px-2 py-2 pr-4 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/40 hover:bg-bright-gray hover:text-white">
+    <li className="mx-2 flex cursor-pointer items-center justify-between rounded-3xl px-2 py-2 pr-4 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:text-white">
       <Button
         onClick={() => {
           onClick?.(token);
