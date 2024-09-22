@@ -9,6 +9,7 @@ import type {
   CallOverrides,
   ContractTransaction,
   Overrides,
+  PayableOverrides,
   PopulatedTransaction,
   Signer,
   utils,
@@ -26,13 +27,201 @@ import type {
   OnEvent,
 } from "./common";
 
+export declare namespace StructsLib {
+  export type CreateOfferParamsStruct = {
+    marketId: string;
+    provider: string;
+    recipient: string;
+    lid: BigNumberish;
+    amount: BigNumberish;
+    price: BigNumberish;
+    ids: BigNumberish[];
+    deadline: BigNumberish;
+    operator: BigNumberish;
+  };
+
+  export type CreateOfferParamsStructOutput = [
+    string,
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber[],
+    BigNumber,
+    BigNumber
+  ] & {
+    marketId: string;
+    provider: string;
+    recipient: string;
+    lid: BigNumber;
+    amount: BigNumber;
+    price: BigNumber;
+    ids: BigNumber[];
+    deadline: BigNumber;
+    operator: BigNumber;
+  };
+
+  export type IntSlotStateStruct = {
+    instantSwapFeeBp: BigNumberish;
+    synthSwapFeeBp: BigNumberish;
+    stableSwapFeeBp: BigNumberish;
+    instantNFTSwapFeeBp: BigNumberish;
+    fixedSynthSwapFee: BigNumberish;
+    fixedNFTSwapFee: BigNumberish;
+    maxOpenOrders: BigNumberish;
+    maxOpenDisputes: BigNumberish;
+  };
+
+  export type IntSlotStateStructOutput = [
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber
+  ] & {
+    instantSwapFeeBp: BigNumber;
+    synthSwapFeeBp: BigNumber;
+    stableSwapFeeBp: BigNumber;
+    instantNFTSwapFeeBp: BigNumber;
+    fixedSynthSwapFee: BigNumber;
+    fixedNFTSwapFee: BigNumber;
+    maxOpenOrders: BigNumber;
+    maxOpenDisputes: BigNumber;
+  };
+
+  export type UintSlotState2Struct = { ammEthPoolFee: BigNumberish };
+
+  export type UintSlotState2StructOutput = [BigNumber] & {
+    ammEthPoolFee: BigNumber;
+  };
+
+  export type SwapQuoteForBaseParamsStruct = {
+    marketId: string;
+    provider: string;
+    recipient: string;
+    lid: BigNumberish;
+    amount: BigNumberish;
+    maxPrice: BigNumberish;
+    ids: BigNumberish[];
+    expireAt: BigNumberish;
+    operator: BigNumberish;
+    marketMgrData: BytesLike;
+  };
+
+  export type SwapQuoteForBaseParamsStructOutput = [
+    string,
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber[],
+    BigNumber,
+    BigNumber,
+    string
+  ] & {
+    marketId: string;
+    provider: string;
+    recipient: string;
+    lid: BigNumber;
+    amount: BigNumber;
+    maxPrice: BigNumber;
+    ids: BigNumber[];
+    expireAt: BigNumber;
+    operator: BigNumber;
+    marketMgrData: string;
+  };
+
+  export type UpdateFungibleLiquidityParamsStruct = {
+    marketId: string;
+    target: string;
+    lid: BigNumberish;
+    amount: BigNumberish;
+    price: BigNumberish;
+    timeToPay: BigNumberish;
+    expireAt: BigNumberish;
+    wantOrIds: BigNumberish[];
+    wantAndIds: BigNumberish[];
+    deduct: boolean;
+    pause: boolean;
+  };
+
+  export type UpdateFungibleLiquidityParamsStructOutput = [
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber[],
+    BigNumber[],
+    boolean,
+    boolean
+  ] & {
+    marketId: string;
+    target: string;
+    lid: BigNumber;
+    amount: BigNumber;
+    price: BigNumber;
+    timeToPay: BigNumber;
+    expireAt: BigNumber;
+    wantOrIds: BigNumber[];
+    wantAndIds: BigNumber[];
+    deduct: boolean;
+    pause: boolean;
+  };
+
+  export type UpdateNonFungibleLiquidityParamsStruct = {
+    marketId: string;
+    target: string;
+    lid: BigNumberish;
+    price: BigNumberish;
+    timeToPay: BigNumberish;
+    expireAt: BigNumberish;
+    ids: BigNumberish[];
+    wantOrIds: BigNumberish[];
+    wantAndIds: BigNumberish[];
+    deduct: boolean;
+    pause: boolean;
+  };
+
+  export type UpdateNonFungibleLiquidityParamsStructOutput = [
+    string,
+    string,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber,
+    BigNumber[],
+    BigNumber[],
+    BigNumber[],
+    boolean,
+    boolean
+  ] & {
+    marketId: string;
+    target: string;
+    lid: BigNumber;
+    price: BigNumber;
+    timeToPay: BigNumber;
+    expireAt: BigNumber;
+    ids: BigNumber[];
+    wantOrIds: BigNumber[];
+    wantAndIds: BigNumber[];
+    deduct: boolean;
+    pause: boolean;
+  };
+}
+
 export declare namespace Structs {
   export type LiquidityStruct = {
     ids: BigNumberish[];
     amount: BigNumberish;
     price: BigNumberish;
-    minSwap: BigNumberish;
-    maxSwap: BigNumberish;
     timeToPay: BigNumberish;
     openOrders: BigNumberish;
     openDisputes: BigNumberish;
@@ -57,8 +246,6 @@ export declare namespace Structs {
     BigNumber,
     BigNumber,
     BigNumber,
-    BigNumber,
-    BigNumber,
     BigNumber[],
     BigNumber[],
     boolean,
@@ -67,8 +254,6 @@ export declare namespace Structs {
     ids: BigNumber[];
     amount: BigNumber;
     price: BigNumber;
-    minSwap: BigNumber;
-    maxSwap: BigNumber;
     timeToPay: BigNumber;
     openOrders: BigNumber;
     openDisputes: BigNumber;
@@ -82,16 +267,10 @@ export declare namespace Structs {
     target: string;
   };
 
-  export type MarketDurStruct = {
-    disputeDelayDur: BigNumberish;
-    evidenceDur: BigNumberish;
-    predictDur: BigNumberish;
-  };
+  export type MarketDurStruct = { disputeDelayDur: BigNumberish };
 
-  export type MarketDurStructOutput = [BigNumber, BigNumber, BigNumber] & {
+  export type MarketDurStructOutput = [BigNumber] & {
     disputeDelayDur: BigNumber;
-    evidenceDur: BigNumber;
-    predictDur: BigNumber;
   };
 
   export type AssetStruct = { addr: string; assetType: BigNumberish };
@@ -278,49 +457,6 @@ export declare namespace Structs {
   };
 }
 
-export declare namespace StructsLib {
-  export type IntSlotStateStruct = {
-    instantSwapFeeBp: BigNumberish;
-    synthSwapFeeBp: BigNumberish;
-    stableSwapFeeBp: BigNumberish;
-    instantNFTSwapFeeBp: BigNumberish;
-    fixedSynthSwapFee: BigNumberish;
-    fixedNFTSwapFee: BigNumberish;
-    maxOpenOrders: BigNumberish;
-    maxOpenDisputes: BigNumberish;
-  };
-
-  export type IntSlotStateStructOutput = [
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber
-  ] & {
-    instantSwapFeeBp: BigNumber;
-    synthSwapFeeBp: BigNumber;
-    stableSwapFeeBp: BigNumber;
-    instantNFTSwapFeeBp: BigNumber;
-    fixedSynthSwapFee: BigNumber;
-    fixedNFTSwapFee: BigNumber;
-    maxOpenOrders: BigNumber;
-    maxOpenDisputes: BigNumber;
-  };
-
-  export type UintSlotState2Struct = {
-    nftDiscountBp: BigNumberish;
-    ammEthPoolFee: BigNumberish;
-  };
-
-  export type UintSlotState2StructOutput = [BigNumber, BigNumber] & {
-    nftDiscountBp: BigNumber;
-    ammEthPoolFee: BigNumber;
-  };
-}
-
 export interface CoreInterface extends utils.Interface {
   functions: {
     "acceptOffer(uint256,uint256)": FunctionFragment;
@@ -331,7 +467,7 @@ export interface CoreInterface extends utils.Interface {
     "cancelOrderByManagerSig(uint256,uint256,bytes)": FunctionFragment;
     "computeSwapFee(address,address,uint256,address,uint256,uint256)": FunctionFragment;
     "configureFeePool(uint256)": FunctionFragment;
-    "createOffer(address,address,address,uint256,uint256,uint256,uint256[],uint256,uint256)": FunctionFragment;
+    "createOffer((address,address,address,uint256,uint256,uint256,uint256[],uint256,uint256))": FunctionFragment;
     "executeOffer(uint256,uint256)": FunctionFragment;
     "feeBalanceOf(address,address)": FunctionFragment;
     "getFeeBPs()": FunctionFragment;
@@ -347,6 +483,7 @@ export interface CoreInterface extends utils.Interface {
     "isVerified(address)": FunctionFragment;
     "markAsDisputed(uint256)": FunctionFragment;
     "markOrderAsPaid(uint256)": FunctionFragment;
+    "markOrderAsPaidByManagerSig(uint256,uint256,bytes)": FunctionFragment;
     "onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)": FunctionFragment;
     "onERC1155Received(address,address,uint256,uint256,bytes)": FunctionFragment;
     "operatorBalanceOf(address,address)": FunctionFragment;
@@ -359,7 +496,6 @@ export interface CoreInterface extends utils.Interface {
     "setAmmPoolInfo(address,address,uint256)": FunctionFragment;
     "setAssetRegistry(address)": FunctionFragment;
     "setBadgeMgr(address)": FunctionFragment;
-    "setDiscountForNFTHolder(uint256)": FunctionFragment;
     "setDisputeManager(address)": FunctionFragment;
     "setFeePool(address)": FunctionFragment;
     "setFeePurse(address)": FunctionFragment;
@@ -369,24 +505,25 @@ export interface CoreInterface extends utils.Interface {
     "setMaxOpenDisputes(uint256)": FunctionFragment;
     "setMaxOpenOrders(uint256)": FunctionFragment;
     "setMinTimeToPay(uint256)": FunctionFragment;
-    "setNFT(address)": FunctionFragment;
+    "setMinerRegistry(address)": FunctionFragment;
     "setOperator(address)": FunctionFragment;
     "setOrderGraceDur(uint256)": FunctionFragment;
     "setProtoFee(uint256,uint256,uint256,uint256,uint256,uint256)": FunctionFragment;
     "setProtoFeeSplit(uint256,uint256,uint256)": FunctionFragment;
+    "setProviderRegistry(address)": FunctionFragment;
     "setSwapBadgeForLiquidity(address,uint256,string[2][])": FunctionFragment;
     "shareablesBalanceOf(address)": FunctionFragment;
     "state()": FunctionFragment;
     "state2()": FunctionFragment;
     "supportsInterface(bytes4)": FunctionFragment;
-    "swapQuoteForBase(address,address,address,uint256,uint256,uint256,uint256[],uint256,uint256)": FunctionFragment;
+    "swapQuoteForBase((address,address,address,uint256,uint256,uint256,uint256[],uint256,uint256,bytes))": FunctionFragment;
     "togglePause(address,uint256,uint256)": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "transferToFeePool(address)": FunctionFragment;
     "unacceptOffer(uint256)": FunctionFragment;
-    "updateFungibleLiquidity(address,uint256,bool,address,uint256[2],uint256[],uint256[],uint256[5])": FunctionFragment;
+    "updateFungibleLiquidity((address,address,uint256,uint256,uint256,uint256,uint256,uint256[],uint256[],bool,bool))": FunctionFragment;
     "updateLiquidityPrice(address,address,uint256,uint256,uint256)": FunctionFragment;
-    "updateNonFungibleLiquidity(address,uint256,bool,address,uint256[],uint256,uint256[],uint256[],uint256[3])": FunctionFragment;
+    "updateNonFungibleLiquidity((address,address,uint256,uint256,uint256,uint256,uint256[],uint256[],uint256[],bool,bool))": FunctionFragment;
     "updateOffer(uint256,uint256,uint256,uint256[],uint256)": FunctionFragment;
     "updateOpenDisputesCount(address,address,uint256,bool)": FunctionFragment;
     "withdrawFeeBalance(address)": FunctionFragment;
@@ -420,6 +557,7 @@ export interface CoreInterface extends utils.Interface {
       | "isVerified"
       | "markAsDisputed"
       | "markOrderAsPaid"
+      | "markOrderAsPaidByManagerSig"
       | "onERC1155BatchReceived"
       | "onERC1155Received"
       | "operatorBalanceOf"
@@ -432,7 +570,6 @@ export interface CoreInterface extends utils.Interface {
       | "setAmmPoolInfo"
       | "setAssetRegistry"
       | "setBadgeMgr"
-      | "setDiscountForNFTHolder"
       | "setDisputeManager"
       | "setFeePool"
       | "setFeePurse"
@@ -442,11 +579,12 @@ export interface CoreInterface extends utils.Interface {
       | "setMaxOpenDisputes"
       | "setMaxOpenOrders"
       | "setMinTimeToPay"
-      | "setNFT"
+      | "setMinerRegistry"
       | "setOperator"
       | "setOrderGraceDur"
       | "setProtoFee"
       | "setProtoFeeSplit"
+      | "setProviderRegistry"
       | "setSwapBadgeForLiquidity"
       | "shareablesBalanceOf"
       | "state"
@@ -501,17 +639,7 @@ export interface CoreInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createOffer",
-    values: [
-      string,
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish[],
-      BigNumberish,
-      BigNumberish
-    ]
+    values: [StructsLib.CreateOfferParamsStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "executeOffer",
@@ -565,6 +693,10 @@ export interface CoreInterface extends utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "markOrderAsPaidByManagerSig",
+    values: [BigNumberish, BigNumberish, BytesLike]
+  ): string;
+  encodeFunctionData(
     functionFragment: "onERC1155BatchReceived",
     values: [string, string, BigNumberish[], BigNumberish[], BytesLike]
   ): string;
@@ -607,10 +739,6 @@ export interface CoreInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "setBadgeMgr", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "setDiscountForNFTHolder",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
     functionFragment: "setDisputeManager",
     values: [string]
   ): string;
@@ -637,7 +765,10 @@ export interface CoreInterface extends utils.Interface {
     functionFragment: "setMinTimeToPay",
     values: [BigNumberish]
   ): string;
-  encodeFunctionData(functionFragment: "setNFT", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setMinerRegistry",
+    values: [string]
+  ): string;
   encodeFunctionData(functionFragment: "setOperator", values: [string]): string;
   encodeFunctionData(
     functionFragment: "setOrderGraceDur",
@@ -659,6 +790,10 @@ export interface CoreInterface extends utils.Interface {
     values: [BigNumberish, BigNumberish, BigNumberish]
   ): string;
   encodeFunctionData(
+    functionFragment: "setProviderRegistry",
+    values: [string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setSwapBadgeForLiquidity",
     values: [string, BigNumberish, [string, string][]]
   ): string;
@@ -674,17 +809,7 @@ export interface CoreInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "swapQuoteForBase",
-    values: [
-      string,
-      string,
-      string,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish[],
-      BigNumberish,
-      BigNumberish
-    ]
+    values: [StructsLib.SwapQuoteForBaseParamsStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "togglePause",
@@ -704,16 +829,7 @@ export interface CoreInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "updateFungibleLiquidity",
-    values: [
-      string,
-      BigNumberish,
-      boolean,
-      string,
-      [BigNumberish, BigNumberish],
-      BigNumberish[],
-      BigNumberish[],
-      [BigNumberish, BigNumberish, BigNumberish, BigNumberish, BigNumberish]
-    ]
+    values: [StructsLib.UpdateFungibleLiquidityParamsStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "updateLiquidityPrice",
@@ -721,17 +837,7 @@ export interface CoreInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "updateNonFungibleLiquidity",
-    values: [
-      string,
-      BigNumberish,
-      boolean,
-      string,
-      BigNumberish[],
-      BigNumberish,
-      BigNumberish[],
-      BigNumberish[],
-      [BigNumberish, BigNumberish, BigNumberish]
-    ]
+    values: [StructsLib.UpdateNonFungibleLiquidityParamsStruct]
   ): string;
   encodeFunctionData(
     functionFragment: "updateOffer",
@@ -839,6 +945,10 @@ export interface CoreInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "markOrderAsPaidByManagerSig",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "onERC1155BatchReceived",
     data: BytesLike
   ): Result;
@@ -881,10 +991,6 @@ export interface CoreInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setDiscountForNFTHolder",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
     functionFragment: "setDisputeManager",
     data: BytesLike
   ): Result;
@@ -917,7 +1023,10 @@ export interface CoreInterface extends utils.Interface {
     functionFragment: "setMinTimeToPay",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "setNFT", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setMinerRegistry",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setOperator",
     data: BytesLike
@@ -932,6 +1041,10 @@ export interface CoreInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "setProtoFeeSplit",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setProviderRegistry",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -1002,8 +1115,7 @@ export interface CoreInterface extends utils.Interface {
   ): Result;
 
   events: {
-    "FinalizedByManagerSig(address,address,uint256,bool)": EventFragment;
-    "NFTDiscountUpdated(uint256)": EventFragment;
+    "FinalizedByManagerSig(address,address,uint256,uint256)": EventFragment;
     "NewOffer(address,address,uint256,address,uint256,uint256,uint256,uint256[],uint256)": EventFragment;
     "OfferAccepted(uint256,address,uint256)": EventFragment;
     "OfferCancelled(uint256,address)": EventFragment;
@@ -1016,9 +1128,10 @@ export interface CoreInterface extends utils.Interface {
     "ProtocolFeeUpdated(uint256,uint256,uint256,uint256,uint256,uint256)": EventFragment;
     "Swap(address,address,address,address,address,uint256[6],bool,uint256[],uint256[])": EventFragment;
     "SwapOrder(address,address,address,address,uint256[7],uint256[],uint256[])": EventFragment;
-    "SwapOrderPaid(uint256,uint256)": EventFragment;
+    "SwapOrderPaid(uint256,address,uint256)": EventFragment;
     "TogglePause(address,address,uint256,bool)": EventFragment;
-    "TransferInventorBalance(address,uint256)": EventFragment;
+    "TransferInventorBalance(address,address,uint256)": EventFragment;
+    "TransferOperatorBalance(address,address,uint256)": EventFragment;
     "TransferredToFeePool(address,uint256,address,uint256)": EventFragment;
     "UpdatedAMMInfo(address,address,uint256)": EventFragment;
     "UpdatedAMMPoolInfo(address,address,uint256)": EventFragment;
@@ -1028,7 +1141,7 @@ export interface CoreInterface extends utils.Interface {
     "UpdatedFeePool(address)": EventFragment;
     "UpdatedFeePoolConfig(uint256)": EventFragment;
     "UpdatedFeePurse(address)": EventFragment;
-    "UpdatedFungibleLiquidity(address,address,address,bool,bool,uint256,uint256,uint256,uint256[],uint256[],uint256,uint256,uint256)": EventFragment;
+    "UpdatedFungibleLiquidity(address,address,address,bool,bool,uint256,uint256,uint256,uint256[],uint256[],uint256)": EventFragment;
     "UpdatedInventor(address)": EventFragment;
     "UpdatedLiquidityManager(address,address,address,address)": EventFragment;
     "UpdatedLiquiditySwapBadges(address,address,uint256,string[2][])": EventFragment;
@@ -1036,15 +1149,15 @@ export interface CoreInterface extends utils.Interface {
     "UpdatedMaxOpenDisputes(uint256)": EventFragment;
     "UpdatedMaxOpenOrders(uint256)": EventFragment;
     "UpdatedMinTimeToPay(uint256)": EventFragment;
-    "UpdatedNFT(address)": EventFragment;
+    "UpdatedMinerRegistry(address)": EventFragment;
     "UpdatedNonFungibleLiquidity(address,address,address,bool,bool,uint256,uint256[],uint256,uint256[],uint256[],uint256)": EventFragment;
     "UpdatedOperator(address)": EventFragment;
     "UpdatedOrderGraceDur(uint256)": EventFragment;
     "UpdatedPrice(address,address,address,uint256,uint256)": EventFragment;
+    "UpdatedProviderRegistry(address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "FinalizedByManagerSig"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "NFTDiscountUpdated"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "NewOffer"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OfferAccepted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OfferCancelled"): EventFragment;
@@ -1060,6 +1173,7 @@ export interface CoreInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "SwapOrderPaid"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TogglePause"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferInventorBalance"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "TransferOperatorBalance"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TransferredToFeePool"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedAMMInfo"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedAMMPoolInfo"): EventFragment;
@@ -1077,39 +1191,29 @@ export interface CoreInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "UpdatedMaxOpenDisputes"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedMaxOpenOrders"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedMinTimeToPay"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedNFT"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdatedMinerRegistry"): EventFragment;
   getEvent(
     nameOrSignatureOrTopic: "UpdatedNonFungibleLiquidity"
   ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedOperator"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedOrderGraceDur"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedPrice"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdatedProviderRegistry"): EventFragment;
 }
 
 export interface FinalizedByManagerSigEventObject {
   manager: string;
   finalizer: string;
   orderId: BigNumber;
-  released: boolean;
+  action: BigNumber;
 }
 export type FinalizedByManagerSigEvent = TypedEvent<
-  [string, string, BigNumber, boolean],
+  [string, string, BigNumber, BigNumber],
   FinalizedByManagerSigEventObject
 >;
 
 export type FinalizedByManagerSigEventFilter =
   TypedEventFilter<FinalizedByManagerSigEvent>;
-
-export interface NFTDiscountUpdatedEventObject {
-  bp: BigNumber;
-}
-export type NFTDiscountUpdatedEvent = TypedEvent<
-  [BigNumber],
-  NFTDiscountUpdatedEventObject
->;
-
-export type NFTDiscountUpdatedEventFilter =
-  TypedEventFilter<NFTDiscountUpdatedEvent>;
 
 export interface NewOfferEventObject {
   marketId: string;
@@ -1298,10 +1402,11 @@ export type SwapOrderEventFilter = TypedEventFilter<SwapOrderEvent>;
 
 export interface SwapOrderPaidEventObject {
   orderID: BigNumber;
+  payer: string;
   disputeDelayDur: BigNumber;
 }
 export type SwapOrderPaidEvent = TypedEvent<
-  [BigNumber, BigNumber],
+  [BigNumber, string, BigNumber],
   SwapOrderPaidEventObject
 >;
 
@@ -1321,16 +1426,30 @@ export type TogglePauseEvent = TypedEvent<
 export type TogglePauseEventFilter = TypedEventFilter<TogglePauseEvent>;
 
 export interface TransferInventorBalanceEventObject {
-  asset: string;
+  owner: string;
+  token: string;
   amount: BigNumber;
 }
 export type TransferInventorBalanceEvent = TypedEvent<
-  [string, BigNumber],
+  [string, string, BigNumber],
   TransferInventorBalanceEventObject
 >;
 
 export type TransferInventorBalanceEventFilter =
   TypedEventFilter<TransferInventorBalanceEvent>;
+
+export interface TransferOperatorBalanceEventObject {
+  owner: string;
+  token: string;
+  amount: BigNumber;
+}
+export type TransferOperatorBalanceEvent = TypedEvent<
+  [string, string, BigNumber],
+  TransferOperatorBalanceEventObject
+>;
+
+export type TransferOperatorBalanceEventFilter =
+  TypedEventFilter<TransferOperatorBalanceEvent>;
 
 export interface TransferredToFeePoolEventObject {
   token: string;
@@ -1442,8 +1561,6 @@ export interface UpdatedFungibleLiquidityEventObject {
   price: BigNumber;
   wantOrIds: BigNumber[];
   wantAndIds: BigNumber[];
-  minSwap: BigNumber;
-  maxSwap: BigNumber;
   timeToPay: BigNumber;
 }
 export type UpdatedFungibleLiquidityEvent = TypedEvent<
@@ -1458,8 +1575,6 @@ export type UpdatedFungibleLiquidityEvent = TypedEvent<
     BigNumber,
     BigNumber[],
     BigNumber[],
-    BigNumber,
-    BigNumber,
     BigNumber
   ],
   UpdatedFungibleLiquidityEventObject
@@ -1550,12 +1665,16 @@ export type UpdatedMinTimeToPayEvent = TypedEvent<
 export type UpdatedMinTimeToPayEventFilter =
   TypedEventFilter<UpdatedMinTimeToPayEvent>;
 
-export interface UpdatedNFTEventObject {
+export interface UpdatedMinerRegistryEventObject {
   addr: string;
 }
-export type UpdatedNFTEvent = TypedEvent<[string], UpdatedNFTEventObject>;
+export type UpdatedMinerRegistryEvent = TypedEvent<
+  [string],
+  UpdatedMinerRegistryEventObject
+>;
 
-export type UpdatedNFTEventFilter = TypedEventFilter<UpdatedNFTEvent>;
+export type UpdatedMinerRegistryEventFilter =
+  TypedEventFilter<UpdatedMinerRegistryEvent>;
 
 export interface UpdatedNonFungibleLiquidityEventObject {
   provider: string;
@@ -1624,6 +1743,17 @@ export type UpdatedPriceEvent = TypedEvent<
 >;
 
 export type UpdatedPriceEventFilter = TypedEventFilter<UpdatedPriceEvent>;
+
+export interface UpdatedProviderRegistryEventObject {
+  addr: string;
+}
+export type UpdatedProviderRegistryEvent = TypedEvent<
+  [string],
+  UpdatedProviderRegistryEventObject
+>;
+
+export type UpdatedProviderRegistryEventFilter =
+  TypedEventFilter<UpdatedProviderRegistryEvent>;
 
 export interface Core extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -1702,15 +1832,7 @@ export interface Core extends BaseContract {
     ): Promise<ContractTransaction>;
 
     createOffer(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      price: BigNumberish,
-      ids: BigNumberish[],
-      deadline: BigNumberish,
-      operator: BigNumberish,
+      params: StructsLib.CreateOfferParamsStruct,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
@@ -1721,8 +1843,8 @@ export interface Core extends BaseContract {
     ): Promise<ContractTransaction>;
 
     feeBalanceOf(
-      owner: string,
-      asset: string,
+      _owner: string,
+      _asset: string,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
@@ -1731,9 +1853,9 @@ export interface Core extends BaseContract {
     ): Promise<[[BigNumber, BigNumber, BigNumber]]>;
 
     getLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[Structs.LiquidityStructOutput]>;
 
@@ -1766,9 +1888,9 @@ export interface Core extends BaseContract {
     ): Promise<[[string, string][]]>;
 
     hasLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
@@ -1788,6 +1910,13 @@ export interface Core extends BaseContract {
 
     markOrderAsPaid(
       id: BigNumberish,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
+    markOrderAsPaidByManagerSig(
+      id: BigNumberish,
+      expireAt: BigNumberish,
+      signature: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
@@ -1862,11 +1991,6 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
-    setDiscountForNFTHolder(
-      bp: BigNumberish,
-      overrides?: Overrides & { from?: string }
-    ): Promise<ContractTransaction>;
-
     setDisputeManager(
       addr: string,
       overrides?: Overrides & { from?: string }
@@ -1913,7 +2037,7 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
-    setNFT(
+    setMinerRegistry(
       addr: string,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
@@ -1942,6 +2066,11 @@ export interface Core extends BaseContract {
       inventorBP: BigNumberish,
       sharedBP: BigNumberish,
       operatorBP: BigNumberish,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
+    setProviderRegistry(
+      addr: string,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
@@ -1993,12 +2122,13 @@ export interface Core extends BaseContract {
         string,
         string,
         string,
+        string,
         string
       ] & {
         ints: StructsLib.UintSlotState2StructOutput;
         disputeManager: string;
-        nft: string;
         ammEth: string;
+        provReg: string;
         assetReg: string;
         token: string;
         marketCore: string;
@@ -2006,6 +2136,7 @@ export interface Core extends BaseContract {
         feePurse: string;
         badge: string;
         operatorMgr: string;
+        minerReg: string;
       }
     >;
 
@@ -2015,16 +2146,8 @@ export interface Core extends BaseContract {
     ): Promise<[boolean]>;
 
     swapQuoteForBase(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      maxPrice: BigNumberish,
-      ids: BigNumberish[],
-      txDeadline: BigNumberish,
-      operator: BigNumberish,
-      overrides?: Overrides & { from?: string }
+      params: StructsLib.SwapQuoteForBaseParamsStruct,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     togglePause(
@@ -2050,42 +2173,21 @@ export interface Core extends BaseContract {
     ): Promise<ContractTransaction>;
 
     updateFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      amountAndPrice: [BigNumberish, BigNumberish],
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish
-      ],
-      overrides?: Overrides & { from?: string }
+      params: StructsLib.UpdateFungibleLiquidityParamsStruct,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     updateLiquidityPrice(
-      marketId: string,
-      owner: string,
-      lid: BigNumberish,
-      price: BigNumberish,
-      expireAt: BigNumberish,
+      _marketId: string,
+      _owner: string,
+      _lid: BigNumberish,
+      _price: BigNumberish,
+      _expireAt: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
     updateNonFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      ids: BigNumberish[],
-      price: BigNumberish,
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [BigNumberish, BigNumberish, BigNumberish],
+      params: StructsLib.UpdateNonFungibleLiquidityParamsStruct,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
@@ -2172,15 +2274,7 @@ export interface Core extends BaseContract {
   ): Promise<ContractTransaction>;
 
   createOffer(
-    marketId: string,
-    provider: string,
-    recipient: string,
-    lid: BigNumberish,
-    amount: BigNumberish,
-    price: BigNumberish,
-    ids: BigNumberish[],
-    deadline: BigNumberish,
-    operator: BigNumberish,
+    params: StructsLib.CreateOfferParamsStruct,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
@@ -2191,8 +2285,8 @@ export interface Core extends BaseContract {
   ): Promise<ContractTransaction>;
 
   feeBalanceOf(
-    owner: string,
-    asset: string,
+    _owner: string,
+    _asset: string,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
@@ -2201,9 +2295,9 @@ export interface Core extends BaseContract {
   ): Promise<[BigNumber, BigNumber, BigNumber]>;
 
   getLiquidity(
-    mid: string,
-    owner: string,
-    lid: BigNumberish,
+    _mid: string,
+    _owner: string,
+    _lid: BigNumberish,
     overrides?: CallOverrides
   ): Promise<Structs.LiquidityStructOutput>;
 
@@ -2236,9 +2330,9 @@ export interface Core extends BaseContract {
   ): Promise<[string, string][]>;
 
   hasLiquidity(
-    mid: string,
-    owner: string,
-    lid: BigNumberish,
+    _mid: string,
+    _owner: string,
+    _lid: BigNumberish,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
@@ -2258,6 +2352,13 @@ export interface Core extends BaseContract {
 
   markOrderAsPaid(
     id: BigNumberish,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
+  markOrderAsPaidByManagerSig(
+    id: BigNumberish,
+    expireAt: BigNumberish,
+    signature: BytesLike,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
@@ -2332,11 +2433,6 @@ export interface Core extends BaseContract {
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
-  setDiscountForNFTHolder(
-    bp: BigNumberish,
-    overrides?: Overrides & { from?: string }
-  ): Promise<ContractTransaction>;
-
   setDisputeManager(
     addr: string,
     overrides?: Overrides & { from?: string }
@@ -2383,7 +2479,7 @@ export interface Core extends BaseContract {
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
-  setNFT(
+  setMinerRegistry(
     addr: string,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
@@ -2412,6 +2508,11 @@ export interface Core extends BaseContract {
     inventorBP: BigNumberish,
     sharedBP: BigNumberish,
     operatorBP: BigNumberish,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
+  setProviderRegistry(
+    addr: string,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
@@ -2463,12 +2564,13 @@ export interface Core extends BaseContract {
       string,
       string,
       string,
+      string,
       string
     ] & {
       ints: StructsLib.UintSlotState2StructOutput;
       disputeManager: string;
-      nft: string;
       ammEth: string;
+      provReg: string;
       assetReg: string;
       token: string;
       marketCore: string;
@@ -2476,6 +2578,7 @@ export interface Core extends BaseContract {
       feePurse: string;
       badge: string;
       operatorMgr: string;
+      minerReg: string;
     }
   >;
 
@@ -2485,16 +2588,8 @@ export interface Core extends BaseContract {
   ): Promise<boolean>;
 
   swapQuoteForBase(
-    marketId: string,
-    provider: string,
-    recipient: string,
-    lid: BigNumberish,
-    amount: BigNumberish,
-    maxPrice: BigNumberish,
-    ids: BigNumberish[],
-    txDeadline: BigNumberish,
-    operator: BigNumberish,
-    overrides?: Overrides & { from?: string }
+    params: StructsLib.SwapQuoteForBaseParamsStruct,
+    overrides?: PayableOverrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   togglePause(
@@ -2520,42 +2615,21 @@ export interface Core extends BaseContract {
   ): Promise<ContractTransaction>;
 
   updateFungibleLiquidity(
-    marketId: string,
-    lid: BigNumberish,
-    deduct: boolean,
-    target: string,
-    amountAndPrice: [BigNumberish, BigNumberish],
-    wantOrIds: BigNumberish[],
-    wantAndIds: BigNumberish[],
-    limits: [
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish,
-      BigNumberish
-    ],
-    overrides?: Overrides & { from?: string }
+    params: StructsLib.UpdateFungibleLiquidityParamsStruct,
+    overrides?: PayableOverrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   updateLiquidityPrice(
-    marketId: string,
-    owner: string,
-    lid: BigNumberish,
-    price: BigNumberish,
-    expireAt: BigNumberish,
+    _marketId: string,
+    _owner: string,
+    _lid: BigNumberish,
+    _price: BigNumberish,
+    _expireAt: BigNumberish,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   updateNonFungibleLiquidity(
-    marketId: string,
-    lid: BigNumberish,
-    deduct: boolean,
-    target: string,
-    ids: BigNumberish[],
-    price: BigNumberish,
-    wantOrIds: BigNumberish[],
-    wantAndIds: BigNumberish[],
-    limits: [BigNumberish, BigNumberish, BigNumberish],
+    params: StructsLib.UpdateNonFungibleLiquidityParamsStruct,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
@@ -2639,15 +2713,7 @@ export interface Core extends BaseContract {
     ): Promise<void>;
 
     createOffer(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      price: BigNumberish,
-      ids: BigNumberish[],
-      deadline: BigNumberish,
-      operator: BigNumberish,
+      params: StructsLib.CreateOfferParamsStruct,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -2658,8 +2724,8 @@ export interface Core extends BaseContract {
     ): Promise<void>;
 
     feeBalanceOf(
-      owner: string,
-      asset: string,
+      _owner: string,
+      _asset: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -2668,9 +2734,9 @@ export interface Core extends BaseContract {
     ): Promise<[BigNumber, BigNumber, BigNumber]>;
 
     getLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<Structs.LiquidityStructOutput>;
 
@@ -2703,9 +2769,9 @@ export interface Core extends BaseContract {
     ): Promise<[string, string][]>;
 
     hasLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -2721,6 +2787,13 @@ export interface Core extends BaseContract {
     markAsDisputed(id: BigNumberish, overrides?: CallOverrides): Promise<void>;
 
     markOrderAsPaid(id: BigNumberish, overrides?: CallOverrides): Promise<void>;
+
+    markOrderAsPaidByManagerSig(
+      id: BigNumberish,
+      expireAt: BigNumberish,
+      signature: BytesLike,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     onERC1155BatchReceived(
       arg0: string,
@@ -2782,11 +2855,6 @@ export interface Core extends BaseContract {
 
     setBadgeMgr(val: string, overrides?: CallOverrides): Promise<void>;
 
-    setDiscountForNFTHolder(
-      bp: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
     setDisputeManager(addr: string, overrides?: CallOverrides): Promise<void>;
 
     setFeePool(addr: string, overrides?: CallOverrides): Promise<void>;
@@ -2818,7 +2886,7 @@ export interface Core extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setNFT(addr: string, overrides?: CallOverrides): Promise<void>;
+    setMinerRegistry(addr: string, overrides?: CallOverrides): Promise<void>;
 
     setOperator(addr: string, overrides?: CallOverrides): Promise<void>;
 
@@ -2843,6 +2911,8 @@ export interface Core extends BaseContract {
       operatorBP: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    setProviderRegistry(addr: string, overrides?: CallOverrides): Promise<void>;
 
     setSwapBadgeForLiquidity(
       marketId: string,
@@ -2892,12 +2962,13 @@ export interface Core extends BaseContract {
         string,
         string,
         string,
+        string,
         string
       ] & {
         ints: StructsLib.UintSlotState2StructOutput;
         disputeManager: string;
-        nft: string;
         ammEth: string;
+        provReg: string;
         assetReg: string;
         token: string;
         marketCore: string;
@@ -2905,6 +2976,7 @@ export interface Core extends BaseContract {
         feePurse: string;
         badge: string;
         operatorMgr: string;
+        minerReg: string;
       }
     >;
 
@@ -2914,15 +2986,7 @@ export interface Core extends BaseContract {
     ): Promise<boolean>;
 
     swapQuoteForBase(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      maxPrice: BigNumberish,
-      ids: BigNumberish[],
-      txDeadline: BigNumberish,
-      operator: BigNumberish,
+      params: StructsLib.SwapQuoteForBaseParamsStruct,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -2946,42 +3010,21 @@ export interface Core extends BaseContract {
     ): Promise<void>;
 
     updateFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      amountAndPrice: [BigNumberish, BigNumberish],
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish
-      ],
+      params: StructsLib.UpdateFungibleLiquidityParamsStruct,
       overrides?: CallOverrides
     ): Promise<void>;
 
     updateLiquidityPrice(
-      marketId: string,
-      owner: string,
-      lid: BigNumberish,
-      price: BigNumberish,
-      expireAt: BigNumberish,
+      _marketId: string,
+      _owner: string,
+      _lid: BigNumberish,
+      _price: BigNumberish,
+      _expireAt: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
     updateNonFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      ids: BigNumberish[],
-      price: BigNumberish,
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [BigNumberish, BigNumberish, BigNumberish],
+      params: StructsLib.UpdateNonFungibleLiquidityParamsStruct,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -3016,21 +3059,18 @@ export interface Core extends BaseContract {
   };
 
   filters: {
-    "FinalizedByManagerSig(address,address,uint256,bool)"(
+    "FinalizedByManagerSig(address,address,uint256,uint256)"(
       manager?: null,
       finalizer?: null,
       orderId?: null,
-      released?: null
+      action?: null
     ): FinalizedByManagerSigEventFilter;
     FinalizedByManagerSig(
       manager?: null,
       finalizer?: null,
       orderId?: null,
-      released?: null
+      action?: null
     ): FinalizedByManagerSigEventFilter;
-
-    "NFTDiscountUpdated(uint256)"(bp?: null): NFTDiscountUpdatedEventFilter;
-    NFTDiscountUpdated(bp?: null): NFTDiscountUpdatedEventFilter;
 
     "NewOffer(address,address,uint256,address,uint256,uint256,uint256,uint256[],uint256)"(
       marketId?: null,
@@ -3200,12 +3240,14 @@ export interface Core extends BaseContract {
       idsFromTaker?: null
     ): SwapOrderEventFilter;
 
-    "SwapOrderPaid(uint256,uint256)"(
+    "SwapOrderPaid(uint256,address,uint256)"(
       orderID?: BigNumberish | null,
+      payer?: null,
       disputeDelayDur?: null
     ): SwapOrderPaidEventFilter;
     SwapOrderPaid(
       orderID?: BigNumberish | null,
+      payer?: null,
       disputeDelayDur?: null
     ): SwapOrderPaidEventFilter;
 
@@ -3222,14 +3264,27 @@ export interface Core extends BaseContract {
       paused?: null
     ): TogglePauseEventFilter;
 
-    "TransferInventorBalance(address,uint256)"(
-      asset?: null,
+    "TransferInventorBalance(address,address,uint256)"(
+      owner?: null,
+      token?: null,
       amount?: null
     ): TransferInventorBalanceEventFilter;
     TransferInventorBalance(
-      asset?: null,
+      owner?: null,
+      token?: null,
       amount?: null
     ): TransferInventorBalanceEventFilter;
+
+    "TransferOperatorBalance(address,address,uint256)"(
+      owner?: null,
+      token?: null,
+      amount?: null
+    ): TransferOperatorBalanceEventFilter;
+    TransferOperatorBalance(
+      owner?: null,
+      token?: null,
+      amount?: null
+    ): TransferOperatorBalanceEventFilter;
 
     "TransferredToFeePool(address,uint256,address,uint256)"(
       token?: string | null,
@@ -3290,7 +3345,7 @@ export interface Core extends BaseContract {
     "UpdatedFeePurse(address)"(addr?: null): UpdatedFeePurseEventFilter;
     UpdatedFeePurse(addr?: null): UpdatedFeePurseEventFilter;
 
-    "UpdatedFungibleLiquidity(address,address,address,bool,bool,uint256,uint256,uint256,uint256[],uint256[],uint256,uint256,uint256)"(
+    "UpdatedFungibleLiquidity(address,address,address,bool,bool,uint256,uint256,uint256,uint256[],uint256[],uint256)"(
       provider?: string | null,
       marketId?: string | null,
       target?: null,
@@ -3301,8 +3356,6 @@ export interface Core extends BaseContract {
       price?: null,
       wantOrIds?: null,
       wantAndIds?: null,
-      minSwap?: null,
-      maxSwap?: null,
       timeToPay?: null
     ): UpdatedFungibleLiquidityEventFilter;
     UpdatedFungibleLiquidity(
@@ -3316,8 +3369,6 @@ export interface Core extends BaseContract {
       price?: null,
       wantOrIds?: null,
       wantAndIds?: null,
-      minSwap?: null,
-      maxSwap?: null,
       timeToPay?: null
     ): UpdatedFungibleLiquidityEventFilter;
 
@@ -3366,8 +3417,10 @@ export interface Core extends BaseContract {
     "UpdatedMinTimeToPay(uint256)"(val?: null): UpdatedMinTimeToPayEventFilter;
     UpdatedMinTimeToPay(val?: null): UpdatedMinTimeToPayEventFilter;
 
-    "UpdatedNFT(address)"(addr?: null): UpdatedNFTEventFilter;
-    UpdatedNFT(addr?: null): UpdatedNFTEventFilter;
+    "UpdatedMinerRegistry(address)"(
+      addr?: null
+    ): UpdatedMinerRegistryEventFilter;
+    UpdatedMinerRegistry(addr?: null): UpdatedMinerRegistryEventFilter;
 
     "UpdatedNonFungibleLiquidity(address,address,address,bool,bool,uint256,uint256[],uint256,uint256[],uint256[],uint256)"(
       provider?: string | null,
@@ -3418,6 +3471,11 @@ export interface Core extends BaseContract {
       lid?: null,
       price?: null
     ): UpdatedPriceEventFilter;
+
+    "UpdatedProviderRegistry(address)"(
+      addr?: null
+    ): UpdatedProviderRegistryEventFilter;
+    UpdatedProviderRegistry(addr?: null): UpdatedProviderRegistryEventFilter;
   };
 
   estimateGas: {
@@ -3471,15 +3529,7 @@ export interface Core extends BaseContract {
     ): Promise<BigNumber>;
 
     createOffer(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      price: BigNumberish,
-      ids: BigNumberish[],
-      deadline: BigNumberish,
-      operator: BigNumberish,
+      params: StructsLib.CreateOfferParamsStruct,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
@@ -3490,17 +3540,17 @@ export interface Core extends BaseContract {
     ): Promise<BigNumber>;
 
     feeBalanceOf(
-      owner: string,
-      asset: string,
+      _owner: string,
+      _asset: string,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getFeeBPs(overrides?: CallOverrides): Promise<BigNumber>;
 
     getLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -3524,9 +3574,9 @@ export interface Core extends BaseContract {
     ): Promise<BigNumber>;
 
     hasLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -3546,6 +3596,13 @@ export interface Core extends BaseContract {
 
     markOrderAsPaid(
       id: BigNumberish,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
+    markOrderAsPaidByManagerSig(
+      id: BigNumberish,
+      expireAt: BigNumberish,
+      signature: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
@@ -3620,11 +3677,6 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
-    setDiscountForNFTHolder(
-      bp: BigNumberish,
-      overrides?: Overrides & { from?: string }
-    ): Promise<BigNumber>;
-
     setDisputeManager(
       addr: string,
       overrides?: Overrides & { from?: string }
@@ -3671,7 +3723,7 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
-    setNFT(
+    setMinerRegistry(
       addr: string,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
@@ -3703,6 +3755,11 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
+    setProviderRegistry(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
     setSwapBadgeForLiquidity(
       marketId: string,
       lid: BigNumberish,
@@ -3725,16 +3782,8 @@ export interface Core extends BaseContract {
     ): Promise<BigNumber>;
 
     swapQuoteForBase(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      maxPrice: BigNumberish,
-      ids: BigNumberish[],
-      txDeadline: BigNumberish,
-      operator: BigNumberish,
-      overrides?: Overrides & { from?: string }
+      params: StructsLib.SwapQuoteForBaseParamsStruct,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<BigNumber>;
 
     togglePause(
@@ -3760,42 +3809,21 @@ export interface Core extends BaseContract {
     ): Promise<BigNumber>;
 
     updateFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      amountAndPrice: [BigNumberish, BigNumberish],
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish
-      ],
-      overrides?: Overrides & { from?: string }
+      params: StructsLib.UpdateFungibleLiquidityParamsStruct,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<BigNumber>;
 
     updateLiquidityPrice(
-      marketId: string,
-      owner: string,
-      lid: BigNumberish,
-      price: BigNumberish,
-      expireAt: BigNumberish,
+      _marketId: string,
+      _owner: string,
+      _lid: BigNumberish,
+      _price: BigNumberish,
+      _expireAt: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
     updateNonFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      ids: BigNumberish[],
-      price: BigNumberish,
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [BigNumberish, BigNumberish, BigNumberish],
+      params: StructsLib.UpdateNonFungibleLiquidityParamsStruct,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
@@ -3883,15 +3911,7 @@ export interface Core extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     createOffer(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      price: BigNumberish,
-      ids: BigNumberish[],
-      deadline: BigNumberish,
-      operator: BigNumberish,
+      params: StructsLib.CreateOfferParamsStruct,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
@@ -3902,17 +3922,17 @@ export interface Core extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     feeBalanceOf(
-      owner: string,
-      asset: string,
+      _owner: string,
+      _asset: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getFeeBPs(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3945,9 +3965,9 @@ export interface Core extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     hasLiquidity(
-      mid: string,
-      owner: string,
-      lid: BigNumberish,
+      _mid: string,
+      _owner: string,
+      _lid: BigNumberish,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -3973,6 +3993,13 @@ export interface Core extends BaseContract {
 
     markOrderAsPaid(
       id: BigNumberish,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
+    markOrderAsPaidByManagerSig(
+      id: BigNumberish,
+      expireAt: BigNumberish,
+      signature: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
@@ -4047,11 +4074,6 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
-    setDiscountForNFTHolder(
-      bp: BigNumberish,
-      overrides?: Overrides & { from?: string }
-    ): Promise<PopulatedTransaction>;
-
     setDisputeManager(
       addr: string,
       overrides?: Overrides & { from?: string }
@@ -4098,7 +4120,7 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
-    setNFT(
+    setMinerRegistry(
       addr: string,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
@@ -4130,6 +4152,11 @@ export interface Core extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
+    setProviderRegistry(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
     setSwapBadgeForLiquidity(
       marketId: string,
       lid: BigNumberish,
@@ -4152,16 +4179,8 @@ export interface Core extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     swapQuoteForBase(
-      marketId: string,
-      provider: string,
-      recipient: string,
-      lid: BigNumberish,
-      amount: BigNumberish,
-      maxPrice: BigNumberish,
-      ids: BigNumberish[],
-      txDeadline: BigNumberish,
-      operator: BigNumberish,
-      overrides?: Overrides & { from?: string }
+      params: StructsLib.SwapQuoteForBaseParamsStruct,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     togglePause(
@@ -4187,42 +4206,21 @@ export interface Core extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     updateFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      amountAndPrice: [BigNumberish, BigNumberish],
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish,
-        BigNumberish
-      ],
-      overrides?: Overrides & { from?: string }
+      params: StructsLib.UpdateFungibleLiquidityParamsStruct,
+      overrides?: PayableOverrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     updateLiquidityPrice(
-      marketId: string,
-      owner: string,
-      lid: BigNumberish,
-      price: BigNumberish,
-      expireAt: BigNumberish,
+      _marketId: string,
+      _owner: string,
+      _lid: BigNumberish,
+      _price: BigNumberish,
+      _expireAt: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
     updateNonFungibleLiquidity(
-      marketId: string,
-      lid: BigNumberish,
-      deduct: boolean,
-      target: string,
-      ids: BigNumberish[],
-      price: BigNumberish,
-      wantOrIds: BigNumberish[],
-      wantAndIds: BigNumberish[],
-      limits: [BigNumberish, BigNumberish, BigNumberish],
+      params: StructsLib.UpdateNonFungibleLiquidityParamsStruct,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 

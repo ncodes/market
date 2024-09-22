@@ -1,6 +1,6 @@
+import { handleAxiosError } from "@/libs/helpers.ts";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
-import { handleAxiosError } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
 
 export type ListSwapIDs = "getSwapsAsParticipant" | "getRecentSwaps";
@@ -13,7 +13,7 @@ export interface ListSwapParams {
 }
 
 interface GetSwapParams {
-  network: string;
+  network?: string;
   orderId: string;
 }
 
@@ -78,18 +78,19 @@ export function useSwapService() {
    * Get a swap
    * @param ctx The query context
    */
-  async function getSwap(ctx: QueryFunctionContext<[string, GetSwapParams]>): Promise<Swap> {
+  async function getSwap(ctx: QueryFunctionContext<[string, string, GetSwapParams]>): Promise<Swap> {
     try {
-      const [, params] = ctx.queryKey;
+      const [, token, params] = ctx.queryKey;
       const { network, orderId } = params;
-      const headers = {};
       const resp = await axios<{ data: Swap }>({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/swaps/${orderId}`,
         params: {
           net: network,
         },
-        headers,
+        headers: {
+          Authorization: token ? `Bearer ${token}` : undefined,
+        },
       } as AxiosRequestConfig);
 
       return Promise.resolve(resp.data.data);

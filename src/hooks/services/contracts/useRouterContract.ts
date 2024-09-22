@@ -1,10 +1,10 @@
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
-import { RouteStruct, LiquidityStruct } from "@jointlabs/meta/src/typechain/Router.ts";
-import { ZeroAddress } from "ethers";
-import { TokenList } from "@jointlabs/meta";
-import { isNative } from "@/pages/swap/utils.ts";
 import { toDec } from "@/libs/helpers.ts";
-import { SideQuote } from "@/pages/swap/types.ts";
+import { isNative } from "@/pages/swap/utils.ts";
+import { TokenList } from "@jointlabs/meta";
+import { ZeroAddress } from "ethers";
+import { SideQuote } from "../../../pages/swap/swapper/types.ts";
+import { LiquidityStruct, RouteStruct } from "../../../typechain/Router.ts";
+import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
 
 /**
  * UseRouterContract provides access to the Router contract
@@ -42,8 +42,8 @@ export default function useRouterContract() {
       [{ routes: [route], deadline, operator, target: ZeroAddress }],
       isNative(sellToken)
         ? side == SideQuote
-          ? toDec(totalAmountFilled).toFixed(0)
-          : toDec(totalQuantityFilled).toFixed(0)
+          ? BigInt(toDec(totalAmountFilled).toFixed(0))
+          : BigInt(toDec(totalQuantityFilled).toFixed(0))
         : undefined,
       true,
       1,

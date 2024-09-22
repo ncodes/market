@@ -1,7 +1,8 @@
-import { BigNumberish, ethers } from "ethers";
+import { BigNumberish, ZeroAddress } from "ethers";
 import { Address } from "viem";
 import { toBigInt } from "../../../libs/helpers.ts";
 import * as CoreTypes from "../../../typechain/Core.ts";
+import { StructsLib } from "../../../typechain/Core.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
 import OrderStruct = CoreTypes.Structs.OrderStruct;
 
@@ -77,15 +78,16 @@ export default function useCoreContract() {
   async function swapQuoteForBase(
     marketId: string,
     provider: string,
-    recipient = ethers.constants.AddressZero,
+    recipient = ZeroAddress,
     lid: BigNumberish,
     amount: BigNumberish,
     maxPrice: BigNumberish,
     ids: BigNumberish[] = [],
     txDeadline: BigNumberish,
     operator: BigNumberish = 0,
+    marketMgrData: string,
   ) {
-    return await simulateAndWriteContract("core", "swapQuoteForBase", [
+    const params: StructsLib.SwapQuoteForBaseParamsStruct = {
       marketId,
       provider,
       recipient,
@@ -93,9 +95,12 @@ export default function useCoreContract() {
       amount,
       maxPrice,
       ids,
-      txDeadline,
+      expireAt: txDeadline,
       operator,
-    ]);
+      marketMgrData,
+    };
+
+    return simulateAndWriteContract("core", "swapQuoteForBase", [params], undefined, true, 1);
   }
 
   /**
@@ -251,7 +256,7 @@ export default function useCoreContract() {
    * @param orderId The order ID
    */
   async function markOrderAsPaid(orderId: bigint) {
-    return (await simulateAndWriteContract("core", "markOrderAsPaid", [orderId]))[0];
+    return (await simulateAndWriteContract("core", "markOrderAsPaid", [orderId], undefined, true, 1))[0];
   }
 
   /**
@@ -312,6 +317,7 @@ export default function useCoreContract() {
       // Common
       if (error.message.includes("OC: AMOUNT_REQ")) return "Amount is required";
       if (error.message.includes("ERC20: transfer amount exceeds balance")) return "Insufficient balance";
+      if (error.message.includes("User rejected the request")) return "Transaction was rejected";
       if (error.message.includes("replacement transaction underpriced")) {
         return "Rejected: Not enough gas to replace pending tx";
       }

@@ -65,6 +65,19 @@ const _abi = [
         name: "id",
         type: "address",
       },
+    ],
+    name: "EnabledZeroOfferPrice",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "id",
+        type: "address",
+      },
       {
         indexed: false,
         internalType: "address",
@@ -297,20 +310,8 @@ const _abi = [
         name: "disputeDelayDur",
         type: "uint256",
       },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "evidenceDur",
-        type: "uint256",
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "predictDur",
-        type: "uint256",
-      },
     ],
-    name: "UpdatedDisputeDurations",
+    name: "UpdatedDisputeDelayDuration",
     type: "event",
   },
   {
@@ -366,6 +367,32 @@ const _abi = [
         name: "addr",
         type: "address",
       },
+    ],
+    name: "UpdatedMediatorManager",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "UpdatedNativeAssetAddr",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
       {
         indexed: false,
         internalType: "bool",
@@ -374,19 +401,6 @@ const _abi = [
       },
     ],
     name: "WriterUpdated",
-    type: "event",
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "id",
-        type: "address",
-      },
-    ],
-    name: "ZeroPriceEnabled",
     type: "event",
   },
   {
@@ -525,16 +539,6 @@ const _abi = [
                 name: "disputeDelayDur",
                 type: "uint256",
               },
-              {
-                internalType: "uint256",
-                name: "evidenceDur",
-                type: "uint256",
-              },
-              {
-                internalType: "uint256",
-                name: "predictDur",
-                type: "uint256",
-              },
             ],
             internalType: "struct Structs.MarketDur",
             name: "dur",
@@ -615,6 +619,19 @@ const _abi = [
         internalType: "struct Structs.Market",
         name: "",
         type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getNativeAssetAddr",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
       },
     ],
     stateMutability: "view",
@@ -771,16 +788,6 @@ const _abi = [
             name: "disputeDelayDur",
             type: "uint256",
           },
-          {
-            internalType: "uint256",
-            name: "evidenceDur",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "predictDur",
-            type: "uint256",
-          },
         ],
         internalType: "struct Structs.MarketDur",
         name: "dur",
@@ -856,6 +863,32 @@ const _abi = [
         internalType: "struct Structs.MarketPerms",
         name: "perms",
         type: "tuple",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "mediatorManager",
+    outputs: [
+      {
+        internalType: "contract IMediatorManager",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "nativeAssetAddr",
+    outputs: [
+      {
+        internalType: "address",
+        name: "",
+        type: "address",
       },
     ],
     stateMutability: "view",
@@ -1153,21 +1186,11 @@ const _abi = [
       },
       {
         internalType: "uint256",
-        name: "disputeDelayDur",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "evidenceDur",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "predictDur",
+        name: "duration",
         type: "uint256",
       },
     ],
-    name: "setDisputeDurations",
+    name: "setDisputeDelayDuration",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -1234,16 +1257,6 @@ const _abi = [
               {
                 internalType: "uint256",
                 name: "disputeDelayDur",
-                type: "uint256",
-              },
-              {
-                internalType: "uint256",
-                name: "evidenceDur",
-                type: "uint256",
-              },
-              {
-                internalType: "uint256",
-                name: "predictDur",
                 type: "uint256",
               },
             ],
@@ -1329,6 +1342,32 @@ const _abi = [
       },
     ],
     name: "setMarket",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "setMediatorManager",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "addr",
+        type: "address",
+      },
+    ],
+    name: "setNativeAssetAddr",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

@@ -1,7 +1,8 @@
+import { SearchBar } from "@/components/searchBar.tsx";
 import { Link } from "react-router-dom";
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton.tsx";
-import { SearchBar } from "@/components/searchBar.tsx";
-import { NetworkSelector } from "@/components/header/networkSelector.tsx";
+import LinkAccountButton from "./LinkAccountButton.tsx";
+import { NetworkSelector } from "./NetworkSelector.tsx";
 
 export function Header() {
   return (
@@ -25,6 +26,7 @@ export function Header() {
 
       <SearchBar />
       <div className="relative -top-1 flex items-center space-x-2">
+        <LinkAccountButton />
         <NetworkSelector />
         <ConnectButton noSessionCreation />
       </div>

@@ -27,16 +27,10 @@ import type {
 } from "./common";
 
 export declare namespace Structs {
-  export type MarketDurStruct = {
-    disputeDelayDur: BigNumberish;
-    evidenceDur: BigNumberish;
-    predictDur: BigNumberish;
-  };
+  export type MarketDurStruct = { disputeDelayDur: BigNumberish };
 
-  export type MarketDurStructOutput = [BigNumber, BigNumber, BigNumber] & {
+  export type MarketDurStructOutput = [BigNumber] & {
     disputeDelayDur: BigNumber;
-    evidenceDur: BigNumber;
-    predictDur: BigNumber;
   };
 
   export type AssetStruct = { addr: string; assetType: BigNumberish };
@@ -111,12 +105,15 @@ export interface MarketCoreInterface extends utils.Interface {
     "createMarket(address,address,uint8,uint8,bool,bool,uint256,uint256)": FunctionFragment;
     "defaultDisputeDelayDur()": FunctionFragment;
     "getMarket(address)": FunctionFragment;
+    "getNativeAssetAddr()": FunctionFragment;
     "getReqBadges(address)": FunctionFragment;
     "hasMarket(address)": FunctionFragment;
     "isPutPermitted(address,address)": FunctionFragment;
     "isSwapPermitted(address,address)": FunctionFragment;
     "markAsOfferOnly(address)": FunctionFragment;
     "markets(address)": FunctionFragment;
+    "mediatorManager()": FunctionFragment;
+    "nativeAssetAddr()": FunctionFragment;
     "owner()": FunctionFragment;
     "permitPut(address,address)": FunctionFragment;
     "permitSwap(address,address)": FunctionFragment;
@@ -132,9 +129,11 @@ export interface MarketCoreInterface extends utils.Interface {
     "setCommission(address,uint256)": FunctionFragment;
     "setCounters(address,bool,bool,bool,uint256)": FunctionFragment;
     "setDefaultDisputeDelayDuration(uint256)": FunctionFragment;
-    "setDisputeDurations(address,uint256,uint256,uint256)": FunctionFragment;
+    "setDisputeDelayDuration(address,uint256)": FunctionFragment;
     "setManager(address,address)": FunctionFragment;
-    "setMarket(address,(uint256,uint256,uint256,uint256,uint256,uint256,(uint256,uint256,uint256),address,address,(address,uint8),(address,uint8),(bool,bool,bool,bool)))": FunctionFragment;
+    "setMarket(address,(uint256,uint256,uint256,uint256,uint256,uint256,(uint256),address,address,(address,uint8),(address,uint8),(bool,bool,bool,bool)))": FunctionFragment;
+    "setMediatorManager(address)": FunctionFragment;
+    "setNativeAssetAddr(address)": FunctionFragment;
     "setRequiredBadges(address,string[2][],string[2][])": FunctionFragment;
     "swapAllowList(address,address)": FunctionFragment;
     "transferOwnership(address,address)": FunctionFragment;
@@ -150,12 +149,15 @@ export interface MarketCoreInterface extends utils.Interface {
       | "createMarket"
       | "defaultDisputeDelayDur"
       | "getMarket"
+      | "getNativeAssetAddr"
       | "getReqBadges"
       | "hasMarket"
       | "isPutPermitted"
       | "isSwapPermitted"
       | "markAsOfferOnly"
       | "markets"
+      | "mediatorManager"
+      | "nativeAssetAddr"
       | "owner"
       | "permitPut"
       | "permitSwap"
@@ -171,9 +173,11 @@ export interface MarketCoreInterface extends utils.Interface {
       | "setCommission"
       | "setCounters"
       | "setDefaultDisputeDelayDuration"
-      | "setDisputeDurations"
+      | "setDisputeDelayDuration"
       | "setManager"
       | "setMarket"
+      | "setMediatorManager"
+      | "setNativeAssetAddr"
       | "setRequiredBadges"
       | "swapAllowList"
       | "transferOwnership(address,address)"
@@ -206,6 +210,10 @@ export interface MarketCoreInterface extends utils.Interface {
   ): string;
   encodeFunctionData(functionFragment: "getMarket", values: [string]): string;
   encodeFunctionData(
+    functionFragment: "getNativeAssetAddr",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
     functionFragment: "getReqBadges",
     values: [string]
   ): string;
@@ -223,6 +231,14 @@ export interface MarketCoreInterface extends utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(functionFragment: "markets", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "mediatorManager",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "nativeAssetAddr",
+    values?: undefined
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "permitPut",
@@ -278,8 +294,8 @@ export interface MarketCoreInterface extends utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(
-    functionFragment: "setDisputeDurations",
-    values: [string, BigNumberish, BigNumberish, BigNumberish]
+    functionFragment: "setDisputeDelayDuration",
+    values: [string, BigNumberish]
   ): string;
   encodeFunctionData(
     functionFragment: "setManager",
@@ -288,6 +304,14 @@ export interface MarketCoreInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "setMarket",
     values: [string, Structs.MarketStruct]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setMediatorManager",
+    values: [string]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setNativeAssetAddr",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "setRequiredBadges",
@@ -326,6 +350,10 @@ export interface MarketCoreInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(functionFragment: "getMarket", data: BytesLike): Result;
   decodeFunctionResult(
+    functionFragment: "getNativeAssetAddr",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "getReqBadges",
     data: BytesLike
   ): Result;
@@ -343,6 +371,14 @@ export interface MarketCoreInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "markets", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "mediatorManager",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "nativeAssetAddr",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "permitPut", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "permitSwap", data: BytesLike): Result;
@@ -389,11 +425,19 @@ export interface MarketCoreInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "setDisputeDurations",
+    functionFragment: "setDisputeDelayDuration",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "setManager", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "setMarket", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "setMediatorManager",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "setNativeAssetAddr",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "setRequiredBadges",
     data: BytesLike
@@ -419,6 +463,7 @@ export interface MarketCoreInterface extends utils.Interface {
   events: {
     "AllowedPut(address,address)": EventFragment;
     "AllowedSwap(address,address)": EventFragment;
+    "EnabledZeroOfferPrice(address)": EventFragment;
     "NewMarket(address,address,address,address,uint8,uint8,bool,bool,uint256,uint256)": EventFragment;
     "OfferOnlyEnabled(address)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
@@ -429,15 +474,17 @@ export interface MarketCoreInterface extends utils.Interface {
     "UpdatedBadgeAddr(address)": EventFragment;
     "UpdatedCommission(address,uint256)": EventFragment;
     "UpdatedDefaultDisputeDelayDur(uint256)": EventFragment;
-    "UpdatedDisputeDurations(address,uint256,uint256,uint256)": EventFragment;
+    "UpdatedDisputeDelayDuration(address,uint256)": EventFragment;
     "UpdatedMarketBadges(address,string[2][],string[2][])": EventFragment;
     "UpdatedMarketManager(address,address)": EventFragment;
+    "UpdatedMediatorManager(address)": EventFragment;
+    "UpdatedNativeAssetAddr(address)": EventFragment;
     "WriterUpdated(address,bool)": EventFragment;
-    "ZeroPriceEnabled(address)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "AllowedPut"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "AllowedSwap"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "EnabledZeroOfferPrice"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "NewMarket"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OfferOnlyEnabled"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
@@ -450,11 +497,14 @@ export interface MarketCoreInterface extends utils.Interface {
   getEvent(
     nameOrSignatureOrTopic: "UpdatedDefaultDisputeDelayDur"
   ): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedDisputeDurations"): EventFragment;
+  getEvent(
+    nameOrSignatureOrTopic: "UpdatedDisputeDelayDuration"
+  ): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedMarketBadges"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedMarketManager"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdatedMediatorManager"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdatedNativeAssetAddr"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WriterUpdated"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ZeroPriceEnabled"): EventFragment;
 }
 
 export interface AllowedPutEventObject {
@@ -478,6 +528,17 @@ export type AllowedSwapEvent = TypedEvent<
 >;
 
 export type AllowedSwapEventFilter = TypedEventFilter<AllowedSwapEvent>;
+
+export interface EnabledZeroOfferPriceEventObject {
+  id: string;
+}
+export type EnabledZeroOfferPriceEvent = TypedEvent<
+  [string],
+  EnabledZeroOfferPriceEventObject
+>;
+
+export type EnabledZeroOfferPriceEventFilter =
+  TypedEventFilter<EnabledZeroOfferPriceEvent>;
 
 export interface NewMarketEventObject {
   id: string;
@@ -612,19 +673,17 @@ export type UpdatedDefaultDisputeDelayDurEvent = TypedEvent<
 export type UpdatedDefaultDisputeDelayDurEventFilter =
   TypedEventFilter<UpdatedDefaultDisputeDelayDurEvent>;
 
-export interface UpdatedDisputeDurationsEventObject {
+export interface UpdatedDisputeDelayDurationEventObject {
   id: string;
   disputeDelayDur: BigNumber;
-  evidenceDur: BigNumber;
-  predictDur: BigNumber;
 }
-export type UpdatedDisputeDurationsEvent = TypedEvent<
-  [string, BigNumber, BigNumber, BigNumber],
-  UpdatedDisputeDurationsEventObject
+export type UpdatedDisputeDelayDurationEvent = TypedEvent<
+  [string, BigNumber],
+  UpdatedDisputeDelayDurationEventObject
 >;
 
-export type UpdatedDisputeDurationsEventFilter =
-  TypedEventFilter<UpdatedDisputeDurationsEvent>;
+export type UpdatedDisputeDelayDurationEventFilter =
+  TypedEventFilter<UpdatedDisputeDelayDurationEvent>;
 
 export interface UpdatedMarketBadgesEventObject {
   id: string;
@@ -651,6 +710,28 @@ export type UpdatedMarketManagerEvent = TypedEvent<
 export type UpdatedMarketManagerEventFilter =
   TypedEventFilter<UpdatedMarketManagerEvent>;
 
+export interface UpdatedMediatorManagerEventObject {
+  addr: string;
+}
+export type UpdatedMediatorManagerEvent = TypedEvent<
+  [string],
+  UpdatedMediatorManagerEventObject
+>;
+
+export type UpdatedMediatorManagerEventFilter =
+  TypedEventFilter<UpdatedMediatorManagerEvent>;
+
+export interface UpdatedNativeAssetAddrEventObject {
+  addr: string;
+}
+export type UpdatedNativeAssetAddrEvent = TypedEvent<
+  [string],
+  UpdatedNativeAssetAddrEventObject
+>;
+
+export type UpdatedNativeAssetAddrEventFilter =
+  TypedEventFilter<UpdatedNativeAssetAddrEvent>;
+
 export interface WriterUpdatedEventObject {
   addr: string;
   added: boolean;
@@ -661,17 +742,6 @@ export type WriterUpdatedEvent = TypedEvent<
 >;
 
 export type WriterUpdatedEventFilter = TypedEventFilter<WriterUpdatedEvent>;
-
-export interface ZeroPriceEnabledEventObject {
-  id: string;
-}
-export type ZeroPriceEnabledEvent = TypedEvent<
-  [string],
-  ZeroPriceEnabledEventObject
->;
-
-export type ZeroPriceEnabledEventFilter =
-  TypedEventFilter<ZeroPriceEnabledEvent>;
 
 export interface MarketCore extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -725,6 +795,8 @@ export interface MarketCore extends BaseContract {
       id: string,
       overrides?: CallOverrides
     ): Promise<[Structs.MarketStructOutput]>;
+
+    getNativeAssetAddr(overrides?: CallOverrides): Promise<[string]>;
 
     getReqBadges(
       id: string,
@@ -782,6 +854,10 @@ export interface MarketCore extends BaseContract {
         perms: Structs.MarketPermsStructOutput;
       }
     >;
+
+    mediatorManager(overrides?: CallOverrides): Promise<[string]>;
+
+    nativeAssetAddr(overrides?: CallOverrides): Promise<[string]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
@@ -868,11 +944,9 @@ export interface MarketCore extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
-    setDisputeDurations(
+    setDisputeDelayDuration(
       id: string,
-      disputeDelayDur: BigNumberish,
-      evidenceDur: BigNumberish,
-      predictDur: BigNumberish,
+      duration: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
@@ -885,6 +959,16 @@ export interface MarketCore extends BaseContract {
     setMarket(
       id: string,
       upd: Structs.MarketStruct,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
+    setMediatorManager(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
+    setNativeAssetAddr(
+      addr: string,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
@@ -947,6 +1031,8 @@ export interface MarketCore extends BaseContract {
     overrides?: CallOverrides
   ): Promise<Structs.MarketStructOutput>;
 
+  getNativeAssetAddr(overrides?: CallOverrides): Promise<string>;
+
   getReqBadges(
     id: string,
     overrides?: CallOverrides
@@ -1003,6 +1089,10 @@ export interface MarketCore extends BaseContract {
       perms: Structs.MarketPermsStructOutput;
     }
   >;
+
+  mediatorManager(overrides?: CallOverrides): Promise<string>;
+
+  nativeAssetAddr(overrides?: CallOverrides): Promise<string>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
@@ -1086,11 +1176,9 @@ export interface MarketCore extends BaseContract {
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
-  setDisputeDurations(
+  setDisputeDelayDuration(
     id: string,
-    disputeDelayDur: BigNumberish,
-    evidenceDur: BigNumberish,
-    predictDur: BigNumberish,
+    duration: BigNumberish,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
@@ -1103,6 +1191,16 @@ export interface MarketCore extends BaseContract {
   setMarket(
     id: string,
     upd: Structs.MarketStruct,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
+  setMediatorManager(
+    addr: string,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
+  setNativeAssetAddr(
+    addr: string,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
@@ -1162,6 +1260,8 @@ export interface MarketCore extends BaseContract {
       overrides?: CallOverrides
     ): Promise<Structs.MarketStructOutput>;
 
+    getNativeAssetAddr(overrides?: CallOverrides): Promise<string>;
+
     getReqBadges(
       id: string,
       overrides?: CallOverrides
@@ -1215,6 +1315,10 @@ export interface MarketCore extends BaseContract {
         perms: Structs.MarketPermsStructOutput;
       }
     >;
+
+    mediatorManager(overrides?: CallOverrides): Promise<string>;
+
+    nativeAssetAddr(overrides?: CallOverrides): Promise<string>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
@@ -1293,11 +1397,9 @@ export interface MarketCore extends BaseContract {
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setDisputeDurations(
+    setDisputeDelayDuration(
       id: string,
-      disputeDelayDur: BigNumberish,
-      evidenceDur: BigNumberish,
-      predictDur: BigNumberish,
+      duration: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1312,6 +1414,10 @@ export interface MarketCore extends BaseContract {
       upd: Structs.MarketStruct,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    setMediatorManager(addr: string, overrides?: CallOverrides): Promise<void>;
+
+    setNativeAssetAddr(addr: string, overrides?: CallOverrides): Promise<void>;
 
     setRequiredBadges(
       id: string,
@@ -1361,6 +1467,11 @@ export interface MarketCore extends BaseContract {
       id?: string | null,
       addr?: string | null
     ): AllowedSwapEventFilter;
+
+    "EnabledZeroOfferPrice(address)"(
+      id?: string | null
+    ): EnabledZeroOfferPriceEventFilter;
+    EnabledZeroOfferPrice(id?: string | null): EnabledZeroOfferPriceEventFilter;
 
     "NewMarket(address,address,address,address,uint8,uint8,bool,bool,uint256,uint256)"(
       id?: string | null,
@@ -1452,18 +1563,14 @@ export interface MarketCore extends BaseContract {
       val?: null
     ): UpdatedDefaultDisputeDelayDurEventFilter;
 
-    "UpdatedDisputeDurations(address,uint256,uint256,uint256)"(
+    "UpdatedDisputeDelayDuration(address,uint256)"(
       id?: string | null,
-      disputeDelayDur?: null,
-      evidenceDur?: null,
-      predictDur?: null
-    ): UpdatedDisputeDurationsEventFilter;
-    UpdatedDisputeDurations(
+      disputeDelayDur?: null
+    ): UpdatedDisputeDelayDurationEventFilter;
+    UpdatedDisputeDelayDuration(
       id?: string | null,
-      disputeDelayDur?: null,
-      evidenceDur?: null,
-      predictDur?: null
-    ): UpdatedDisputeDurationsEventFilter;
+      disputeDelayDur?: null
+    ): UpdatedDisputeDelayDurationEventFilter;
 
     "UpdatedMarketBadges(address,string[2][],string[2][])"(
       id?: string | null,
@@ -1485,16 +1592,21 @@ export interface MarketCore extends BaseContract {
       mgr?: null
     ): UpdatedMarketManagerEventFilter;
 
+    "UpdatedMediatorManager(address)"(
+      addr?: null
+    ): UpdatedMediatorManagerEventFilter;
+    UpdatedMediatorManager(addr?: null): UpdatedMediatorManagerEventFilter;
+
+    "UpdatedNativeAssetAddr(address)"(
+      addr?: null
+    ): UpdatedNativeAssetAddrEventFilter;
+    UpdatedNativeAssetAddr(addr?: null): UpdatedNativeAssetAddrEventFilter;
+
     "WriterUpdated(address,bool)"(
       addr?: null,
       added?: null
     ): WriterUpdatedEventFilter;
     WriterUpdated(addr?: null, added?: null): WriterUpdatedEventFilter;
-
-    "ZeroPriceEnabled(address)"(
-      id?: string | null
-    ): ZeroPriceEnabledEventFilter;
-    ZeroPriceEnabled(id?: string | null): ZeroPriceEnabledEventFilter;
   };
 
   estimateGas: {
@@ -1521,6 +1633,8 @@ export interface MarketCore extends BaseContract {
 
     getMarket(id: string, overrides?: CallOverrides): Promise<BigNumber>;
 
+    getNativeAssetAddr(overrides?: CallOverrides): Promise<BigNumber>;
+
     getReqBadges(id: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     hasMarket(id: string, overrides?: CallOverrides): Promise<BigNumber>;
@@ -1543,6 +1657,10 @@ export interface MarketCore extends BaseContract {
     ): Promise<BigNumber>;
 
     markets(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+
+    mediatorManager(overrides?: CallOverrides): Promise<BigNumber>;
+
+    nativeAssetAddr(overrides?: CallOverrides): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1629,11 +1747,9 @@ export interface MarketCore extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
-    setDisputeDurations(
+    setDisputeDelayDuration(
       id: string,
-      disputeDelayDur: BigNumberish,
-      evidenceDur: BigNumberish,
-      predictDur: BigNumberish,
+      duration: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
@@ -1646,6 +1762,16 @@ export interface MarketCore extends BaseContract {
     setMarket(
       id: string,
       upd: Structs.MarketStruct,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
+    setMediatorManager(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
+    setNativeAssetAddr(
+      addr: string,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
@@ -1711,6 +1837,10 @@ export interface MarketCore extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    getNativeAssetAddr(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
+
     getReqBadges(
       id: string,
       overrides?: CallOverrides
@@ -1742,6 +1872,10 @@ export interface MarketCore extends BaseContract {
       arg0: string,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
+
+    mediatorManager(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    nativeAssetAddr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
@@ -1828,11 +1962,9 @@ export interface MarketCore extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
-    setDisputeDurations(
+    setDisputeDelayDuration(
       id: string,
-      disputeDelayDur: BigNumberish,
-      evidenceDur: BigNumberish,
-      predictDur: BigNumberish,
+      duration: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
@@ -1845,6 +1977,16 @@ export interface MarketCore extends BaseContract {
     setMarket(
       id: string,
       upd: Structs.MarketStruct,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
+    setMediatorManager(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
+    setNativeAssetAddr(
+      addr: string,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 

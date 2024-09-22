@@ -1,6 +1,6 @@
+import { handleAxiosError } from "@/libs/helpers.ts";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
-import { handleAxiosError } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
 import { useSession } from "../../useSession.ts";
 
@@ -29,7 +29,7 @@ export function useUserService() {
   async function getUser(ctx: QueryFunctionContext<[string, GetUserParams]>): Promise<User> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = {};
+      const headers: Record<string, string | undefined> = {};
 
       if (!params.noAuth) {
         const token = getAccessToken(address);

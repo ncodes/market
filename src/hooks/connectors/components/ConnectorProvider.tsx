@@ -1,3 +1,4 @@
+import theme from "@/hooks/connectors/components/theme.ts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { ReactNode } from "react";
@@ -9,7 +10,6 @@ import { isLocal } from "../../../libs/helpers.ts";
 import { getSupportedChains } from "../common.ts";
 import { ConnectorContext } from "../context.tsx";
 import useConnector from "../useConnector.tsx";
-import theme from "@/hooks/connectors/components/theme.ts";
 
 interface ConnectorProviderProps {
   children: ReactNode;

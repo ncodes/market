@@ -1,8 +1,8 @@
+import SwapPage from "@/pages/swap/swap.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./errors/error-page.tsx";
-import Layout from "./layout.tsx";
+import Layout from "./layouts/layout.tsx";
 import LandingPage from "./pages/landing.tsx";
-import SwapPage from "@/pages/swap/swap.tsx";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +11,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/swap",
+    path: "/swap/:orderId?",
     element: <Layout page={<SwapPage />} />,
     errorElement: <ErrorPage />,
   },

@@ -694,12 +694,12 @@ const _abi = [
       },
       {
         internalType: "string[]",
-        name: "metadataKeys",
+        name: "metaKeys",
         type: "string[]",
       },
       {
         internalType: "string[]",
-        name: "metadataValues",
+        name: "metaValues",
         type: "string[]",
       },
       {

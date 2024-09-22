@@ -1,7 +1,7 @@
 import { logError } from "@/libs/helpers.ts";
 import { ChainInfo, ContractNames, getChain } from "@jointlabs/meta";
 import { useEffect, useState } from "react";
-import { Address, Chain, createPublicClient, erc20Abi, http, PublicClient, TransactionReceipt } from "viem";
+import { Address, Chain, PublicClient, TransactionReceipt, createPublicClient, erc20Abi, http } from "viem";
 import { arbitrum } from "viem/chains";
 import { useAccount, useChainId, useDisconnect, useSignMessage, useSwitchChain, useWalletClient } from "wagmi";
 import { IConnector } from "./interface.ts";
@@ -342,7 +342,7 @@ export default function useConnector() {
    * @param targetFunc - The target function to be called
    * @param args - The arguments to be passed to the target function
    * @param value - The value to be sent (in wei)
-   * @param wait - If true, the function will not wait for the transaction to be mined
+   * @param wait - If true, the function will wait for the transaction to be mined
    * @param confirms - The number of confirmations required for the transaction to be considered successful
    */
   async function simulateAndWriteContract(

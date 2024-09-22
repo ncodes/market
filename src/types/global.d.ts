@@ -1,5 +1,5 @@
 import { Address } from "viem";
-import { AssetType, Events, NotificationType } from "./enums.ts";
+import { AssetType, Events, NotificationType, SourceType } from "./enums.ts";
 
 declare global {
   interface User {
@@ -12,6 +12,7 @@ declare global {
     role: string;
     referrer: string;
     refCode: string;
+    country: string;
 
     presale: boolean;
     presaleApproved: boolean;
@@ -132,7 +133,23 @@ declare global {
     totalLiquidityUsd: string;
   }
 
+  interface PaymentMethod {
+    userId: string;
+    orgId: string;
+    network: string;
+    type: number;
+    name: string;
+    accountId: string;
+    bankAccountNumber: string;
+    bankAccountName: string;
+    routingNumber: string;
+    swiftCode: string;
+    additionalInfo: string;
+    org: PayRouterOrg;
+  }
+
   interface Liquidity {
+    id: string;
     network: string;
     provider: string;
     lid: number;
@@ -182,7 +199,7 @@ declare global {
     lastTimeOnline: string;
     market: Market;
     messagingEnabled: boolean;
-
+    paymentMethod: PaymentMethod;
     providerIndex: number;
     amountFilled: string;
     quantityFilled: string;
@@ -235,6 +252,9 @@ declare global {
     disputes: Dispute[];
     createdAt: string;
     nonce: number;
+    payRouterRequest: PayRouterRequest;
+    takerPaymentMethod: PaymentMethod;
+    providerPaymentMethod: PaymentMethod;
   }
 
   interface Offer {
@@ -431,7 +451,7 @@ declare global {
     isSynthetic?: boolean; // Used to identify synthetic tokens
   }
 
-  interface PaymentMethod {
+  interface OldPaymentMethod {
     badge: string;
     name: string;
     shortName?: string;
@@ -669,5 +689,45 @@ declare global {
     protoFeePct: number;
     mktFeePct: number;
     side: "base" | "quote";
+  }
+
+  interface PayRouterOrg {
+    network: string;
+    creator: string;
+    name: string;
+    orgId: number;
+  }
+
+  interface PayRouterRoute {
+    network: string;
+    owner: string;
+    routeId: number;
+    fee: number;
+    source: SourceType;
+    sourceOrgId: number;
+    sourceToken: string;
+    destOrgId: number;
+    bond: string;
+    paymentMethodId: string;
+    sourceOrg: PayRouterOrg;
+    destOrg: PayRouterOrg;
+    paymentMethod: PaymentMethod;
+  }
+
+  interface PayRouterRequest {
+    network: string;
+    creator: string;
+    requestId: number;
+    requesterFeeBp: number;
+    protocolFeeBp: number;
+    valueLockDuration: number;
+    sourceAmt: string;
+    orgSourcePaid: boolean;
+    closed: boolean;
+    cancelled: boolean;
+    orderId: number;
+    routeIds: number[];
+    routeFees: string[];
+    routes: PayRouterRoute[];
   }
 }

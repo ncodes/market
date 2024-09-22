@@ -30,14 +30,12 @@ export type InfoStruct = {
   curRate: BigNumberish;
   feeBp: BigNumberish;
   feeFixed: BigNumberish;
-  amountPerRewardPoint: BigNumberish;
   verified: boolean;
   stable: boolean;
   sharable: boolean;
 };
 
 export type InfoStructOutput = [
-  BigNumber,
   BigNumber,
   BigNumber,
   BigNumber,
@@ -48,7 +46,6 @@ export type InfoStructOutput = [
   curRate: BigNumber;
   feeBp: BigNumber;
   feeFixed: BigNumber;
-  amountPerRewardPoint: BigNumber;
   verified: boolean;
   stable: boolean;
   sharable: boolean;
@@ -61,7 +58,7 @@ export interface AssetRegistryInterface extends utils.Interface {
     "getRate(address)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "set(address,uint256,uint256,uint256,uint256,bool,bool,bool)": FunctionFragment;
+    "set(address,uint256,uint256,uint256,bool,bool,bool)": FunctionFragment;
     "setFee(address,uint256,uint256)": FunctionFragment;
     "setRate(address,uint256)": FunctionFragment;
     "setSharable(address,bool)": FunctionFragment;
@@ -100,7 +97,6 @@ export interface AssetRegistryInterface extends utils.Interface {
     functionFragment: "set",
     values: [
       string,
-      BigNumberish,
       BigNumberish,
       BigNumberish,
       BigNumberish,
@@ -165,7 +161,7 @@ export interface AssetRegistryInterface extends utils.Interface {
   ): Result;
 
   events: {
-    "AssetRegistryUpdated(address,uint256,uint256,uint256,uint256,bool,bool,bool)": EventFragment;
+    "AssetRegistryUpdated(address,uint256,uint256,uint256,bool,bool,bool)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
   };
 
@@ -178,22 +174,12 @@ export interface AssetRegistryUpdatedEventObject {
   curRate: BigNumber;
   feeBp: BigNumber;
   feeFixed: BigNumber;
-  amountPerRewardPoint: BigNumber;
   verified: boolean;
   stable: boolean;
   sharable: boolean;
 }
 export type AssetRegistryUpdatedEvent = TypedEvent<
-  [
-    string,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    BigNumber,
-    boolean,
-    boolean,
-    boolean
-  ],
+  [string, BigNumber, BigNumber, BigNumber, boolean, boolean, boolean],
   AssetRegistryUpdatedEventObject
 >;
 
@@ -243,19 +229,10 @@ export interface AssetRegistry extends BaseContract {
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        boolean,
-        boolean,
-        boolean
-      ] & {
+      [BigNumber, BigNumber, BigNumber, boolean, boolean, boolean] & {
         curRate: BigNumber;
         feeBp: BigNumber;
         feeFixed: BigNumber;
-        amountPerRewardPoint: BigNumber;
         verified: boolean;
         stable: boolean;
         sharable: boolean;
@@ -277,7 +254,6 @@ export interface AssetRegistry extends BaseContract {
       curRate: BigNumberish,
       feeBp: BigNumberish,
       feeFixed: BigNumberish,
-      amountPerRewardPoint: BigNumberish,
       verified: boolean,
       stable: boolean,
       sharable: boolean,
@@ -331,11 +307,10 @@ export interface AssetRegistry extends BaseContract {
     arg0: string,
     overrides?: CallOverrides
   ): Promise<
-    [BigNumber, BigNumber, BigNumber, BigNumber, boolean, boolean, boolean] & {
+    [BigNumber, BigNumber, BigNumber, boolean, boolean, boolean] & {
       curRate: BigNumber;
       feeBp: BigNumber;
       feeFixed: BigNumber;
-      amountPerRewardPoint: BigNumber;
       verified: boolean;
       stable: boolean;
       sharable: boolean;
@@ -357,7 +332,6 @@ export interface AssetRegistry extends BaseContract {
     curRate: BigNumberish,
     feeBp: BigNumberish,
     feeFixed: BigNumberish,
-    amountPerRewardPoint: BigNumberish,
     verified: boolean,
     stable: boolean,
     sharable: boolean,
@@ -411,19 +385,10 @@ export interface AssetRegistry extends BaseContract {
       arg0: string,
       overrides?: CallOverrides
     ): Promise<
-      [
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        BigNumber,
-        boolean,
-        boolean,
-        boolean
-      ] & {
+      [BigNumber, BigNumber, BigNumber, boolean, boolean, boolean] & {
         curRate: BigNumber;
         feeBp: BigNumber;
         feeFixed: BigNumber;
-        amountPerRewardPoint: BigNumber;
         verified: boolean;
         stable: boolean;
         sharable: boolean;
@@ -443,7 +408,6 @@ export interface AssetRegistry extends BaseContract {
       curRate: BigNumberish,
       feeBp: BigNumberish,
       feeFixed: BigNumberish,
-      amountPerRewardPoint: BigNumberish,
       verified: boolean,
       stable: boolean,
       sharable: boolean,
@@ -494,12 +458,11 @@ export interface AssetRegistry extends BaseContract {
   };
 
   filters: {
-    "AssetRegistryUpdated(address,uint256,uint256,uint256,uint256,bool,bool,bool)"(
+    "AssetRegistryUpdated(address,uint256,uint256,uint256,bool,bool,bool)"(
       addr?: null,
       curRate?: null,
       feeBp?: null,
       feeFixed?: null,
-      amountPerRewardPoint?: null,
       verified?: null,
       stable?: null,
       sharable?: null
@@ -509,7 +472,6 @@ export interface AssetRegistry extends BaseContract {
       curRate?: null,
       feeBp?: null,
       feeFixed?: null,
-      amountPerRewardPoint?: null,
       verified?: null,
       stable?: null,
       sharable?: null
@@ -543,7 +505,6 @@ export interface AssetRegistry extends BaseContract {
       curRate: BigNumberish,
       feeBp: BigNumberish,
       feeFixed: BigNumberish,
-      amountPerRewardPoint: BigNumberish,
       verified: boolean,
       stable: boolean,
       sharable: boolean,
@@ -617,7 +578,6 @@ export interface AssetRegistry extends BaseContract {
       curRate: BigNumberish,
       feeBp: BigNumberish,
       feeFixed: BigNumberish,
-      amountPerRewardPoint: BigNumberish,
       verified: boolean,
       stable: boolean,
       sharable: boolean,

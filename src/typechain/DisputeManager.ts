@@ -88,6 +88,7 @@ export interface DisputeManagerInterface extends utils.Interface {
     "getDispute(uint256,uint256)": FunctionFragment;
     "marketCore()": FunctionFragment;
     "mediatorMgr()": FunctionFragment;
+    "minerReg()": FunctionFragment;
     "owner()": FunctionFragment;
     "predictDur()": FunctionFragment;
     "predictions(uint256,uint256,address,uint256)": FunctionFragment;
@@ -100,12 +101,12 @@ export interface DisputeManagerInterface extends utils.Interface {
     "setEvidenceDur(uint256)": FunctionFragment;
     "setMarketCore(address)": FunctionFragment;
     "setMediatorManager(address)": FunctionFragment;
+    "setMinerRegistry(address)": FunctionFragment;
     "setPredictDur(uint256)": FunctionFragment;
-    "setSharedSlashPortion(uint256)": FunctionFragment;
-    "sharedSlashPortionBP()": FunctionFragment;
     "token()": FunctionFragment;
     "transferOwnership(address)": FunctionFragment;
     "undraftMediator(uint256,uint256)": FunctionFragment;
+    "withdrawBalance(address)": FunctionFragment;
     "withdrawReward()": FunctionFragment;
   };
 
@@ -122,6 +123,7 @@ export interface DisputeManagerInterface extends utils.Interface {
       | "getDispute"
       | "marketCore"
       | "mediatorMgr"
+      | "minerReg"
       | "owner"
       | "predictDur"
       | "predictions"
@@ -134,12 +136,12 @@ export interface DisputeManagerInterface extends utils.Interface {
       | "setEvidenceDur"
       | "setMarketCore"
       | "setMediatorManager"
+      | "setMinerRegistry"
       | "setPredictDur"
-      | "setSharedSlashPortion"
-      | "sharedSlashPortionBP"
       | "token"
       | "transferOwnership"
       | "undraftMediator"
+      | "withdrawBalance"
       | "withdrawReward"
   ): FunctionFragment;
 
@@ -184,6 +186,7 @@ export interface DisputeManagerInterface extends utils.Interface {
     functionFragment: "mediatorMgr",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "minerReg", values?: undefined): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "predictDur",
@@ -224,16 +227,12 @@ export interface DisputeManagerInterface extends utils.Interface {
     values: [string]
   ): string;
   encodeFunctionData(
+    functionFragment: "setMinerRegistry",
+    values: [string]
+  ): string;
+  encodeFunctionData(
     functionFragment: "setPredictDur",
     values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "setSharedSlashPortion",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "sharedSlashPortionBP",
-    values?: undefined
   ): string;
   encodeFunctionData(functionFragment: "token", values?: undefined): string;
   encodeFunctionData(
@@ -243,6 +242,10 @@ export interface DisputeManagerInterface extends utils.Interface {
   encodeFunctionData(
     functionFragment: "undraftMediator",
     values: [BigNumberish, BigNumberish]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "withdrawBalance",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawReward",
@@ -278,6 +281,7 @@ export interface DisputeManagerInterface extends utils.Interface {
     functionFragment: "mediatorMgr",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "minerReg", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "predictDur", data: BytesLike): Result;
   decodeFunctionResult(
@@ -312,15 +316,11 @@ export interface DisputeManagerInterface extends utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(
+    functionFragment: "setMinerRegistry",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
     functionFragment: "setPredictDur",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "setSharedSlashPortion",
-    data: BytesLike
-  ): Result;
-  decodeFunctionResult(
-    functionFragment: "sharedSlashPortionBP",
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "token", data: BytesLike): Result;
@@ -330,6 +330,10 @@ export interface DisputeManagerInterface extends utils.Interface {
   ): Result;
   decodeFunctionResult(
     functionFragment: "undraftMediator",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "withdrawBalance",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -350,9 +354,9 @@ export interface DisputeManagerInterface extends utils.Interface {
     "UpdatedEvidenceDur(uint256)": EventFragment;
     "UpdatedMarketCore(address)": EventFragment;
     "UpdatedMediatorManager(address)": EventFragment;
+    "UpdatedMinerRegistry(address)": EventFragment;
     "UpdatedPredictDur(uint256)": EventFragment;
-    "UpdatedSharedSlashPortion(uint256)": EventFragment;
-    "WithdrawnMediatorReward(address,uint256)": EventFragment;
+    "WithdrawnBalance(address,uint256)": EventFragment;
     "WithdrawnReward(address,uint256)": EventFragment;
   };
 
@@ -368,9 +372,9 @@ export interface DisputeManagerInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "UpdatedEvidenceDur"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedMarketCore"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedMediatorManager"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "UpdatedMinerRegistry"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "UpdatedPredictDur"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "UpdatedSharedSlashPortion"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "WithdrawnMediatorReward"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: "WithdrawnBalance"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "WithdrawnReward"): EventFragment;
 }
 
@@ -528,6 +532,17 @@ export type UpdatedMediatorManagerEvent = TypedEvent<
 export type UpdatedMediatorManagerEventFilter =
   TypedEventFilter<UpdatedMediatorManagerEvent>;
 
+export interface UpdatedMinerRegistryEventObject {
+  addr: string;
+}
+export type UpdatedMinerRegistryEvent = TypedEvent<
+  [string],
+  UpdatedMinerRegistryEventObject
+>;
+
+export type UpdatedMinerRegistryEventFilter =
+  TypedEventFilter<UpdatedMinerRegistryEvent>;
+
 export interface UpdatedPredictDurEventObject {
   val: BigNumber;
 }
@@ -539,28 +554,17 @@ export type UpdatedPredictDurEvent = TypedEvent<
 export type UpdatedPredictDurEventFilter =
   TypedEventFilter<UpdatedPredictDurEvent>;
 
-export interface UpdatedSharedSlashPortionEventObject {
-  val: BigNumber;
+export interface WithdrawnBalanceEventObject {
+  dest: string;
+  amt: BigNumber;
 }
-export type UpdatedSharedSlashPortionEvent = TypedEvent<
-  [BigNumber],
-  UpdatedSharedSlashPortionEventObject
->;
-
-export type UpdatedSharedSlashPortionEventFilter =
-  TypedEventFilter<UpdatedSharedSlashPortionEvent>;
-
-export interface WithdrawnMediatorRewardEventObject {
-  claimer: string;
-  amount: BigNumber;
-}
-export type WithdrawnMediatorRewardEvent = TypedEvent<
+export type WithdrawnBalanceEvent = TypedEvent<
   [string, BigNumber],
-  WithdrawnMediatorRewardEventObject
+  WithdrawnBalanceEventObject
 >;
 
-export type WithdrawnMediatorRewardEventFilter =
-  TypedEventFilter<WithdrawnMediatorRewardEvent>;
+export type WithdrawnBalanceEventFilter =
+  TypedEventFilter<WithdrawnBalanceEvent>;
 
 export interface WithdrawnRewardEventObject {
   claimer: string;
@@ -601,8 +605,8 @@ export interface DisputeManager extends BaseContract {
 
   functions: {
     commitVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
@@ -677,6 +681,8 @@ export interface DisputeManager extends BaseContract {
 
     mediatorMgr(overrides?: CallOverrides): Promise<[string]>;
 
+    minerReg(overrides?: CallOverrides): Promise<[string]>;
+
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     predictDur(overrides?: CallOverrides): Promise<[BigNumber]>;
@@ -700,9 +706,9 @@ export interface DisputeManager extends BaseContract {
     ): Promise<ContractTransaction>;
 
     revealVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
-      vote: string,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
+      _vote: string,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
@@ -736,17 +742,15 @@ export interface DisputeManager extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
+    setMinerRegistry(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
     setPredictDur(
       val: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
-
-    setSharedSlashPortion(
-      val: BigNumberish,
-      overrides?: Overrides & { from?: string }
-    ): Promise<ContractTransaction>;
-
-    sharedSlashPortionBP(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     token(overrides?: CallOverrides): Promise<[string]>;
 
@@ -761,14 +765,19 @@ export interface DisputeManager extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
 
+    withdrawBalance(
+      dest: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<ContractTransaction>;
+
     withdrawReward(
       overrides?: Overrides & { from?: string }
     ): Promise<ContractTransaction>;
   };
 
   commitVote(
-    orderId: BigNumberish,
-    ticketIdx: BigNumberish,
+    _orderId: BigNumberish,
+    _ticketIdx: BigNumberish,
     _hash: BytesLike,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
@@ -843,6 +852,8 @@ export interface DisputeManager extends BaseContract {
 
   mediatorMgr(overrides?: CallOverrides): Promise<string>;
 
+  minerReg(overrides?: CallOverrides): Promise<string>;
+
   owner(overrides?: CallOverrides): Promise<string>;
 
   predictDur(overrides?: CallOverrides): Promise<BigNumber>;
@@ -866,9 +877,9 @@ export interface DisputeManager extends BaseContract {
   ): Promise<ContractTransaction>;
 
   revealVote(
-    orderId: BigNumberish,
-    ticketIdx: BigNumberish,
-    vote: string,
+    _orderId: BigNumberish,
+    _ticketIdx: BigNumberish,
+    _vote: string,
     _hash: BytesLike,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
@@ -899,17 +910,15 @@ export interface DisputeManager extends BaseContract {
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
+  setMinerRegistry(
+    addr: string,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
   setPredictDur(
     val: BigNumberish,
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
-
-  setSharedSlashPortion(
-    val: BigNumberish,
-    overrides?: Overrides & { from?: string }
-  ): Promise<ContractTransaction>;
-
-  sharedSlashPortionBP(overrides?: CallOverrides): Promise<BigNumber>;
 
   token(overrides?: CallOverrides): Promise<string>;
 
@@ -924,14 +933,19 @@ export interface DisputeManager extends BaseContract {
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
+  withdrawBalance(
+    dest: string,
+    overrides?: Overrides & { from?: string }
+  ): Promise<ContractTransaction>;
+
   withdrawReward(
     overrides?: Overrides & { from?: string }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     commitVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
       _hash: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1006,6 +1020,8 @@ export interface DisputeManager extends BaseContract {
 
     mediatorMgr(overrides?: CallOverrides): Promise<string>;
 
+    minerReg(overrides?: CallOverrides): Promise<string>;
+
     owner(overrides?: CallOverrides): Promise<string>;
 
     predictDur(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1027,9 +1043,9 @@ export interface DisputeManager extends BaseContract {
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     revealVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
-      vote: string,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
+      _vote: string,
       _hash: BytesLike,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -1051,14 +1067,9 @@ export interface DisputeManager extends BaseContract {
 
     setMediatorManager(addr: string, overrides?: CallOverrides): Promise<void>;
 
+    setMinerRegistry(addr: string, overrides?: CallOverrides): Promise<void>;
+
     setPredictDur(val: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    setSharedSlashPortion(
-      val: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
-
-    sharedSlashPortionBP(overrides?: CallOverrides): Promise<BigNumber>;
 
     token(overrides?: CallOverrides): Promise<string>;
 
@@ -1072,6 +1083,8 @@ export interface DisputeManager extends BaseContract {
       dispIdx: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
+
+    withdrawBalance(dest: string, overrides?: CallOverrides): Promise<void>;
 
     withdrawReward(overrides?: CallOverrides): Promise<void>;
   };
@@ -1211,22 +1224,19 @@ export interface DisputeManager extends BaseContract {
     ): UpdatedMediatorManagerEventFilter;
     UpdatedMediatorManager(addr?: null): UpdatedMediatorManagerEventFilter;
 
+    "UpdatedMinerRegistry(address)"(
+      addr?: null
+    ): UpdatedMinerRegistryEventFilter;
+    UpdatedMinerRegistry(addr?: null): UpdatedMinerRegistryEventFilter;
+
     "UpdatedPredictDur(uint256)"(val?: null): UpdatedPredictDurEventFilter;
     UpdatedPredictDur(val?: null): UpdatedPredictDurEventFilter;
 
-    "UpdatedSharedSlashPortion(uint256)"(
-      val?: null
-    ): UpdatedSharedSlashPortionEventFilter;
-    UpdatedSharedSlashPortion(val?: null): UpdatedSharedSlashPortionEventFilter;
-
-    "WithdrawnMediatorReward(address,uint256)"(
-      claimer?: null,
-      amount?: null
-    ): WithdrawnMediatorRewardEventFilter;
-    WithdrawnMediatorReward(
-      claimer?: null,
-      amount?: null
-    ): WithdrawnMediatorRewardEventFilter;
+    "WithdrawnBalance(address,uint256)"(
+      dest?: null,
+      amt?: null
+    ): WithdrawnBalanceEventFilter;
+    WithdrawnBalance(dest?: null, amt?: null): WithdrawnBalanceEventFilter;
 
     "WithdrawnReward(address,uint256)"(
       claimer?: null,
@@ -1237,8 +1247,8 @@ export interface DisputeManager extends BaseContract {
 
   estimateGas: {
     commitVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
@@ -1285,6 +1295,8 @@ export interface DisputeManager extends BaseContract {
 
     mediatorMgr(overrides?: CallOverrides): Promise<BigNumber>;
 
+    minerReg(overrides?: CallOverrides): Promise<BigNumber>;
+
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     predictDur(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1302,9 +1314,9 @@ export interface DisputeManager extends BaseContract {
     ): Promise<BigNumber>;
 
     revealVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
-      vote: string,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
+      _vote: string,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
@@ -1338,17 +1350,15 @@ export interface DisputeManager extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
+    setMinerRegistry(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
     setPredictDur(
       val: BigNumberish,
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
-
-    setSharedSlashPortion(
-      val: BigNumberish,
-      overrides?: Overrides & { from?: string }
-    ): Promise<BigNumber>;
-
-    sharedSlashPortionBP(overrides?: CallOverrides): Promise<BigNumber>;
 
     token(overrides?: CallOverrides): Promise<BigNumber>;
 
@@ -1363,6 +1373,11 @@ export interface DisputeManager extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
 
+    withdrawBalance(
+      dest: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<BigNumber>;
+
     withdrawReward(
       overrides?: Overrides & { from?: string }
     ): Promise<BigNumber>;
@@ -1370,8 +1385,8 @@ export interface DisputeManager extends BaseContract {
 
   populateTransaction: {
     commitVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
@@ -1418,6 +1433,8 @@ export interface DisputeManager extends BaseContract {
 
     mediatorMgr(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    minerReg(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     predictDur(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1435,9 +1452,9 @@ export interface DisputeManager extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     revealVote(
-      orderId: BigNumberish,
-      ticketIdx: BigNumberish,
-      vote: string,
+      _orderId: BigNumberish,
+      _ticketIdx: BigNumberish,
+      _vote: string,
       _hash: BytesLike,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
@@ -1477,18 +1494,14 @@ export interface DisputeManager extends BaseContract {
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 
+    setMinerRegistry(
+      addr: string,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
     setPredictDur(
       val: BigNumberish,
       overrides?: Overrides & { from?: string }
-    ): Promise<PopulatedTransaction>;
-
-    setSharedSlashPortion(
-      val: BigNumberish,
-      overrides?: Overrides & { from?: string }
-    ): Promise<PopulatedTransaction>;
-
-    sharedSlashPortionBP(
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     token(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -1501,6 +1514,11 @@ export interface DisputeManager extends BaseContract {
     undraftMediator(
       orderId: BigNumberish,
       dispIdx: BigNumberish,
+      overrides?: Overrides & { from?: string }
+    ): Promise<PopulatedTransaction>;
+
+    withdrawBalance(
+      dest: string,
       overrides?: Overrides & { from?: string }
     ): Promise<PopulatedTransaction>;
 

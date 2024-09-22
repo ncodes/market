@@ -1,6 +1,6 @@
+import { handleAxiosError } from "@/libs/helpers.ts";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
-import { handleAxiosError } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
 
 export interface GetCryptoRateParams {
@@ -237,7 +237,35 @@ export function useMiscService() {
     }
   }
 
+  /**
+   * Convert synth to crypto
+   * @param ctx The query function context
+   * @returns
+   */
+  async function convertSynthToCrypto(
+    ctx: QueryFunctionContext<[string, string | undefined, { network: string; synth: string; to: string }]>,
+  ): Promise<{
+    synthUsd: string;
+    tokenUsd: string;
+    value: string;
+  }> {
+    try {
+      const [, , params] = ctx.queryKey;
+      const { network, to, synth } = params;
+      const apiUrl = getChainInfo().apiUrl;
+      const resp = await axios({
+        method: "get",
+        url: `${apiUrl}/v1/misc/conv-synth-crypto/${network}/${synth}/${to}`,
+      } as AxiosRequestConfig);
+
+      return resp.data.data;
+    } catch (e) {
+      return Promise.reject(handleAxiosError(e as never));
+    }
+  }
+
   return {
+    convertSynthToCrypto,
     getCryptoRate,
     getSynthRate,
     getProtocolFees,

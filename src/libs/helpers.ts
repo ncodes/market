@@ -310,14 +310,13 @@ export function humanizeBytes(bytes: number | string) {
   return prettyBytes(Number(bytes));
 }
 
-export function uint8ArrayToB64(bytes: Uint8Array) {
-  return Buffer.from(bytes).toString("base64");
-}
+export function toAbr(str: string): string {
+  if (!str) return "";
 
-export function iOSversion() {
-  if (/iP(hone|od|ad)/.test(navigator.platform)) {
-    const v = navigator.userAgent.match(/OS (\d+)_(\d+)_?(\d+)?/);
-    if (!v) return [];
-    return [parseInt(v[1], 10), parseInt(v[2], 10), parseInt(v[3] || "0", 10)];
+  const words = str.split(" ");
+  if (words.length === 1) {
+    return str.slice(0, 2).toUpperCase();
   }
+
+  return words.map((word) => word.charAt(0).toUpperCase()).join("");
 }

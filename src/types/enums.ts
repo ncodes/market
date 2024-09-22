@@ -68,3 +68,9 @@ export enum NotificationType {
   OfferExecuted = "offer:executed",
   ChatNewMessage = "chat:new-message",
 }
+
+export enum SourceType {
+  Token = 0,
+  Native = 1,
+  Org = 2,
+}

@@ -12,6 +12,7 @@ export interface IConnector {
     args: unknown[],
     value?: bigint,
     noWait?: boolean,
+    confirmations?: number,
   ): Promise<[`0x${string}`, TransactionReceipt]>;
   sendTransaction(to: string, value: bigint, noWait?: boolean, confirmations?: number): Promise<Address>;
   withdrawWrappedToken(amount: bigint, noWait?: boolean, confirmations?: number): Promise<Address>;

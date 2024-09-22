@@ -1,6 +1,6 @@
 import { getChains } from "@jointlabs/meta";
 import moment from "moment";
-import { hardhat } from "viem/chains";
+import { Chain, hardhat } from "viem/chains";
 import { isProd } from "../../libs/helpers";
 
 /**
@@ -13,7 +13,7 @@ export function createSignatureMessage(address: string, email?: string, expireTi
   const emailStr = !email ? "" : `Email: ${email}`;
   const msg = `Welcome to ${import.meta.env.VITE_APP_NAME}!
   
-Click Sign button to sign and accept the ${import.meta.env.VITE_APP_NAME} Terms of Service: https://clipfun/tos.
+Click Sign button to sign and accept the ${import.meta.env.VITE_APP_NAME} Terms of Service: https://swopler.com/tos.
   
 This request will not trigger a blockchain transaction or cost any gas fees.
   
@@ -26,7 +26,7 @@ Timestamp: ${moment().toISOString()}`;
   return Buffer.from(msg, "utf-8");
 }
 
-export function getSupportedChains() {
+export function getSupportedChains(): Chain[] {
   let chains = getChains();
   if (isProd()) {
     chains = chains.filter((chain) => chain.id !== hardhat.id);

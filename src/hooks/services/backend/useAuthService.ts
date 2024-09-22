@@ -21,11 +21,15 @@ export function useAuthService() {
    * @param signature - The signature derived from the message
    * @param refCode - The referrer code
    */
-  async function auth(
-    message: string,
-    signature: string,
-    refCode: string | null,
-  ): Promise<{ token?: string; user: User }> {
+  async function auth({
+    message,
+    signature,
+    refCode,
+  }: {
+    message: string;
+    signature: string;
+    refCode: string | null;
+  }): Promise<{ token?: string; user: User }> {
     try {
       const resp = await axios({
         method: "post",
@@ -45,10 +49,7 @@ export function useAuthService() {
    * @param otp The one time password sent to the user
    * @returns
    */
-  async function verifyEmail(
-    userId: string,
-    otp: string,
-  ): Promise<{ token?: string; user: User }> {
+  async function verifyEmail(userId: string, otp: string): Promise<{ token?: string; user: User }> {
     try {
       const resp = await axios({
         method: "put",
@@ -68,15 +69,16 @@ export function useAuthService() {
    */
   async function deleteSession(all: boolean): Promise<void> {
     try {
-      const headers = { "Content-Type": "application/json" };
       const token = getAccessToken(address);
-      headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
       await axios({
         method: "delete",
         url: `${getChainInfo().apiUrl}/v1/auth/session`,
         params: all ? { all: "true" } : undefined,
-        headers,
+        headers: {
+          "Content-Type": "application/json",
+          authorization: token ? `Bearer ${token}` : undefined,
+        },
       });
 
       return Promise.resolve(undefined);
