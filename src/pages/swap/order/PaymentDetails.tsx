@@ -1,21 +1,67 @@
+import { InfoIcon } from "lucide-react";
 import { Fragment } from "react";
+import { ToolTip } from "../../../components/toolTip";
+import { useConnectorContext } from "../../../hooks/connectors/useConnectorContext";
+import { cn } from "../../../libs/utils";
+import { getPayer, iamSellerOrBuyer, isOrderRouter } from "../utils";
+import { SwapPaymentAmount } from "./SwapPaymentAmount";
 
 export function PaymentDetails({ order }: { order: Swap }) {
-  if (!order?.takerPaymentMethod && !order.providerPaymentMethod) return null;
-  const paymentMethod = order.providerPaymentMethod || order.takerPaymentMethod;
+  const { address } = useConnectorContext();
+  const isRouter = isOrderRouter(order, address);
+  const isPayer = getPayer(order) == address;
 
-  if (paymentMethod.type == 1) {
+  if (!isRouter) {
+    if (!order?.takerPaymentMethod && !order.providerPaymentMethod) return null;
+    const payer = getPayer(order) == address;
+    let paymentMethod = order.providerPaymentMethod || order.takerPaymentMethod;
+    const hasRouter = !!order.payRouterRequest;
+    paymentMethod = hasRouter && payer ? order.payRouterRequest.routes[0].paymentMethod : paymentMethod;
+    return (
+      <>
+        <PaymentInfo paymentMethod={paymentMethod} />
+        <div className="mt-2 flex items-center gap-1 border-t border-gray-800/50 pt-2">
+          <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">Amount:</span>
+          <span className="font-dosis text-lg font-semibold text-screaming-green">
+            <SwapPaymentAmount order={order} address={address} />
+          </span>
+          <ToolTip
+            tip={
+              isPayer
+                ? `The exact amount you are are expected to send to the ${iamSellerOrBuyer(order, address, true)}. ${hasRouter ? "This amount includes routing fees." : ""}`
+                : `The exact amount you are expected to receive from the ${iamSellerOrBuyer(order, address, true)}.`
+            }
+            className="ml-1 text-gray-400/30 transition-all duration-500 hover:text-gray-400"
+          >
+            <InfoIcon className="h-4 w-4" />
+          </ToolTip>
+        </div>
+      </>
+    );
+  }
+
+  return null;
+}
+
+export function PaymentInfo({ paymentMethod, className }: { paymentMethod: PaymentMethod; className?: string }) {
+  if (paymentMethod?.type == 1) {
     return (
       <Fragment>
-        <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">Bank Name:</span>
+        <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
+          Bank Name:
+        </span>
         <span>{paymentMethod.name}</span> <br />
-        <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">Account Name:</span>
+        <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
+          Account Name:
+        </span>
         <span>{paymentMethod.bankAccountName}</span> <br />
-        <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">Account Number:</span>
+        <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
+          Account Number:
+        </span>
         <span>{paymentMethod.bankAccountNumber}</span> <br />
         {paymentMethod.routingNumber && (
           <Fragment>
-            <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">
+            <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
               Routing Number:
             </span>
             <span>{paymentMethod.routingNumber}</span> <br />
@@ -23,13 +69,15 @@ export function PaymentDetails({ order }: { order: Swap }) {
         )}
         {paymentMethod.swiftCode && (
           <Fragment>
-            <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">SWIFT Code:</span>{" "}
+            <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
+              SWIFT Code:
+            </span>{" "}
             <span>{paymentMethod.swiftCode}</span> <br />
           </Fragment>
         )}
         {paymentMethod.additionalInfo && (
           <Fragment>
-            <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">
+            <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
               Additional Info:
             </span>
             <span className="font-dosis text-lg">{paymentMethod.additionalInfo}</span> <br />
@@ -39,12 +87,16 @@ export function PaymentDetails({ order }: { order: Swap }) {
     );
   }
 
-  if (paymentMethod.type == 2) {
+  if (paymentMethod?.type == 2) {
     return (
       <Fragment>
-        <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">Wallet Service:</span>{" "}
+        <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
+          Wallet Service:
+        </span>{" "}
         <span>{paymentMethod.name}</span> <br />
-        <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">Account ID:</span>{" "}
+        <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
+          Account ID:
+        </span>{" "}
         <span>{paymentMethod.accountId}</span> <br />
         {paymentMethod.additionalInfo && (
           <Fragment>

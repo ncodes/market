@@ -1,8 +1,8 @@
+import { handleAxiosError, toLD } from "@/libs/helpers.ts";
+import { SwapSide } from "@/pages/swap/types.ts";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
-import { handleAxiosError, toLD } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
-import { SwapSide } from "@/pages/swap/types.ts";
 
 export interface ListLiquidityParams {
   provider?: string;
@@ -82,6 +82,7 @@ export function useLiquidityService() {
     ctx: QueryFunctionContext<
       [
         string,
+        Market,
         {
           address: string;
           network: string;
@@ -95,7 +96,7 @@ export function useLiquidityService() {
   ): Promise<FillResult> {
     try {
       const headers = {};
-      const [, params] = ctx.queryKey;
+      const [, , params] = ctx.queryKey;
       const { network, marketAddress, address, decimals } = params;
 
       let amount = "";

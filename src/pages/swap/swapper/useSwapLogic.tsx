@@ -194,9 +194,9 @@ export function useSwapLogic() {
     const getPairMarketQry = useQuery({
       queryKey: [
         "getPairMarket",
+        state.buyToken!,
+        state.sellToken!,
         {
-          base: state.buyToken?.address as string,
-          quote: state.sellToken?.address as string,
           network: chainInfo!.queryName as string,
           creator: Operator,
           baseType: getTokenType(state.buyToken),
@@ -210,16 +210,27 @@ export function useSwapLogic() {
 
     // Handle pair market fetch results
     useEffect(() => {
-      if (!getPairMarketQry.isFetched) return;
-      if (getPairMarketQry.isSuccess && getPairMarketQry.data) {
+      if (getPairMarketQry.isSuccess) {
         const market = getPairMarketQry.data;
         setState((prev) => ({ ...prev, market: market, isMarketUnknown: false }));
       } else if (getPairMarketQry.isError) {
         if (isReqErr404(getPairMarketQry.error)) {
-          setState((prev) => ({ ...prev, isMarketUnknown: true }));
+          setState((prev) => ({
+            ...prev,
+            isMarketUnknown: true,
+            market: undefined,
+            selectedLiquidity: undefined,
+            selectedPayRoutes: [],
+          }));
         }
       }
-    }, [getPairMarketQry.data, getPairMarketQry.isSuccess, getPairMarketQry.isError]);
+    }, [
+      getPairMarketQry.data,
+      getPairMarketQry.isSuccess,
+      getPairMarketQry.isError,
+      getPairMarketQry.fetchStatus,
+      getPairMarketQry.isRefetching,
+    ]);
   }
 
   // Refetch market on token side change
@@ -234,6 +245,7 @@ export function useSwapLogic() {
   const fillQry = useQuery({
     queryKey: [
       "fill",
+      state.market!,
       {
         address,
         network: chainInfo!.queryName as string,
@@ -307,11 +319,14 @@ export function useSwapLogic() {
   useEffect(() => {
     if (minRoutesBondQry.isSuccess) {
       const minBondLD = toLDD(minRoutesBondQry.data.value, chainInfo?.bondToken.decimals);
-      setState((prev) => ({
-        ...prev,
-        requiredMinBond: minBondLD.mul(state.sellAmount!).toFixed(0),
-        selectedPayRoutes: [],
-      }));
+      const requiredMinBond = minBondLD.mul(state.sellAmount!).toFixed(0);
+      if (requiredMinBond != state.requiredMinBond) {
+        setState((prev) => ({
+          ...prev,
+          requiredMinBond: minBondLD.mul(state.sellAmount!).toFixed(0),
+          selectedPayRoutes: [],
+        }));
+      }
     }
   }, [minRoutesBondQry.data, minRoutesBondQry.status, minRoutesBondQry.fetchStatus]);
 
@@ -335,6 +350,7 @@ export function useSwapLogic() {
     // Handle payment routes fetch results
     useEffect(() => {
       if (getPayRoutesQry.data) setState((prev) => ({ ...prev, payRoutes: getPayRoutesQry.data }));
+      console.log(">", 4);
     }, [getPayRoutesQry.data, getPayRoutesQry.isSuccess, getPayRoutesQry.isError]);
   }
 
@@ -412,9 +428,17 @@ export function useSwapLogic() {
       errMsg = "";
     let txReceipt: TransactionReceipt | undefined;
     let error: Error | undefined;
-    if (market?.instant) {
+
+    if (market.instant) {
       try {
         txHash = await route(sellToken, fillQry.data, 0, 0);
+        setState((prev) => ({
+          ...prev,
+          buyAmount: "",
+          sellAmount: "",
+          swapLoading: false,
+          autoInitiateSwap: false,
+        }));
       } catch (e) {
         errMsg = routerHumanizeErrors(e);
         error = e as Error;
@@ -445,14 +469,17 @@ export function useSwapLogic() {
         );
         await delay(5000);
 
+        const targetIndex = market.manager ? 0 : txReceipt.logs.length - 1;
         const event = decodeEventLog({
           abi: chainInfo?.contracts?.core.abi,
-          data: txReceipt.logs[txReceipt.logs.length - 1].data,
-          topics: txReceipt.logs[txReceipt.logs.length - 1].topics,
+          data: txReceipt.logs[targetIndex].data,
+          topics: txReceipt.logs[targetIndex].topics,
         }) as { args: { numTypeInfo: bigint[] } };
 
         const orderId = (event.args as { numTypeInfo: bigint[] }).numTypeInfo[0];
         navigate(`/swap/${orderId}`);
+
+        setState((prev) => ({ ...prev, swapLoading: false, autoInitiateSwap: false }));
       } catch (e) {
         errMsg = coreHumanizeErrors(error);
         error = e as Error;
@@ -461,6 +488,7 @@ export function useSwapLogic() {
 
     if (!errMsg) {
       const toastMsg = buildSwapSuccessMsg(
+        market.instant,
         buyAmount!,
         buyToken.symbol!,
         sellAmount,
@@ -469,13 +497,6 @@ export function useSwapLogic() {
         chainInfo.blockExplorer!,
       );
       toast.success(toastMsg, { position: "top-right", duration: 6000 });
-      setState((prev) => ({
-        ...prev,
-        buyAmount: "",
-        sellAmount: "",
-        swapLoading: false,
-        autoInitiateSwap: false,
-      }));
     } else {
       logError(error);
       setState((prev) => ({ ...prev, swapLoading: false, autoInitiateSwap: false }));
@@ -501,6 +522,7 @@ function isOnchainAsset(assetType: AssetType) {
 }
 
 function buildSwapSuccessMsg(
+  instant: boolean,
   buyAmount: string,
   buySymbol: string,
   sellAmount: string,
@@ -510,18 +532,40 @@ function buildSwapSuccessMsg(
 ) {
   return (
     <div>
-      <p className="text-sm font-medium">Swap Completed</p>
-      <p className="text-gray-200">
-        You swapped{" "}
-        <b className="font-bold text-white">
-          {trimZeros(toDec(sellAmount).toFixed(4))} {sellSymbol}
-        </b>{" "}
-        for{" "}
-        <b className="font-bold text-white">
-          {trimZeros(toDec(buyAmount).toFixed(4))} {buySymbol}
-        </b>
-        .
-      </p>
+      {instant && (
+        <>
+          <p className="text-sm font-medium">Swap Completed</p>
+          <p className="text-gray-200">
+            You sold{" "}
+            <b className="font-bold text-white">
+              {trimZeros(toDec(sellAmount).toFixed(4))} {sellSymbol}
+            </b>{" "}
+            for{" "}
+            <b className="font-bold text-white">
+              {trimZeros(toDec(buyAmount).toFixed(4))} {buySymbol}
+            </b>
+            .
+          </p>
+        </>
+      )}
+
+      {!instant && (
+        <>
+          <p className="text-sm font-medium">Order Created</p>
+          <p className="text-gray-200">
+            New order to sell{" "}
+            <b className="font-bold text-white">
+              {trimZeros(toDec(sellAmount).toFixed(4))} {sellSymbol}
+            </b>{" "}
+            for{" "}
+            <b className="font-bold text-white">
+              {trimZeros(toDec(buyAmount).toFixed(4))} {buySymbol}
+            </b>
+            .
+          </p>
+        </>
+      )}
+
       <div className="flex gap-2 text-xs font-light text-gray-400">
         <a href={`${blockExplorer}/tx/${txHash}`} target="_blank" rel="noreferrer">
           View Tx

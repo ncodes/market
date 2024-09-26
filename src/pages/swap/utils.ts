@@ -1,5 +1,7 @@
 import { AssetType } from "@/types/enums.ts";
 import { TokenList } from "@jointlabs/meta";
+import Decimal from "decimal.js";
+import { toDec } from "../../libs/helpers";
 
 /**
  * Get the token type
@@ -63,8 +65,26 @@ export function getPayer(swap: Swap) {
   return payer;
 }
 
-export function calculateRoutesFee(paths: PayRouterRoute[]) {
-  return paths.reduce((acc, path) => acc + (path.fee || 0), 0);
+/**
+ * Calculate the total fee of the given routes
+ * @param paths - The routes to calculate the fee for
+ * @param startIndex - The index to start calculating the fee from
+ * @returns The total fee of the given routes
+ * @returns
+ */
+export function calculateRoutesFee(paths: PayRouterRoute[], startIndex = 0) {
+  return paths.slice(startIndex).reduce((acc, path) => acc + (path.fee || 0), 0);
+}
+
+/**
+ * Calculate the total fee of the given routes. It's different from calculateRoutesFee
+ * because it accepts an array of fees instead of an array of routes
+ * @param fees - The fees to calculate the total fee for
+ * @param startIndex - The index to start calculating the fee from
+ * @returns The total fee of the given routes
+ */
+export function calculateRoutesFee2(fees: number[], startIndex = 0) {
+  return fees.slice(startIndex).reduce((acc, fee) => acc + fee, 0);
 }
 
 export function isSwapCounterparty(swap: Swap, account: string) {
@@ -77,4 +97,36 @@ export function iamSellerOrBuyer(order: Swap, address: string, opposite?: boolea
   if (order.taker == address) label = "seller";
   label = !opposite ? label : label == "seller" ? "buyer" : "seller";
   return capitalize ? label.charAt(0).toUpperCase() + label.slice(1) : label;
+}
+
+/**
+ * Checks if an address is a router in the order
+ * @param order The order to check
+ * @param address The address to check
+ * @returns true if the address is a router in the order, false otherwise
+ */
+export function isOrderRouter(order: Swap, address: string) {
+  if (!order.payRouterRequest) return false;
+  return order.payRouterRequest.routes.some((route) => route.owner == address);
+}
+
+/**
+ * Convert currency from one currency to another
+ * @param amount - The amount to convert
+ * @param fromCurrency - The currency to convert from
+ * @param toCurrency - The currency to convert to
+ * @param rates - The rates to use for the conversion. The rates should be in the format of { "USD": 1, "EUR": 0.85, "JPY": 110 }
+ * @returns The converted amount
+ */
+export function convertCurrency(
+  amount: number | string | Decimal,
+  fromCurrency: string,
+  toCurrency: string,
+  rates: Record<string, number>,
+) {
+  const amt = toDec(amount);
+  if (!rates[fromCurrency] || !rates[toCurrency]) throw new Error("Invalid currency code");
+  const amountInUSD = amt.div(rates[fromCurrency]);
+  const amountInTargetCurrency = amountInUSD.mul(rates[toCurrency]);
+  return amountInTargetCurrency.toFixed(6);
 }

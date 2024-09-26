@@ -1,8 +1,9 @@
+import { handleAxiosError } from "@/libs/helpers.ts";
+import { AssetType } from "@/types/enums.ts";
+import { TokenList } from "@jointlabs/meta";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
-import { handleAxiosError } from "@/libs/helpers.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
-import { AssetType } from "@/types/enums.ts";
 
 export type ListMarketsIDs = "getMarkets" | "searchMarkets" | "getMarketsByCreator" | "getMarketsByAddresses";
 export interface ListMarketsParams {
@@ -90,10 +91,10 @@ export function useMarketService() {
     ctx: QueryFunctionContext<
       [
         string,
+        TokenList.Token,
+        TokenList.Token,
         {
           network: string;
-          base: string;
-          quote: string;
           creator?: string;
           baseType?: AssetType;
           quoteType?: AssetType;
@@ -102,12 +103,12 @@ export function useMarketService() {
     >,
   ): Promise<Market> {
     try {
-      const [, params] = ctx.queryKey;
-      const { network, base, quote, creator } = params;
+      const [, base, quote, params] = ctx.queryKey;
+      const { network, creator } = params;
       const headers = {};
       const resp = await axios({
         method: "get",
-        url: `${getChainInfo().apiUrl}/v1/markets/${base}/${quote}`,
+        url: `${getChainInfo().apiUrl}/v1/markets/${base.address}/${quote.address}`,
         params: {
           net: network,
           creator,

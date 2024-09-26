@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip.tsx";
-import { cn } from "../libs/utils.ts";
 import { TooltipPortal } from "@radix-ui/react-tooltip";
+import React, { useState } from "react";
+import { cn } from "../libs/utils.ts";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip.tsx";
 
 export function ToolTip(props: {
   tip?: React.ReactNode;
@@ -23,7 +23,7 @@ export function ToolTip(props: {
           setOpen(open);
         }}
       >
-        <TooltipTrigger className={props.className} asChild>
+        <TooltipTrigger className={cn("transition-all duration-500", props.className)} asChild>
           <span
             className="cursor-pointer"
             onClick={(e) => {

@@ -255,6 +255,7 @@ declare global {
     payRouterRequest: PayRouterRequest;
     takerPaymentMethod: PaymentMethod;
     providerPaymentMethod: PaymentMethod;
+    rates: Record<string, number>;
   }
 
   interface Offer {
@@ -699,6 +700,7 @@ declare global {
   }
 
   interface PayRouterRoute {
+    id: string;
     network: string;
     owner: string;
     routeId: number;
@@ -727,7 +729,16 @@ declare global {
     cancelled: boolean;
     orderId: number;
     routeIds: number[];
-    routeFees: string[];
+    routeFees: number[];
     routes: PayRouterRoute[];
+    routePayments: PayRouterRequestPayment[];
+  }
+
+  interface PayRouterRequestPayment {
+    network: string;
+    payer: string;
+    requestId: string;
+    routeId: string;
+    bond: string;
   }
 }

@@ -91,7 +91,7 @@ export function trimZeros(amt: string | number | Decimal) {
  * @param amount The target amount (in high denomination like eth)
  * @param decimals The decimal of the asset
  */
-export function toLD(amount: bigint | Decimal, decimals = 18) {
+export function toLD(amount: bigint | Decimal | string, decimals = 18) {
   return toLDD(amount, decimals).toFixed(0);
 }
 
