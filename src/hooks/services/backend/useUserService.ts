@@ -56,9 +56,7 @@ export function useUserService() {
    */
   async function logOnlineStatus(params: LogOnlineStatusParams) {
     try {
-      const headers = {};
       const token = getAccessToken(address);
-      headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
       const resp = await axios({
         url: `${getChainInfo().apiUrl}/v1/users/log-status`,
@@ -67,7 +65,10 @@ export function useUserService() {
           ...params,
           net: params.net,
         },
-        headers,
+        headers: {
+          authorization: token ? `Bearer ${token}` : undefined,
+          "Content-Type": "application/json",
+        },
       } as AxiosRequestConfig);
 
       return Promise.resolve(resp.data.data);
@@ -82,15 +83,40 @@ export function useUserService() {
    */
   async function registerDevice() {
     try {
-      const headers = {};
       const token = getAccessToken(address);
-      headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
       await axios({
         url: `${getChainInfo().apiUrl}/v1/users/register-device`,
         method: "post",
         data: {},
-        headers,
+        headers: {
+          authorization: token ? `Bearer ${token}` : undefined,
+          "Content-Type": "application/json",
+        },
+      } as AxiosRequestConfig);
+
+      return Promise.resolve(undefined);
+    } catch (e) {
+      return Promise.reject(handleAxiosError(e as never));
+    }
+  }
+
+  /**
+   * Update default payment method
+   * @param id The payment method id
+   * @returns
+   */
+  async function updateDefaultPaymentMethod(id: string) {
+    try {
+      const token = getAccessToken(address);
+
+      await axios({
+        url: `${getChainInfo().apiUrl}/v1/users/payment-method/${id}`,
+        method: "put",
+        headers: {
+          authorization: token ? `Bearer ${token}` : undefined,
+          "Content-Type": "application/json",
+        },
       } as AxiosRequestConfig);
 
       return Promise.resolve(undefined);
@@ -176,5 +202,6 @@ export function useUserService() {
     getEnergonBalance,
     getNFTInfo,
     getGalxePoints,
+    updateDefaultPaymentMethod,
   };
 }

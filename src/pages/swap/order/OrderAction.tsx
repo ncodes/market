@@ -49,9 +49,9 @@ export function OrderAction({
   return (
     <>
       {isSwapCounterparty(order, address) && (
-        <div className="flex w-full flex-col gap-2 pt-2">
+        <div className="flex w-full flex-col gap-2">
           {!!token && ready && payer == address && !order.paid && !order.cancelled && (
-            <div className="mt-3 flex w-full flex-col gap-2 border-t border-gray-800/50 pt-2">
+            <div className="flex w-full flex-col gap-2 border-t border-gray-800/50 py-2">
               <Button
                 className={cn(
                   "w-full rounded-2xl bg-yellow-400/90 text-xl font-medium text-black duration-500 animate-in fade-in-10 hover:scale-[1.01] hover:bg-yellow-400",
@@ -72,7 +72,7 @@ export function OrderAction({
             !order.released &&
             !order.cancelled &&
             (!order.payRouterRequest || lastRouterPaid) && (
-              <div className="flex w-full flex-col gap-2 border-t border-gray-800/50">
+              <div className="flex w-full flex-col gap-2 border-t border-gray-800/50 py-2">
                 {order.paid && (
                   <div className="flex items-center justify-center gap-2 rounded-lg bg-yellow-900/30 p-2 text-yellow-400">
                     <AlertTriangle className="h-4 w-4 text-yellow-300" />

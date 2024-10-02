@@ -11,7 +11,7 @@ import { OrderAssets } from "./OrderAssets";
 import { OrderParticipants } from "./OrderParticipants";
 import { OrderProgress } from "./OrderProgress";
 import { PaymentInformation } from "./PaymentInformation";
-import { RouteSourceDetails } from "./RouteSourceDetails";
+import { RoutePathDetails } from "./RoutePathDetails";
 import { useSwapOrderLogic } from "./useSwapOrderLogic";
 
 export function SwapOrder() {
@@ -60,7 +60,7 @@ export function SwapOrder() {
             {/* Payment Details */}
             {isSwapCounterparty(order, address) && <PaymentInformation order={order} />}
 
-            {isRouter && <RouteSourceDetails order={order} />}
+            {isRouter && <RoutePathDetails order={order} />}
 
             {/* Progress */}
             {(isSwapCounterparty(order, address) || isRouter) && <OrderProgress order={order} />}

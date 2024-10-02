@@ -9,7 +9,10 @@ import { TokenList } from "@jointlabs/meta";
 import { motion } from "framer-motion";
 import { ChevronDown, Loader2, Settings } from "lucide-react";
 import { useRef } from "react";
-import { isSynthetic } from "../utils";
+import LinkAccountButton from "../../../components/header/LinkAccountButton";
+import useStore from "../../../hooks/store/useStore";
+import { isSynth } from "../utils";
+import { PaymentMethodSection } from "./PaymentMethodSection";
 import { ProviderSection } from "./ProviderSection";
 import { SwapDrawer } from "./SwapDrawer";
 import { SwapPageType, SwapSide } from "./types";
@@ -17,18 +20,19 @@ import { useSwapLogic } from "./useSwapLogic";
 
 export function Swapper() {
   const { ready } = useConnectorContext();
-  const { state, setState, approveSell, swap } = useSwapLogic();
+  const { user } = useStore((state) => ({ user: state.user }));
+  const { state, setState, approveSell, swap, getSellAmount, getBuyAmount } = useSwapLogic();
   const swapSectionRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <div className="relative mx-auto mt-10 flex w-[537px] flex-col overflow-hidden rounded-b-3xl">
+    <div className="relative mx-auto mt-5 flex w-[537px] flex-col overflow-hidden rounded-b-3xl">
       <div className="mb-3 flex items-center justify-between">
         <h1 className="text-xl font-normal tracking-wider text-gray-400">Swap</h1>
         <div className="flex items-center space-x-0">
           {!!state.slippage && (
             <Button
               variant="ghost"
-              disabled={!canSwap(state)}
+              disabled={!canSwap(state, user)}
               className="flex h-auto items-center space-x-2 rounded-xl rounded-r-none border border-ragoon-green bg-eerie-black p-2 px-3 text-gray-400 opacity-100 animate-in slide-in-from-right-20 hover:text-gray-400 disabled:opacity-50 disabled:hover:opacity-50"
               onClick={() => {
                 setState((prev: SwapPageType) => ({ ...prev, drawerContent: "advance-settings" }));
@@ -44,7 +48,7 @@ export function Swapper() {
           <Button
             variant="ghost"
             className="h-auto p-0 opacity-80 hover:scale-105 hover:opacity-100 disabled:opacity-50 disabled:hover:opacity-50"
-            disabled={!canSwap(state)}
+            disabled={!canSwap(state, user)}
             onClick={() => {
               setState((prev) => ({ ...prev, drawerContent: "advance-settings" }));
               setState((prev) => ({ ...prev, openDrawer: !prev.openDrawer }));
@@ -63,16 +67,16 @@ export function Swapper() {
       <Card
         ref={swapSectionRef}
         className={cn(
-          "w-full rounded-3xl border border-gray-800/50 bg-gradient-to-b from-eerie-black to-onyx p-4 pb-0 text-gray-300",
+          "w-full rounded-3xl border border-gray-800/50 bg-gradient-to-b from-eerie-black to-onyx p-3 pb-0 text-gray-300",
         )}
       >
-        <CardContent className="space-y-4 p-0">
+        <CardContent className="space-y-2 p-0">
           <SwapInputField
             direction={SwapSide.Sell}
-            value={state.sellAmount || ""}
+            value={getSellAmount() || ""}
             price="0"
             side={SwapSide.Sell}
-            balance={!isSynthetic(state.sellToken!) ? state.quoteBalance : undefined}
+            balance={!isSynth(state.sellToken!) ? state.quoteBalance : undefined}
             selected={state.sellToken || state.tokenLists?.tokens[0]}
             disabled={state.swapLoading || state.approveLoading}
             onRequestModal={(selected?: TokenList.Token) => {
@@ -97,10 +101,10 @@ export function Swapper() {
 
           <SwapInputField
             direction={SwapSide.Buy}
-            value={state.buyAmount || ""}
+            value={getBuyAmount() || ""}
             price="0"
             side={SwapSide.Buy}
-            balance={!isSynthetic(state.buyToken!) ? state.baseBalance : undefined}
+            balance={!isSynth(state.buyToken!) ? state.baseBalance : undefined}
             selected={state.buyToken}
             disabled={state.swapLoading || state.approveLoading}
             onRequestModal={(selected?: TokenList.Token) => {
@@ -125,7 +129,9 @@ export function Swapper() {
 
           <ProviderSection state={state} setState={setState} />
 
-          {canSwap(state) && state.takerPaysFee && (
+          <PaymentMethodSection state={state} setState={setState} />
+
+          {canSwap(state, user) && state.takerPaysFee && (
             <motion.div className="slide-in-from-up-20 rounded-2xl bg-mirage p-2 px-0 text-gray-400/90 animate-in">
               <Button
                 variant="ghost"
@@ -134,7 +140,7 @@ export function Swapper() {
                   setState((prev: SwapPageType) => ({ ...prev, showFeeDetails: !state.showFeeDetails }));
                 }}
               >
-                <span className="flex items-center space-x-1 font-medium">
+                <span className="flex items-center space-x-1 font-light text-boulder">
                   Swap Fee
                   <ChevronDown
                     className={cn("h-4 w-4 text-gray-400 transition-all duration-300", {
@@ -172,39 +178,48 @@ export function Swapper() {
           )}
         </CardContent>
         <CardFooter className="p-4 px-0">
-          {ready && (
+          {ready && !requiresWalletLink(state, user) && (
             <Button
               className={cn(
                 "h-[55px] w-full rounded-2xl bg-light-green/90 text-xl font-medium text-black duration-500 animate-in fade-in-10 hover:scale-[1.01] hover:bg-light-green",
                 {
-                  "bg-baltic-sea text-gray-400": !canSwap(state),
-                  "bg-alice-blue/90 text-black hover:bg-alice-blue": canSwap(state) && !state.allowanceOk,
+                  "bg-baltic-sea text-gray-400": !canSwap(state, user),
+                  "bg-alice-blue/90 text-black hover:bg-alice-blue": canSwap(state, user) && !state.allowanceOk,
                 },
               )}
-              disabled={!canSwap(state) || state.approveLoading || state.swapLoading}
+              disabled={!canSwap(state, user) || state.approveLoading || state.swapLoading}
               onClick={() => {
-                if (canSwap(state) && !state.allowanceOk) void approveSell();
-                if (canSwap(state) && state.allowanceOk) void swap();
+                if (canSwap(state, user) && !state.allowanceOk) void approveSell();
+                if (canSwap(state, user) && state.allowanceOk) void swap();
               }}
             >
               {!state.insufficientLiquidity && !state.insufficientBalance && (
                 <>
-                  {canSwap(state) && state.allowanceOk && !state.swapLoading && "Swap"}
-                  {canSwap(state) && state.allowanceOk && state.swapLoading && (
+                  {canSwap(state, user) && state.allowanceOk && !state.swapLoading && "Swap"}
+                  {canSwap(state, user) && state.allowanceOk && state.swapLoading && (
                     <span className="flex items-center gap-2">
                       <Loader2 className="h-6 w-6 animate-spin" />
                       <span>Swapping</span>
                     </span>
                   )}
-                  {canSwap(state) && !state.allowanceOk && !state.approveLoading && "Approve"}
-                  {canSwap(state) && !state.allowanceOk && state.approveLoading && (
+
+                  {canSwap(state, user) && !state.allowanceOk && !state.approveLoading && "Approve"}
+                  {canSwap(state, user) && !state.allowanceOk && state.approveLoading && (
                     <span className="flex items-center gap-2">
                       <Loader2 className="h-6 w-6 animate-spin text-gray-500" />
                       <span className="text-gray-500">Approving</span>
                     </span>
                   )}
+
                   {!state.isMarketUnknown && !isTokensSelected(state) && "Select a token"}
+
                   {state.isMarketUnknown && "Market not found"}
+
+                  {!!state.selectedLiquidity &&
+                    !state.market?.instant &&
+                    !user?.paymentMethod &&
+                    "Select a payment method"}
+
                   {!state.isMarketUnknown &&
                     isTokensSelected(state) &&
                     (isZero(state.sellAmount) || isZero(state.buyAmount)) &&
@@ -219,6 +234,21 @@ export function Swapper() {
             </Button>
           )}
 
+          {ready && requiresWalletLink(state, user) && (
+            <LinkAccountButton onLoading={(loading) => setState((prev) => ({ ...prev, linkWalletLoading: loading }))}>
+              <Button
+                disabled={state.linkWalletLoading}
+                className={cn(
+                  "h-[55px] w-full rounded-2xl bg-alice-blue/90 text-xl font-medium text-black duration-500 animate-in fade-in-10 hover:scale-[1.01] hover:bg-alice-blue",
+                  {},
+                )}
+              >
+                {!state.linkWalletLoading && "Link Wallet"}
+                {state.linkWalletLoading && <Loader2 className="h-6 w-6 animate-spin" />}
+              </Button>
+            </LinkAccountButton>
+          )}
+
           {!ready && (
             <ConnectButton
               connectBtnText="Connect wallet"
@@ -229,6 +259,7 @@ export function Swapper() {
         </CardFooter>
       </Card>
       <SwapDrawer
+        market={state.market}
         routesList={state.payRoutes}
         slippage={state.slippage}
         expires={state.expires}
@@ -260,6 +291,9 @@ export function Swapper() {
             selectedPayRoutes: [],
           }));
         }}
+        onSelectedPaymentMethod={(pm: PaymentMethod) => {
+          setState((prev: SwapPageType) => ({ ...prev, selectedPaymentMethod: pm }));
+        }}
       />
     </div>
   );
@@ -269,7 +303,17 @@ function isTokensSelected(state: SwapPageType) {
   return !!state.sellToken && !!state.buyToken;
 }
 
-function canSwap(state: SwapPageType) {
+function canSwap(state: SwapPageType, user?: User) {
   if (state.isMarketUnknown || state.insufficientLiquidity || state.insufficientBalance) return false;
-  return state.sellToken && state.buyToken && !isZero(state.sellAmount) && !isZero(state.buyAmount);
+  return (
+    state.sellToken &&
+    state.buyToken &&
+    !isZero(state.sellAmount) &&
+    !isZero(state.buyAmount) &&
+    (state.market?.instant || user?.paymentMethod)
+  );
+}
+
+function requiresWalletLink(state: SwapPageType, user?: User) {
+  return state.market && isSynth(state.market.quoteType) && !user;
 }

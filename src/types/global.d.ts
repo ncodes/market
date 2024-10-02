@@ -54,6 +54,7 @@ declare global {
     lastActiveAt: string;
 
     notificationSettings: NotificationSettings;
+    paymentMethod: PaymentMethod;
   }
 
   interface NotificationSettings {
@@ -134,6 +135,7 @@ declare global {
   }
 
   interface PaymentMethod {
+    id: string;
     userId: string;
     orgId: string;
     network: string;
@@ -146,6 +148,7 @@ declare global {
     swiftCode: string;
     additionalInfo: string;
     org: PayRouterOrg;
+    isDefault: boolean;
   }
 
   interface Liquidity {
@@ -449,7 +452,7 @@ declare global {
     decimals: number;
     logoURI: string;
     price: number; // Used in dev mode only
-    isSynthetic?: boolean; // Used to identify synthetic tokens
+    isSynth?: boolean; // Used to identify synthetic tokens
   }
 
   interface OldPaymentMethod {

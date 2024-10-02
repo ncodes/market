@@ -9,14 +9,14 @@ export function ToolTip(props: {
   className?: string;
   className2?: string;
   side?: "top" | "bottom" | "left" | "right";
-  allowPropagation?: boolean;
+  disableHoverableContent?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
   if (!props.tip) return <>{props.children}</>;
 
   return (
-    <TooltipProvider>
+    <TooltipProvider disableHoverableContent={props.disableHoverableContent}>
       <Tooltip
         open={open}
         onOpenChange={(open) => {
@@ -24,15 +24,7 @@ export function ToolTip(props: {
         }}
       >
         <TooltipTrigger className={cn("transition-all duration-500", props.className)} asChild>
-          <span
-            className="cursor-pointer"
-            onClick={(e) => {
-              if (!props.allowPropagation) e.stopPropagation();
-              setOpen(!open);
-            }}
-          >
-            {props.children}
-          </span>
+          <span className="cursor-pointer">{props.children}</span>
         </TooltipTrigger>
         <TooltipPortal>
           <TooltipContent

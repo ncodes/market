@@ -3,6 +3,7 @@ import EmojiAvatar from "../../../components/avatar/EmojiAvatar";
 import { AvatarSize } from "../../../components/avatar/useAvatar";
 import { ToolTip } from "../../../components/toolTip";
 import { shortenAddress } from "../../../libs/helpers";
+import { cn } from "../../../libs/utils";
 import { isOrderRouter } from "../utils";
 
 export function OrderParticipants({ order, address }: { order: Swap; address: string }) {
@@ -15,10 +16,10 @@ export function OrderParticipants({ order, address }: { order: Swap; address: st
 
   return (
     <div className="flex gap-10 border-t border-gray-800/50 px-3 py-5">
-      <div className="flex min-w-[130px] items-center gap-2">
+      <div className={cn("flex min-w-[130px] items-center gap-2", order.taker == address ? "order-1" : "order-2")}>
         <EmojiAvatar randomStr={order.taker} size={AvatarSize.Small} className="h-10 w-10" />
         <div>
-          <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder/70">
+          <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder/90">
             <span>Seller</span>
             {order.taker == address && (
               <span className="rounded bg-gray-700 px-1 text-[10px] font-bold text-gray-100">YOU</span>
@@ -36,10 +37,10 @@ export function OrderParticipants({ order, address }: { order: Swap; address: st
         </div>
       </div>
 
-      <div className="flex min-w-[142px] items-center gap-2">
+      <div className={cn("flex min-w-[142px] items-center gap-2", order.provider == address ? "order-1" : "order-2")}>
         <EmojiAvatar randomStr={order.provider} size={AvatarSize.Small} className="h-10 w-10" />
         <div>
-          <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder/70">
+          <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder/90">
             <span>Buyer</span>
             {order.provider == address && (
               <span className="rounded bg-gray-700 px-1 text-[10px] font-bold text-gray-100">YOU</span>
@@ -61,7 +62,7 @@ export function OrderParticipants({ order, address }: { order: Swap; address: st
         <div className="flex min-w-[130px] items-center gap-2">
           <EmojiAvatar randomStr={address} size={AvatarSize.Small} className="h-10 w-10" />
           <div>
-            <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder/70">
+            <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder">
               <span>Router #{routePosition}</span>
               <span className="rounded bg-gray-700 px-1 text-[10px] font-bold text-gray-100">YOU</span>
               <span>

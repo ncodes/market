@@ -29,7 +29,7 @@ export function isNative(v?: AssetType | TokenList.Token) {
   return getTokenType(v) == AssetType.NATIVE;
 }
 
-export function isSynthetic(v?: AssetType | TokenList.Token) {
+export function isSynth(v?: AssetType | TokenList.Token) {
   if (v == undefined) return false;
   if (typeof v == "number") return v == AssetType.SYNTH;
   return getTokenType(v) == AssetType.SYNTH;
@@ -37,7 +37,7 @@ export function isSynthetic(v?: AssetType | TokenList.Token) {
 
 export function isInstantMarket(market?: Market) {
   if (!market) return false;
-  return !isSynthetic(market.baseType) && !isSynthetic(market.quoteType);
+  return !isSynth(market.baseType) && !isSynth(market.quoteType);
 }
 
 export function isNFT(v?: AssetType | TokenList.Token) {
@@ -53,13 +53,13 @@ export function isNFT(v?: AssetType | TokenList.Token) {
 export function getPayer(swap: Swap) {
   let payer = "";
   const { baseType, quoteType } = swap.market;
-  if ((isERC20(baseType) || isNative(baseType)) && isSynthetic(quoteType)) {
+  if ((isERC20(baseType) || isNative(baseType)) && isSynth(quoteType)) {
     payer = swap.taker;
-  } else if (isSynthetic(baseType) && isSynthetic(quoteType)) {
+  } else if (isSynth(baseType) && isSynth(quoteType)) {
     payer = swap.taker;
-  } else if (isSynthetic(baseType) && (isERC20(quoteType) || isNFT(quoteType) || isNative(quoteType))) {
+  } else if (isSynth(baseType) && (isERC20(quoteType) || isNFT(quoteType) || isNative(quoteType))) {
     payer = swap.provider;
-  } else if (isNFT(baseType) && isSynthetic(quoteType)) {
+  } else if (isNFT(baseType) && isSynth(quoteType)) {
     payer = swap.taker;
   }
   return payer;
@@ -91,7 +91,7 @@ export function isSwapCounterparty(swap: Swap, account: string) {
   return swap.provider == account || swap.taker == account;
 }
 
-export function iamSellerOrBuyer(order: Swap, address: string, opposite?: boolean, capitalize?: boolean) {
+export function isSellerOrBuyer(order: Swap, address: string, opposite?: boolean, capitalize?: boolean) {
   let label = "";
   if (order.provider == address) label = "buyer";
   if (order.taker == address) label = "seller";
@@ -129,4 +129,34 @@ export function convertCurrency(
   const amountInUSD = amt.div(rates[fromCurrency]);
   const amountInTargetCurrency = amountInUSD.mul(rates[toCurrency]);
   return amountInTargetCurrency.toFixed(6);
+}
+
+/**
+ * Calculate actual amount with routing fees added
+ * @param amount - The amount to apply the fee to
+ * @param payRoutes - The pay routes to calculate the fee for
+ * @param decimals - The number of decimals to round the amount to. Defaults to 2
+ * @returns The actual amount
+ */
+export function applyRoutingFeeToAmount(amount: string, payRoutes: PayRouterRoute[], decimals = 2) {
+  if (!amount) return "0";
+  const routingFee = calculateRoutesFee(payRoutes);
+  return toDec(amount)
+    .div(toDec(1).minus(toDec(routingFee).div(100)))
+    .toFixed(decimals);
+}
+
+/**
+ * Deduct routing fee from the amount
+ * @param amount - The amount to deduct the fee from
+ * @param payRoutes - The pay routes to deduct the fee for
+ * @param decimals - The number of decimals to round the amount to. Defaults to 2
+ * @returns The amount after deducting the fee
+ */
+export function deductRoutingFeeFromAmount(amount: string, payRoutes: PayRouterRoute[], decimals = 2) {
+  if (!amount) return "0";
+  const routingFee = calculateRoutesFee(payRoutes);
+  return toDec(amount)
+    .mul(toDec(1).minus(toDec(routingFee).div(100)))
+    .toFixed(decimals);
 }

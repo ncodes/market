@@ -7,6 +7,7 @@ import { DefaultSwapExpireDurSec, DefaultSwapSlippage } from "@/pages/swap/const
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { AlertTriangle, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 
 const defaultState: {
   slippage: number;
@@ -26,14 +27,20 @@ export function SwapDrawerAdvancedSettings({
   closeRequested,
   updateSlippage,
   updateExpires,
+  drawerRef,
 }: {
-  closeRequested?: () => void;
+  drawerRef: React.RefObject<HTMLDivElement>;
   expires?: number;
   slippage?: number;
+  closeRequested?: () => void;
   updateSlippage?: (slippage: number) => void;
   updateExpires?: (expires: number) => void;
 }) {
   const [state, setState] = useState({ ...defaultState, expires, slippage });
+
+  useOnClickOutside(drawerRef, () => {
+    closeRequested?.();
+  });
 
   useEffect(() => {
     if (!slippage) return;
@@ -88,7 +95,7 @@ export function SwapDrawerAdvancedSettings({
           </label>
           <div className="flex items-center space-x-2">
             <Button
-              className={cn("w-16 rounded-lg border border-boulder/30 bg-boulder/10 text-white hover:bg-gray-700", {
+              className={cn("w-16 rounded-lg bg-boulder/30 text-white hover:bg-gray-700", {
                 "border-none bg-byzantine-blue hover:bg-byzantine-blue": state.slippage == 0.5,
               })}
               onClick={() => {
@@ -102,7 +109,7 @@ export function SwapDrawerAdvancedSettings({
               0.5%
             </Button>
             <Button
-              className={cn("w-16 rounded-lg border border-boulder/30 bg-boulder/10 text-white hover:bg-gray-700", {
+              className={cn("w-16 rounded-lg bg-boulder/30 text-white hover:bg-gray-700", {
                 "border-none bg-byzantine-blue hover:bg-byzantine-blue": state.slippage == 1,
               })}
               onClick={() => {
@@ -119,7 +126,7 @@ export function SwapDrawerAdvancedSettings({
               <Input
                 type="text"
                 className={cn(
-                  "w-20 rounded-md border-0 bg-gray-700/90 px-2 py-2.5 text-white outline-0 focus-visible:bg-gray-700 focus-visible:ring-2 focus-visible:ring-byzantine-blue",
+                  "w-20 rounded-md border-0 bg-bright-gray px-2 py-2.5 text-white outline-0 focus-visible:bg-bright-gray focus-visible:ring-2 focus-visible:ring-boulder",
                   {
                     "ring-2 ring-byzantine-blue": !!state.customSlippage,
                   },
@@ -150,7 +157,7 @@ export function SwapDrawerAdvancedSettings({
           </label>
           <div className="flex items-center space-x-2">
             <Button
-              className={cn("w-16 rounded-lg border border-boulder/30 bg-boulder/10 text-white hover:bg-gray-700", {
+              className={cn("w-16 rounded-lg bg-boulder/30 text-white hover:bg-gray-700", {
                 "border-none bg-byzantine-blue hover:bg-byzantine-blue": state.expires == 600,
               })}
               onClick={() => {
@@ -164,7 +171,7 @@ export function SwapDrawerAdvancedSettings({
               10m
             </Button>
             <Button
-              className={cn("w-16 rounded-lg border border-boulder/30 bg-boulder/10 text-white hover:bg-gray-700", {
+              className={cn("w-16 rounded-lg bg-boulder/30 text-white hover:bg-gray-700", {
                 "border-none bg-byzantine-blue hover:bg-byzantine-blue": state.expires == 1200,
               })}
               onClick={() => {
@@ -181,7 +188,7 @@ export function SwapDrawerAdvancedSettings({
               <Input
                 type="number"
                 className={cn(
-                  "w-20 rounded-md border-0 bg-gray-700/90 px-2 py-2.5 text-white outline-0 focus-visible:bg-gray-700 focus-visible:ring-2 focus-visible:ring-byzantine-blue",
+                  "w-20 rounded-md border-0 bg-bright-gray px-2 py-2.5 text-white outline-0 focus-visible:bg-bright-gray focus-visible:ring-2 focus-visible:ring-boulder",
                   {
                     "ring-2 ring-byzantine-blue": !!state.customExpires,
                   },

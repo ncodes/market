@@ -1,6 +1,5 @@
-import { AlertTriangle } from "lucide-react";
 import { ProgressStatus } from "../constants";
-import { getPayer, iamSellerOrBuyer, isOrderRouter } from "../utils";
+import { getPayer, isOrderRouter, isSellerOrBuyer } from "../utils";
 
 /**
  * Get the swap progress
@@ -16,11 +15,13 @@ export function getSwapProgress(order?: Swap, address?: string) {
 
   const isProvider = address == order.provider;
   const paymentStatus = order.paid ? ProgressStatus.COMPLETED : ProgressStatus.PENDING;
-  const counterpartCap = iamSellerOrBuyer(order, address, true, true);
-  const counterpartNonCap = iamSellerOrBuyer(order, address, true);
+  const counterpartCap = isSellerOrBuyer(order, address, true, true);
+  const counterpartNonCap = isSellerOrBuyer(order, address, true);
   const hasRouter = !!order.payRouterRequest;
   const isRouter = isOrderRouter(order, address);
+  const isFirstRouter = isRouter && order.payRouterRequest?.routes?.[0]?.owner == address;
   const releaser = payer == order.provider ? order.taker : order.provider;
+  const paid = order.paid;
 
   if (!order.cancelled && !isRouter) {
     progress.push({
@@ -28,50 +29,47 @@ export function getSwapProgress(order?: Swap, address?: string) {
       label:
         paymentStatus != ProgressStatus.COMPLETED
           ? isPayer
-            ? !isProvider
-              ? "Send payment to the buyer"
-              : "Send payment to the seller"
-            : isProvider
-              ? "Waiting for payment from the seller"
-              : "Waiting for payment from the buyer"
+            ? `Send payment to ${hasRouter ? "router #0" : `the ${counterpartNonCap}`}`
+            : `Waiting for ${counterpartNonCap} to pay`
           : isPayer
-            ? !isProvider
-              ? "You marked the order as 'paid'"
-              : "You marked the order as 'paid'"
-            : isProvider
-              ? `${counterpartCap} marked the order as 'paid'`
-              : `${counterpartCap} marked the order as 'paid'`,
+            ? `You have paid`
+            : `${counterpartCap} has paid`,
 
       description:
-        paymentStatus != ProgressStatus.COMPLETED ? (
-          isPayer ? (
-            !isProvider ? (
-              "Tap 'Paid' after making payment to the buyer."
-            ) : (
-              "Send payment using the payment detail provided above."
-            )
-          ) : isProvider ? (
-            `${counterpartCap} will mark the order as 'paid' when they have paid.`
-          ) : (
-            <span className="flex items-center gap-1 text-yellow-400">
-              <AlertTriangle className="h-3 w-3" /> Confirm payment receipt before marking as paid.
-            </span>
-          )
-        ) : isPayer ? (
-          !isProvider ? (
-            `Waiting for ${counterpartNonCap} to verify payment.`
-          ) : (
-            ""
-          )
-        ) : isProvider ? (
-          !hasRouter ? (
-            <span>Waiting for you to confirm payment with your bank or wallet service.</span>
-          ) : (
-            <span>Waiting routers to route payment to you.</span>
-          )
-        ) : (
-          ""
-        ),
+        paymentStatus != ProgressStatus.COMPLETED
+          ? isPayer
+            ? !isProvider
+              ? `Tap 'Paid' after making payment to ${hasRouter ? "router #0" : "the buyer"}.`
+              : "Send payment using the payment detail provided above."
+            : isProvider
+              ? `${counterpartCap} will mark the order as 'paid' when they have paid.`
+              : `${counterpartCap} is expected to send payment to ${hasRouter ? "router #0" : "you"}.`
+          : isPayer
+            ? !paid
+              ? `Waiting for the ${counterpartNonCap} to verify payment.`
+              : `Waiting for the ${counterpartNonCap} to release the order.`
+            : !hasRouter
+              ? !paid
+                ? `Waiting for you to confirm payment.`
+                : `${counterpartCap} has marked the order as 'paid'.`
+              : `Waiting to receive payment from router.`,
+    });
+  }
+
+  if (!order.cancelled && isRouter) {
+    const counterpartCap = isSellerOrBuyer(order, payer, false, true);
+    const counterpart2NonCap = isSellerOrBuyer(order, payer, true);
+    progress.push({
+      status: paymentStatus,
+      label:
+        paymentStatus != ProgressStatus.COMPLETED
+          ? `Waiting for payment from the ${isSellerOrBuyer(order, payer, false)}`
+          : `${counterpartCap} has paid`,
+
+      description:
+        paymentStatus != ProgressStatus.COMPLETED
+          ? `${counterpartCap} is expected to send payment ${hasRouter ? (isFirstRouter ? `to you` : `to router #0`) : `to the ${counterpart2NonCap}`}.`
+          : `${counterpartCap} marked the order as 'paid'.`,
     });
   }
 
@@ -82,15 +80,16 @@ export function getSwapProgress(order?: Swap, address?: string) {
       const route = routes[index];
       const routePaid = order.payRouterRequest.routePayments?.find((p) => p.routeId == route.id);
       const payee = payer == order.provider ? order.taker : order.provider;
-      const counterpartNonCap = iamSellerOrBuyer(order, payee, false);
+      const counterpartNonCap = isSellerOrBuyer(order, payee, false);
+      const whoiam = isSellerOrBuyer(order, address, false, false);
 
       progress.push({
         status: !routePaid ? ProgressStatus.PENDING : ProgressStatus.COMPLETED,
         label: !routePaid
           ? `Waiting for ${route.owner == address ? "you" : `Router #${index}`} to pay`
           : route.owner == address
-            ? `You marked the route as 'paid'`
-            : `Router #${index} has marked the route as 'paid'`,
+            ? `You have 'paid'`
+            : `Router #${index} has 'paid'`,
         description:
           index < countRouters - 1
             ? !routePaid
@@ -103,7 +102,7 @@ export function getSwapProgress(order?: Swap, address?: string) {
             : !routePaid
               ? route.owner == address
                 ? `Waiting for you to pay the ${counterpartNonCap}.`
-                : `Waiting for router #${index} to pay the ${counterpartNonCap}.`
+                : `Waiting for router #${index} to pay ${counterpartNonCap == whoiam ? "you" : `the ${counterpartNonCap}`}.`
               : route.owner == address
                 ? `You paid the ${counterpartNonCap}.`
                 : `Router #${index} has paid the ${counterpartNonCap}.`,
@@ -117,28 +116,28 @@ export function getSwapProgress(order?: Swap, address?: string) {
         status: !order.released ? ProgressStatus.PENDING : ProgressStatus.COMPLETED,
         label: !order.released
           ? isPayer
-            ? `Waiting for ${counterpartNonCap} to release the order`
+            ? `Waiting for the ${counterpartNonCap} to release the order`
             : "Release the order"
           : isPayer
             ? "Order released"
             : "Order released",
         description: !order.released
           ? isPayer
-            ? ""
+            ? "The order will finalized once released."
             : "Complete the swap by releasing the order."
           : isPayer
-            ? `${counterpartCap} has released the order.`
+            ? `${counterpartCap} has released the order. Swap has completed.`
             : "You released the order. Swap has completed.",
       });
     } else {
-      const whoIsReleaser = iamSellerOrBuyer(order, releaser, false, true);
-      const whoIsReleaserNoCap = iamSellerOrBuyer(order, releaser, false);
+      const whoIsReleaser = isSellerOrBuyer(order, releaser, false, true);
+      const whoIsReleaserNoCap = isSellerOrBuyer(order, releaser, false);
       progress.push({
         status: !order.released ? ProgressStatus.PENDING : ProgressStatus.COMPLETED,
         label: !order.released ? `Waiting for order release` : `Order released`,
         description: order.released
           ? `${whoIsReleaser} released the order.`
-          : `Waiting for ${whoIsReleaserNoCap} to release the order.`,
+          : `Waiting for the ${whoIsReleaserNoCap} to release the order.`,
       });
     }
   }

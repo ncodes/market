@@ -5,37 +5,49 @@ import EmojiAvatar from "../../../components/avatar/EmojiAvatar";
 import { AvatarSize } from "../../../components/avatar/useAvatar";
 import { ToolTip } from "../../../components/toolTip";
 import { useSession } from "../../../hooks/useSession";
-import { toDec, toHD } from "../../../libs/helpers";
-import { calculateRoutesFee2, convertCurrency, getPayer, iamSellerOrBuyer } from "../utils";
+import { toDec, toHD, trimZeros } from "../../../libs/helpers";
+import { calculateRoutesFee2, convertCurrency, getPayer, isSellerOrBuyer, isSynth } from "../utils";
 import { PaymentInfo } from "./PaymentDetails";
 
-export function RouteSourceDetails({ order }: { order: Swap }) {
+export function RoutePathDetails({ order }: { order: Swap }) {
   const { address } = useConnectorContext();
   const { token } = useSession();
   const { market, provider, providerPaymentMethod, taker, takerPaymentMethod, cost, amount, rates } = order;
 
   // Route Details
   const routes = order.payRouterRequest?.routes ?? [];
+  const routeFees = order.payRouterRequest?.routeFees || [];
   const route = routes?.find((route) => route.owner == address);
   if (!route) return null;
   const routeIdx = routes?.findIndex((route) => route.owner == address) ?? 0;
   const isLastRoute = routeIdx == routes.length - 1;
-  const routeFee = order.payRouterRequest.routeFees[routeIdx];
-  const totalRouteFees = calculateRoutesFee2(order.payRouterRequest?.routeFees || [], routeIdx);
+  const routeFee = routeFees[routeIdx];
+  const totalRouteFees = calculateRoutesFee2(routeFees || [], routeIdx);
+  const totalOrderFees = toDec(order.protocolFee).add(order.marketCreatorFee);
+  const totalPrevFees = calculateRoutesFee2((routeFees || []).slice(0, routeIdx), 0);
   const payer = getPayer(order);
   const payee = payer == provider ? taker : provider;
   const payerPaymentMethod = payer == provider ? providerPaymentMethod : takerPaymentMethod;
 
-  // Order Amount
-  const orderAmt = payer == taker ? cost : toHD(amount, market.baseDecimals);
-  const orderAmtWithFees = toDec(orderAmt)
-    .div(toDec(1).minus(toDec(totalRouteFees).div(100)))
-    .toFixed(6);
+  // The amount that will attract fee (swap amount or cost)
+  const chargableAmt = isSynth(market.quoteType) ? toHD(amount, market.baseDecimals) : cost;
+  let orderAmtAfterFees = "0";
+  if (isSynth(market.quoteType)) {
+    orderAmtAfterFees = toDec(chargableAmt)
+      .div(toDec(1).minus(toDec(totalRouteFees).div(100)))
+      .toFixed(6);
+  } else {
+    const totalFeesHD = toHD(totalOrderFees, market.quoteDecimals);
+    orderAmtAfterFees = toDec(chargableAmt)
+      .minus(totalFeesHD)
+      .mul(toDec(1).minus(toDec(totalPrevFees).div(100)))
+      .toFixed(6);
+  }
 
   // Source Details
   const srcAddr = routeIdx == 0 ? (payer == provider ? provider : taker) : routes[routeIdx - 1]?.owner;
-  const srcLabel = routeIdx == 0 ? iamSellerOrBuyer(order, payer, false, true) : `Router #${routeIdx - 1}`;
-  const srcAmt = orderAmtWithFees;
+  const srcLabel = routeIdx == 0 ? isSellerOrBuyer(order, payer, false, true) : `Router #${routeIdx - 1}`;
+  const srcAmt = orderAmtAfterFees;
   const srcPayMethod =
     routeIdx == 0
       ? payer == provider
@@ -43,13 +55,14 @@ export function RouteSourceDetails({ order }: { order: Swap }) {
         : takerPaymentMethod
       : routes[routeIdx - 1]?.paymentMethod;
   const srcSymbol = getCurrency(route?.paymentMethod?.name || "");
-  const srcAmtConv =
-    routeIdx == 0
+  const srcAmtConv = token
+    ? routeIdx == 0
       ? srcAmt
-      : convertCurrency(srcAmt, getCurrency(routes[routeIdx - 1].paymentMethod.name!)!, srcSymbol!, rates);
+      : convertCurrency(srcAmt, getCurrency(routes[routeIdx - 1].paymentMethod.name!)!, srcSymbol!, rates)
+    : "0";
 
   // Destination Details
-  const destLabel = isLastRoute ? iamSellerOrBuyer(order, payer, true, true) : `Router #${routeIdx + 1}`;
+  const destLabel = isLastRoute ? isSellerOrBuyer(order, payer, true, true) : `Router #${routeIdx + 1}`;
   const destAmt = toDec(srcAmt).sub(toDec(srcAmt).mul(toDec(routeFee).div(100)));
   const destPaymentMethod = isLastRoute
     ? payee == provider
@@ -57,7 +70,9 @@ export function RouteSourceDetails({ order }: { order: Swap }) {
       : takerPaymentMethod
     : routes[routeIdx + 1]?.paymentMethod;
   const destSymbol = getCurrency(destPaymentMethod?.name || "");
-  const destAmtConv = convertCurrency(destAmt, getCurrency(payerPaymentMethod.name || "")!, destSymbol!, rates);
+  const destAmtConv = token
+    ? convertCurrency(destAmt, getCurrency(payerPaymentMethod?.name || "")!, destSymbol!, rates)
+    : "";
 
   return (
     <div className="py border-t border-gray-800/50 py-2">
@@ -106,7 +121,7 @@ export function RouteSourceDetails({ order }: { order: Swap }) {
                 </ToolTip>
               </span>
               <span className="font-dosis text-lg font-bold tracking-wider text-gray-300">
-                {srcAmtConv} <span className="text-gray-400">{srcSymbol}</span>
+                {trimZeros(srcAmtConv)} <span className="text-gray-400">{srcSymbol}</span>
               </span>
             </div>
           </div>
@@ -150,7 +165,7 @@ export function RouteSourceDetails({ order }: { order: Swap }) {
                   </ToolTip>
                 </span>
                 <span className="font-dosis text-lg font-bold tracking-wider text-light-green">
-                  {destAmtConv} <span className="text-gray-400">{destSymbol}</span>
+                  {trimZeros(destAmtConv)} <span className="text-gray-400">{destSymbol}</span>
                 </span>
               </div>
             </div>

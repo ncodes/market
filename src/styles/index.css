@@ -92,6 +92,14 @@
     background-color: hsl(var(--card));
     color: hsl(var(--card-foreground));
   }
+
+  .input {
+    @apply !rounded-xl !bg-baltic-sea p-2.5 outline-0 focus-visible:bg-bright-gray focus-visible:ring-2 focus-visible:ring-boulder;
+  }
+
+  .input-error {
+    @apply border !border-red-500 focus-visible:!ring-0;
+  }
 }
 
 @layer utilities {
@@ -101,39 +109,5 @@
 
   .duration-2000 {
     animation-duration: 2000ms;
-  }
-}
-
-.grid2 {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(30, minmax(0, 1fr));
-  grid-template-rows: repeat(30, minmax(0, 1fr));
-
-  div[id^="block-"] {
-    @apply duration-2000 rounded-md transition-all;
-
-    &:hover {
-      @apply cursor-pointer bg-gray-100/10;
-    }
-
-    &:hover:not(.highlight) {
-      /* @apply cursor-pointer bg-gray-100/10 shadow-md shadow-gray-100/20 backdrop-blur-sm; */
-    }
-
-    &:hover:is(.highlight) {
-      @apply scale-[1.1] animate-none;
-    }
-  }
-
-  div[id^="block-"].highlight {
-    @apply animate-pulse;
-    @apply duration-2000 border shadow-xl shadow-gray-100/20 drop-shadow backdrop-blur;
-    @apply border-gray-50/10 bg-gray-100/20 bg-gradient-to-r from-gray-100/50 to-gray-100/10;
-    @apply flex items-center justify-center text-xs font-light text-gray-50;
-  }
-
-  div[id^="block-"].selected {
-    @apply animate-none bg-byzantine-blue from-byzantine-blue/50 to-byzantine-blue/0;
   }
 }

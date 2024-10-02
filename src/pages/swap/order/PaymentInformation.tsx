@@ -6,7 +6,7 @@ import { ToolTip } from "../../../components/toolTip";
 import { Button } from "../../../components/ui/button";
 import { useSession } from "../../../hooks/useSession";
 import { cn } from "../../../libs/utils";
-import { getPayer, iamSellerOrBuyer } from "../utils";
+import { getPayer, isSellerOrBuyer } from "../utils";
 import { PaymentDetails } from "./PaymentDetails";
 
 export function PaymentInformation({ order }: { order: Swap }) {
@@ -15,7 +15,9 @@ export function PaymentInformation({ order }: { order: Swap }) {
   const { token } = useSession();
   const { address } = useConnectorContext();
   const payer = getPayer(order);
+  const isPayer = payer == address;
   const countRouters = order.payRouterRequest?.routeIds?.length ?? 0;
+  const whoiam = isSellerOrBuyer(order, address, true);
 
   useEffect(() => {
     setHide(hasRouter && order.paid);
@@ -26,13 +28,13 @@ export function PaymentInformation({ order }: { order: Swap }) {
       <div className="flex items-center gap-2 text-lg tracking-wider">
         {!!token && (
           <div className="absolute right-0 mr-5 flex items-center gap-1">
-            {payer == address && hasRouter && (
+            {isPayer && hasRouter && (
               <div className="flex items-center gap-1 rounded bg-baltic-sea px-1.5 py-0 text-xs font-light text-gray-300">
                 <ToolTip
                   tip={
                     countRouters > 1
-                      ? `The payment details of the first router in a chain of ${countRouters} routers. These routers will relay your payment to the ${iamSellerOrBuyer(order, address, true)}. Each router in the chain forwards the payment to the next.`
-                      : `The payment details of the router that will forward your payment to the ${iamSellerOrBuyer(order, address, true)}. This router acts as an intermediary to facilitate the payment.`
+                      ? `The payment details of the first router in a chain of ${countRouters} routers. These routers will relay your payment to the ${whoiam}. Each router in the chain forwards the payment to the next.`
+                      : `The payment details of the router that will forward your payment to the ${whoiam}. This router acts as an intermediary to facilitate the payment.`
                   }
                   className="flex items-center gap-1"
                 >
@@ -60,22 +62,22 @@ export function PaymentInformation({ order }: { order: Swap }) {
         )}
 
         <a href="#" onClick={() => setHide(!hide)}>
-          {!order.released ? (payer == address ? "Send Payment to" : "Payment will be sent to:") : "Payment Details"}
+          {!order.released ? (isPayer ? "Send Payment to" : "Payment will be sent to") : "Payment Details"}
         </a>
         <span>
           <ToolTip
             tip={
               !order.released
-                ? payer == address
+                ? isPayer
                   ? hasRouter
-                    ? `Send payment to the ${iamSellerOrBuyer(order, address, true)} to complete the swap. The payment will be forwarded to the ${iamSellerOrBuyer(order, address, true)} through a router.`
-                    : `Send payment to the ${iamSellerOrBuyer(order, address, true)} to complete the swap.`
+                    ? `Send payment to the ${whoiam} using this payment details. The payment will be forwarded to the ${whoiam} through a router.`
+                    : `Send payment to the ${whoiam} using this payment details.`
                   : hasRouter
-                    ? `The ${iamSellerOrBuyer(order, address, true)} will send payment to you using this payment method. Payment will be forwarded to you through a router.`
-                    : `The ${iamSellerOrBuyer(order, address, true)} will send payment to you using this payment method.`
-                : payer == address
-                  ? `The payment details you used to send funds to the ${iamSellerOrBuyer(order, address, true)}. This information is for your reference.`
-                  : `The payment details used by the ${iamSellerOrBuyer(order, address, true)} to send funds to you. This information is for your reference.`
+                    ? `The ${whoiam} will send payment to you using this payment details. Payment will be forwarded to you through a router.`
+                    : `The ${whoiam} will send payment to you using this payment details.`
+                : isPayer
+                  ? `The payment details you used to send funds to the ${whoiam}. This information is for your reference.`
+                  : `The payment details used by the ${whoiam} to send funds to you. This information is for your reference.`
             }
             className="text-gray-400/30 transition-all duration-500 hover:text-gray-400"
           >
@@ -105,10 +107,8 @@ export function PaymentInformation({ order }: { order: Swap }) {
         <div className="mt-3 flex min-h-[50px] items-center justify-center gap-2 rounded-xl border border-yellow-800/30 bg-yellow-500/10 p-4 tracking-wider text-gray-300">
           <InfoIcon className="h-5 w-5 text-yellow-300" />
           <p className="text-sm">
-            {payer == address &&
-              order.taker == address &&
-              "Link your wallet to Swop to reveal the buyer's payment details"}
-            {payer != address && order.provider == address && "Link your wallet to Swop to reveal the payment details"}
+            {isPayer && `Link your wallet to Swop to reveal the ${whoiam}'s payment details`}
+            {!isPayer && "Link your wallet to Swop to reveal your payment details"}
           </p>
         </div>
       )}

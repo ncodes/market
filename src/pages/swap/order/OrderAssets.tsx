@@ -1,15 +1,49 @@
 import { InfoIcon, TagIcon } from "lucide-react";
 import { Avatar } from "../../../components/avatar/Avatar";
 import { ToolTip } from "../../../components/toolTip";
-import { formatToHighDenom, toDec, trimZeros } from "../../../libs/helpers";
-import { isSynthetic } from "../utils";
+import { useConnectorContext } from "../../../hooks/connectors/useConnectorContext";
+import { formatToHighDenom, pow10, toDec, toLDD, trimZeros } from "../../../libs/helpers";
+import { calculateRoutesFee2, getPayer, isOrderRouter, isSynth } from "../utils";
 
 export function OrderAssets({ order }: { order: Swap }) {
+  const { address } = useConnectorContext();
+  const isRouter = isOrderRouter(order, address);
+  const payer = getPayer(order);
+  const isPayer = address == payer;
   const market = order.market;
   let orderAmt = order.amount;
+  const isSeller = address == order.taker;
+  const totalFees = toDec(order.protocolFee).add(order.marketCreatorFee);
+  let cost = order.cost;
+  let feeHD = toDec(0);
+  const hasRouter = !!order.payRouterRequest;
 
-  if (isSynthetic(market.quoteType)) {
-    orderAmt = toDec(orderAmt).sub(order.protocolFee).sub(order.marketCreatorFee).toFixed();
+  if (isSynth(market.quoteType)) {
+    feeHD = totalFees.div(pow10(order.market.baseDecimals));
+    orderAmt = address == order.provider ? toDec(orderAmt).toFixed() : toDec(orderAmt).sub(totalFees).toFixed();
+
+    if (hasRouter) {
+      const routerFees = calculateRoutesFee2(order.payRouterRequest?.routeFees ?? []);
+      cost = toDec(cost)
+        .div(toDec(1).minus(toDec(routerFees).div(100)))
+        .toNumber();
+    }
+  } else {
+    const costLD = toLDD(cost, order.market.quoteDecimals);
+    const costAfterFee = costLD.sub(totalFees).mul(pow10(order.market.baseDecimals));
+    orderAmt = costAfterFee.div(order.price).toFixed();
+    feeHD = totalFees.div(pow10(order.market.quoteDecimals));
+
+    if (address == order.provider) {
+      cost = toDec(costLD).sub(totalFees).div(pow10(order.market.quoteDecimals)).toNumber();
+    }
+
+    if (hasRouter && !isPayer && !isRouter) {
+      const routerFees = calculateRoutesFee2(order.payRouterRequest?.routeFees ?? []);
+      orderAmt = toDec(orderAmt)
+        .mul(toDec(1).minus(toDec(routerFees).div(100)))
+        .toFixed();
+    }
   }
 
   return (
@@ -24,10 +58,16 @@ export function OrderAssets({ order }: { order: Swap }) {
         />
         <div>
           <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder">
-            <span>Buy</span>
+            <span>{!isRouter ? (!isSeller ? "Sell" : "Buy") : "Buy"}</span>
             <span>
               <ToolTip
-                tip={`The amount of base asset to be bought by the seller. Also the amount of base asset the buyer is offering.`}
+                tip={
+                  !isRouter
+                    ? address == order.taker
+                      ? `The amount of ${order.market.base} you are buying.`
+                      : `The amount of ${order.market.base} you are selling. ${isSynth(order.market.quoteType) ? `${feeHD.toFixed(6)} will be deducted as fees.` : ""}`
+                    : `The amount of ${order.market.base} being sold.`
+                }
                 className="text-gray-400/30 hover:text-gray-400"
               >
                 <InfoIcon className="h-4 w-4" />
@@ -51,10 +91,16 @@ export function OrderAssets({ order }: { order: Swap }) {
         />
         <div>
           <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder">
-            <span>Sell</span>
+            <span>{!isRouter ? (isSeller ? "Sell" : "Buy") : `Sell`}</span>
             <span>
               <ToolTip
-                tip={`The amount of quote asset to be sold by the seller. Also the amount of quote asset the buyer is buying.`}
+                tip={
+                  !isRouter
+                    ? address == order.taker
+                      ? `The amount of ${order.market.quote} you are selling. ${!isSynth(order.market.quoteType) ? `${feeHD.toFixed(6)} will be deducted as fees.` : ""}`
+                      : `The amount of ${order.market.quote} you are buying.`
+                    : `The amount of ${order.market.quote} being bought.`
+                }
                 className="text-gray-400/30 hover:text-gray-400"
               >
                 <InfoIcon className="h-4 w-4" />
@@ -62,7 +108,7 @@ export function OrderAssets({ order }: { order: Swap }) {
             </span>
           </p>
           <p className="font-dosis text-lg font-semibold tracking-wider">
-            {trimZeros(toDec(order.cost).toFixed(6))} <span className="text-gray-400">{order?.quote}</span>
+            {trimZeros(toDec(cost).toFixed(6))} <span className="text-gray-400">{order?.quote}</span>
           </p>
         </div>
       </div>
@@ -76,7 +122,10 @@ export function OrderAssets({ order }: { order: Swap }) {
           <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder">
             <span>Price</span>
             <span>
-              <ToolTip tip={`The price of 1 BASE token.`} className="text-gray-400/30 hover:text-gray-400">
+              <ToolTip
+                tip={`The price of 1 ${order.market.base} token. Set by the ${address == order.provider ? "you" : "buyer"}.`}
+                className="text-gray-400/30 hover:text-gray-400"
+              >
                 <InfoIcon className="h-4 w-4" />
               </ToolTip>
             </span>

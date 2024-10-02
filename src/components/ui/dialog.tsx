@@ -31,9 +31,10 @@ const DialogContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {
     overlayClassName?: string;
     hideCloseButton?: boolean;
+    container?: HTMLElement;
   }
->(({ className, children, overlayClassName, hideCloseButton, ...props }, ref) => (
-  <DialogPortal>
+>(({ className, children, overlayClassName, hideCloseButton, container, ...props }, ref) => (
+  <DialogPortal container={container}>
     <DialogOverlay className={overlayClassName} />
     <DialogPrimitive.Content
       ref={ref}
@@ -45,7 +46,7 @@ const DialogContent = React.forwardRef<
     >
       {children}
       {!hideCloseButton && (
-        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground">
+        <DialogPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity data-[state=open]:bg-accent data-[state=open]:text-muted-foreground hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
           <Cross2Icon className="h-4 w-4" />
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>

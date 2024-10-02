@@ -6,6 +6,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { GlobeIcon, SearchIcon, XIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { useOnClickOutside } from "usehooks-ts";
 import { SwapSide } from "./types";
 
 const defaultState: {
@@ -20,23 +21,29 @@ const defaultState: {
 
 export function SwapDrawerTokenSelector({
   tokenLists,
-  closeRequested,
+  drawerRef,
   selectedToken,
   side,
-  onSelect,
   containerHeight,
+  closeRequested,
+  onSelect,
 }: {
-  closeRequested?: () => void;
+  drawerRef: React.RefObject<HTMLDivElement>;
   tokenLists: TokenList.TokenData;
   selectedToken?: { sell?: TokenList.Token; buy?: TokenList.Token };
   side?: SwapSide;
-  onSelect?: (token: TokenList.Token) => void;
   containerHeight?: number;
+  closeRequested?: () => void;
+  onSelect?: (token: TokenList.Token) => void;
 }) {
   const { chainInfo } = useConnectorContext();
   const [state, setState] = useState(defaultState);
   const listRef = useRef(null);
   const { scrollYProgress } = useScroll({ container: listRef });
+
+  useOnClickOutside(drawerRef, () => {
+    closeRequested?.();
+  });
 
   useEffect(() => {
     setState((prev) => ({ ...prev, mounted: true }));

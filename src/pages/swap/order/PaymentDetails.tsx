@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { ToolTip } from "../../../components/toolTip";
 import { useConnectorContext } from "../../../hooks/connectors/useConnectorContext";
 import { cn } from "../../../libs/utils";
-import { getPayer, iamSellerOrBuyer, isOrderRouter } from "../utils";
+import { getPayer, isOrderRouter, isSellerOrBuyer } from "../utils";
 import { SwapPaymentAmount } from "./SwapPaymentAmount";
 
 export function PaymentDetails({ order }: { order: Swap }) {
@@ -13,23 +13,23 @@ export function PaymentDetails({ order }: { order: Swap }) {
 
   if (!isRouter) {
     if (!order?.takerPaymentMethod && !order.providerPaymentMethod) return null;
-    const payer = getPayer(order) == address;
-    let paymentMethod = order.providerPaymentMethod || order.takerPaymentMethod;
+    let paymentMethod = isPayer && order.taker == address ? order.providerPaymentMethod : order.takerPaymentMethod;
     const hasRouter = !!order.payRouterRequest;
-    paymentMethod = hasRouter && payer ? order.payRouterRequest.routes[0].paymentMethod : paymentMethod;
+    paymentMethod = hasRouter && isPayer ? order.payRouterRequest.routes[0].paymentMethod : paymentMethod;
+
     return (
       <>
         <PaymentInfo paymentMethod={paymentMethod} />
-        <div className="mt-2 flex items-center gap-1 border-t border-gray-800/50 pt-2">
-          <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">Amount:</span>
+        <div className="mt-2 flex items-center gap-1 border-t border-gray-800 pt-2">
+          <span className="inline-block w-[137px] font-poppins text-sm font-light text-gray-500">Amount:</span>
           <span className="font-dosis text-lg font-semibold text-screaming-green">
             <SwapPaymentAmount order={order} address={address} />
           </span>
           <ToolTip
             tip={
               isPayer
-                ? `The exact amount you are are expected to send to the ${iamSellerOrBuyer(order, address, true)}. ${hasRouter ? "This amount includes routing fees." : ""}`
-                : `The exact amount you are expected to receive from the ${iamSellerOrBuyer(order, address, true)}.`
+                ? `The exact amount you are are expected to send to the ${isSellerOrBuyer(order, address, true)}. ${hasRouter ? "This amount includes routing fees." : ""}`
+                : `The exact amount you are expected to receive from the ${isSellerOrBuyer(order, address, true)}.`
             }
             className="ml-1 text-gray-400/30 transition-all duration-500 hover:text-gray-400"
           >
@@ -48,21 +48,21 @@ export function PaymentInfo({ paymentMethod, className }: { paymentMethod: Payme
     return (
       <Fragment>
         <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
-          Bank Name:
+          Bank Name
         </span>
         <span>{paymentMethod.name}</span> <br />
         <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
-          Account Name:
+          Account Name
         </span>
         <span>{paymentMethod.bankAccountName}</span> <br />
         <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
-          Account Number:
+          Account Number
         </span>
         <span>{paymentMethod.bankAccountNumber}</span> <br />
         {paymentMethod.routingNumber && (
           <Fragment>
             <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
-              Routing Number:
+              Routing Number
             </span>
             <span>{paymentMethod.routingNumber}</span> <br />
           </Fragment>
@@ -70,7 +70,7 @@ export function PaymentInfo({ paymentMethod, className }: { paymentMethod: Payme
         {paymentMethod.swiftCode && (
           <Fragment>
             <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
-              SWIFT Code:
+              SWIFT Code
             </span>{" "}
             <span>{paymentMethod.swiftCode}</span> <br />
           </Fragment>
@@ -80,7 +80,7 @@ export function PaymentInfo({ paymentMethod, className }: { paymentMethod: Payme
             <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
               Additional Info:
             </span>
-            <span className="font-dosis text-lg">{paymentMethod.additionalInfo}</span> <br />
+            <span className="font-dosis">{paymentMethod.additionalInfo}</span> <br />
           </Fragment>
         )}
       </Fragment>
@@ -91,11 +91,11 @@ export function PaymentInfo({ paymentMethod, className }: { paymentMethod: Payme
     return (
       <Fragment>
         <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
-          Wallet Service:
+          Wallet Service
         </span>{" "}
         <span>{paymentMethod.name}</span> <br />
         <span className={cn("inline-block w-[140px] font-poppins text-sm font-light text-gray-500", className)}>
-          Account ID:
+          Account ID
         </span>{" "}
         <span>{paymentMethod.accountId}</span> <br />
         {paymentMethod.additionalInfo && (
@@ -103,7 +103,7 @@ export function PaymentInfo({ paymentMethod, className }: { paymentMethod: Payme
             <span className="inline-block w-[140px] font-poppins text-sm font-light text-gray-500">
               Additional Info:
             </span>{" "}
-            <span className="font-dosis text-sm">{paymentMethod.additionalInfo}</span> <br />
+            <span className="font-dosis">{paymentMethod.additionalInfo}</span> <br />
           </Fragment>
         )}
       </Fragment>

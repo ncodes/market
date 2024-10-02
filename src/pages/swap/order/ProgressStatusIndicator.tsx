@@ -28,15 +28,15 @@ export function ProgressStatusIndicator({
         ))}
       </div>
       {status == ProgressStatus.PENDING && (
-        <div className="absolute -left-[3px] z-10 h-[6px] w-[6px] animate-pulse rounded-full border-2 bg-onyx outline outline-offset-2" />
+        <div className="absolute -left-[3px] h-[6px] w-[6px] animate-pulse rounded-full border-2 bg-onyx outline outline-offset-2" />
       )}
 
       {status === ProgressStatus.COMPLETED && (
-        <CheckCircle2 className="absolute -left-[6.5px] z-10 h-[15px] w-[15px] rounded-full bg-onyx text-green-400" />
+        <CheckCircle2 className="absolute -left-[6.5px] h-[15px] w-[15px] rounded-full bg-onyx text-green-400" />
       )}
 
       {status === ProgressStatus.CANCELLED && (
-        <XCircle className="absolute -left-[6.5px] z-10 h-[15px] w-[15px] rounded-full bg-onyx text-red-400" />
+        <XCircle className="absolute -left-[6.5px] h-[15px] w-[15px] rounded-full bg-onyx text-red-400" />
       )}
     </div>
   );

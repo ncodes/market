@@ -14,6 +14,10 @@ export default function useLayout() {
   const setUser = useStore((state) => state.setUser);
   const setBrowserCountryCode = useStore((state) => state.setBrowserCountryCode);
 
+  useEffect(() => {
+    if (!token) setUser(undefined);
+  }, [token]);
+
   // Fetch authenticated user info periodically
   const getAuthUserQry = useQuery({
     queryKey: ["authUser", { noAuth: false, addressOrUserId: address }],

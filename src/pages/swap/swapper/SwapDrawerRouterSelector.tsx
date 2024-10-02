@@ -2,22 +2,29 @@ import { Button } from "@/components/ui/button.tsx";
 import { getLogoUrl, getShortName } from "@jointlabs/meta";
 import { XIcon } from "lucide-react";
 import { Fragment } from "react";
+import { useOnClickOutside } from "usehooks-ts";
 import { Avatar } from "../../../components/avatar/Avatar";
 import { ToolTip } from "../../../components/toolTip";
 import { toAbr } from "../../../libs/helpers";
 import { calculateRoutesFee } from "../utils";
 
 export function SwapDrawerRouterSelector({
-  closeRequested,
+  drawerRef,
   containerHeight,
-  onSelected,
   routesList,
+  closeRequested,
+  onSelected,
 }: {
+  drawerRef: React.RefObject<HTMLDivElement>;
   containerHeight?: number;
+  routesList: PayRouterRoute[][];
   closeRequested?: () => void;
   onSelected?: (routes: PayRouterRoute[]) => void;
-  routesList: PayRouterRoute[][];
 }) {
+  useOnClickOutside(drawerRef, () => {
+    closeRequested?.();
+  });
+
   return (
     <div className="relative m-0 max-w-[650px] rounded-3xl py-4 pb-0">
       <div>

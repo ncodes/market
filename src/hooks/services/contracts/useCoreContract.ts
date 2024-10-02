@@ -74,6 +74,7 @@ export default function useCoreContract() {
    * @param ids The NFT IDs
    * @param txDeadline The transaction deadline
    * @param operator The operator ID
+   * @param ethDeposit The amount of ETH to deposit if ETH is required
    */
   async function swapQuoteForBase(
     marketId: string,
@@ -86,6 +87,7 @@ export default function useCoreContract() {
     txDeadline: BigNumberish,
     operator: BigNumberish = 0,
     marketMgrData: string,
+    ethDeposit?: bigint,
   ) {
     const params: StructsLib.SwapQuoteForBaseParamsStruct = {
       marketId,
@@ -100,7 +102,7 @@ export default function useCoreContract() {
       marketMgrData,
     };
 
-    return simulateAndWriteContract("core", "swapQuoteForBase", [params], undefined, true, 1);
+    return simulateAndWriteContract("core", "swapQuoteForBase", [params], ethDeposit, true, 1);
   }
 
   /**
@@ -313,6 +315,8 @@ export default function useCoreContract() {
 
       if (error.message.includes("OC: MAX_OPEN_ORDERS"))
         return `The liquidity provider has reached the maximum number of open orders allowed`;
+
+      if (error.message.includes("OC: LOW_DEPOSIT")) return `Insufficient balance`;
 
       // Common
       if (error.message.includes("OC: AMOUNT_REQ")) return "Amount is required";

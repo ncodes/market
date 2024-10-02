@@ -13,6 +13,8 @@ export interface SwapPageType {
   expires?: number;
   sellAmount?: string;
   buyAmount?: string;
+  sellAmountAfterFee?: string;
+  buyAmountAfterFee?: string;
   focusSide?: SwapSide;
   drawerContent?: SwapDrawerContent | undefined;
   openDrawer?: boolean;
@@ -33,6 +35,7 @@ export interface SwapPageType {
   selectedLiquidity?: Liquidity;
   payRoutes?: PayRouterRoute[][];
   selectedPayRoutes: PayRouterRoute[];
+  selectedPaymentMethod?: PaymentMethod;
   showFeeDetails?: boolean;
   nativeBalance?: string;
   baseBalance?: string;
@@ -41,6 +44,7 @@ export interface SwapPageType {
   openDrawerSide?: SwapSide;
   allowanceOk: boolean;
   approveLoading: boolean;
+  linkWalletLoading: boolean;
   swapLoading: boolean;
   autoInitiateSwap: boolean;
   requiredMinBond?: string;
