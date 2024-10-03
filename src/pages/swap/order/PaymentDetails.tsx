@@ -9,13 +9,28 @@ import { SwapPaymentAmount } from "./SwapPaymentAmount";
 export function PaymentDetails({ order }: { order: Swap }) {
   const { address } = useConnectorContext();
   const isRouter = isOrderRouter(order, address);
-  const isPayer = getPayer(order) == address;
+  const payer = getPayer(order);
+  const isPayer = payer == address;
 
   if (!isRouter) {
     if (!order?.takerPaymentMethod && !order.providerPaymentMethod) return null;
-    let paymentMethod = isPayer && order.taker == address ? order.providerPaymentMethod : order.takerPaymentMethod;
+    const isProvider = order.provider == address;
+
+    let paymentMethod: PaymentMethod | undefined;
     const hasRouter = !!order.payRouterRequest;
-    paymentMethod = hasRouter && isPayer ? order.payRouterRequest.routes[0].paymentMethod : paymentMethod;
+    if (hasRouter) {
+      if (isPayer) {
+        paymentMethod = order.payRouterRequest.routes[0].paymentMethod;
+      } else {
+        paymentMethod = isProvider ? order.providerPaymentMethod : order.takerPaymentMethod;
+      }
+    } else {
+      if (isPayer) {
+        paymentMethod = isProvider ? order.takerPaymentMethod : order.providerPaymentMethod;
+      } else {
+        paymentMethod = payer == order.provider ? order.takerPaymentMethod : order.providerPaymentMethod;
+      }
+    }
 
     return (
       <>

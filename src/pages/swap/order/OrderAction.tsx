@@ -108,7 +108,7 @@ export function OrderAction({
           )}
 
           {!token && ready && !order.released && (
-            <div className="flex w-full flex-col gap-2 border-t border-gray-800/50">
+            <div className="flex w-full flex-col gap-2 border-t border-gray-800/50 pb-2">
               <LinkAccountButton
                 onLoading={(loading) =>
                   setState((prev) => ({ ...prev, loading: { ...prev.loading, linkingWallet: loading } }))
@@ -179,7 +179,7 @@ export function OrderAction({
         !order.released &&
         !order.paid &&
         isSwapCounterparty(order, address) && (
-          <div className="flex w-full flex-col gap-2 py-2">
+          <div className="flex w-full flex-col gap-2 pb-2">
             <Button
               variant="ghost"
               className="rounded-2xl bg-mirage/10 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:text-gray-200"

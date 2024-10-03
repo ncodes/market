@@ -40,7 +40,7 @@ export function getSwapProgress(order?: Swap, address?: string) {
           ? isPayer
             ? !isProvider
               ? `Tap 'Paid' after making payment to ${hasRouter ? "router #0" : "the buyer"}.`
-              : "Send payment using the payment detail provided above."
+              : "Send payment using the payment details provided above."
             : isProvider
               ? `${counterpartCap} will mark the order as 'paid' when they have paid.`
               : `${counterpartCap} is expected to send payment to ${hasRouter ? "router #0" : "you"}.`

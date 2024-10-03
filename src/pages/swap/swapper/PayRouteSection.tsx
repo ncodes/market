@@ -101,47 +101,6 @@ export function PayRouteSection({
           <RoutesPathView routes={state.selectedPayRoutes} />
         </div>
       )}
-
-      {/* TODO: remove this section */}
-      {/* {state.selectedPayRoutes?.length > 0 && (
-        <div className="mt-3 flex hidden flex-col gap-1 border-t border-boulder/20 p-5 pb-1 pr-0 pt-3 text-white">
-          <div className="flex items-center justify-between text-sm font-light tracking-wide text-boulder">
-            <p className="flex items-center gap-1 text-sm font-light tracking-wide text-boulder">
-              <span>Actual Sell Amount</span>
-              <span>
-                <ToolTip
-                  tip={
-                    <>
-                      {isSynth(market?.quoteType) && (
-                        <>
-                          The actual amount you will send to the first router to cover the payment to the provider and
-                          routing fees.
-                        </>
-                      )}
-                      {!isSynth(market?.quoteType) && (
-                        <>The actual amount you will sell to cover the payment to the provider and routing fees.</>
-                      )}{" "}
-                      <a href="#" className="text-light-green">
-                        Learn more
-                      </a>
-                    </>
-                  }
-                  className="text-gray-400/30 transition-all duration-500 hover:text-gray-400"
-                >
-                  <InfoIcon className="h-4 w-4" />
-                </ToolTip>
-              </span>
-            </p>
-            <span></span>
-          </div>
-          <span className="font-dosis text-2xl font-semibold text-gray-300">
-            <span className="font-dosis text-gray-100">
-              {applyRoutingFeeToAmount(state.sellAmount || "0", state.selectedPayRoutes, 4)}
-            </span>{" "}
-            {state.sellToken?.symbol}
-          </span>
-        </div>
-      )} */}
     </>
   );
 }

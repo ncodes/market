@@ -102,12 +102,7 @@ export function useSwapOrderLogic(orderId?: string) {
       const txHash = await markRequestAsPaid(requestId, routeId);
       await delay(5000);
       await swapOrderQry.refetch();
-      const msg = buildSuccessMsg(
-        "Success",
-        "Route was marked as 'PAID'",
-        txHash,
-        chainInfo?.blockExplorer as string,
-      );
+      const msg = buildSuccessMsg("Success", "Route was marked as 'PAID'", txHash, chainInfo?.blockExplorer as string);
       toast.success(msg, { position: "top-right", duration: 6000 });
       setState((prev) => ({ ...prev, loading: { ...prev.loading, markRouteAsPaid: false } }));
     } catch (error) {
@@ -134,9 +129,9 @@ function buildSuccessMsg(label: string, msg: string, txHash: string, blockExplor
     <div>
       <p className="text-sm font-medium">{label}</p>
       <p className="text-gray-200">{msg}</p>
-      <div className="flex gap-2 text-xs font-light text-gray-400">
+      <div className="flex gap-2 text-xs font-light text-green-400">
         <a href={`${blockExplorer}/tx/${txHash}`} target="_blank" rel="noreferrer">
-          View Tx
+          view tx
         </a>
       </div>
     </div>

@@ -43,7 +43,9 @@ export function usePayRoutesQuery({
 
   // Handle payment routes fetch results
   useEffect(() => {
-    if (query.data) setState((prev) => ({ ...prev, payRoutes: query.data }));
+    if (query.data) {
+      setState((prev) => ({ ...prev, payRoutes: query.data, selectedPayRoutes: [] }));
+    }
   }, [query.data, query.isSuccess, query.isError]);
 
   /**

@@ -3,20 +3,14 @@ import useCoreContract from "@/hooks/services/contracts/useCoreContract";
 import useRouterContract from "@/hooks/services/contracts/useRouterContract.ts";
 import { delay, isZero, logError, toDec, toHDD, toLD, toLDD, trimZeros } from "@/libs/helpers.ts";
 import { DefaultSwapExpireDurSec, DefaultSwapSlippage } from "@/pages/swap/constants.ts";
-import {
-  applyRoutingFeeToAmount,
-  deductRoutingFeeFromAmount,
-  getTokenType,
-  isNative,
-  isSynth,
-} from "@/pages/swap/utils.ts";
+import { applyRoutingFeeToAmount, deductRoutingFeeFromAmount, isNative, isSynth } from "@/pages/swap/utils.ts";
 import { TokenList, TokenLists } from "@jointlabs/meta";
 import { useQueryClient } from "@tanstack/react-query";
 import { ZeroAddress } from "ethers";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { TransactionReceipt, decodeEventLog, encodeAbiParameters, parseAbiParameters } from "viem";
+import { TransactionReceipt, encodeAbiParameters, parseAbiParameters, parseEventLogs } from "viem";
 import useStore from "../../../hooks/store/useStore";
 import { SideQuote, SwapPageType, SwapSide } from "./types";
 import { useBalances } from "./useBalances";
@@ -123,6 +117,7 @@ export function useSwapLogic() {
       updState.insufficientBalance = false;
       updState.insufficientLiquidity = false;
       updState.selectedLiquidity = undefined;
+      updState.selectedPayRoutes = [];
     }
 
     if (state.sellAmount && state.buyToken) {
@@ -130,10 +125,6 @@ export function useSwapLogic() {
     }
 
     setState(updState);
-
-    if (state.sellToken) {
-      void checkRouterAllowance(state.sellAmount || "0", state.sellToken, address);
-    }
   }, [state.sellAmount]);
 
   // Listen to buy amount change
@@ -146,14 +137,17 @@ export function useSwapLogic() {
       updState.sellAmount = "";
       updState.insufficientBalance = false;
       updState.selectedLiquidity = undefined;
+      updState.selectedPayRoutes = [];
     }
 
     setState(updState);
-
-    if (state.sellToken) {
-      void checkRouterAllowance(state.sellAmount || "0", state.sellToken, address);
-    }
   }, [state.buyAmount]);
+
+  // Check if sell token allowance approval is needed.
+  useEffect(() => {
+    if (!state.sellToken || !state.sellAmount) return;
+    void checkRouterAllowance(state.sellAmount || "0", state.sellToken, address);
+  }, [state.sellAmount, state.sellToken, address]);
 
   // Set token list and initial sell token side on chain selection
   useEffect(() => {
@@ -223,16 +217,17 @@ export function useSwapLogic() {
   async function checkRouterAllowance(amount: string, token: TokenList.Token | undefined, address: string) {
     if (!token) return false;
 
-    if (isNative(getTokenType(token)) || isSynth(getTokenType(token))) {
+    if (isNative(token) || isSynth(token)) {
       setState((prev) => ({ ...prev, allowanceOk: true }));
       return true;
     }
 
     if (!amount) return false;
 
+    const { market } = state;
     const amountLD = toLDD(amount, token.decimals);
-    const routerAddr = chainInfo?.contracts?.router?.address;
-    const allowance = await getTokenAllowance(token.address as `0x${string}`, address, routerAddr as `0x${string}`);
+    const contractAddr = market?.instant ? chainInfo?.contracts?.router?.address : chainInfo?.contracts?.core?.address;
+    const allowance = await getTokenAllowance(token.address as `0x${string}`, address, contractAddr as `0x${string}`);
     const allowanceOk = toDec(allowance).gte(amountLD);
     setState((prev) => ({ ...prev, allowanceOk }));
 
@@ -244,12 +239,13 @@ export function useSwapLogic() {
    * into the router contract
    */
   async function approveSell() {
-    const routerAddr = chainInfo?.contracts?.router?.address;
+    const { market } = state;
+    const contractAddr = market?.instant ? chainInfo?.contracts?.router?.address : chainInfo?.contracts?.core?.address;
     const totalSupply = await getTokenSupply(state.sellToken?.address as `0x${string}`);
 
     try {
       setState((prev) => ({ ...prev, approveLoading: true }));
-      await approveAllowance(state.sellToken?.address as `0x${string}`, routerAddr as `0x${string}`, totalSupply);
+      await approveAllowance(state.sellToken?.address as `0x${string}`, contractAddr as `0x${string}`, totalSupply);
       toast.success("Allowance Request", { description: "Allowance request approved", position: "top-right" });
       const allowed = await checkRouterAllowance(state.sellAmount || "0", state.sellToken, address);
       setState((prev) => ({ ...prev, approveLoading: false }));
@@ -330,14 +326,13 @@ export function useSwapLogic() {
         );
         await delay(5000);
 
-        const targetIndex = market.manager ? 0 : txReceipt.logs.length - 1;
-        const event = decodeEventLog({
+        const logs = parseEventLogs({
           abi: chainInfo?.contracts?.core.abi,
-          data: txReceipt.logs[targetIndex].data,
-          topics: txReceipt.logs[targetIndex].topics,
-        }) as { args: { numTypeInfo: bigint[] } };
-
-        const orderId = (event.args as { numTypeInfo: bigint[] }).numTypeInfo[0];
+          logs: txReceipt.logs,
+          eventName: "SwapOrder",
+        });
+        const swapOrderEvt = logs[0] as unknown as { args: { numTypeInfo: bigint[] } };
+        const orderId = swapOrderEvt.args.numTypeInfo[0];
         navigate(`/swap/${orderId}`);
 
         setState((prev) => ({ ...prev, swapLoading: false, autoInitiateSwap: false }));
