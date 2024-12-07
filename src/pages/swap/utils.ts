@@ -1,6 +1,7 @@
 import { AssetType } from "@/types/enums.ts";
 import { TokenList } from "@jointlabs/meta";
 import Decimal from "decimal.js";
+import moment from "moment";
 import { toDec } from "../../libs/helpers";
 
 /**
@@ -159,4 +160,23 @@ export function deductRoutingFeeFromAmount(amount: string, payRoutes: PayRouterR
   return toDec(amount)
     .mul(toDec(1).minus(toDec(routingFee).div(100)))
     .toFixed(decimals);
+}
+
+export function isOrderExpired(order: Swap) {
+  return (
+    !order.paid &&
+    moment(order.cancelAt).isBefore(moment()) &&
+    (!order.finalizedAt || moment(order.finalizedAt).isAfter(moment(order.cancelAt)))
+  );
+}
+
+export function getAppealerStr(order: Swap, capitalize = true) {
+  const appealer = order.appeal.creator.address;
+  const isAppealerRouter = isOrderRouter(order, appealer);
+  if (isAppealerRouter) {
+    const routes = order.payRouterRequest?.routes ?? [];
+    const routeIdx = routes?.findIndex((route) => route.owner == appealer) ?? 0;
+    return `Router #${routeIdx}`;
+  }
+  return isSellerOrBuyer(order, appealer, false, capitalize);
 }

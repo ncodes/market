@@ -2,7 +2,7 @@ import { toDec } from "@/libs/helpers.ts";
 import { isNative } from "@/pages/swap/utils.ts";
 import { TokenList } from "@jointlabs/meta";
 import { ZeroAddress } from "ethers";
-import { SideQuote } from "../../../pages/swap/swapper/types.ts";
+import { SideQuote } from "../../../pages/swap/components/swapper/types.ts";
 import { LiquidityStruct, RouteStruct } from "../../../typechain/Router.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
 

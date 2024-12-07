@@ -15,7 +15,7 @@ export default function LinkAccountButton({
   children,
   onLoading,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   onLoading?: (loading: boolean) => void;
 }) {
   const { ready, sign, address } = useConnectorContext();

@@ -13,6 +13,7 @@ declare global {
     referrer: string;
     refCode: string;
     country: string;
+    isDelegate: boolean;
 
     presale: boolean;
     presaleApproved: boolean;
@@ -259,6 +260,7 @@ declare global {
     takerPaymentMethod: PaymentMethod;
     providerPaymentMethod: PaymentMethod;
     rates: Record<string, number>;
+    appeal: Appeal;
   }
 
   interface Offer {
@@ -743,5 +745,17 @@ declare global {
     requestId: string;
     routeId: string;
     bond: string;
+  }
+
+  interface Appeal {
+    network: string;
+    orderId: string;
+    creatorId: string;
+    issue: string;
+    description: string;
+    closed: boolean;
+    files: string[];
+    fileUrls: string[];
+    creator: User;
   }
 }

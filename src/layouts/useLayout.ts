@@ -10,7 +10,7 @@ export default function useLayout() {
   const { token, setAccessToken } = useSession();
   const { getRequestCountryCode } = useMiscService();
   const { getUser } = useUserService();
-  const { address } = useConnectorContext();
+  const { address, chainInfo } = useConnectorContext();
   const setUser = useStore((state) => state.setUser);
   const setBrowserCountryCode = useStore((state) => state.setBrowserCountryCode);
 
@@ -20,7 +20,7 @@ export default function useLayout() {
 
   // Fetch authenticated user info periodically
   const getAuthUserQry = useQuery({
-    queryKey: ["authUser", { noAuth: false, addressOrUserId: address }],
+    queryKey: ["authUser", { noAuth: false, addressOrUserId: address, net: chainInfo?.queryName }],
     queryFn: getUser,
     enabled: !!token,
     refetchOnWindowFocus: true,

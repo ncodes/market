@@ -39,7 +39,7 @@ export function useUserService() {
       const resp = await axios({
         url: `${getChainInfo().apiUrl}/v1/users/${params.addressOrUserId}`,
         method: "get",
-        params: { no404: true },
+        params: { no404: true, net: params.net },
         headers,
       } as AxiosRequestConfig);
 

@@ -7,6 +7,7 @@ export interface GetRoutesParams {
   net?: string;
   region: string;
   destOrgId: number;
+  requester: string;
   minBond?: string;
   maxDepth?: number;
 }
@@ -28,7 +29,11 @@ export function useRouteService() {
       const resp = await axios({
         url: `${getChainInfo().apiUrl}/v1/routes/${params.region}/${params.destOrgId}`,
         method: "get",
-        params: { net: params.net, minBond: params.minBond },
+        params: {
+          net: params.net,
+          minBond: params.minBond,
+          requester: params.requester,
+        },
         headers: {
           "Content-Type": "application/json",
         },
