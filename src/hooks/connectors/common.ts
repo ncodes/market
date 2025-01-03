@@ -13,7 +13,7 @@ export function createSignatureMessage(address: string, email?: string, expireTi
   const emailStr = !email ? "" : `Email: ${email}`;
   const msg = `Welcome to ${import.meta.env.VITE_APP_NAME}!
   
-Click Sign button to sign and accept the ${import.meta.env.VITE_APP_NAME} Terms of Service: https://swopler.com/tos.
+Click Sign button to sign and accept the ${import.meta.env.VITE_APP_NAME} Terms of Service: https://swop.so/tos.
   
 This request will not trigger a blockchain transaction or cost any gas fees.
   

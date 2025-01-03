@@ -107,8 +107,8 @@ export function PaymentInformation({ order }: { order: Swap }) {
         <div className="mt-3 flex min-h-[50px] items-center justify-center gap-2 rounded-xl border border-yellow-800/30 bg-yellow-500/10 p-4 tracking-wider text-gray-300">
           <InfoIcon className="h-5 w-5 text-yellow-300" />
           <p className="text-sm">
-            {isPayer && `Link your wallet to Swop to reveal the ${whoiam}'s payment details`}
-            {!isPayer && "Link your wallet to Swop to reveal your payment details"}
+            {isPayer && `Link your wallet to reveal the ${whoiam}'s payment details`}
+            {!isPayer && "Link your wallet to reveal your payment details"}
           </p>
         </div>
       )}

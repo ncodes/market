@@ -76,7 +76,7 @@ export default function LinkAccountButton({
   return (
     <div>
       <ToolTip
-        tip="Link your wallet to a Swopler account for personalized features. "
+        tip="Link your wallet for personalized features. "
         className2="bg-gray-800/80 border-gray-800/80 tracking-wider"
       >
         <Button

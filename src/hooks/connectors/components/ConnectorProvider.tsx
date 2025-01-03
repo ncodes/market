@@ -33,7 +33,7 @@ const config = createConfig(
     walletConnectProjectId: WalletConnectId,
     appName: AppName,
     chains: getSupportedChains() as unknown as readonly [Chain, ...Chain[]],
-    appDescription: "Swopler is a peer-to-peer exchange for swapping tokens with real people",
+    appDescription: "Swop allows you to swap tokens with regular people.",
     appUrl: AppUrl,
     appIcon: AppIcon,
     transports,

@@ -84,7 +84,7 @@ export function RoutePathDetails({ order, collapse }: { order: Swap; collapse: b
       {!token && (
         <div className="mx-3 flex min-h-[50px] items-center justify-center gap-2 rounded-xl border border-yellow-800/30 bg-yellow-500/10 p-4 tracking-wider text-gray-300">
           <InfoIcon className="h-5 w-5 text-yellow-300" />
-          <p className="text-sm">Link your wallet to Swop to reveal the payment details</p>
+          <p className="text-sm">Link your wallet to reveal the payment details</p>
         </div>
       )}
 
