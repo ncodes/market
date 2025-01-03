@@ -6,7 +6,7 @@ import { useOnClickOutside } from "usehooks-ts";
 import { Avatar } from "../../../../components/avatar/Avatar";
 import { ToolTip } from "../../../../components/toolTip";
 import { toAbr } from "../../../../libs/helpers";
-import { calculateRoutesFee } from "../../utils";
+import { calculateRoutesFee } from "../../common/utils";
 
 export function SwapDrawerRouterSelector({
   drawerRef,
@@ -32,7 +32,7 @@ export function SwapDrawerRouterSelector({
           <span>Select a router</span>
           <span>
             <Button
-              variant="ghost"
+              variant="link"
               className="h-auto p-0"
               onClick={() => {
                 closeRequested?.();

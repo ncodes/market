@@ -2,9 +2,9 @@ import { Button } from "@/components/ui/button.tsx";
 import { motion } from "framer-motion";
 import { InfoIcon, X } from "lucide-react";
 import { ToolTip } from "../../../../components/toolTip";
-import { isSynth } from "../../utils";
+import { isSynth } from "../../common/utils";
+import { SwapPageState } from "../../types/types";
 import { RoutesPathView } from "./SwapDrawerRouterSelector";
-import { SwapPageState } from "./types";
 
 export function PayRouteSection({
   state,
@@ -34,7 +34,7 @@ export function PayRouteSection({
           onClick={() => {
             setState((prev) => ({
               ...prev,
-              drawerContent: "router-selector",
+              drawerContentType: "router-selector",
               openDrawer: !prev.openDrawer,
             }));
           }}

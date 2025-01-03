@@ -15,8 +15,8 @@ import { ImageIcon, InfoIcon, Loader2, PlusIcon, VideoIcon, XCircleIcon, XIcon }
 import { ChangeEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useOnClickOutside } from "usehooks-ts";
-import { getPayer, isOrderRouter, isSellerOrBuyer } from "../../utils";
-import { SwapOrderState } from "./useSwapOrderLogic";
+import { getPayer, isOrderRouter, isSellerOrBuyer } from "../../common/utils";
+import { SwapOrderState } from "../../hooks/useSwapOrderLogic";
 
 const defaultState: {
   dialogOpen: boolean;
@@ -154,7 +154,7 @@ export function DrawerCreateAppeal({
         <span className="flex items-center gap-2">
           <span>
             <Button
-              variant="ghost"
+              variant="link"
               className="h-auto p-0 hover:bg-transparent"
               onClick={() => {
                 closeRequested?.();

@@ -2,8 +2,8 @@ import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx"
 import useCoreContract from "@/hooks/services/contracts/useCoreContract";
 import useRouterContract from "@/hooks/services/contracts/useRouterContract.ts";
 import { delay, isZero, logError, toDec, toHDD, toLD, toLDD, trimZeros } from "@/libs/helpers.ts";
-import { DefaultSwapExpireDurSec, DefaultSwapSlippage } from "@/pages/swap/constants.ts";
-import { applyRoutingFeeToAmount, deductRoutingFeeFromAmount, isNative, isSynth } from "@/pages/swap/utils.ts";
+import { DefaultSwapExpireDurSec, DefaultSwapSlippage } from "@/pages/swap/common/constants";
+import { applyRoutingFeeToAmount, deductRoutingFeeFromAmount, isNative, isSynth } from "@/pages/swap/common/utils";
 import { TokenList, TokenLists } from "@jointlabs/meta";
 import { useQueryClient } from "@tanstack/react-query";
 import { ZeroAddress } from "ethers";
@@ -11,8 +11,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { TransactionReceipt, encodeAbiParameters, parseAbiParameters, parseEventLogs } from "viem";
-import useStore from "../../../../hooks/store/useStore";
-import { SideQuote, SwapPageState, SwapSide } from "./types";
+import useStore from "../../../hooks/store/useStore";
+import { SideQuote, SwapPageState, SwapSide } from "../types/types";
 import { useBalances } from "./useBalances";
 import { useFillQuery } from "./useFillQuery";
 import { useMarketQuery } from "./useMarketQuery";
@@ -31,7 +31,7 @@ const defaultState: SwapPageState = {
   sellAmountAfterFee: "",
   buyAmountAfterFee: "",
   focusSide: undefined,
-  drawerContent: undefined,
+  drawerContentType: undefined,
   openDrawer: false,
   tokenLists: undefined,
   sellToken: undefined,

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useBalance } from "wagmi";
-import { toHD } from "../../../../libs/helpers";
-import { getTokenType, isERC20, isNative } from "../../utils";
-import { SwapPageState } from "./types";
+import { toHD } from "../../../libs/helpers";
+import { getTokenType, isERC20, isNative } from "../common/utils";
+import { SwapPageState } from "../types/types";
 
 export function useBalances({
   state,

@@ -96,7 +96,7 @@ export function DrawerAppealCentre({
         <span className="flex items-center gap-2">
           <span>
             <Button
-              variant="ghost"
+              variant="link"
               className="h-auto p-0 hover:bg-transparent"
               onClick={() => {
                 closeRequested?.();

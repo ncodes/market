@@ -1,17 +1,17 @@
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { useSwapService } from "@/hooks/services/backend/useSwapService";
 import useCoreContract from "@/hooks/services/contracts/useCoreContract";
+import usePayRouterContract from "@/hooks/services/contracts/usePayRouterContract";
 import { useSession } from "@/hooks/useSession";
+import { delay, logError } from "@/libs/helpers";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
-import usePayRouterContract from "../../../../hooks/services/contracts/usePayRouterContract";
-import { delay, logError } from "../../../../libs/helpers";
-import { SwapDrawerContent } from "../SwapDrawer";
+import { SwapDrawerContentType } from "../components/SwapDrawer";
 
 export interface SwapOrderState {
   openDrawer: boolean;
-  drawerContent?: SwapDrawerContent | undefined;
+  drawerContentType?: SwapDrawerContentType | undefined;
   loading: {
     markAsPaid: boolean;
     markRouteAsPaid: boolean;

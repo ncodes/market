@@ -1,8 +1,8 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Scale } from "lucide-react";
 import { Button } from "../../../../components/ui/button";
-import { getAppealerStr } from "../../utils";
-import { SwapOrderState } from "./useSwapOrderLogic";
+import { getAppealerStr } from "../../common/utils";
+import { SwapOrderState } from "../../hooks/useSwapOrderLogic";
 
 export function AppealAlert({
   order,
@@ -29,7 +29,7 @@ export function AppealAlert({
           onClick={() => {
             footerRef.current?.scrollIntoView({ behavior: "smooth" });
             setTimeout(() => {
-              setSwapOrderState((prev) => ({ ...prev, drawerContent: "appeal-centre", openDrawer: true }));
+              setSwapOrderState((prev) => ({ ...prev, drawerContentType: "appeal-centre", openDrawer: true }));
             }, 300);
           }}
         >

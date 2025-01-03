@@ -6,7 +6,7 @@ import { cn } from "@/libs/utils.ts";
 import { TokenList } from "@jointlabs/meta";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
-import { SwapSide } from "./types";
+import { SwapSide } from "../../types/types";
 
 const defaultState: {
   selected?: TokenList.Token;
@@ -45,7 +45,7 @@ export function SwapInputField({
   }, [selected]);
 
   return (
-    <div className="flex items-center justify-between rounded-2xl bg-baltic-sea p-4 py-2">
+    <div className="flex items-center justify-between rounded-2xl bg-baltic-sea/50 p-4 py-2">
       <div className="flex w-full flex-col space-y-1">
         <div className="text-sm font-light text-gray-500">{direction}</div>
         <div className="font-regular flex items-center justify-between">
@@ -73,7 +73,7 @@ export function SwapInputField({
             variant="ghost"
             disabled={disabled}
             className={cn(
-              "h-12 cursor-pointer items-center justify-start space-x-2 rounded-full bg-bright-gray/80 p-0 pl-1 pr-2 transition-all " +
+              "h-12 cursor-pointer items-center justify-start space-x-2 rounded-full bg-bright-gray/30 p-0 pl-1 pr-2 transition-all " +
                 "text-gray-400 duration-300 hover:scale-105 hover:bg-bright-gray hover:text-white",
               {
                 "bg-[#6CC649] text-white hover:bg-[#6CC649]": !state.selected,

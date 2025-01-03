@@ -4,8 +4,8 @@ import { Avatar } from "../../../../components/avatar/Avatar";
 import { ToolTip } from "../../../../components/toolTip";
 import { Button } from "../../../../components/ui/button";
 import useStore from "../../../../hooks/store/useStore";
-import { isSynth } from "../../utils";
-import { SwapPageState } from "./types";
+import { isSynth } from "../../common/utils";
+import { SwapPageState } from "../../types/types";
 
 export function PaymentMethodSection({
   state,
@@ -46,7 +46,7 @@ export function PaymentMethodSection({
             onClick={() => {
               setState((prev) => ({
                 ...prev,
-                drawerContent: "payment-methods",
+                drawerContentType: "payment-methods",
                 openDrawer: !prev.openDrawer,
               }));
             }}

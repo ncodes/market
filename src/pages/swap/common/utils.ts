@@ -2,7 +2,7 @@ import { AssetType } from "@/types/enums.ts";
 import { TokenList } from "@jointlabs/meta";
 import Decimal from "decimal.js";
 import moment from "moment";
-import { toDec } from "../../libs/helpers";
+import { toDec } from "../../../libs/helpers";
 
 /**
  * Get the token type

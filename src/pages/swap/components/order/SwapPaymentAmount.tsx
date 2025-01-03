@@ -8,7 +8,7 @@ import {
   getPayer,
   isOrderRouter,
   isSynth,
-} from "../../utils";
+} from "../../common/utils";
 
 export function SwapPaymentAmount({ order, address }: { order?: Swap; address?: string }) {
   const user = useStore((state) => state.user);

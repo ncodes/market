@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import { ToolTip } from "../../../../components/toolTip";
 import { useConnectorContext } from "../../../../hooks/connectors/useConnectorContext";
 import { cn } from "../../../../libs/utils";
-import { getPayer, isOrderRouter, isSellerOrBuyer } from "../../utils";
+import { getPayer, isOrderRouter, isSellerOrBuyer } from "../../common/utils";
 import { SwapPaymentAmount } from "./SwapPaymentAmount";
 
 export function PaymentDetails({ order }: { order: Swap }) {

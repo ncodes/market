@@ -7,7 +7,7 @@ import { GlobeIcon, SearchIcon, XIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
-import { SwapSide } from "./types";
+import { SwapSide } from "../../types/types";
 
 const defaultState: {
   tokenListsPages: TokenList.Token[][];
@@ -112,11 +112,11 @@ export function SwapDrawerTokenSelector({
   return (
     <div className="relative m-0 rounded-3xl py-4 pb-0">
       <div>
-        <h2 className="mb-4 flex items-center justify-between px-4 font-medium tracking-wider text-white">
+        <h2 className="mb-2 flex items-center justify-between px-4 font-medium tracking-wider text-white">
           <span>Select a token</span>
           <span>
             <Button
-              variant="ghost"
+              variant="link"
               className="h-auto p-0"
               onClick={() => {
                 closeRequested?.();
@@ -127,12 +127,12 @@ export function SwapDrawerTokenSelector({
           </span>
         </h2>
 
-        <div className="relative mb-4 flex px-4">
-          <SearchIcon className="absolute left-7 top-4 h-5 w-5 text-[#6b6b6b]" />
+        <div className="relative mb-2 flex px-4">
+          <SearchIcon className="absolute left-6 top-2 h-5 w-5 text-[#6b6b6b]" />
           <input
             type="text"
             placeholder="Search by name, ticker or address"
-            className="w-full rounded-full bg-baltic-sea px-4 py-3 pl-10 text-lg font-medium text-white placeholder:text-[#6b6b6b] focus:outline-none"
+            className="w-full rounded-full bg-baltic-sea px-4 py-2 pl-9 text-sm font-medium text-white placeholder:text-[#6b6b6b] focus:outline-none"
             value={state.searchQuery}
             onChange={(e) => {
               setState((prev) => ({ ...prev, searchQuery: e.target.value }));
@@ -179,7 +179,7 @@ function TokenItem({
   if (isSelected) return;
 
   return (
-    <li className="mx-2 flex cursor-pointer items-center justify-between rounded-3xl px-2 py-2 pr-4 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:text-white">
+    <li className="bg-red-400x mx-2 flex cursor-pointer items-center justify-between rounded-3xl px-2 py-0 pr-4 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:text-white">
       <Button
         onClick={() => {
           onClick?.(token);
@@ -187,19 +187,14 @@ function TokenItem({
         variant="ghost"
         className="m-0 flex flex-1 items-center justify-start space-x-3 rounded-none p-0 hover:bg-transparent"
       >
-        <Avatar
-          src={token.logoURI as string}
-          fallback={token.symbol}
-          fallbackClassName="w-10 h-10"
-          className="h-10 w-10"
-        />
-        <div className="flex space-x-2 text-white">
+        <Avatar src={token.logoURI as string} fallback={token.symbol} fallbackClassName="w-7 h-7" className="h-7 w-7" />
+        <div className="flex space-x-2 text-xs text-white">
           <span className="font-bold">{token.name}</span> <span className="text-[#6b6b6b]">{token.symbol}</span>
         </div>
       </Button>
       {!token.native && (
         <Link to={`${blockExplorer}/token/${token.address}`} className="opacity-90 hover:opacity-100" target="_blank">
-          <GlobeIcon className="h-4 w-4 text-[#6b6b6b]" />
+          <GlobeIcon className="h-3 w-3 text-[#6b6b6b]" />
         </Link>
       )}
     </li>

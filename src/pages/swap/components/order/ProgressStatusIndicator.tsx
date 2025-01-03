@@ -1,6 +1,6 @@
 import { cn } from "@/libs/utils.ts";
 import { CheckCircle2, Scale, XCircle } from "lucide-react";
-import { ProgressStatus } from "../../constants";
+import { ProgressStatus } from "../../common/constants";
 
 export function ProgressStatusIndicator({
   dashCount = 6,

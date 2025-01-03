@@ -6,7 +6,8 @@ import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useIntersectionObserver } from "usehooks-ts";
 import { ToolTip } from "../../../../components/toolTip";
-import { getPayer, isOrderExpired, isOrderRouter, isSwapCounterparty } from "../../utils";
+import { getPayer, isOrderExpired, isOrderRouter, isSwapCounterparty } from "../../common/utils";
+import { useSwapOrderLogic } from "../../hooks/useSwapOrderLogic";
 import { SwapDrawer } from "../SwapDrawer";
 import { AppealAlert } from "./AppealAlert";
 import { HeaderCountDown } from "./HeaderCountDown";
@@ -16,14 +17,13 @@ import { OrderParticipants } from "./OrderParticipants";
 import { OrderProgress } from "./OrderProgress";
 import { PaymentInformation } from "./PaymentInformation";
 import { RoutePathDetails } from "./RoutePathDetails";
-import { useSwapOrderLogic } from "./useSwapOrderLogic";
 
 export function SwapOrder() {
   const { orderId } = useParams();
   const { order, markAsPaid, markRouteAsPaid, release, cancel, state, setState } = useSwapOrderLogic(orderId);
   const { address } = useConnectorContext();
   const swapSectionRef = useRef<HTMLDivElement | null>(null);
-  const footerRef = useRef<HTMDivLElement | null>(null);
+  const footerRef = useRef<HTMLDivElement | null>(null);
   const { ref, isIntersecting } = useIntersectionObserver({
     threshold: 1,
   });

@@ -5,9 +5,9 @@ import { isZero, shortenAddress } from "@/libs/helpers.ts";
 import { motion } from "framer-motion";
 import { ChevronsUp, InfoIcon } from "lucide-react";
 import { ToolTip } from "../../../../components/toolTip";
-import { isInstantMarket, isSynth } from "../../utils";
+import { isInstantMarket, isSynth } from "../../common/utils";
+import { SwapPageState } from "../../types/types";
 import { PayRouteSection } from "./PayRouteSection";
-import { SwapPageState } from "./types";
 
 export function ProviderSection({
   state,
@@ -91,7 +91,7 @@ export function ProviderSection({
               onClick={() => {
                 setState((prev) => ({
                   ...prev,
-                  drawerContent: "provider-selector",
+                  drawerContentType: "provider-selector",
                   openDrawer: !prev.openDrawer,
                 }));
               }}

@@ -8,9 +8,9 @@ import { useState } from "react";
 import { ConfirmDialog } from "../../../../components/ConfirmDialog";
 import LinkAccountButton from "../../../../components/header/LinkAccountButton";
 import { useSession } from "../../../../hooks/useSession";
-import { getPayer, isOrderRouter, isSwapCounterparty } from "../../utils";
+import { getPayer, isOrderRouter, isSwapCounterparty } from "../../common/utils";
+import { SwapOrderState } from "../../hooks/useSwapOrderLogic";
 import { hasLastRouterPaid } from "./progress";
-import { SwapOrderState } from "./useSwapOrderLogic";
 
 const defaultState = {
   openAppealConfirmModal: false,
@@ -230,7 +230,7 @@ export function OrderAction({
                 "w-full rounded-2xl border-yellow-500/30 bg-eerie-black text-lg font-medium text-yellow-500 duration-500 animate-in fade-in-10 hover:scale-[1.01] hover:text-yellow-400",
               )}
               onClick={() => {
-                setSwapOrderState((prev) => ({ ...prev, drawerContent: "appeal-centre", openDrawer: true }));
+                setSwapOrderState((prev) => ({ ...prev, drawerContentType: "appeal-centre", openDrawer: true }));
               }}
             >
               Open Appeal Centre
@@ -303,7 +303,7 @@ function AppealBtn({
       onConfirm={() => {
         setSwapOrderState((prev: SwapOrderState) => ({
           ...prev,
-          drawerContent: "create-appeal",
+          drawerContentType: "create-appeal",
           openDrawer: true,
         }));
         setState((prev) => ({ ...prev, openAppealConfirmModal: false }));

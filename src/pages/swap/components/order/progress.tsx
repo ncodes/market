@@ -1,6 +1,6 @@
 import moment from "moment";
-import { ProgressStatus } from "../../constants";
-import { getAppealerStr, getPayer, isOrderExpired, isOrderRouter, isSellerOrBuyer } from "../../utils";
+import { ProgressStatus } from "../../common/constants";
+import { getAppealerStr, getPayer, isOrderExpired, isOrderRouter, isSellerOrBuyer } from "../../common/utils";
 
 /**
  * Get the swap progress

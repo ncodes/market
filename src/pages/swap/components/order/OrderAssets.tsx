@@ -3,7 +3,7 @@ import { Avatar } from "../../../../components/avatar/Avatar";
 import { ToolTip } from "../../../../components/toolTip";
 import { useConnectorContext } from "../../../../hooks/connectors/useConnectorContext";
 import { formatToHighDenom, pow10, toDec, toLDD, trimZeros } from "../../../../libs/helpers";
-import { calculateRoutesFee2, getPayer, isOrderRouter, isSynth } from "../../utils";
+import { calculateRoutesFee2, getPayer, isOrderRouter, isSynth } from "../../common/utils";
 
 export function OrderAssets({ order }: { order: Swap }) {
   const { address } = useConnectorContext();

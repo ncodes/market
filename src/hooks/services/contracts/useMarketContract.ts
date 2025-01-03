@@ -39,7 +39,44 @@ export default function useMarketContract() {
       toBigInt(commission),
       toBigInt(poolId),
     ]);
-    return res[0];
+    return res;
+  }
+
+  /**
+   * Create a market with a manager
+   * @param baseAddress The base asset address
+   * @param quoteAddress The quote asset address
+   * @param baseType The base asset type
+   * @param quoteType The quote asset type
+   * @param permPut Whether to enable permissioned liquidity provisioning
+   * @param permSwap Whether to enable permissioned swaps
+   * @param commission The commission rate
+   * @param poolId The mediation pool ID
+   * @param manager The manager address
+   */
+  async function createMarketWithManager(
+    baseAddress: string,
+    quoteAddress: string,
+    baseType: AssetType,
+    quoteType: AssetType,
+    permPut: boolean,
+    permSwap: boolean,
+    commission: number,
+    poolId: number,
+    manager: string,
+  ) {
+    const res = await simulateAndWriteContract("marketCore", "createMarketWithManager", [
+      baseAddress,
+      quoteAddress,
+      baseType,
+      quoteType,
+      permPut,
+      permSwap,
+      toBigInt(commission),
+      toBigInt(poolId),
+      manager,
+    ]);
+    return res;
   }
 
   /**
@@ -155,6 +192,7 @@ export default function useMarketContract() {
 
   return {
     createMarket,
+    createMarketWithManager,
     humanizeErrors,
     setCommission,
     setDisputeDurations,

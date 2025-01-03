@@ -519,6 +519,7 @@ declare global {
     symbol: string;
     address: string;
     type: "ERC20" | "SYNTHETIC";
+    asset?: string;
     isContract?: boolean;
     name: string;
   };

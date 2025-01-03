@@ -2,9 +2,9 @@ import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { useMiscService } from "@/hooks/services/backend/useMiscService";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { isZero, toLDD } from "../../../../libs/helpers";
-import { isSynth } from "../../utils";
-import { SwapPageState } from "./types";
+import { isZero, toLDD } from "../../../libs/helpers";
+import { isSynth } from "../common/utils";
+import { SwapPageState } from "../types/types";
 
 export function useMinRoutesBondQuery({
   state,

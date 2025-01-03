@@ -6,7 +6,7 @@ import { ToolTip } from "../../../../components/toolTip";
 import { Button } from "../../../../components/ui/button";
 import { useSession } from "../../../../hooks/useSession";
 import { cn } from "../../../../libs/utils";
-import { getPayer, isSellerOrBuyer } from "../../utils";
+import { getPayer, isSellerOrBuyer } from "../../common/utils";
 import { PaymentDetails } from "./PaymentDetails";
 
 export function PaymentInformation({ order }: { order: Swap }) {

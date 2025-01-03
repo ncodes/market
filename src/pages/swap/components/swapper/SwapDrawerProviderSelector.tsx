@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { ToolTip } from "../../../../components/toolTip";
 import { cn } from "../../../../libs/utils";
-import { isSynth } from "../../utils";
+import { isSynth } from "../../common/utils";
 
 const defaultState: {
   selectedLiquidity?: Liquidity;
@@ -52,7 +52,7 @@ export function SwapDrawerProviderSelector({
           <span>Select a Buyer</span>
           <span>
             <Button
-              variant="ghost"
+              variant="link"
               className="h-auto p-0"
               onClick={() => {
                 closeRequested?.();

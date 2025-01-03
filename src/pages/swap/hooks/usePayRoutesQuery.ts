@@ -3,9 +3,9 @@ import { useRouteService } from "@/hooks/services/backend/useRouteService";
 import { getRegions } from "@jointlabs/meta";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import useStore from "../../../../hooks/store/useStore";
-import { isSynth } from "../../utils";
-import { SwapPageState } from "./types";
+import useStore from "../../../hooks/store/useStore";
+import { isSynth } from "../common/utils";
+import { SwapPageState } from "../types/types";
 
 export function usePayRoutesQuery({
   state,

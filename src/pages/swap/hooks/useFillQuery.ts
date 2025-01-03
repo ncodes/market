@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { useConnectorContext } from "../../../../hooks/connectors/useConnectorContext";
-import { useLiquidityService } from "../../../../hooks/services/backend/useLiquidityService";
-import { isZero, toHD } from "../../../../libs/helpers";
-import { AssetType } from "../../../../types/enums";
-import { SwapPageState, SwapSide } from "./types";
+import { useConnectorContext } from "../../../hooks/connectors/useConnectorContext";
+import { useLiquidityService } from "../../../hooks/services/backend/useLiquidityService";
+import { isZero, toHD } from "../../../libs/helpers";
+import { AssetType } from "../../../types/enums";
+import { SwapPageState, SwapSide } from "../types/types";
 
 export function useFillQuery({
   state,

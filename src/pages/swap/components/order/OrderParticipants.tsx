@@ -4,7 +4,7 @@ import { AvatarSize } from "../../../../components/avatar/useAvatar";
 import { ToolTip } from "../../../../components/toolTip";
 import { shortenAddress } from "../../../../libs/helpers";
 import { cn } from "../../../../libs/utils";
-import { isOrderRouter } from "../../utils";
+import { isOrderRouter } from "../../common/utils";
 
 export function OrderParticipants({ order, address }: { order: Swap; address: string }) {
   const isRouter = isOrderRouter(order, address);

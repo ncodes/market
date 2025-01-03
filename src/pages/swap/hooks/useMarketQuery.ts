@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import { Operator } from "../../../../constants";
-import { useConnectorContext } from "../../../../hooks/connectors/useConnectorContext";
-import { useMarketService } from "../../../../hooks/services/backend/useMarketService";
-import { isReqErr404 } from "../../../../libs/helpers";
-import { getTokenType } from "../../utils";
-import { SwapPageState } from "./types";
+import { Operator } from "../../../constants";
+import { useConnectorContext } from "../../../hooks/connectors/useConnectorContext";
+import { useMarketService } from "../../../hooks/services/backend/useMarketService";
+import { isReqErr404 } from "../../../libs/helpers";
+import { getTokenType } from "../common/utils";
+import { SwapPageState } from "../types/types";
 
 export function useMarketQuery({
   state,

@@ -10,7 +10,7 @@ import { Button } from "../../../../components/ui/button";
 import { useSession } from "../../../../hooks/useSession";
 import { toDec, toHD, trimZeros } from "../../../../libs/helpers";
 import { cn } from "../../../../libs/utils";
-import { calculateRoutesFee2, convertCurrency, getPayer, isSellerOrBuyer, isSynth } from "../../utils";
+import { calculateRoutesFee2, convertCurrency, getPayer, isSellerOrBuyer, isSynth } from "../../common/utils";
 import { PaymentInfo } from "./PaymentDetails";
 
 export function RoutePathDetails({ order, collapse }: { order: Swap; collapse: boolean }) {

@@ -1,5 +1,5 @@
 import { TokenList } from "@jointlabs/meta";
-import { SwapDrawerContent } from "../SwapDrawer";
+import { SwapDrawerContentType } from "../components/SwapDrawer";
 
 export const SideQuote = "quote";
 export const SideBase = "base";
@@ -16,7 +16,7 @@ export interface SwapPageState {
   sellAmountAfterFee?: string;
   buyAmountAfterFee?: string;
   focusSide?: SwapSide;
-  drawerContent?: SwapDrawerContent | undefined;
+  drawerContentType?: SwapDrawerContentType | undefined;
   openDrawer?: boolean;
   tokenLists?: TokenList.TokenData;
   sellToken?: TokenList.Token;

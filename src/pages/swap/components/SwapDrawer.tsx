@@ -4,17 +4,17 @@ import { TokenList } from "@jointlabs/meta";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "../../../libs/utils";
-import { isOrderRouter } from "../utils";
+import { isOrderRouter } from "../common/utils";
+import { SwapOrderState } from "../hooks/useSwapOrderLogic";
+import { SwapPageState as SwapperState } from "../types/types";
 import { DrawerAppealCentre } from "./order/DrawerAppealCentre";
 import { DrawerCreateAppeal } from "./order/DrawerCreateAppeal";
-import { SwapOrderState } from "./order/useSwapOrderLogic";
 import { SwapDrawerPaymentMethodSelector } from "./swapper/SwapDrawerPaymentMethodSelector";
 import { SwapDrawerProviderSelector } from "./swapper/SwapDrawerProviderSelector";
 import { SwapDrawerRouterSelector } from "./swapper/SwapDrawerRouterSelector";
 import { SwapDrawerTokenSelector } from "./swapper/SwapDrawerTokenSelector";
-import { SwapPageState as SwapperState } from "./swapper/types";
 
-export type SwapDrawerContent =
+export type SwapDrawerContentType =
   | "advance-settings"
   | "provider-selector"
   | "token-selector"
@@ -46,7 +46,7 @@ export function SwapDrawer({
 }) {
   const [state, setState] = useState({ ...defaultState });
   const { address, chainId } = useConnectorContext();
-  const content = swapperState?.drawerContent ?? swapOrderState?.drawerContent;
+  const content = swapperState?.drawerContentType ?? swapOrderState?.drawerContentType;
   const selectedToken = { sell: swapperState?.sellToken, buy: swapperState?.buyToken };
   const ref = useRef(null);
   const isRouter = order && address ? isOrderRouter(order, address) : false;
@@ -62,9 +62,9 @@ export function SwapDrawer({
 
   function closeDrawer() {
     if (setSwapperState) {
-      setSwapperState((prev: SwapperState) => ({ ...prev, openDrawer: false, drawerContent: undefined }));
+      setSwapperState((prev: SwapperState) => ({ ...prev, openDrawer: false, drawerContentType: undefined }));
     } else if (setSwapOrderState) {
-      setSwapOrderState((prev: SwapOrderState) => ({ ...prev, openDrawer: false, drawerContent: undefined }));
+      setSwapOrderState((prev: SwapOrderState) => ({ ...prev, openDrawer: false, drawerContentType: undefined }));
     }
   }
 

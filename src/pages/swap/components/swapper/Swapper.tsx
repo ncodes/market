@@ -11,12 +11,12 @@ import { ChevronDown, Loader2, Settings } from "lucide-react";
 import { useRef } from "react";
 import LinkAccountButton from "../../../../components/header/LinkAccountButton";
 import useStore from "../../../../hooks/store/useStore";
-import { isSynth } from "../../utils";
+import { isSynth } from "../../common/utils";
+import { useSwapLogic } from "../../hooks/useSwapLogic";
+import { SwapPageState, SwapSide } from "../../types/types";
 import { SwapDrawer } from "../SwapDrawer";
 import { PaymentMethodSection } from "./PaymentMethodSection";
 import { ProviderSection } from "./ProviderSection";
-import { SwapPageState, SwapSide } from "./types";
-import { useSwapLogic } from "./useSwapLogic";
 
 export function Swapper() {
   const { ready } = useConnectorContext();
@@ -37,7 +37,7 @@ export function Swapper() {
               onClick={() => {
                 setState((prev: SwapPageState) => ({
                   ...prev,
-                  drawerContent: "advance-settings",
+                  drawerContentType: "advance-settings",
                   openDrawer: !prev.openDrawer,
                 }));
               }}
@@ -53,7 +53,7 @@ export function Swapper() {
             className="h-auto p-0 opacity-80 hover:scale-105 hover:opacity-100 disabled:opacity-50 disabled:hover:opacity-50"
             disabled={!canSwap(state, user)}
             onClick={() => {
-              setState((prev) => ({ ...prev, drawerContent: "advance-settings" }));
+              setState((prev) => ({ ...prev, drawerContentType: "advance-settings" }));
               setState((prev) => ({ ...prev, openDrawer: !prev.openDrawer }));
             }}
           >
@@ -86,7 +86,7 @@ export function Swapper() {
               setState((prev: SwapPageState) => ({
                 ...prev,
                 openDrawer: !prev.openDrawer,
-                drawerContent: "token-selector",
+                drawerContentType: "token-selector",
                 sellToken: selected,
                 openDrawerSide: SwapSide.Sell,
               }));
@@ -114,7 +114,7 @@ export function Swapper() {
               setState((prev: SwapPageState) => ({
                 ...prev,
                 openDrawer: !prev.openDrawer,
-                drawerContent: "token-selector",
+                drawerContentType: "token-selector",
                 buyToken: selected,
                 openDrawerSide: SwapSide.Buy,
               }));

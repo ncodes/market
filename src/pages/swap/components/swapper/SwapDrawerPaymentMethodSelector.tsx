@@ -114,7 +114,7 @@ export function SwapDrawerPaymentMethodSelector({
           )}
           <span>
             <Button
-              variant="ghost"
+              variant="link"
               className="h-auto p-0"
               onClick={() => {
                 closeRequested?.();

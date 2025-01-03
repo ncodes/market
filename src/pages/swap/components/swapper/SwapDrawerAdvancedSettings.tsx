@@ -3,7 +3,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { cn } from "@/libs/utils.ts";
-import { DefaultSwapExpireDurSec, DefaultSwapSlippage } from "@/pages/swap/constants.ts";
+import { DefaultSwapExpireDurSec, DefaultSwapSlippage } from "@/pages/swap/common/constants";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { AlertTriangle, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -75,7 +75,7 @@ export function SwapDrawerAdvancedSettings({
         <span>Advanced Settings</span>
         <span>
           <Button
-            variant="ghost"
+            variant="link"
             className="h-auto p-0"
             onClick={() => {
               closeRequested?.();
