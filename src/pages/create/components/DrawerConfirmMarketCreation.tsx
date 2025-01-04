@@ -6,7 +6,11 @@ import { useOnClickOutside } from "usehooks-ts";
 import { Avatar } from "../../../components/avatar/Avatar";
 import { cn } from "../../../libs/utils";
 
-const defaultState: {} = {};
+const defaultState: {
+  mounted: boolean;
+} = {
+  mounted: false,
+};
 
 export function DrawerConfirmMarketCreation({
   drawerRef,
@@ -25,7 +29,7 @@ export function DrawerConfirmMarketCreation({
   containerHeight?: number;
   closeRequested?: () => void;
 }) {
-  const [state, setState] = useState({ ...defaultState });
+  const [, setState] = useState({ ...defaultState });
 
   useOnClickOutside(drawerRef, () => {
     closeRequested?.();

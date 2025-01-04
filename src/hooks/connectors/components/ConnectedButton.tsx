@@ -1,16 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { toast } from "sonner";
-import EmojiAvatar from "../../../components/avatar/EmojiAvatar.tsx";
 import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
-import { logError, shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
+import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
-import { useAuthService } from "../../services/backend/useAuthService.ts";
-import useStore from "../../store/useStore.ts";
+import { useEffect } from "react";
 import { useSession } from "../../useSession.ts";
-import { createSignatureMessage } from "../common.ts";
 import { useConnectorContext } from "../useConnectorContext.tsx";
-import { SettingsIcon } from "lucide-react";
 
 export const ConnectedButton = ({
   className,
@@ -20,14 +13,14 @@ export const ConnectedButton = ({
   className?: string;
   noSessionCreation?: boolean;
 }) => {
-  const { address, ready, sign } = useConnectorContext();
-  const { token, setAccessToken } = useSession();
-  const { setUser } = useStore((state) => ({ setUser: state.setUser }));
-  const { createSessionFromWallet } = useAuthService();
-  const queryClient = useQueryClient();
-  const createSessionMut = useMutation({
-    mutationFn: createSessionFromWallet,
-  });
+  const { address, ready } = useConnectorContext();
+  const { token } = useSession();
+  // const { setUser } = useStore((state) => ({ setUser: state.setUser }));
+  // const { createSessionFromWallet } = useAuthService();
+  // const queryClient = useQueryClient();
+  // const createSessionMut = useMutation({
+  // mutationFn: createSessionFromWallet,
+  // });
 
   useEffect(() => {
     if (!ready || token || noSessionCreation) return;

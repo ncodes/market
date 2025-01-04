@@ -1,4 +1,3 @@
-import moment from "moment";
 import { ProgressStatus } from "../../common/constants";
 import { getAppealerStr, getPayer, isOrderExpired, isOrderRouter, isSellerOrBuyer } from "../../common/utils";
 
@@ -23,7 +22,6 @@ export function getSwapProgress(order?: Swap, address?: string) {
   const isFirstRouter = isRouter && order.payRouterRequest?.routes?.[0]?.owner == address;
   const releaser = payer == order.provider ? order.taker : order.provider;
   const paid = order.paid;
-  const expired = !order.paid && moment(order.cancelAt).isBefore(moment());
 
   if (!order.cancelled && !isRouter) {
     progress.push({

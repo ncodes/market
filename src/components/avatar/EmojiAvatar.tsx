@@ -9,7 +9,7 @@ interface AvatarParams {
   className?: string;
 }
 
-export const RandomBgColors = ["#258f59", "#48518f", "#82a440", "#D92828", "#a95cb5", "#3e37c3", "#093dc3", "#8e925e"];
+const RandomBgColors = ["#258f59", "#48518f", "#82a440", "#D92828", "#a95cb5", "#3e37c3", "#093dc3", "#8e925e"];
 
 export default function EmojiAvatar(props: AvatarParams) {
   const emojis = [

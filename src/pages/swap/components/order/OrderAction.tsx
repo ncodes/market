@@ -19,7 +19,6 @@ const defaultState = {
 export function OrderAction({
   order,
   swapOrderState,
-  container,
   markAsPaid,
   release,
   cancel,

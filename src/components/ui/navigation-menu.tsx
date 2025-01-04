@@ -116,6 +116,7 @@ export {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-  NavigationMenuViewport,
+  // eslint-disable-next-line react-refresh/only-export-components
   navigationMenuTriggerStyle,
+  NavigationMenuViewport,
 };

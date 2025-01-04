@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { useOnClickOutside } from "usehooks-ts";
 import { Button } from "../../../components/ui/button";
 
-const defaultState: {} = {};
+const defaultState: {
+  mounted: boolean;
+} = {
+  mounted: false,
+};
 
 export function DrawerSuccessfulMarketCreation({
   drawerRef,
@@ -19,7 +23,7 @@ export function DrawerSuccessfulMarketCreation({
   containerHeight?: number;
   closeRequested?: () => void;
 }) {
-  const [state, setState] = useState({ ...defaultState });
+  const [, setState] = useState({ ...defaultState });
 
   useOnClickOutside(drawerRef, () => {
     closeRequested?.();
