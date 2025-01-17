@@ -67,6 +67,8 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.62.16",
+    "@tanstack/react-query-devtools": "^5.64.1",
     "@typechain/ethers-v5": "^11.1.2",
     "@types/approximate-number": "^2.1.0",
     "@types/axios": "^0.14.0",
