@@ -10,7 +10,7 @@ import {
   NavigationMenuTrigger,
 } from "../ui/navigation-menu.tsx";
 import LinkAccountButton from "./LinkAccountButton.tsx";
-import { NetworkSelector } from "./NetworkSelector.tsx";
+import { NetworkSelector } from "./networkSelector.tsx";
 
 export function Header() {
   function onNavChange() {
