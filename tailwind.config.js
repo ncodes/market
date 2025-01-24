@@ -73,6 +73,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        gray: {
+          "50": "#fafafa",
+          "400": "#8f90a6",
+          "600": "#555770",
+          "800": "#28293d",
+          "900": "#1c1c28"
+        }
       },
       transitionProperty: {
         width: "width",

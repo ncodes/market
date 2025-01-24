@@ -1,9 +1,9 @@
-import SwapPage from "@/pages/swap/swap.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./errors/error-page.tsx";
 import Layout from "./layouts/layout.tsx";
 import CreateMarketPage from "./pages/create/create-market.tsx";
 import LandingPage from "./pages/landing.tsx";
+import SwapPage from "./pages/swap/swap.tsx";
 
 const router = createBrowserRouter([
   {
