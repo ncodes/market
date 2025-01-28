@@ -1,6 +1,6 @@
 import { InfoIcon } from "lucide-react";
 import { Fragment } from "react";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { useConnectorContext } from "../../../../hooks/connectors/useConnectorContext";
 import { cn } from "../../../../libs/utils";
 import { getPayer, isOrderRouter, isSellerOrBuyer } from "../../common/utils";

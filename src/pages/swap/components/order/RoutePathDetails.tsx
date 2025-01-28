@@ -5,7 +5,7 @@ import { ChevronUp, InfoIcon } from "lucide-react";
 import { useState } from "react";
 import EmojiAvatar from "../../../../components/avatar/EmojiAvatar";
 import { AvatarSize } from "../../../../components/avatar/useAvatar";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { Button } from "../../../../components/ui/button";
 import { useSession } from "../../../../hooks/useSession";
 import { toDec, toHD, trimZeros } from "../../../../libs/helpers";

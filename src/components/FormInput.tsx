@@ -1,4 +1,4 @@
-import { ToolTip } from "@/components/toolTip";
+import { ToolTip } from "@/components/ToolTip";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";

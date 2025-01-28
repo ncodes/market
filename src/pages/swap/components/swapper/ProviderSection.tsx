@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button.tsx";
 import { isZero, shortenAddress } from "@/libs/helpers.ts";
 import { motion } from "framer-motion";
 import { ChevronsUp, InfoIcon } from "lucide-react";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { isInstantMarket, isSynth } from "../../common/utils";
 import { SwapPageState } from "../../types/types";
 import { PayRouteSection } from "./PayRouteSection";

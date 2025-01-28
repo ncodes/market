@@ -5,7 +5,7 @@ import { InfoIcon } from "lucide-react";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useIntersectionObserver } from "usehooks-ts";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { getPayer, isOrderExpired, isOrderRouter, isSwapCounterparty } from "../../common/utils";
 import { useSwapOrderLogic } from "../../hooks/useSwapOrderLogic";
 import { SwapDrawer } from "../SwapDrawer";
