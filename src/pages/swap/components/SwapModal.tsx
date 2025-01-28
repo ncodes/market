@@ -71,7 +71,7 @@ export function SwapModal({
   const [open, setOpen] = useState(true);
 
   const [showSearch, setShowSearch] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("all");
+  const [selectedChain, setSelectedChain] = useState("all");
 
   useEffect(() => {
     setState((prev) => ({ ...prev, show: swapperState?.openDrawer || swapOrderState?.openDrawer }));
@@ -99,29 +99,35 @@ export function SwapModal({
   ];
 
   const tokens = [
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png", tokenSymbol: "UNI", name: "Uniswap" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png", tokenSymbol: "WETH", name: "Wrapped Ethereum" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png", tokenSymbol: "USDC", name: "USD Coin" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png", tokenSymbol: "USDT", name: "Tether" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png", tokenSymbol: "MATIC", name: "Polygon" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png", tokenSymbol: "WBTC", name: "Wrapped Bitcoin" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png", tokenSymbol: "DAI", name: "Dai" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png", tokenSymbol: "BUSD", name: "Binance USD" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png", tokenSymbol: "LINK", name: "Chainlink" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png", tokenSymbol: "BAT", name: "Basic Attention Token" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png", tokenSymbol: "UNI", name: "Uniswap" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png", tokenSymbol: "WETH", name: "Wrapped Ethereum" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png", tokenSymbol: "USDC", name: "USD Coin" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png", tokenSymbol: "USDT", name: "Tether" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png", tokenSymbol: "MATIC", name: "Polygon" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png", tokenSymbol: "WBTC", name: "Wrapped Bitcoin" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png", tokenSymbol: "DAI", name: "Dai" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png", tokenSymbol: "BUSD", name: "Binance USD" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png", tokenSymbol: "LINK", name: "Chainlink" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png", tokenSymbol: "BAT", name: "Basic Attention Token" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png", tokenSymbol: "UNI", name: "Uniswap", network: "ETH" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png", tokenSymbol: "WETH", name: "Wrapped Ethereum", network: "ETH" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png", tokenSymbol: "USDC", name: "USD Coin", network: "ETH" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png", tokenSymbol: "USDT", name: "Tether", network: "BTC"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png", tokenSymbol: "MATIC", name: "Polygon", network: "DOT"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png", tokenSymbol: "WBTC", name: "Wrapped Bitcoin", network: "BTC" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png", tokenSymbol: "DAI", name: "Dai", network: "ATOM"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png", tokenSymbol: "BUSD", name: "Binance USD", network: "DOT"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png", tokenSymbol: "LINK", name: "Chainlink", network: "BTC" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png", tokenSymbol: "BAT", name: "Basic Attention Token", network: "BTC"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png", tokenSymbol: "UNI", name: "Uniswap", network: "ETH"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png", tokenSymbol: "WETH", name: "Wrapped Ethereum", network: "ETH" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png", tokenSymbol: "USDC", name: "USD Coin", network: "ATOM" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png", tokenSymbol: "USDT", name: "Tether", network: "BTC" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png", tokenSymbol: "MATIC", name: "Polygon", network: "BTC" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png", tokenSymbol: "WBTC", name: "Wrapped Bitcoin", network: "DOT" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png", tokenSymbol: "DAI", name: "Dai", network: "BTC" },
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png", tokenSymbol: "BUSD", name: "Binance USD", network: "ATOM"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png", tokenSymbol: "LINK", name: "Chainlink", network: "DOT"},
+    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png", tokenSymbol: "BAT", name: "Basic Attention Token", network: "BTC"},
 ];
 
-  return (
+  
+const filteredTokens = tokens.filter(token => {
+  // Display all tokens if "all" is selected, otherwise filter by network
+  return selectedChain === "all" || token.network === selectedChain;
+});
+
+return (
     <div ref={ref}>
         <AnimatePresence>
         {!!swapperState && !!setSwapperState && content === "token-selector" && <Dialog open={open} onOpenChange={setOpen}>
@@ -176,17 +182,17 @@ export function SwapModal({
                         <IconSearch className="absolute right-3 h-5 w-5 text-gray-400" />
                         </div>
                         <div className="ml-4">
-                        <Select defaultValue="all">
+                        <Select defaultValue="all" onValueChange={setSelectedChain}>
                         <SelectTrigger
                             isRightIcon={false}
                             className="flex-[1] border-0 text-[#fafafa] ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                         >
                         <SelectValue>
                                 {/* Show only the image when selected */}
-                                {selectedValue && (
+                                {selectedChain && (
                                     <img
-                                    src={options.find((opt) => opt.value === selectedValue)?.image}
-                                    alt={selectedValue}
+                                    src={options.find((opt) => opt.value === selectedChain)?.image}
+                                    alt={selectedChain}
                                     className="h-6 w-6"
                                     />
                                 )}
@@ -212,7 +218,7 @@ export function SwapModal({
                     </div>
                     
                     <ScrollArea className="h-[calc(80vh-240px)] w-full rounded-md" type="scroll">
-                        {tokens.map((token, index) => (
+                        {filteredTokens.map((token, index) => (
                             <Token
                             key={index}
                             src={token.src}
