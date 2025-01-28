@@ -17,6 +17,7 @@ import { SwapPageState, SwapSide } from "../../types/types";
 import { SwapDrawer } from "../SwapDrawer";
 import { PaymentMethodSection } from "./PaymentMethodSection";
 import { ProviderSection } from "./ProviderSection";
+import { SwapModal } from "../SwapModal";
 
 export function Swapper() {
   const { ready } = useConnectorContext();
@@ -262,7 +263,9 @@ export function Swapper() {
           )}
         </CardFooter>
       </Card>
-      <SwapDrawer
+
+      {/* SwapDrawer replaced with SwapModal */}
+      <SwapModal
         swapperState={state}
         setSwapperState={setState}
         containerHeight={swapSectionRef.current?.clientHeight}
