@@ -1,5 +1,5 @@
 import { USDCIcon } from "@/assets";
-import { Header } from "@/components/header/Header";
+import AppLayout from "@/components/AppLayout";
 import IconDropDown from "@/components/icons/IconDropDown";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigateUpDown from "@/components/icons/IconNavigateUpDown";
@@ -7,15 +7,10 @@ import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
 import IconWallet from "@/components/icons/IconWallet";
 import { Button } from "@/components/ui/button";
 import Tab from "@/components/ui/tab";
-import { Helmet } from "react-helmet-async";
 
 export default function SwapPage() {
   return (
-    <div className="h-full w-full overflow-hidden font-poppins text-white">
-      <Helmet>
-        <title>Swap</title>
-      </Helmet>
-      <Header />
+    <AppLayout title="Swap">
       <div className="mt-16 flex h-full w-full justify-center">
         <div className="relative w-full max-w-xl">
           <div className="h-full w-full rounded-3xl border border-gray-800 bg-gray-900">
@@ -28,7 +23,7 @@ export default function SwapPage() {
           <div className="absolute bottom-[-30px] left-0 right-0 flex h-16 justify-center"></div>
         </div>
       </div>
-    </div>
+    </AppLayout>
   );
 }
 
