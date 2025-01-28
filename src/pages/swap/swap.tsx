@@ -1,6 +1,6 @@
 import { USDCIcon } from "@/assets";
 import { Header } from "@/components/header/Header";
-import IconDropDown from "@/components/icons/IconChevronDown";
+import IconDropDown from "@/components/icons/IconDropDown";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigateUpDown from "@/components/icons/IconNavigateUpDown";
 import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
@@ -25,14 +25,7 @@ export default function SwapPage() {
               tabCompents={[<SwapTab />]}
             />
           </div>
-          <div className="absolute bottom-[-30px] left-0 right-0 flex h-16 justify-center">
-            <Button variant={"secondary"}>
-              <div className="flex gap-8">
-                <span>Connect Wallet</span>
-                <IconWallet />
-              </div>
-            </Button>
-          </div>
+          <div className="absolute bottom-[-30px] left-0 right-0 flex h-16 justify-center"></div>
         </div>
       </div>
     </div>

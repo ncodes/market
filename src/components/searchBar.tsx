@@ -23,7 +23,7 @@ export function SearchBar() {
       <div className="z-20 w-[500px]">
         <Card
           className={cn(
-            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-gray-700/20 bg-card",
+            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-green-200/30 bg-card",
             {
               "mx-auto rounded-none rounded-t-2xl border-b-0 border-gray-700/70": showSearch,
             },
@@ -33,7 +33,7 @@ export function SearchBar() {
             <IconSearch className="absolute ml-2 h-5 w-5 text-gray-400" />
             <Input
               type="text"
-              placeholder="Search for tokens and markets"
+              placeholder="Search tokens"
               className={cn(
                 "!rounded-full border-0 bg-transparent py-3 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
                 {},

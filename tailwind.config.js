@@ -79,6 +79,9 @@ export default {
           "600": "#555770",
           "800": "#28293d",
           "900": "#1c1c28"
+        },
+        green: {
+          200: "#8de96962",
         }
       },
       transitionProperty: {
