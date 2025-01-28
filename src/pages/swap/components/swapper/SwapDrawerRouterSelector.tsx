@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { getLogoUrl, getShortName } from "@jointlabs/meta";
 import { XIcon } from "lucide-react";
 import { Fragment } from "react";

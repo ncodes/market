@@ -1,6 +1,6 @@
-import { Avatar } from "@/components/avatar/Avatar.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { Avatar } from "@/components/avatar/Avatar";
+import { Button } from "@/components/ui/button";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { TokenList } from "@jointlabs/meta";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 import { GlobeIcon, SearchIcon, XIcon } from "lucide-react";

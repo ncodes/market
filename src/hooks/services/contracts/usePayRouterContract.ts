@@ -1,5 +1,5 @@
 import { BigNumberish } from "ethers";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 /**
  * Providers utilities for reading and writing to the PayRouter contract

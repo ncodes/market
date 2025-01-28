@@ -1,6 +1,6 @@
-import EmojiAvatar from "@/components/avatar/EmojiAvatar.tsx";
-import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
-import { Button } from "@/components/ui/button.tsx";
+import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import { AvatarSize } from "@/components/avatar/useAvatar";
+import { Button } from "@/components/ui/button";
 import { isZero, shortenAddress } from "@/libs/helpers.ts";
 import { motion } from "framer-motion";
 import { ChevronsUp, InfoIcon } from "lucide-react";

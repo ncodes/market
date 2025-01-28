@@ -1,4 +1,4 @@
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { getCurrency, getShortName } from "@jointlabs/meta";
 import { motion } from "framer-motion";
 import { ChevronUp, InfoIcon } from "lucide-react";

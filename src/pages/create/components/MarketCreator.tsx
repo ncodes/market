@@ -1,4 +1,4 @@
-import { Card } from "@/components/ui/card.tsx";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/libs/utils.ts";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { AlertTriangleIcon, ChevronDown, Loader2 } from "lucide-react";

@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/button.tsx";
-import { ConnectButton } from "@/hooks/connectors/components/ConnectButton.tsx";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { Button } from "@/components/ui/button";
+import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { cn } from "@/libs/utils.ts";
 import { AlertTriangle, Loader2 } from "lucide-react";
 import moment from "moment";

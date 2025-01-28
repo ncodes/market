@@ -8,8 +8,8 @@ import { createConfig, WagmiProvider } from "wagmi";
 import { AppIcon, AppName, AppUrl, InfuraId, WalletConnectId } from "../../../constants.ts";
 import { isLocal } from "../../../libs/helpers.ts";
 import { getSupportedChains } from "../common.ts";
-import { ConnectorContext } from "../context.tsx";
-import useConnector from "../useConnector.tsx";
+import { ConnectorContext } from "../context";
+import useConnector from "../useConnector";
 
 interface ConnectorProviderProps {
   children: ReactNode;

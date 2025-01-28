@@ -1,4 +1,4 @@
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { InfoIcon } from "lucide-react";
 import moment from "moment";
 import Countdown from "react-countdown";

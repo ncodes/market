@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { AlertCircle, SendIcon, UploadIcon, XIcon } from "lucide-react";
 import { ChangeEvent, useRef, useState } from "react";

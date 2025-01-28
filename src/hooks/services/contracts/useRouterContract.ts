@@ -4,7 +4,7 @@ import { TokenList } from "@jointlabs/meta";
 import { ZeroAddress } from "ethers";
 import { SideQuote } from "../../../pages/swap/types/types.ts";
 import { LiquidityStruct, RouteStruct } from "../../../typechain/Router.ts";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 /**
  * UseRouterContract provides access to the Router contract

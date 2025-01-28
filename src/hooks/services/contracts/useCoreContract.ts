@@ -3,7 +3,7 @@ import { Address } from "viem";
 import { toBigInt } from "../../../libs/helpers.ts";
 import * as CoreTypes from "../../../typechain/Core.ts";
 import { StructsLib } from "../../../typechain/Core.ts";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 import OrderStruct = CoreTypes.Structs.OrderStruct;
 
 /**

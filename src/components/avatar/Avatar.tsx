@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { cn } from "../../libs/utils.ts";
-import { AvatarFallback, AvatarImage, Avatar as UIAvatar } from "../ui/avatar.tsx";
+import { AvatarFallback, AvatarImage, Avatar as UIAvatar } from "../ui/avatar";
 
 export function Avatar({
   src,

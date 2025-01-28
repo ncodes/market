@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { ChainNames, TokenList, TokenLists } from "@jointlabs/meta";
 import { useQuery } from "@tanstack/react-query";
 import { useMotionValueEvent, useScroll } from "framer-motion";

@@ -1,6 +1,6 @@
-import { SearchBar } from "@/components/SearchBar.tsx";
+import { SearchBar } from "@/components/SearchBar";
 import { Link } from "react-router-dom";
-import { ConnectButton } from "../../hooks/connectors/components/ConnectButton.tsx";
+import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,9 +8,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "../ui/navigation-menu.tsx";
-import LinkAccountButton from "./LinkAccountButton.tsx";
-import { NetworkSelector } from "./NetworkSelector.tsx";
+} from "../ui/navigation-menu";
+import LinkAccountButton from "./LinkAccountButton";
+import { NetworkSelector } from "./NetworkSelector";
 
 export function Header() {
   function onNavChange() {

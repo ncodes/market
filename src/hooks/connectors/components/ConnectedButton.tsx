@@ -1,9 +1,9 @@
-import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
+import { AvatarSize } from "@/components/avatar/useAvatar";
 import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
 import { useEffect } from "react";
 import { useSession } from "../../useSession.ts";
-import { useConnectorContext } from "../useConnectorContext.tsx";
+import { useConnectorContext } from "../useConnectorContext";
 
 export const ConnectedButton = ({
   className,

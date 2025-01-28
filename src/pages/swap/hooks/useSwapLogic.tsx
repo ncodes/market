@@ -1,4 +1,4 @@
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import useCoreContract from "@/hooks/services/contracts/useCoreContract";
 import useRouterContract from "@/hooks/services/contracts/useRouterContract.ts";
 import { delay, isZero, logError, toDec, toHDD, toLD, toLDD, trimZeros } from "@/libs/helpers.ts";

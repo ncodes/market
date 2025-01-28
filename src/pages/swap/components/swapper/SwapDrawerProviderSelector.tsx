@@ -1,6 +1,6 @@
-import EmojiAvatar from "@/components/avatar/EmojiAvatar.tsx";
-import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
-import { Button } from "@/components/ui/button.tsx";
+import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import { AvatarSize } from "@/components/avatar/useAvatar";
+import { Button } from "@/components/ui/button";
 import { formatToHighDenom, shortenAddress } from "@/libs/helpers.ts";
 import { TokenList } from "@jointlabs/meta";
 import { CheckCircle2, InfoIcon, XIcon } from "lucide-react";

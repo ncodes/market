@@ -1,7 +1,7 @@
 import { TooltipPortal } from "@radix-ui/react-tooltip";
 import React, { useState } from "react";
 import { cn } from "../libs/utils.ts";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip.tsx";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 
 export function ToolTip(props: {
   tip?: React.ReactNode;

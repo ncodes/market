@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { InfoIcon, X } from "lucide-react";
 import { ToolTip } from "../../../../components/ToolTip";
