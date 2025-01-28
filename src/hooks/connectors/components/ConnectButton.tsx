@@ -6,6 +6,7 @@ import IconClose from "@/components/icons/IconClose";
 import { useState } from "react";
 import { WALLETS } from "@/libs/wallets";
 import { Link } from "react-router-dom";
+import IconArrowRight from "@/components/icons/IconArrowRight";
 
 export function ConnectButton({ title }: { title: string }) {
   const [open, setOpen] = useState(false);
@@ -33,15 +34,7 @@ export function ConnectButton({ title }: { title: string }) {
           </div>
           <div className="flex w-full flex-col">
             {WALLETS.map((wallet) => (
-              <div className="flex cursor-pointer justify-between px-5 py-1">
-                <div className="flex items-center gap-2">
-                  <img src={wallet.logo} alt="" className="h-8 w-8 rounded-full" />
-                  <div className="flex flex-col">
-                    <p className="text-gray-100">{wallet.name}</p>
-                    <label className="text-sm text-green-200">Installed</label>
-                  </div>
-                </div>
-              </div>
+              <Wallet name={wallet.name} logo={wallet.logo} />
             ))}
           </div>
           <div className="flex items-center justify-center border-t border-gray-800 py-4">
@@ -59,5 +52,20 @@ export function ConnectButton({ title }: { title: string }) {
         </div>
       </PopoverContent>
     </Popover>
+  );
+}
+
+function Wallet({ name, logo }: { name: string; logo: string }) {
+  return (
+    <div className="from-gradientStart to-gradientEnd group flex cursor-pointer items-center justify-between px-5 py-2 hover:bg-gradient-to-l">
+      <div className="flex items-center gap-2">
+        <img src={logo} alt="" className="h-8 w-8 rounded-full" />
+        <div className="flex flex-col">
+          <p className="text-gray-100">{name}</p>
+          <label className="text-sm text-green-200">Installed</label>
+        </div>
+      </div>
+      <IconArrowRight className="hidden group-hover:block" />
+    </div>
   );
 }

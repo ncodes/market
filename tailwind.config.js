@@ -25,6 +25,8 @@ export default {
     },
     extend: {
       colors: {
+        gradientStart: "#1c1c28",
+        gradientEnd: "#28293d",
         "byzantine-blue": "#1F54DA",
         "alice-blue": "#E3EEF7",
         "light-green": "#8DE969",
@@ -74,17 +76,17 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         gray: {
-          "50": "#fafafa",
-          "100": "#f2f2f5",
-          "400": "#8f90a6",
-          "600": "#555770",
-          "800": "#28293d",
-          "900": "#1c1c28"
+          50: "#fafafa",
+          100: "#f2f2f5",
+          400: "#8f90a6",
+          600: "#555770",
+          800: "#28293d",
+          900: "#1c1c28",
         },
         green: {
           200: "#8de969",
           300: "#c8ed5a",
-        }
+        },
       },
       transitionProperty: {
         width: "width",
