@@ -1,6 +1,6 @@
 import { InfoIcon, TagIcon } from "lucide-react";
 import { Avatar } from "../../../../components/avatar/Avatar";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { useConnectorContext } from "../../../../hooks/connectors/useConnectorContext";
 import { formatToHighDenom, pow10, toDec, toLDD, trimZeros } from "../../../../libs/helpers";
 import { calculateRoutesFee2, getPayer, isOrderRouter, isSynth } from "../../common/utils";

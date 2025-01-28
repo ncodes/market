@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button.tsx";
 import { motion } from "framer-motion";
 import { InfoIcon, X } from "lucide-react";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { isSynth } from "../../common/utils";
 import { SwapPageState } from "../../types/types";
 import { RoutesPathView } from "./SwapDrawerRouterSelector";

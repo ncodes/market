@@ -1,7 +1,7 @@
 import { getLogoUrl } from "@jointlabs/meta";
 import { InfoIcon } from "lucide-react";
 import { Avatar } from "../../../../components/avatar/Avatar";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { Button } from "../../../../components/ui/button";
 import useStore from "../../../../hooks/store/useStore";
 import { isSynth } from "../../common/utils";

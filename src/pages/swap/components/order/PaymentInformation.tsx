@@ -2,7 +2,7 @@ import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx"
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronUp, InfoIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { Button } from "../../../../components/ui/button";
 import { useSession } from "../../../../hooks/useSession";
 import { cn } from "../../../../libs/utils";

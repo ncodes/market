@@ -1,8 +1,8 @@
+import { Avatar } from "@/components/avatar/Avatar";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { FormInput } from "@/components/FormInput";
-import { Avatar } from "@/components/avatar/Avatar";
 import LinkAccountButton from "@/components/header/LinkAccountButton";
-import { ToolTip } from "@/components/toolTip";
+import { ToolTip } from "@/components/ToolTip";
 import { Button } from "@/components/ui/button.tsx";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Label } from "@/components/ui/label";

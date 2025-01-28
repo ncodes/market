@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import { Header } from "../../components/header/header";
+import { Header } from "../../components/header/Header";
 import { MarketCreator } from "./components/MarketCreator";
 
 export default function CreateMarketPage() {

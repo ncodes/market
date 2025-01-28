@@ -8,7 +8,7 @@ import { useAuthService } from "../../hooks/services/backend/useAuthService";
 import useStore from "../../hooks/store/useStore";
 import { useSession } from "../../hooks/useSession";
 import { logError } from "../../libs/helpers";
-import { ToolTip } from "../toolTip";
+import { ToolTip } from "../ToolTip";
 import { Button } from "../ui/button";
 
 export default function LinkAccountButton({

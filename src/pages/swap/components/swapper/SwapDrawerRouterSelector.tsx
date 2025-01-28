@@ -4,7 +4,7 @@ import { XIcon } from "lucide-react";
 import { Fragment } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { Avatar } from "../../../../components/avatar/Avatar";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { toAbr } from "../../../../libs/helpers";
 import { calculateRoutesFee } from "../../common/utils";
 
