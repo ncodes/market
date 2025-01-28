@@ -1,4 +1,4 @@
-import { ToolTip } from "@/components/toolTip.tsx";
+import { ToolTip } from "@/components/ToolTip";
 import { Alert, AlertDescription } from "@/components/ui/alert.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";

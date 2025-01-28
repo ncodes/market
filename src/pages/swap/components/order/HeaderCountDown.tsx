@@ -2,7 +2,7 @@ import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx"
 import { InfoIcon } from "lucide-react";
 import moment from "moment";
 import Countdown from "react-countdown";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { getPayer } from "../../common/utils";
 
 export function HeaderCountDown({ order }: { order: Swap }) {

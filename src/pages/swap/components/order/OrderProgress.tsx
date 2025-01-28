@@ -2,7 +2,7 @@ import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx"
 import { motion } from "framer-motion";
 import { ChevronUp, InfoIcon } from "lucide-react";
 import { useState } from "react";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { Button } from "../../../../components/ui/button";
 import { cn } from "../../../../libs/utils";
 import { ProgressStatusIndicator } from "./ProgressStatusIndicator";

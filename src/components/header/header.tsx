@@ -1,4 +1,4 @@
-import { SearchBar } from "@/components/searchBar.tsx";
+import { SearchBar } from "@/components/SearchBar.tsx";
 import { Link } from "react-router-dom";
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton.tsx";
 import {

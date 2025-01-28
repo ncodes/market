@@ -6,7 +6,7 @@ import { TokenList } from "@jointlabs/meta";
 import { CheckCircle2, InfoIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import { ToolTip } from "../../../../components/toolTip";
+import { ToolTip } from "../../../../components/ToolTip";
 import { cn } from "../../../../libs/utils";
 import { isSynth } from "../../common/utils";
 

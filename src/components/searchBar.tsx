@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card.tsx";
-import { cn } from "@/libs/utils.ts";
-import { IconSearch } from "@/components/icons/IconSearch.tsx";
-import { Input } from "@/components/ui/input.tsx";
-import { motion } from "framer-motion";
-import { Overlay } from "@/components/overlay.tsx";
+import { Overlay } from "@/components/Overlay";
 import { Avatar } from "@/components/avatar/Avatar.tsx";
-import { Link } from "react-router-dom";
-import { GlobeIcon } from "lucide-react";
+import { IconSearch } from "@/components/icons/IconSearch.tsx";
+import { Card, CardContent } from "@/components/ui/card.tsx";
+import { Input } from "@/components/ui/input.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { ScrollArea } from "@/components/ui/scroll-area.tsx";
+import { cn } from "@/libs/utils.ts";
+import { motion } from "framer-motion";
+import { GlobeIcon } from "lucide-react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 export function SearchBar() {
   const [showSearch, setShowSearch] = useState(false);

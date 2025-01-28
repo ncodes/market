@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { useOnClickOutside } from "usehooks-ts";
 import { isAddress } from "viem";
 import { Avatar } from "../../../components/avatar/Avatar";
-import { ToolTip } from "../../../components/toolTip";
+import { ToolTip } from "../../../components/ToolTip";
 import { useConnectorContext } from "../../../hooks/connectors/useConnectorContext";
 import { useMiscService } from "../../../hooks/services/backend/useMiscService";
 
