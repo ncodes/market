@@ -7,6 +7,7 @@ import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
 import IconWallet from "@/components/icons/IconWallet";
 import { Button } from "@/components/ui/button";
 import Tab from "@/components/ui/tab";
+import { showConnectWallet } from "@/hooks/connectors/components/ConnectButton";
 
 export default function SwapPage() {
   return (
@@ -20,7 +21,14 @@ export default function SwapPage() {
               tabCompents={[<SwapTab />]}
             />
           </div>
-          <div className="absolute bottom-[-30px] left-0 right-0 flex h-16 justify-center"></div>
+          <div className="absolute bottom-[-42px] left-0 right-0 flex h-16 justify-center">
+            <Button variant={"secondary"} className="absolute" onClick={showConnectWallet}>
+              <div className="flex items-center gap-8">
+                <span>Connect Wallet</span>
+                <IconWallet />
+              </div>
+            </Button>
+          </div>
         </div>
       </div>
     </AppLayout>
@@ -74,7 +82,7 @@ function SwapTab() {
 
 function AssetButton({ text, image }: { text: string; image: string }) {
   return (
-    <Button variant={"gray"}>
+    <Button variant={"gray"} className="px-1">
       <div className="flex items-center gap-2">
         <img src={image} alt="usdc" className="h-8 w-8" />
         <span className="text-base font-bold">{text}</span>

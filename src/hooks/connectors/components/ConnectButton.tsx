@@ -8,15 +8,20 @@ import { WALLETS } from "@/libs/wallets";
 import { Link } from "react-router-dom";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 
-export function ConnectButton({ title }: { title: string }) {
+export function showConnectWallet() {
+  const button = document.querySelector("#walletConnect") as HTMLButtonElement;
+  button.click();
+}
+
+export function ConnectButton() {
   const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={(state) => setOpen(state)}>
       <PopoverTrigger>
-        <Button variant={"secondary"}>
+        <Button variant={"secondary"} id="walletConnect">
           <div className="flex items-center gap-8">
-            <span>{title}</span>
+            <span>Connect</span>
             <IconWallet />
           </div>
         </Button>

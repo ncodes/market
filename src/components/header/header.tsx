@@ -58,7 +58,7 @@ export function Header() {
         <div className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gray-800">
           <IconMore />
         </div>
-        <ConnectButton title="Connect" />
+        <ConnectButton />
       </div>
     </header>
   );
