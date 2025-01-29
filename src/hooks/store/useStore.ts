@@ -24,7 +24,7 @@ const useStore = create<IStore>((set) => ({
   setBrowserCountryCode: (code: string) => set({ browserCountryCode: code }),
 
   openConnectWalletSheet: false,
-  setOpenConnectWalletSheet: (shouldOpen: boolean) => set({ openConnectWalletSheet: shouldOpen }),
+  setOpenConnectWalletSheet: (open: boolean) => set({ openConnectWalletSheet: open }),
 }));
 
 export default useStore;

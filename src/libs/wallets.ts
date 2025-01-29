@@ -1,6 +1,6 @@
 import { MetamaskIcon } from "@/assets";
 
-export const WALLETS = [
+export const Wallets = [
   {
     name: "Metamask",
     logo: MetamaskIcon,

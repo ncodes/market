@@ -10,8 +10,9 @@ import Tab from "@/components/ui/tab";
 import useStore from "@/hooks/store/useStore";
 
 export default function SwapPage() {
-  const setOpenConnectWalletSheet = useStore((s) => s.setOpenConnectWalletSheet);
-  const openConnectWalletSheet = useStore((s) => s.openConnectWalletSheet);
+  const { setOpenConnectWalletSheet } = useStore((s) => ({
+    setOpenConnectWalletSheet: s.setOpenConnectWalletSheet,
+  }));
 
   return (
     <AppLayout title="Swap">
@@ -25,11 +26,7 @@ export default function SwapPage() {
             />
           </div>
           <div className="absolute bottom-[-42px] left-0 right-0 flex h-16 justify-center">
-            <Button
-              variant={"secondary"}
-              className="absolute"
-              onClick={() => (!openConnectWalletSheet ? setOpenConnectWalletSheet(true) : null)}
-            >
+            <Button variant={"secondary"} className="absolute" onClick={() => setOpenConnectWalletSheet(true)}>
               <div className="flex items-center gap-8">
                 <span>Connect Wallet</span>
                 <IconWallet />
