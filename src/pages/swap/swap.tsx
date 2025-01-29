@@ -9,6 +9,7 @@ import IconWallet from "@/components/icons/IconWallet";
 import { Button } from "@/components/ui/button";
 import Tab from "@/components/ui/tab";
 import useStore from "@/hooks/store/useStore";
+import { cn } from "../../libs/utils";
 
 export default function SwapPage() {
   const { setOpenConnectWalletSheet } = useStore((s) => ({
@@ -17,9 +18,9 @@ export default function SwapPage() {
 
   return (
     <AppLayout title="Swap">
-      <div className="mt-16 flex h-full w-full justify-center">
+      <div className="mt-16 flex w-full justify-center">
         <div className="relative w-full max-w-xl">
-          <div className="h-full w-full rounded-3xl border border-gray-800 bg-gray-900">
+          <div className="h-full w-full rounded-3xl border border-[#28293d]/30 bg-[#1c1c28]/40">
             <Tab
               tabHeaders={["Swap", "Limit", "Send", "Buy"]}
               headerRight={<SwapSettings />}
@@ -42,7 +43,7 @@ export default function SwapPage() {
 
 function SwapSettings() {
   return (
-    <div className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-gray-600">
+    <div className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-[#28293d]">
       <IconGeneralSettings />
     </div>
   );
@@ -51,57 +52,76 @@ function SwapSettings() {
 function SwapTab() {
   return (
     <div className="w-full">
-      <div className="flex justify-between px-4 py-4">
-        <div className="flex flex-col gap-2">
-          <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">SELL</p>
-          <AssetButton assetImage={USDCIcon} networkImage={SolanaIcon} text="USDC" />
-          <AssetAmountInput />
-          <div className="flex gap-2">
-            <IconNavigateUpDown />
-            <span className="text-gray-400">0.00 USDC</span>
-          </div>
+      <div className="flex flex-col justify-between gap-2 px-5 py-4">
+        <div className="flex items-center justify-between pl-2">
+          <p className="text-sm font-extralight tracking-wider text-[#fafafa]">Sell</p>
+          <p className="text-sm font-light tracking-wider">
+            <span className="text-gray-500">Balance:</span> <span className="text-[#fafafa]/70">0.00</span>
+          </p>
         </div>
-        <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">Bal: 0.00</p>
+        <AssetSelectorButton assetImage={USDCIcon} networkImage={SolanaIcon} text="USDC" className="" />
+        <AssetAmountInput className="-mt-2 pl-2" />
+        <div className="-mt-1 flex gap-1 pl-2">
+          <IconNavigateUpDown className="h-5 w-5 opacity-50" />
+          <span className="text-sm font-light text-[#8f90a6]">$0.00</span>
+        </div>
       </div>
+
       <div className="relative flex w-full justify-center py-3">
         <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-600">
           <IconNavigationArrows />
         </div>
         <div className="absolute top-[28px] z-0 h-[1px] w-full bg-gray-800"></div>
       </div>
-      <div className="flex justify-between px-4 py-4">
-        <div className="flex flex-col gap-2">
-          <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">BUY</p>
-          <AssetButton assetImage={BNBIcon} networkImage={BSCIcon} text="USDC" />
-          <AssetAmountInput />
-          <div className="flex gap-2">
-            <IconNavigateUpDown />
-            <span className="text-gray-400">0.00 USDC</span>
-          </div>
+
+      <div className="flex flex-col justify-between gap-2 px-5 py-4">
+        <div className="flex items-center justify-between pl-2">
+          <p className="text-sm font-extralight tracking-wider text-[#fafafa]">Buy</p>
+          <p className="text-sm font-light tracking-wider">
+            <span className="text-gray-500">Balance:</span> <span className="text-[#fafafa]/70">0.00</span>
+          </p>
         </div>
-        <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">Bal: 0.00</p>
+        <AssetSelectorButton assetImage={BNBIcon} networkImage={BSCIcon} text="USDC" />
+        <AssetAmountInput className="-mt-2 pl-2" />
+        <div className="-mt-1 flex gap-1 pl-2">
+          <IconNavigateUpDown className="h-5 w-5 opacity-50" />
+          <span className="text-sm font-light text-[#8f90a6]">$0.00</span>
+        </div>
       </div>
     </div>
   );
 }
 
-function AssetButton({ text, assetImage, networkImage }: { text: string; assetImage: string; networkImage: string }) {
+function AssetSelectorButton({
+  text,
+  assetImage,
+  networkImage,
+  className,
+}: {
+  text: string;
+  assetImage: string;
+  networkImage: string;
+  className?: string;
+}) {
   return (
-    <Button variant={"gray"} className="px-[6px]">
+    <Button variant={"gray"} className={cn("h-auto w-[140px] justify-start px-[4px] py-1 pr-2", className)}>
       <div className="flex items-center gap-2">
         <AssetAvatar assetImage={assetImage} networkImage={networkImage} />
-        <span className="text-base font-bold">{text}</span>
+        <span className="text-base font-bold text-gray-100">{text}</span>
         <IconDropDown />
       </div>
     </Button>
   );
 }
 
-function AssetAmountInput() {
+function AssetAmountInput({ className }: { className?: string }) {
   return (
     <input
       type="number"
-      className="m-0 w-28 bg-transparent p-0 text-5xl text-gray-400 outline-none placeholder:text-5xl placeholder:text-gray-400"
+      className={cn(
+        "m-0 w-full bg-transparent p-0 font-dosis text-5xl text-gray-400 text-white outline-none placeholder:text-5xl placeholder:text-gray-400",
+        className,
+      )}
       placeholder="0.00"
     />
   );

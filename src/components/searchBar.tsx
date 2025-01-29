@@ -1,6 +1,6 @@
-import { Overlay } from "@/components/Overlay";
 import { Avatar } from "@/components/avatar/Avatar.tsx";
 import { IconSearch } from "@/components/icons/IconSearch.tsx";
+import { Overlay } from "@/components/overlay";
 import { Card, CardContent } from "@/components/ui/card.tsx";
 import { Input } from "@/components/ui/input.tsx";
 import { Label } from "@/components/ui/label.tsx";
@@ -23,19 +23,19 @@ export function SearchBar() {
       <div className="z-20 w-[500px]">
         <Card
           className={cn(
-            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-green-200/30 bg-card",
+            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-green-200/10 bg-[#28293d]/30",
             {
               "mx-auto rounded-none rounded-t-2xl border-b-0 border-gray-700/70": showSearch,
             },
           )}
         >
           <CardContent className="flex w-full items-center p-0 pl-1">
-            <IconSearch className="absolute ml-2 h-5 w-5 text-gray-400" />
+            <IconSearch className="absolute ml-2 h-5 w-5 text-gray-400 opacity-50" />
             <Input
               type="text"
               placeholder="Search tokens"
               className={cn(
-                "!rounded-full border-0 bg-transparent py-3 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
+                "!rounded-full border-0 bg-transparent py-2.5 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
                 {},
               )}
               onFocus={() => {
@@ -45,6 +45,7 @@ export function SearchBar() {
                 setShowSearch(false);
               }}
             />
+            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-700">/</span>
           </CardContent>
         </Card>
         {showSearch && (

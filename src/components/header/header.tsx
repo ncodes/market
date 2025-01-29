@@ -1,18 +1,13 @@
-<<<<<<< HEAD
-import { SearchBar } from "@/components/SearchBar.tsx";
-import { Link } from "react-router-dom";
-=======
 import { SearchBar } from "@/components/searchBar.tsx";
->>>>>>> 49c4381 (updated header and setup wallet connect popup)
-import { ConnectButton } from "../../hooks/connectors/components/ConnectButton.tsx";
-import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu.tsx";
 import Logo from "../icons/Logo.tsx";
 import CombinedShape from "../icons/CombinedShape.tsx";
 import { MENU_ITEMS } from "@/libs/menu.ts";
-import { CustomNavigationMenu } from "./CustomNavigationMenu.tsx";
+import { ConnectButton } from "../../hooks/connectors/components/ConnectButton.tsx";
+import IconDropDown from "../icons/IconDropDown.tsx";
 import IconMore from "../icons/IconMore.tsx";
 import { Button } from "../ui/button.tsx";
-import IconDropDown from "../icons/IconDropDown.tsx";
+import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu.tsx";
+import { CustomNavigationMenu } from "./CustomNavigationMenu.tsx";
 
 export function Header() {
   function onNavChange() {
@@ -28,7 +23,7 @@ export function Header() {
 
   return (
     <header className="relative flex select-none items-center justify-between p-4">
-      <div className="relative flex items-center space-x-4">
+      <div className="relative -mt-3 flex items-center space-x-4">
         <div className="flex gap-1">
           <CombinedShape />
           <Logo />

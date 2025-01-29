@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import { Header } from "./header/header";
-import { Label } from "./ui/label";
 
 interface AppLayoutProps {
   children: ReactNode;
@@ -10,18 +9,20 @@ interface AppLayoutProps {
 
 export default function AppLayout({ children, title }: AppLayoutProps) {
   return (
-    <div className="relative min-h-screen w-screen overflow-hidden font-poppins text-white">
+    <div className="absolute flex h-screen w-screen flex-col justify-between overflow-hidden font-poppins text-white">
       <Helmet>
         <title>{title}</title>
       </Helmet>
-      <div className="relative w-full">
-        <div className="absolute left-0 right-0 top-0 h-[17px]">
-          <div className="mx-auto mb-[4px] h-full w-full max-w-xl border border-[#979797] bg-light-green blur-[50px]"></div>
+      <div>
+        <div className="relative w-full">
+          <div className="absolute -top-10 left-0 right-0 h-[17px]">
+            <div className="mx-auto mb-[4px] h-full w-4/12 border border-[#979797] bg-light-green blur-[30px]"></div>
+          </div>
+          <Header />
         </div>
-        <Header />
-      </div>
 
-      {children}
+        {children}
+      </div>
 
       <Footer />
     </div>
@@ -30,13 +31,9 @@ export default function AppLayout({ children, title }: AppLayoutProps) {
 
 function Footer() {
   return (
-    <div className="relative mt-20 w-full p-4">
-      <div className="absolute left-0 right-0 top-0 h-[17px]">
-        <div className="mx-auto mb-[4px] h-full w-full max-w-xl border border-[#979797] bg-light-green blur-[50px]"></div>
-      </div>
-      <div className="flex items-baseline justify-between">
-        <Label className="text-xs font-normal text-gray-400">JOINT LABS (C) {new Date().getFullYear()}</Label>
-        <Label className="text-xs font-normal text-gray-400">TERMS - PRIVACY POLICY</Label>
+    <div className="h-10 w-full overflow-hidden">
+      <div className="absolute left-0 right-0 mt-[80px] h-[30px]">
+        <div className="mx-auto h-full w-4/12 rounded-full border bg-light-green blur-[70px]"></div>
       </div>
     </div>
   );

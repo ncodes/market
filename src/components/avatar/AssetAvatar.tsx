@@ -6,12 +6,12 @@ interface AssetAvatarProps {
 
 export default function AssetAvatar({ assetImage, networkImage }: AssetAvatarProps) {
   return (
-    <div className="relative h-8 w-8">
-      <Avatar src={assetImage} className="h-8 w-8" rootClassName="h-8 w-8" />
+    <div className="relative">
+      <Avatar src={assetImage} className="h-10 w-10 shadow-sm drop-shadow-sm" rootClassName="h-10 w-10" />
       <Avatar
         src={networkImage}
-        className="h-4 w-4"
-        rootClassName="absolute bottom-0 right-0 h-4 w-4 border border-white"
+        className="h-5 w-5"
+        rootClassName="absolute bottom-0 right-0 h-5 w-5 border border-white"
       />
     </div>
   );
