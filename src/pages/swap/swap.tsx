@@ -1,5 +1,6 @@
-import { USDCIcon } from "@/assets";
+import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
 import AppLayout from "@/components/AppLayout";
+import AssetAvatar from "@/components/avatar/AssetAvatar";
 import IconDropDown from "@/components/icons/IconDropDown";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigateUpDown from "@/components/icons/IconNavigateUpDown";
@@ -53,7 +54,7 @@ function SwapTab() {
       <div className="flex justify-between px-4 py-4">
         <div className="flex flex-col gap-2">
           <p className="text-sm font-extralight uppercase text-gray-50">SELL</p>
-          <AssetButton image={USDCIcon} text="USDC" />
+          <AssetButton assetImage={USDCIcon} networkImage={SolanaIcon} text="USDC" />
           <AssetAmountInput />
           <div className="flex gap-2">
             <IconNavigateUpDown />
@@ -71,7 +72,7 @@ function SwapTab() {
       <div className="flex justify-between px-4 py-4">
         <div className="flex flex-col gap-2">
           <p className="text-sm font-extralight uppercase text-gray-50">BUY</p>
-          <AssetButton image={USDCIcon} text="USDC" />
+          <AssetButton assetImage={BNBIcon} networkImage={BSCIcon} text="USDC" />
           <AssetAmountInput />
           <div className="flex gap-2">
             <IconNavigateUpDown />
@@ -84,11 +85,11 @@ function SwapTab() {
   );
 }
 
-function AssetButton({ text, image }: { text: string; image: string }) {
+function AssetButton({ text, assetImage, networkImage }: { text: string; assetImage: string; networkImage: string }) {
   return (
-    <Button variant={"gray"} className="px-1">
+    <Button variant={"gray"} className="px-[6px]">
       <div className="flex items-center gap-2">
-        <img src={image} alt="usdc" className="h-8 w-8" />
+        <AssetAvatar assetImage={assetImage} networkImage={networkImage} />
         <span className="text-base font-bold">{text}</span>
         <IconDropDown />
       </div>
