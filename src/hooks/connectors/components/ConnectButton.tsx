@@ -2,22 +2,18 @@ import { Button } from "@/components/ui/button";
 import IconWallet from "@/components/icons/IconWallet";
 import { Label } from "@/components/ui/label";
 import IconClose from "@/components/icons/IconClose";
-import { useState } from "react";
 import { WALLETS } from "@/libs/wallets";
 import { Link } from "react-router-dom";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
-export function showConnectWallet() {
-  const button = document.querySelector("#walletConnect") as HTMLButtonElement;
-  button.click();
-}
+import useStore from "@/hooks/store/useStore";
 
 export function ConnectButton() {
-  const [open, setOpen] = useState(false);
+  const openConnectWalletSheet = useStore((s) => s.openConnectWalletSheet);
+  const setOpenConnectWalletSheet = useStore((s) => s.setOpenConnectWalletSheet);
 
   return (
-    <Sheet open={open} onOpenChange={(state) => setOpen(state)} modal>
+    <Sheet open={openConnectWalletSheet} onOpenChange={(state) => setOpenConnectWalletSheet(state)} modal>
       <SheetTrigger>
         <Button variant={"secondary"} id="walletConnect">
           <div className="flex items-center gap-8">
@@ -32,7 +28,7 @@ export function ConnectButton() {
             <Label className="text-2xl font-bold text-gray-50">Connect Wallet</Label>
             <div
               className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gray-800"
-              onClick={() => setOpen(false)}
+              onClick={() => setOpenConnectWalletSheet(false)}
             >
               <IconClose />
             </div>

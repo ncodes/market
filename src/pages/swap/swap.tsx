@@ -7,9 +7,12 @@ import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
 import IconWallet from "@/components/icons/IconWallet";
 import { Button } from "@/components/ui/button";
 import Tab from "@/components/ui/tab";
-import { showConnectWallet } from "@/hooks/connectors/components/ConnectButton";
+import useStore from "@/hooks/store/useStore";
 
 export default function SwapPage() {
+  const setOpenConnectWalletSheet = useStore((s) => s.setOpenConnectWalletSheet);
+  const openConnectWalletSheet = useStore((s) => s.openConnectWalletSheet);
+
   return (
     <AppLayout title="Swap">
       <div className="mt-16 flex h-full w-full justify-center">
@@ -22,7 +25,11 @@ export default function SwapPage() {
             />
           </div>
           <div className="absolute bottom-[-42px] left-0 right-0 flex h-16 justify-center">
-            <Button variant={"secondary"} className="absolute" onClick={showConnectWallet}>
+            <Button
+              variant={"secondary"}
+              className="absolute"
+              onClick={() => (!openConnectWalletSheet ? setOpenConnectWalletSheet(true) : null)}
+            >
               <div className="flex items-center gap-8">
                 <span>Connect Wallet</span>
                 <IconWallet />
