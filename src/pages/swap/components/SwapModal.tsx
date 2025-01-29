@@ -91,163 +91,261 @@ export function SwapModal({
   }
 
   const options = [
-    { value: "all", label: "ALL NETWORKS", image: "src/assets/all-chains.webp" },
+    { value: "all", label: "All Networks", image: "src/assets/all-chains.webp" },
     { value: "BTC", label: "Bitcoin", image: "src/assets/btc.png" },
-    { value: "ATOM", label: "COSMOS", image: "src/assets/cosmos.png" },
+    { value: "ATOM", label: "Cosmos", image: "src/assets/cosmos.png" },
     { value: "ETH", label: "Ethereum", image: "src/assets/ethereum.png" },
     { value: "DOT", label: "Polkadot", image: "src/assets/dot.avif" },
   ];
 
   const tokens = [
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png", tokenSymbol: "UNI", name: "Uniswap", network: "ETH" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png", tokenSymbol: "WETH", name: "Wrapped Ethereum", network: "ETH" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png", tokenSymbol: "USDC", name: "USD Coin", network: "ETH" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png", tokenSymbol: "USDT", name: "Tether", network: "BTC"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png", tokenSymbol: "MATIC", name: "Polygon", network: "DOT"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png", tokenSymbol: "WBTC", name: "Wrapped Bitcoin", network: "BTC" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png", tokenSymbol: "DAI", name: "Dai", network: "ATOM"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png", tokenSymbol: "BUSD", name: "Binance USD", network: "DOT"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png", tokenSymbol: "LINK", name: "Chainlink", network: "BTC" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png", tokenSymbol: "BAT", name: "Basic Attention Token", network: "BTC"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png", tokenSymbol: "UNI", name: "Uniswap", network: "ETH"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png", tokenSymbol: "WETH", name: "Wrapped Ethereum", network: "ETH" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png", tokenSymbol: "USDC", name: "USD Coin", network: "ATOM" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png", tokenSymbol: "USDT", name: "Tether", network: "BTC" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png", tokenSymbol: "MATIC", name: "Polygon", network: "BTC" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png", tokenSymbol: "WBTC", name: "Wrapped Bitcoin", network: "DOT" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png", tokenSymbol: "DAI", name: "Dai", network: "BTC" },
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png", tokenSymbol: "BUSD", name: "Binance USD", network: "ATOM"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png", tokenSymbol: "LINK", name: "Chainlink", network: "DOT"},
-    { src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png", tokenSymbol: "BAT", name: "Basic Attention Token", network: "BTC"},
-];
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png",
+      tokenSymbol: "UNI",
+      name: "Uniswap",
+      network: "ETH",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+      tokenSymbol: "WETH",
+      name: "Wrapped Ethereum",
+      network: "ETH",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+      tokenSymbol: "USDC",
+      name: "USD Coin",
+      network: "ETH",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+      tokenSymbol: "USDT",
+      name: "Tether",
+      network: "BTC",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png",
+      tokenSymbol: "MATIC",
+      name: "Polygon",
+      network: "DOT",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png",
+      tokenSymbol: "WBTC",
+      name: "Wrapped Bitcoin",
+      network: "BTC",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+      tokenSymbol: "DAI",
+      name: "Dai",
+      network: "ATOM",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png",
+      tokenSymbol: "BUSD",
+      name: "Binance USD",
+      network: "DOT",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png",
+      tokenSymbol: "LINK",
+      name: "Chainlink",
+      network: "BTC",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png",
+      tokenSymbol: "BAT",
+      name: "Basic Attention Token",
+      network: "BTC",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png",
+      tokenSymbol: "UNI",
+      name: "Uniswap",
+      network: "ETH",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
+      tokenSymbol: "WETH",
+      name: "Wrapped Ethereum",
+      network: "ETH",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png",
+      tokenSymbol: "USDC",
+      name: "USD Coin",
+      network: "ATOM",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xdAC17F958D2ee523a2206206994597C13D831ec7/logo.png",
+      tokenSymbol: "USDT",
+      name: "Tether",
+      network: "BTC",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0/logo.png",
+      tokenSymbol: "MATIC",
+      name: "Polygon",
+      network: "BTC",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599/logo.png",
+      tokenSymbol: "WBTC",
+      name: "Wrapped Bitcoin",
+      network: "DOT",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x6B175474E89094C44Da98b954EedeAC495271d0F/logo.png",
+      tokenSymbol: "DAI",
+      name: "Dai",
+      network: "BTC",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x4Fabb145d64652a948d72533023f6E7A623C7C53/logo.png",
+      tokenSymbol: "BUSD",
+      name: "Binance USD",
+      network: "ATOM",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x514910771AF9Ca656af840dff83E8264EcF986CA/logo.png",
+      tokenSymbol: "LINK",
+      name: "Chainlink",
+      network: "DOT",
+    },
+    {
+      src: "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x0D8775F648430679A709E98d2b0Cb6250d2887EF/logo.png",
+      tokenSymbol: "BAT",
+      name: "Basic Attention Token",
+      network: "BTC",
+    },
+  ];
 
-  
-const filteredTokens = tokens.filter(token => {
-  // Display all tokens if "all" is selected, otherwise filter by network
-  return selectedChain === "all" || token.network === selectedChain;
-});
+  const filteredTokens = tokens.filter((token) => {
+    // Display all tokens if "all" is selected, otherwise filter by network
+    return selectedChain === "all" || token.network === selectedChain;
+  });
 
-return (
+  return (
     <div ref={ref}>
-        <AnimatePresence>
-        {!!swapperState && !!setSwapperState && content === "token-selector" && <Dialog open={open} onOpenChange={setOpen}>
+      <AnimatePresence>
+        {/* !!swapperState && !!setSwapperState && content === "token-selector" */}
+        {true && (
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogPortal>
-                <div className="backdrop-brightness-5 fixed inset-0 backdrop-blur-md" aria-hidden="true">
+              <div className="backdrop-brightness-5 fixed inset-0 backdrop-blur-md" aria-hidden="true">
                 {/* className="w-[90%] max-w-md bg-[#1A1B1F]/95 backdrop-blur-xl border-0 text-white shadow-2xl" */}
                 {/* max-w-[451px] h-auto max-h-[716px] fixed rounded-lg border border-[#28293d] bg-[#1c1c28] backdrop-blur-md backdrop-brightness-75 */}
                 <DialogContent
-                    className="fixed h-[80vh] max-h-[716px] max-w-[451px] rounded-lg border border-[#28293d] bg-[#1c1c28] backdrop-blur-md backdrop-brightness-75"
-                    hideCloseButton
+                  className="w-482 fixed h-[80vh] max-h-[716px] rounded-lg border border-[#28293d] bg-[#1c1c28] p-2 backdrop-blur-md backdrop-brightness-75"
+                  hideCloseButton
                 >
-                    {/* Close Button */}
+                  {/* Close Button */}
+
+                  {/* Modal Header */}
+                  <DialogHeader className=" space-y-0 flex w-full flex-row items-center justify-between p-0">
+                  <DialogTitle className="text-xl mt-2 leading-light font-semibold tracking-wider text-[#fafafa] p-0">Choose Asset</DialogTitle>
                     <Button
-                    variant="outline"
-                    size="icon"
-                    className="absolute right-3 top-3 ml-auto inline-flex h-[36px] w-[36px] items-center rounded-full border border-[#28293d] bg-[#28293d] p-1.5 text-sm text-gray-400 hover:bg-gray-900"
-                    onClick={() => {
+                      variant="outline"
+                      size="icon"
+                      className="right-3 top-4 ml-auto inline-flex h-[36px] w-[36px] items-center rounded-full border border-[#28293d] bg-[#28293d] p-1.5 text-sm text-gray-400 hover:bg-gray-900"
+                      onClick={() => {
                         setState((prev) => ({ ...prev, show: false }));
                         closeDrawer();
                         // setOpen(false)
-                    }}
+                      }}
                     >
-                    <svg width="25" height="24" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg">
+                      <svg width="25" height="24" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg">
                         <g transform="rotate(-45 15.242 4.174)" fill="#FFF" fillRule="evenodd">
-                        <rect y="7" width="16" height="2" rx="1" />
-                        <rect opacity=".3" transform="rotate(90 8 8)" y="7" width="16" height="2" rx="1" />
+                          <rect y="7" width="16" height="2" rx="1" />
+                          <rect opacity=".3" transform="rotate(90 8 8)" y="7" width="16" height="2" rx="1" />
                         </g>
-                    </svg>
+                      </svg>
                     </Button>
+                  </DialogHeader>
 
-                    {/* Modal Header */}
-                    <DialogHeader>
-                    <DialogTitle className="text-lg font-semibold tracking-wider text-[#fafafa]">Choose Asset</DialogTitle>
-                    </DialogHeader>
-
-                    <div>
-                    <Separator className="-mx-6 border border-solid border-[#28293d]" />
-                    <div className="flex w-full items-center justify-between gap-x-4 px-0 py-2">
-                        <div className="relative flex items-center flex-[3]">
+                  <div>
+                    <Separator className="-mx-2 border border-solid border-[#28293d]" />
+                    <div className="flex w-full justify-between gap-x-4 px-0 py-2">
+                      <div className="relative flex flex-[3] items-center">
                         <Input
-                            type="text"
-                            placeholder="Search"
-                            className={cn("!rounded-full border-0 !bg-[#555770] py-2 pl-5 pr-10 !text-[16px] !text-[#8f90a6]", {})}
-                            onFocus={() => {
+                          type="text"
+                          placeholder="Search"
+                          className={cn(
+                            "!rounded-full border-0 !bg-[#555770] py-2 pl-5 pr-10 !text-[16px] !text-[#8f90a6]",
+                            {},
+                          )}
+                          onFocus={() => {
                             setShowSearch(true);
-                            }}
-                            onBlur={() => {
+                          }}
+                          onBlur={() => {
                             setShowSearch(false);
-                            }}
+                          }}
                         />
                         {/* SVG Icon */}
                         <IconSearch className="absolute right-3 h-5 w-5 text-gray-400" />
-                        </div>
-                        <div className="ml-4">
+                      </div>
+                      <div className="ml-4">
                         <Select defaultValue="all" onValueChange={setSelectedChain}>
-                        <SelectTrigger
+                          <SelectTrigger
                             isRightIcon={false}
                             className="flex-[1] border-0 text-[#fafafa] ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
-                        >
-                        <SelectValue>
-                                {/* Show only the image when selected */}
-                                {selectedChain && (
-                                    <img
-                                    src={options.find((opt) => opt.value === selectedChain)?.image}
-                                    alt={selectedChain}
-                                    className="h-6 w-6"
-                                    />
-                                )}
+                          >
+                            <SelectValue>
+                              {/* Show only the image when selected */}
+                              {selectedChain && (
+                                <img
+                                  src={options.find((opt) => opt.value === selectedChain)?.image}
+                                  alt={selectedChain}
+                                  className="h-[24px] w-[23px]"
+                                />
+                              )}
                             </SelectValue>
                             <ChevronDownIcon className="h-8 w-6 text-gray-200" />
-                        </SelectTrigger>
-                        <SelectContent position="popper">
+                          </SelectTrigger>
+                          <SelectContent position="popper">
                             {/* Show both image and text in the dropdown */}
-                        {options.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                            <div className="flex items-center gap-2">
-                            <img src={option.image} alt={option.label} className="h-6 w-6" />
-                            <span>{option.label}</span>
-                            </div>
-                        </SelectItem>
-                        ))}
-                        </SelectContent>
+                            {options.map((option) => (
+                              <SelectItem key={option.value} value={option.value}>
+                                <div className="flex items-center gap-2">
+                                  <img src={option.image} alt={option.label} className="h-[22px] w-[22px]" />
+                                  <span>{option.label}</span>
+                                </div>
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
                         </Select>
-                        </div>
+                      </div>
                     </div>
 
-                    <Separator className="-mx-6 border border-solid border-[#28293d]" />
-                    </div>
-                    
-                    <ScrollArea className="h-[calc(80vh-240px)] w-full rounded-md" type="scroll">
-                        {filteredTokens.map((token, index) => (
-                            <Token
-                            key={index}
-                            src={token.src}
-                            tokenSymbol={token.tokenSymbol}
-                            name={token.name}
-                            />
-                        ))}
-                    </ScrollArea>
+                    <Separator className="-mx-2 border border-solid border-[#28293d]" />
+                  </div>
+
+                  <ScrollArea className="h-[calc(80vh-240px)] w-full rounded-md" type="scroll">
+                    {filteredTokens.map((token, index) => (
+                      <Token key={index} src={token.src} tokenSymbol={token.tokenSymbol} name={token.name} />
+                    ))}
+                  </ScrollArea>
                 </DialogContent>
-                </div>
+              </div>
             </DialogPortal>
-            </Dialog>}
-            
-        </AnimatePresence>
-
+          </Dialog>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
 function Token({ src, tokenSymbol, name }: { src: string; tokenSymbol: string; name: string }) {
   return (
-    <li className="flex cursor-pointer items-center justify-between px-2 py-2 transition-all duration-300 hover:scale-[1.01] hover:rounded-none  hover:bg-baltic-sea/50 hover:bg-bright-gray hover:text-white">
+    <li className="flex cursor-pointer items-center justify-between px-2 py-2 transition-all duration-300 hover:scale-[1.01] hover:rounded-none hover:bg-baltic-sea/50 hover:bg-bright-gray hover:text-white">
       <div className="absolute left-0 right-0 -mx-4 h-full bg-transparent transition-all duration-300 hover:bg-baltic-sea/50 hover:bg-bright-gray" />
-      
-      <div className="relative flex items-center space-x-3 z-10">
-        <Avatar src={src} fallback={tokenSymbol} className="h-8 w-8" />
+
+      <div className="relative z-10 flex items-center space-x-3">
+        <Avatar src={src} fallback={tokenSymbol} className="h-[33px] w-[33px]" />
         <div className="flex flex-col text-white">
-          <span className="font-bold">{name}</span> 
-          <span className="text-[#6b6b6b] text-sm leading-none">{tokenSymbol}</span>
+          <span className="h-[28px] text-[16px] font-normal tracking-[-0.02px] text-[#f2f2f5]">{name}</span>
+          <span className="text-sm leading-none text-[#8f90a6]">{tokenSymbol}</span>
         </div>
       </div>
     </li>
