@@ -344,7 +344,7 @@ function Token({ src, tokenSymbol, name }: { src: string; tokenSymbol: string; n
       <div className="relative z-10 flex items-center space-x-3">
         <Avatar src={src} fallback={tokenSymbol} className="h-[33px] w-[33px]" />
         <div className="flex flex-col text-white">
-          <span className="h-[28px] text-[16px] font-normal tracking-[-0.02px] text-[#f2f2f5]">{name}</span>
+          <span className="text-[14px] mb-1 font-sm tracking-[-0.02px] text-[#f2f2f5] ">{name}</span>
           <span className="text-sm leading-none text-[#8f90a6]">{tokenSymbol}</span>
         </div>
       </div>
