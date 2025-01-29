@@ -40,7 +40,7 @@ export function ConnectButton() {
       modal
     >
       <SheetTrigger>
-        <Button variant={"secondary"} id="walletConnect">
+        <Button variant={"secondary"} id="walletConnect" className="scale-btn">
           <div className="flex items-center gap-8">
             <span>Connect</span>
             <IconWallet />

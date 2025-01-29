@@ -39,6 +39,10 @@ export default {
         "bright-gray": "#3C4051", // for background (card)
         mirage: "#17181D", // for background (card)
 
+        // Latest
+        "raisin-black": "#1c1c28",
+        gunmetal: "#28293d",
+
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",

@@ -15,7 +15,7 @@ function Tab({ tabHeaders, headerRight, tabCompents, defaultSelectedIndex = 0 }:
   return (
     <div className="w-full pb-10">
       <div className="scrollbar-hide w-full overflow-x-auto">
-        <div className="m-0 flex w-full items-center justify-between border-b border-gray-800 px-4 py-0">
+        <div className="m-0 flex w-full items-center justify-between border-b border-gray-900 px-4 py-0">
           <div className="flex min-w-max items-center gap-4">
             {tabHeaders.map((header, index) => {
               const isActive = selectedIndex === index;
