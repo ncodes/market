@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button";
 import IconWallet from "@/components/icons/IconWallet";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Label } from "@/components/ui/label";
 import IconClose from "@/components/icons/IconClose";
 import { useState } from "react";
 import { WALLETS } from "@/libs/wallets";
 import { Link } from "react-router-dom";
 import IconArrowRight from "@/components/icons/IconArrowRight";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function showConnectWallet() {
   const button = document.querySelector("#walletConnect") as HTMLButtonElement;
@@ -17,18 +17,18 @@ export function ConnectButton() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Popover open={open} onOpenChange={(state) => setOpen(state)}>
-      <PopoverTrigger>
+    <Sheet open={open} onOpenChange={(state) => setOpen(state)} modal>
+      <SheetTrigger>
         <Button variant={"secondary"} id="walletConnect">
           <div className="flex items-center gap-8">
             <span>Connect</span>
             <IconWallet />
           </div>
         </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-max border-none bg-transparent">
+      </SheetTrigger>
+      <SheetContent className="border-none bg-transparent">
         <div className="rounded-3xl border border-gray-800 bg-gray-900">
-          <div className="flex items-center gap-32 border-b border-gray-800 px-4 py-3">
+          <div className="flex items-center justify-between border-b border-gray-800 px-4 py-3">
             <Label className="text-2xl font-bold text-gray-50">Connect Wallet</Label>
             <div
               className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gray-800"
@@ -55,14 +55,14 @@ export function ConnectButton() {
             </p>
           </div>
         </div>
-      </PopoverContent>
-    </Popover>
+      </SheetContent>
+    </Sheet>
   );
 }
 
 function Wallet({ name, logo }: { name: string; logo: string }) {
   return (
-    <div className="from-gradientStart to-gradientEnd group flex cursor-pointer items-center justify-between px-5 py-2 hover:bg-gradient-to-l">
+    <div className="group flex cursor-pointer items-center justify-between from-gradientStart to-gradientEnd px-5 py-2 hover:bg-gradient-to-l">
       <div className="flex items-center gap-2">
         <img src={logo} alt="" className="h-8 w-8 rounded-full" />
         <div className="flex flex-col">

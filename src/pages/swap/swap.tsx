@@ -59,7 +59,7 @@ function SwapTab() {
         <p className="text-sm font-extralight uppercase text-gray-50">Bal: 0.00</p>
       </div>
       <div className="relative flex w-full justify-center py-3">
-        <div className="z-50 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-600">
+        <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-600">
           <IconNavigationArrows />
         </div>
         <div className="absolute top-[28px] z-0 h-[1px] w-full bg-gray-800"></div>
