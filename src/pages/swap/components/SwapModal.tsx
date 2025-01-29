@@ -229,8 +229,7 @@ export function SwapModal({
   return (
     <div ref={ref}>
       <AnimatePresence>
-        {/* !!swapperState && !!setSwapperState && content === "token-selector" */}
-        {true && (
+        { !!swapperState && !!setSwapperState && content === "token-selector" && (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogPortal>
               <div className="backdrop-brightness-5 fixed inset-0 backdrop-blur-md" aria-hidden="true">
