@@ -53,7 +53,7 @@ function SwapTab() {
     <div className="w-full">
       <div className="flex justify-between px-4 py-4">
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-extralight uppercase text-gray-50">SELL</p>
+          <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">SELL</p>
           <AssetButton assetImage={USDCIcon} networkImage={SolanaIcon} text="USDC" />
           <AssetAmountInput />
           <div className="flex gap-2">
@@ -61,7 +61,7 @@ function SwapTab() {
             <span className="text-gray-400">0.00 USDC</span>
           </div>
         </div>
-        <p className="text-sm font-extralight uppercase text-gray-50">Bal: 0.00</p>
+        <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">Bal: 0.00</p>
       </div>
       <div className="relative flex w-full justify-center py-3">
         <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-600">
@@ -71,7 +71,7 @@ function SwapTab() {
       </div>
       <div className="flex justify-between px-4 py-4">
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-extralight uppercase text-gray-50">BUY</p>
+          <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">BUY</p>
           <AssetButton assetImage={BNBIcon} networkImage={BSCIcon} text="USDC" />
           <AssetAmountInput />
           <div className="flex gap-2">
@@ -79,7 +79,7 @@ function SwapTab() {
             <span className="text-gray-400">0.00 USDC</span>
           </div>
         </div>
-        <p className="text-sm font-extralight uppercase text-gray-50">Bal: 0.00</p>
+        <p className="text-sm font-extralight uppercase tracking-[2px] text-gray-50">Bal: 0.00</p>
       </div>
     </div>
   );

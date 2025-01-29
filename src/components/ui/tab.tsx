@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ShowActive from "../ShowActive";
 
 interface TapProps {
   tabHeaders: string[];
@@ -28,9 +29,7 @@ function Tab({ tabHeaders, headerRight, tabCompents, defaultSelectedIndex = 0 }:
                   >
                     {header}
                   </p>
-                  <div
-                    className={`h-1 w-full rounded-se-[3px] rounded-ss-[3px] ${isActive ? "bg-light-green" : "bg-transparent"}`}
-                  ></div>
+                  <ShowActive isActive={isActive} />
                 </div>
               );
             })}
