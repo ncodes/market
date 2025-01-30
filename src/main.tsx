@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import { RouterProvider } from "react-router-dom";
-import ConnectorProvider from "./hooks/connectors/components/ConnectorProvider.tsx";
+import ConnectorProvider from "./hooks/connectors/components/ConnectorProvider";
 import "./local_assets.ts";
 import "./polyfills.ts";
-import router from "./route.tsx";
+import router from "./route";
 import "./styles/index.css";
 
 import { Buffer } from "buffer";

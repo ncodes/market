@@ -1,10 +1,10 @@
-import { Card } from "@/components/ui/card.tsx";
+import { ToolTip } from "@/components/ToolTip";
+import { Card } from "@/components/ui/card";
 import { cn } from "@/libs/utils.ts";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { AlertTriangleIcon, ChevronDown, Loader2 } from "lucide-react";
 import { useRef } from "react";
 import { Avatar } from "../../../components/avatar/Avatar";
-import { ToolTip } from "../../../components/ToolTip";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import useMarketCreatorLogic from "../hooks/useMarketCreatorLogic";

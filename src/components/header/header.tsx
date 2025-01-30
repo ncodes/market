@@ -1,16 +1,13 @@
-import { SearchBar } from "@/components/SearchBar.tsx";
-import { Link } from "react-router-dom";
-import { ConnectButton } from "../../hooks/connectors/components/ConnectButton.tsx";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "../ui/navigation-menu.tsx";
-import LinkAccountButton from "./LinkAccountButton.tsx";
-import { NetworkSelector } from "./NetworkSelector.tsx";
+import { SearchBar } from "@/components/SearchBar";
+import { MENU_ITEMS } from "@/libs/menu.ts";
+import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
+import CombinedShape from "../icons/CombinedShape";
+import IconDropDown from "../icons/IconDropDown";
+import IconMore from "../icons/IconMore";
+import Logo from "../icons/Logo";
+import { Button } from "../ui/button";
+import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
+import { CustomNavigationMenu } from "./CustomNavigationMenu";
 
 export function Header() {
   function onNavChange() {
@@ -26,9 +23,10 @@ export function Header() {
 
   return (
     <header className="relative flex select-none items-center justify-between p-4">
-      <div className="relative -top-2 flex items-center space-x-4">
-        <div className="flex items-center">
-          <img src="/images/logo.svg" alt="Logo" className="h-[25px]" />
+      <div className="relative -mt-3 flex items-center space-x-4">
+        <div className="flex gap-1">
+          <CombinedShape />
+          <Logo />
         </div>
         <nav className="relative left-2 flex text-sm font-normal tracking-wider">
           <NavigationMenu
@@ -38,110 +36,24 @@ export function Header() {
             }
           >
             <NavigationMenuList>
-              <NavigationMenuItem className="mr-2">
-                <Link to="#" className="text-gray-300 hover:text-white">
-                  Swap
-                </Link>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="submenu-trigger data-[state=open]:!bg-transparent hover:bg-transparent">
-                  <Link
-                    to="#"
-                    className="text-gray-300 transition-all duration-100 group-data-[state=open]:font-bold group-data-[state=open]:text-screaming-green"
-                  >
-                    Markets
-                  </Link>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="flex flex-col p-2">
-                  <NavigationMenuLink asChild className="w-[100px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Explore
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Create
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Manage
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="submenu-trigger data-[state=open]:!bg-transparent hover:bg-transparent">
-                  <Link
-                    to="#"
-                    className="text-gray-300 transition-all duration-100 group-data-[state=open]:font-bold group-data-[state=open]:text-screaming-green"
-                  >
-                    Liquidity
-                  </Link>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="flex flex-col p-2">
-                  <NavigationMenuLink asChild className="w-[100px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Explore
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild className="w-[100px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Create
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild className="w-[100px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Manage
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="submenu-trigger data-[state=open]:!bg-transparent hover:bg-transparent">
-                  <Link
-                    to="#"
-                    className="text-gray-300 transition-all duration-100 group-data-[state=open]:font-bold group-data-[state=open]:text-screaming-green"
-                  >
-                    PayRoute
-                  </Link>
-                </NavigationMenuTrigger>
-                <NavigationMenuContent className="flex flex-col p-2">
-                  <NavigationMenuLink asChild className="w-[100px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Explore
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild className="w-[150px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Create Route
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild className="w-[150px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Manage Route
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild className="w-[100px]">
-                    <Link to="#" className="p-1 text-gray-300 hover:text-white">
-                      Dispute
-                    </Link>
-                  </NavigationMenuLink>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
+              {MENU_ITEMS.map((menuItem) => (
+                <CustomNavigationMenu menuItem={menuItem} />
+              ))}
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
       </div>
 
       <SearchBar />
-      <div className="relative -top-1 flex items-center space-x-2">
-        <LinkAccountButton />
-        <NetworkSelector />
-        <ConnectButton noSessionCreation />
+      <div className="relative -top-1 flex items-center space-x-3">
+        <Button variant={"gray"} className="bg-gunmetal px-2 py-2">
+          <span className="text-2xl">🇬🇧</span>
+          <IconDropDown />
+        </Button>
+        <div className="bg-gunmetal flex h-11 w-11 cursor-pointer items-center justify-center rounded-full">
+          <IconMore />
+        </div>
+        <ConnectButton />
       </div>
     </header>
   );

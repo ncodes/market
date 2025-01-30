@@ -1,7 +1,7 @@
+import { handleAxiosError } from "@/libs/helpers.ts";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
-import { handleAxiosError } from "@/libs/helpers.ts";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 import { useSession } from "../../useSession.ts";
 
 export interface ListOfferParams {

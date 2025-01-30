@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { ChainNames, TokenList, TokenLists } from "@jointlabs/meta";
 import { useQuery } from "@tanstack/react-query";
 import { useMotionValueEvent, useScroll } from "framer-motion";
@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { useOnClickOutside } from "usehooks-ts";
 import { isAddress } from "viem";
-import { Avatar } from "../../../components/avatar/Avatar";
 import { ToolTip } from "../../../components/ToolTip";
+import { Avatar } from "../../../components/avatar/Avatar";
 import { useConnectorContext } from "../../../hooks/connectors/useConnectorContext";
 import { useMiscService } from "../../../hooks/services/backend/useMiscService";
 

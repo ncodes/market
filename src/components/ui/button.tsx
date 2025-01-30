@@ -16,6 +16,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary/90 text-secondary-foreground hover:bg-secondary",
         ghost: "hover:text-accent-foreground text-accent-foreground/90 hover:bg-accent hover:text-gray-800",
         link: "text-primary hover:opacity-90",
+        gray: "bg-[#555770]/30 hover:bg-[#555770]",
       },
       rounded: {
         default: "rounded-full",

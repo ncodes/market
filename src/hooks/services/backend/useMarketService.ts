@@ -3,7 +3,7 @@ import { AssetType } from "@/types/enums.ts";
 import { TokenList } from "@jointlabs/meta";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 export type ListMarketsIDs = "getMarkets" | "searchMarkets" | "getMarketsByCreator" | "getMarketsByAddresses";
 export interface ListMarketsParams {

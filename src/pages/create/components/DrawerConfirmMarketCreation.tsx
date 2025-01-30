@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { TokenList } from "@jointlabs/meta";
 import { XIcon } from "lucide-react";
 import { useEffect, useState } from "react";

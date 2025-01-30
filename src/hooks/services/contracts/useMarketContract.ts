@@ -1,6 +1,6 @@
 import { toBigInt } from "../../../libs/helpers.ts";
 import { AssetType } from "../../../types/enums.ts";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 /**
  * Providers utilities for reading and writing to the market contract

@@ -1,10 +1,10 @@
+import { Avatar } from "@/components/avatar/Avatar";
+import { IconSearch } from "@/components/icons/IconSearch";
 import { Overlay } from "@/components/Overlay";
-import { Avatar } from "@/components/avatar/Avatar.tsx";
-import { IconSearch } from "@/components/icons/IconSearch.tsx";
-import { Card, CardContent } from "@/components/ui/card.tsx";
-import { Input } from "@/components/ui/input.tsx";
-import { Label } from "@/components/ui/label.tsx";
-import { ScrollArea } from "@/components/ui/scroll-area.tsx";
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/libs/utils.ts";
 import { motion } from "framer-motion";
 import { GlobeIcon } from "lucide-react";
@@ -23,19 +23,19 @@ export function SearchBar() {
       <div className="z-20 w-[500px]">
         <Card
           className={cn(
-            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-gray-700/20 bg-card",
+            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-pastel-green/10 bg-[#28293d]/30",
             {
               "mx-auto rounded-none rounded-t-2xl border-b-0 border-gray-700/70": showSearch,
             },
           )}
         >
           <CardContent className="flex w-full items-center p-0 pl-1">
-            <IconSearch className="absolute ml-2 h-5 w-5 text-gray-400" />
+            <IconSearch className="absolute ml-2 h-5 w-5 text-cool-grey opacity-50" />
             <Input
               type="text"
-              placeholder="Search for tokens and markets"
+              placeholder="Search tokens"
               className={cn(
-                "!rounded-full border-0 bg-transparent py-3 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
+                "!rounded-full border-0 bg-transparent py-2.5 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
                 {},
               )}
               onFocus={() => {
@@ -45,6 +45,7 @@ export function SearchBar() {
                 setShowSearch(false);
               }}
             />
+            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-700">/</span>
           </CardContent>
         </Card>
         {showSearch && (
@@ -53,7 +54,7 @@ export function SearchBar() {
             className="relative h-auto w-full overflow-hidden rounded-2xl rounded-t-none border border-t-0 border-gray-700/70 bg-eerie-black"
           >
             <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto px-3 py-1" orientation="vertical">
-              <Label className="tracking-wide text-gray-400">Popular tokens</Label>
+              <Label className="tracking-wide text-cool-grey">Popular tokens</Label>
               <ul className="mx-0.5 mt-2 flex flex-col space-y-2">
                 <Item
                   src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"

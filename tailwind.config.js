@@ -25,6 +25,8 @@ export default {
     },
     extend: {
       colors: {
+        gradientStart: "#1c1c28",
+        gradientEnd: "#28293d",
         "byzantine-blue": "#1F54DA",
         "alice-blue": "#E3EEF7",
         "light-green": "#8DE969",
@@ -36,6 +38,16 @@ export default {
         "baltic-sea": "#262931", // for background (card)
         "bright-gray": "#3C4051", // for background (card)
         mirage: "#17181D", // for background (card)
+
+        // Latest
+        "raisin-black": "#1c1c28",
+        gunmetal: "#28293d",
+        "black-coral": "#555770",
+        "cool-grey": "#8f90a6",
+        "anti-flash-white": "#f2f2f5",
+        "lotion": "#fafafa",
+        "pastel-green": "#8de969",
+        "chinese-green": "#c8ed5a",
 
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",

@@ -1,7 +1,7 @@
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 import { handleAxiosError } from "../../../libs/helpers.ts";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 /**
  * useAssetService provides access to v1/assets endpoint
@@ -12,9 +12,7 @@ export function useAssetService() {
   /**
    * Get swappable token list
    */
-  async function getList(
-    ctx: QueryFunctionContext<[string, { network: string }]>,
-  ): Promise<AssetInfo[]> {
+  async function getList(ctx: QueryFunctionContext<[string, { network: string }]>): Promise<AssetInfo[]> {
     try {
       const [, params] = ctx.queryKey;
       const headers = {};

@@ -2,14 +2,14 @@ import theme from "@/hooks/connectors/components/theme.ts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { ReactNode } from "react";
-import { Chain, http, HttpTransport } from "viem";
+import { Chain, HttpTransport, http } from "viem";
 import { arbitrum, hardhat } from "viem/chains";
-import { createConfig, WagmiProvider } from "wagmi";
+import { WagmiProvider, createConfig } from "wagmi";
 import { AppIcon, AppName, AppUrl, InfuraId, WalletConnectId } from "../../../constants.ts";
 import { isLocal } from "../../../libs/helpers.ts";
 import { getSupportedChains } from "../common.ts";
-import { ConnectorContext } from "../context.tsx";
-import useConnector from "../useConnector.tsx";
+import { ConnectorContext } from "../context";
+import useConnector from "../useConnector";
 
 interface ConnectorProviderProps {
   children: ReactNode;
