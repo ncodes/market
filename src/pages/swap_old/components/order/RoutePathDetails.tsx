@@ -1,11 +1,11 @@
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { getCurrency, getShortName } from "@jointlabs/meta";
 import { motion } from "framer-motion";
 import { ChevronUp, InfoIcon } from "lucide-react";
 import { useState } from "react";
+import { ToolTip } from "../../../../components/ToolTip";
 import EmojiAvatar from "../../../../components/avatar/EmojiAvatar";
 import { AvatarSize } from "../../../../components/avatar/useAvatar";
-import { ToolTip } from "../../../../components/ToolTip";
 import { Button } from "../../../../components/ui/button";
 import { useSession } from "../../../../hooks/useSession";
 import { toDec, toHD, trimZeros } from "../../../../libs/helpers";

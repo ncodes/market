@@ -1,4 +1,4 @@
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { SwapDrawerAdvancedSettings } from "@/pages/swap/components/swapper/SwapDrawerAdvancedSettings";
 import { TokenList } from "@jointlabs/meta";
 import { AnimatePresence, motion } from "framer-motion";

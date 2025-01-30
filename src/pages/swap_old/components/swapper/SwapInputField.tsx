@@ -1,6 +1,6 @@
-import { Avatar } from "@/components/avatar/Avatar.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { Input } from "@/components/ui/input.tsx";
+import { Avatar } from "@/components/avatar/Avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { formatToHighDenom } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
 import { TokenList } from "@jointlabs/meta";

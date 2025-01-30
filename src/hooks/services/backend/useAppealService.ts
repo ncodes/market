@@ -1,6 +1,6 @@
 import { handleAxiosError } from "@/libs/helpers.ts";
 import axios from "axios";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 import { useSession } from "../../useSession.ts";
 
 export interface CreateParams {

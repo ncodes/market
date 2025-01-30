@@ -1,13 +1,13 @@
-import { SearchBar } from "@/components/searchBar.tsx";
-import Logo from "../icons/Logo.tsx";
-import CombinedShape from "../icons/CombinedShape.tsx";
+import { SearchBar } from "@/components/SearchBar";
 import { MENU_ITEMS } from "@/libs/menu.ts";
-import { ConnectButton } from "../../hooks/connectors/components/ConnectButton.tsx";
-import IconDropDown from "../icons/IconDropDown.tsx";
-import IconMore from "../icons/IconMore.tsx";
-import { Button } from "../ui/button.tsx";
-import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu.tsx";
-import { CustomNavigationMenu } from "./CustomNavigationMenu.tsx";
+import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
+import CombinedShape from "../icons/CombinedShape";
+import IconDropDown from "../icons/IconDropDown";
+import IconMore from "../icons/IconMore";
+import Logo from "../icons/Logo";
+import { Button } from "../ui/button";
+import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
+import { CustomNavigationMenu } from "./CustomNavigationMenu";
 
 export function Header() {
   function onNavChange() {
@@ -50,7 +50,7 @@ export function Header() {
           <span className="text-2xl">🇬🇧</span>
           <IconDropDown />
         </Button>
-        <div className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gunmetal">
+        <div className="bg-gunmetal flex h-11 w-11 cursor-pointer items-center justify-center rounded-full">
           <IconMore />
         </div>
         <ConnectButton />

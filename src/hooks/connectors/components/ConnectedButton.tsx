@@ -1,11 +1,11 @@
-import { AvatarSize } from "@/components/avatar/useAvatar.tsx";
+import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import { AvatarSize } from "@/components/avatar/useAvatar";
 import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
+import { SettingsIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useSession } from "../../useSession.ts";
-import { useConnectorContext } from "../useConnectorContext.tsx";
-import EmojiAvatar from "@/components/avatar/EmojiAvatar.tsx";
-import { SettingsIcon } from "lucide-react";
+import { useConnectorContext } from "../useConnectorContext";
 
 export const ConnectedButton = ({
   className,
@@ -54,7 +54,7 @@ export const ConnectedButton = ({
     <div>
       <div
         className={cn(
-          "flex h-auto items-center justify-between gap-1 rounded-full bg-card py-1 pr-1 transition-all duration-500 hover:scale-x-[1.02] hover:bg-gunmetal/80 [&>*]:cursor-pointer",
+          "hover:bg-gunmetal/80 flex h-auto items-center justify-between gap-1 rounded-full bg-card py-1 pr-1 transition-all duration-500 hover:scale-x-[1.02] [&>*]:cursor-pointer",
           className,
         )}
         onClick={() => {}}

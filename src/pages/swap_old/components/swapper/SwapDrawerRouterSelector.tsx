@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import { getLogoUrl, getShortName } from "@jointlabs/meta";
 import { XIcon } from "lucide-react";
 import { Fragment } from "react";
 import { useOnClickOutside } from "usehooks-ts";
-import { Avatar } from "../../../../components/avatar/Avatar";
 import { ToolTip } from "../../../../components/ToolTip";
+import { Avatar } from "../../../../components/avatar/Avatar";
 import { toAbr } from "../../../../libs/helpers";
 import { calculateRoutesFee } from "../../common/utils";
 

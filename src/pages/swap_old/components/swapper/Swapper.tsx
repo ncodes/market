@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button.tsx";
-import { Card, CardContent, CardFooter } from "@/components/ui/card.tsx";
-import { ConnectButton } from "@/hooks/connectors/components/ConnectButton.tsx";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { isZero, toDec, trimZeros } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
 import { SwapInputField } from "@/pages/swap/components/swapper/SwapInputField";

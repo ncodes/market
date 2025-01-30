@@ -1,5 +1,5 @@
-import { Card, CardFooter } from "@/components/ui/card.tsx";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { Card, CardFooter } from "@/components/ui/card";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { cn } from "@/libs/utils.ts";
 import { InfoIcon } from "lucide-react";
 import { useRef } from "react";

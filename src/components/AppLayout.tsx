@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
-import { Header } from "./header/header";
+import { Header } from "./header/Header";
 
 interface AppLayoutProps {
   children: ReactNode;

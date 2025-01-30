@@ -1,9 +1,9 @@
-import { Avatar } from "@/components/avatar/Avatar";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { FormInput } from "@/components/FormInput";
-import LinkAccountButton from "@/components/header/LinkAccountButton";
 import { ToolTip } from "@/components/ToolTip";
-import { Button } from "@/components/ui/button.tsx";
+import { Avatar } from "@/components/avatar/Avatar";
+import LinkAccountButton from "@/components/header/LinkAccountButton";
+import { Button } from "@/components/ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";

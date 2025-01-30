@@ -1,5 +1,5 @@
 import { ToolTip } from "@/components/ToolTip";
-import { Button } from "@/components/ui/button.tsx";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,

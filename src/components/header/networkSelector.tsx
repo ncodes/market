@@ -1,13 +1,13 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu.tsx";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button.tsx";
-import { useCallback, useEffect, useState } from "react";
-import { cn } from "@/libs/utils.ts";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { Button } from "@/components/ui/button";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { isLocal, isProd } from "@/libs/helpers.ts";
-import { hardhat, sepolia } from "viem/chains";
+import { cn } from "@/libs/utils.ts";
 import { ChainInfo, getChain, getChainsID } from "@jointlabs/meta";
 import { Separator } from "@radix-ui/react-dropdown-menu";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { useCallback, useEffect, useState } from "react";
+import { hardhat, sepolia } from "viem/chains";
 
 const defaultState: {
   open: boolean;

@@ -1,4 +1,4 @@
-import { Header } from "@/components/header/header.tsx";
+import { Header } from "@/components/header/Header";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
 import { SwapOrder } from "./components/order/SwapOrder";

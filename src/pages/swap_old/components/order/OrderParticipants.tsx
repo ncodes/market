@@ -1,7 +1,7 @@
 import { InfoIcon } from "lucide-react";
+import { ToolTip } from "../../../../components/ToolTip";
 import EmojiAvatar from "../../../../components/avatar/EmojiAvatar";
 import { AvatarSize } from "../../../../components/avatar/useAvatar";
-import { ToolTip } from "../../../../components/ToolTip";
 import { shortenAddress } from "../../../../libs/helpers";
 import { cn } from "../../../../libs/utils";
 import { isOrderRouter } from "../../common/utils";

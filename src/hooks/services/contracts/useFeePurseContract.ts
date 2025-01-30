@@ -1,4 +1,4 @@
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 /**
  * Providers utilities for reading and writing to the FeePurse contract

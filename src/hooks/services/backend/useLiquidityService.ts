@@ -2,7 +2,7 @@ import { handleAxiosError, toLD } from "@/libs/helpers.ts";
 import { SwapSide } from "@/pages/swap/types.ts";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
-import { useConnectorContext } from "../../connectors/useConnectorContext.tsx";
+import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 export interface ListLiquidityParams {
   provider?: string;
