@@ -46,11 +46,11 @@ export function Header() {
 
       <SearchBar />
       <div className="relative -top-1 flex items-center space-x-3">
-        <Button variant={"gray"} className="bg-gray-800 px-2 py-2">
+        <Button variant={"gray"} className="bg-gunmetal px-2 py-2">
           <span className="text-2xl">🇬🇧</span>
           <IconDropDown />
         </Button>
-        <div className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gray-800">
+        <div className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gunmetal">
           <IconMore />
         </div>
         <ConnectButton />

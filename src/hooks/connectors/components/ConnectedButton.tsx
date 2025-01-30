@@ -4,6 +4,8 @@ import { cn } from "@/libs/utils.ts";
 import { useEffect } from "react";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext.tsx";
+import EmojiAvatar from "@/components/avatar/EmojiAvatar.tsx";
+import { SettingsIcon } from "lucide-react";
 
 export const ConnectedButton = ({
   className,
@@ -52,7 +54,7 @@ export const ConnectedButton = ({
     <div>
       <div
         className={cn(
-          "flex h-auto items-center justify-between gap-1 rounded-full bg-card py-1 pr-1 transition-all duration-500 hover:scale-x-[1.02] hover:bg-gray-800/80 [&>*]:cursor-pointer",
+          "flex h-auto items-center justify-between gap-1 rounded-full bg-card py-1 pr-1 transition-all duration-500 hover:scale-x-[1.02] hover:bg-gunmetal/80 [&>*]:cursor-pointer",
           className,
         )}
         onClick={() => {}}

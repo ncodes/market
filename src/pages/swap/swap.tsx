@@ -62,10 +62,10 @@ function SwapTab() {
       <AssetSelect title="Sell" balance="0.00" assetImage={USDCIcon} networkImage={SolanaIcon} text="USDC" />
 
       <div className="relative flex w-full justify-center py-3">
-        <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-800">
+        <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gunmetal">
           <IconNavigationArrows />
         </div>
-        <div className="absolute top-[28px] z-0 h-[1px] w-full bg-gray-900"></div>
+        <div className="absolute top-[28px] z-0 h-[1px] w-full bg-raisin-black"></div>
       </div>
 
       <AssetSelect title="Buy" balance="0.00" assetImage={BNBIcon} networkImage={BSCIcon} text="USDC" />
@@ -119,7 +119,7 @@ function AssetButton({
     <Button variant={"gray"} className={cn("scale-btn h-auto w-[140px] justify-start px-[4px] py-1 pr-2", className)}>
       <div className="flex items-center gap-2">
         <AssetAvatar assetImage={assetImage} networkImage={networkImage} />
-        <span className="text-base font-bold text-gray-100">{text}</span>
+        <span className="text-base font-bold text-anti-flash-white">{text}</span>
         <IconDropDown />
       </div>
     </Button>
@@ -132,7 +132,7 @@ function AssetAmountInput({ className }: { className?: string }) {
       <input
         type="number"
         className={cn(
-          "h-[40px] w-full bg-transparent p-0 font-dosis text-5xl text-white outline-none placeholder:text-5xl placeholder:text-gray-400",
+          "h-[40px] w-full bg-transparent p-0 font-dosis text-5xl text-white outline-none placeholder:text-5xl placeholder:text-cool-grey",
           className,
         )}
         placeholder="0.00"

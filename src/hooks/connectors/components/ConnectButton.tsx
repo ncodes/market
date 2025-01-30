@@ -53,11 +53,11 @@ export function ConnectButton() {
         hideCloseButton
         hideOverlay
       >
-        <div ref={mainContainerRef} className="rounded-3xl border border-gray-800 bg-gray-900 font-poppins">
-          <div className="flex items-center justify-between border-b border-gray-800 px-5 py-4">
-            <Label className="text-2xl font-bold text-gray-50">Connect Wallet</Label>
+        <div ref={mainContainerRef} className="rounded-3xl border border-gunmetal bg-raisin-black font-poppins">
+          <div className="flex items-center justify-between border-b border-gunmetal px-5 py-4">
+            <Label className="text-2xl font-bold text-lotion">Connect Wallet</Label>
             <div
-              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gray-800"
+              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gunmetal"
               onClick={() => setOpenConnectWalletSheet(false)}
             >
               <IconClose />
@@ -68,14 +68,14 @@ export function ConnectButton() {
               <Wallet name={wallet.name} logo={wallet.logo} />
             ))}
           </div>
-          <div className="flex items-center justify-center border-t border-gray-800 py-5 font-poppins font-light tracking-wide">
-            <p className="max-w-xs text-center text-xs text-gray-400">
+          <div className="flex items-center justify-center border-t border-gunmetal py-5 font-poppins font-light tracking-wide">
+            <p className="max-w-xs text-center text-xs text-cool-grey">
               By connecting your wallet, you agree to Joint Labs{" "}
-              <Link className="text-green-300" to={"#"}>
+              <Link className="text-chinese-green" to={"#"}>
                 Terms of Service
               </Link>{" "}
               and{" "}
-              <Link className="text-green-300" to={"#"}>
+              <Link className="text-chinese-green" to={"#"}>
                 Privacy Policy
               </Link>
             </p>
@@ -92,8 +92,8 @@ function Wallet({ name, logo }: { name: string; logo: string }) {
       <div className="flex items-center gap-2">
         <img src={logo} alt="" className="h-8 w-8 rounded-full" />
         <div className="flex flex-col">
-          <p className="text-gray-100">{name}</p>
-          <label className="text-[14px] font-light text-green-200">Installed</label>
+          <p className="text-anti-flash-white">{name}</p>
+          <label className="text-[14px] font-light text-pastel-green">Installed</label>
         </div>
       </div>
       <IconArrowRight className="hidden group-hover:block" />

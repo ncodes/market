@@ -23,14 +23,14 @@ export function SearchBar() {
       <div className="z-20 w-[500px]">
         <Card
           className={cn(
-            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-green-200/10 bg-[#28293d]/30",
+            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-pastel-green/10 bg-[#28293d]/30",
             {
               "mx-auto rounded-none rounded-t-2xl border-b-0 border-gray-700/70": showSearch,
             },
           )}
         >
           <CardContent className="flex w-full items-center p-0 pl-1">
-            <IconSearch className="absolute ml-2 h-5 w-5 text-gray-400 opacity-50" />
+            <IconSearch className="absolute ml-2 h-5 w-5 text-cool-grey opacity-50" />
             <Input
               type="text"
               placeholder="Search tokens"
@@ -54,7 +54,7 @@ export function SearchBar() {
             className="relative h-auto w-full overflow-hidden rounded-2xl rounded-t-none border border-t-0 border-gray-700/70 bg-eerie-black"
           >
             <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto px-3 py-1" orientation="vertical">
-              <Label className="tracking-wide text-gray-400">Popular tokens</Label>
+              <Label className="tracking-wide text-cool-grey">Popular tokens</Label>
               <ul className="mx-0.5 mt-2 flex flex-col space-y-2">
                 <Item
                   src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"

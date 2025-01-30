@@ -42,6 +42,12 @@ export default {
         // Latest
         "raisin-black": "#1c1c28",
         gunmetal: "#28293d",
+        "black-coral": "#555770",
+        "cool-grey": "#8f90a6",
+        "anti-flash-white": "#f2f2f5",
+        "lotion": "#fafafa",
+        "pastel-green": "#8de969",
+        "chinese-green": "#c8ed5a",
 
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",
@@ -78,18 +84,6 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
-        },
-        gray: {
-          50: "#fafafa",
-          100: "#f2f2f5",
-          400: "#8f90a6",
-          600: "#555770",
-          800: "#28293d",
-          900: "#1c1c28",
-        },
-        green: {
-          200: "#8de969",
-          300: "#c8ed5a",
         },
       },
       transitionProperty: {

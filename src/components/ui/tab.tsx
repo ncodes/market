@@ -28,7 +28,7 @@ function Tab({ tabHeaders, headerRight, tabCompents, defaultSelectedIndex = 0 }:
                   <p
                     className={cn("pt-4", {
                       "text-primary-500 text-2xl font-bold": isActive,
-                      "text-xl font-semibold text-gray-600": !isActive,
+                      "text-xl font-semibold text-black-coral": !isActive,
                     })}
                   >
                     {header}
