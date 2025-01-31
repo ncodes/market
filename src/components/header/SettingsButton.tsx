@@ -19,22 +19,22 @@ export default function SettingsButton() {
           <div className="flex justify-between">
             <Label className="text-cool-grey font-poppins text-base">Theme</Label>
             <div className="flex gap-8">
-              <Label className="cursor-pointer text-base font-bold text-white">AUTO</Label>
-              <Label className="text-black-coral cursor-pointer text-base font-bold">DARK</Label>
-              <Label className="text-black-coral cursor-pointer text-base font-bold">LIGHT</Label>
+              <Label className="cursor-pointer text-base font-bold text-white font-inter">AUTO</Label>
+              <Label className="text-black-coral cursor-pointer text-base font-bold font-inter">DARK</Label>
+              <Label className="text-black-coral cursor-pointer text-base font-bold font-inter">LIGHT</Label>
             </div>
           </div>
           <div className="flex justify-between">
             <Label className="text-cool-grey font-poppins text-base">Default Currency</Label>
             <div className="flex cursor-pointer gap-1">
-              <Label className="cursor-pointer text-base font-bold text-white">USD</Label>
+              <Label className="cursor-pointer text-base font-bold text-white font-inter">USD</Label>
               <IconArrowRight />
             </div>
           </div>
           <div className="flex justify-between">
             <Label className="text-cool-grey font-poppins text-base">Need Help?</Label>
             <div className="flex cursor-pointer gap-1">
-              <Label className="cursor-pointer text-base font-bold text-white">Contact us</Label>
+              <Label className="cursor-pointer text-base font-bold text-white font-inter">Contact us</Label>
               <IconArrowRight />
             </div>
           </div>
