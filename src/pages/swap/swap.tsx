@@ -1,5 +1,4 @@
 import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
-import AppLayout from "@/components/AppLayout";
 import AssetAvatar from "@/components/avatar/AssetAvatar";
 import IconDropDown from "@/components/icons/IconDropDown";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
@@ -9,6 +8,7 @@ import IconWallet from "@/components/icons/IconWallet";
 import { Button } from "@/components/ui/button";
 import Tab from "@/components/ui/tab";
 import useStore from "@/hooks/store/useStore";
+import PageLayout from "@/layouts/PageLayout";
 import { cn } from "../../libs/utils";
 
 export default function SwapPage() {
@@ -17,10 +17,10 @@ export default function SwapPage() {
   }));
 
   return (
-    <AppLayout title="Swap">
+    <PageLayout title="Swap">
       <div className="mt-16 flex w-full justify-center">
         <div className="relative w-full max-w-xl">
-          <div className="border-gunmetal/30 bg-raisin-black/40 h-full w-full rounded-3xl border">
+          <div className="h-full w-full rounded-3xl border border-gunmetal/30 bg-raisin-black/40">
             <Tab
               tabHeaders={["Swap", "Limit", "Send", "Buy"]}
               headerRight={<SwapSettings />}
@@ -41,7 +41,7 @@ export default function SwapPage() {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </PageLayout>
   );
 }
 

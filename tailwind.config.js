@@ -112,6 +112,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
         dosis: ["Dosis", ...defaultTheme.fontFamily.sans],
+        inter: ['Inter', ...defaultTheme.fontFamily.sans],
       },
       transitionDelay: {
         10000: "50s",

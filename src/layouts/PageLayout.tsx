@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
-import { Header } from "./header/Header";
+import { Header } from "../components/header/Header";
 
-interface AppLayoutProps {
+interface PageLayoutProps {
   children: ReactNode;
   title: string;
 }
 
-export default function AppLayout({ children, title }: AppLayoutProps) {
+export default function PageLayout({ children, title }: PageLayoutProps) {
   return (
     <div className="absolute flex h-screen w-screen flex-col justify-between overflow-hidden font-poppins text-white">
       <Helmet>

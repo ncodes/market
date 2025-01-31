@@ -1,3 +1,5 @@
+import { AfrikaansIcon, EnglishIcon, FrenchIcon, GermanIcon, SpanishIcon, SwahiliIcon } from "@/assets";
+
 export interface MenuItem {
   title: string;
   url?: string;
@@ -29,4 +31,22 @@ export const MENU_ITEMS: MenuItem[] = [
       { title: "Item 2", url: "#" },
     ],
   },
+];
+
+export const REGIONS = [
+  { name: "English", image: EnglishIcon },
+  { name: "Afrikaans", image: AfrikaansIcon },
+  { name: "French", image: FrenchIcon },
+  { name: "German", image: GermanIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
+  { name: "Swahili", image: SwahiliIcon },
 ];
