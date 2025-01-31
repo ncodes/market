@@ -5,8 +5,8 @@ import CombinedShape from "../icons/CombinedShape";
 import Logo from "../icons/Logo";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
+import RegionSelectorButton from "./RegionButton";
 import SettingsButton from "./SettingsButton";
-import RegionButton from "./RegionButton";
 
 export function Header() {
   function onNavChange() {
@@ -45,7 +45,7 @@ export function Header() {
 
       <SearchBar />
       <div className="relative -top-1 flex items-center space-x-3">
-        <RegionButton />
+        <RegionSelectorButton />
         <SettingsButton />
         <ConnectButton />
       </div>
