@@ -2,12 +2,11 @@ import { SearchBar } from "@/components/SearchBar";
 import { MENU_ITEMS } from "@/libs/menu.ts";
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
 import CombinedShape from "../icons/CombinedShape";
-import IconDropDown from "../icons/IconDropDown";
-import IconMore from "../icons/IconMore";
 import Logo from "../icons/Logo";
-import { Button } from "../ui/button";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
+import SettingsButton from "./SettingsButton";
+import RegionButton from "./RegionButton";
 
 export function Header() {
   function onNavChange() {
@@ -46,13 +45,8 @@ export function Header() {
 
       <SearchBar />
       <div className="relative -top-1 flex items-center space-x-3">
-        <Button variant={"gray"} className="bg-gunmetal px-2 py-2">
-          <span className="text-2xl">🇬🇧</span>
-          <IconDropDown />
-        </Button>
-        <div className="bg-gunmetal flex h-11 w-11 cursor-pointer items-center justify-center rounded-full">
-          <IconMore />
-        </div>
+        <RegionButton />
+        <SettingsButton />
         <ConnectButton />
       </div>
     </header>
