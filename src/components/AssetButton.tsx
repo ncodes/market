@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import IconClose from "@/components/icons/IconClose";
-import { Assets } from "@/libs/wallets";
+import { Assets, Networks } from "@/libs/wallets";
 import { IconSearch } from "@/components/icons/IconSearch";
 import AssetAvatar from "@/components/avatar/AssetAvatar";
 import IconDropDown from "@/components/icons/IconDropDown";
@@ -11,6 +11,9 @@ import { AllNetworksIcon } from "@/assets";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 import { cn } from "@/libs/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import IconCircle from "./icons/IconCircle";
+import IconCircleActive from "./icons/IconCircleActive";
 
 export default function AssetButton({
   text,
@@ -59,11 +62,7 @@ export default function AssetButton({
               />
               <IconSearch />
             </div>
-            <Button variant={"ghost"} className="min-w-28 gap-1 hover:bg-transparent">
-              <Label className="text-lotion cursor-pointer font-poppins text-sm tracking-[2px]">ALL</Label>
-              <img src={AllNetworksIcon} alt="" className="h-6 w-6" />
-              <IconDropDown />
-            </Button>
+            <NetworkButton />
           </div>
           <div className="flex w-full flex-col px-0 py-3">
             {Assets.map((asset, index) => (
@@ -81,12 +80,57 @@ function AssetTile({ name, logo, network }: { name: string; logo: string; networ
     <div className="group flex cursor-pointer items-center justify-between from-gradientStart to-gradientEnd px-5 py-2 hover:bg-gradient-to-l">
       <div className="flex items-center gap-2">
         <Avatar src={logo} className="h-8 w-8" />
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <Label className="text-anti-flash-white">{name}</Label>
           <label className="text-cool-grey text-sm">{network}</label>
         </div>
       </div>
       <IconArrowRight className="hidden group-hover:block" />
     </div>
+  );
+}
+
+function NetworkButton() {
+  const [selectedNetworkIndex, setSelectedNetworkIndex] = useState(0);
+
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Button variant={"ghost"} className="min-w-28 gap-1 hover:bg-transparent">
+          <Label className="text-lotion cursor-pointer font-poppins text-sm tracking-[2px]">
+            {Networks[selectedNetworkIndex].name.toUpperCase()}
+          </Label>
+          <img
+            src={
+              Networks[selectedNetworkIndex].name.toLowerCase() === "all"
+                ? AllNetworksIcon
+                : Networks[selectedNetworkIndex].logo
+            }
+            alt=""
+            className="h-6 w-6"
+          />
+          <IconDropDown />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="end" className="border-none bg-transparent px-0 py-0">
+        <div className="border-gunmetal bg-raisin-black ml-[73px] mt-1 flex w-[240px] flex-col gap-2 rounded-3xl rounded-se-none rounded-ss-none border px-3 py-4 font-poppins">
+          {Networks.map((network, index) => (
+            <div
+              key={index}
+              className="flex w-full cursor-pointer justify-between"
+              onClick={() => setSelectedNetworkIndex(index)}
+            >
+              <div className="flex gap-2">
+                <img src={network.logo} className="h-[22px] w-auto" />
+                <Label className="text-anti-flash-white cursor-pointer font-poppins text-sm">
+                  {network.name.toLowerCase() === "all" ? "All Networks" : network.name}
+                </Label>
+              </div>
+              {selectedNetworkIndex === index ? <IconCircleActive /> : <IconCircle />}
+            </div>
+          ))}
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
