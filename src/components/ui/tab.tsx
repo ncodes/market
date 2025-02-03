@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { cn } from "../../libs/utils";
-import ShowActive from "../ShowActive";
 
 interface TapProps {
   tabHeaders: string[];
@@ -26,14 +25,14 @@ function Tab({ tabHeaders, headerRight, tabCompents, defaultSelectedIndex = 0 }:
                   onClick={() => setSelectedIndex(index)}
                 >
                   <p
-                    className={cn("pt-4", {
-                      "text-primary-500 text-2xl font-bold": isActive,
+                    className={cn("py-4", {
+                      "text-primary-500 text-2xl font-medium tracking-wider": isActive,
                       "text-xl font-semibold text-black-coral": !isActive,
                     })}
                   >
                     {header}
                   </p>
-                  <ShowActive isActive={isActive} />
+                  {/* <ShowActive isActive={isActive} /> */}
                 </div>
               );
             })}
