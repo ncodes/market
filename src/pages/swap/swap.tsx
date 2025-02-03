@@ -1,6 +1,4 @@
 import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
-import AssetAvatar from "@/components/avatar/AssetAvatar";
-import IconDropDown from "@/components/icons/IconDropDown";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigateUpDown from "@/components/icons/IconNavigateUpDown";
 import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
@@ -10,6 +8,7 @@ import Tab from "@/components/ui/tab";
 import useStore from "@/hooks/store/useStore";
 import PageLayout from "@/layouts/PageLayout";
 import { cn } from "../../libs/utils";
+import AssetButton from "@/components/AssetButton";
 
 export default function SwapPage() {
   const { setOpenConnectWalletSheet } = useStore((s) => ({
@@ -20,7 +19,7 @@ export default function SwapPage() {
     <PageLayout title="Swap">
       <div className="mt-16 flex w-full justify-center">
         <div className="relative w-full max-w-xl">
-          <div className="h-full w-full rounded-3xl border border-gunmetal/30 bg-raisin-black/40">
+          <div className="border-gunmetal/30 bg-raisin-black/40 h-full w-full rounded-3xl border">
             <Tab
               tabHeaders={["Swap", "Limit", "Send", "Buy"]}
               headerRight={<SwapSettings />}
@@ -62,10 +61,10 @@ function SwapTab() {
       <AssetSelect title="Sell" balance="0.00" assetImage={USDCIcon} networkImage={SolanaIcon} text="USDC" />
 
       <div className="relative flex w-full justify-center py-3">
-        <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gunmetal">
+        <div className="bg-gunmetal z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full">
           <IconNavigationArrows />
         </div>
-        <div className="absolute top-[28px] z-0 h-[1px] w-full bg-raisin-black"></div>
+        <div className="bg-raisin-black absolute top-[28px] z-0 h-[1px] w-full"></div>
       </div>
 
       <AssetSelect title="Buy" balance="0.00" assetImage={BNBIcon} networkImage={BSCIcon} text="USDC" />
@@ -87,8 +86,8 @@ function AssetSelect({
   text: string;
 }) {
   return (
-    <div className="flex flex-col justify-between gap-2 px-5 py-4">
-      <div className="flex items-center justify-between pl-2">
+    <div className="flex flex-col items-start justify-between gap-2 px-5 py-4">
+      <div className="flex w-full items-center justify-between pl-2">
         <p className="text-sm font-extralight tracking-wider text-[#fafafa]">{title}</p>
         <p className="text-sm font-light tracking-wider">
           <span className="text-gray-500">Balance:</span> <span className="text-[#fafafa]/70">{balance}</span>
@@ -104,35 +103,13 @@ function AssetSelect({
   );
 }
 
-function AssetButton({
-  text,
-  assetImage,
-  networkImage,
-  className,
-}: {
-  text: string;
-  assetImage: string;
-  networkImage: string;
-  className?: string;
-}) {
-  return (
-    <Button variant={"gray"} className={cn("scale-btn h-auto w-[140px] justify-start px-[4px] py-1 pr-2", className)}>
-      <div className="flex items-center gap-2">
-        <AssetAvatar assetImage={assetImage} networkImage={networkImage} />
-        <span className="text-base font-bold text-anti-flash-white">{text}</span>
-        <IconDropDown />
-      </div>
-    </Button>
-  );
-}
-
 function AssetAmountInput({ className }: { className?: string }) {
   return (
     <div className="mt-2">
       <input
         type="number"
         className={cn(
-          "h-[40px] w-full bg-transparent p-0 font-dosis text-5xl text-white outline-none placeholder:text-5xl placeholder:text-cool-grey",
+          "placeholder:text-cool-grey h-[40px] w-full bg-transparent p-0 font-dosis text-5xl text-white outline-none placeholder:text-5xl",
           className,
         )}
         placeholder="0.00"
