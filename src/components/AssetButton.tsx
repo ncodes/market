@@ -30,8 +30,10 @@ export default function AssetButton({
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger>
         <Button
-          variant={"gray"}
-          className={cn("scale-btn h-auto w-[140px] justify-start px-[4px] py-1 pr-2", className)}
+          className={cn(
+            "scale-btn h-auto w-[140px] justify-start bg-black-coral/20 px-[4px] py-1 pr-2 hover:bg-black-coral/30",
+            className,
+          )}
         >
           <div className="flex items-center gap-2">
             <AssetAvatar assetImage={assetImage} networkImage={networkImage} />
@@ -40,7 +42,7 @@ export default function AssetButton({
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="-mt-[20px] w-[450px] border-none bg-transparent px-0 pr-2 pt-0" hideCloseButton>
+      <DialogContent className="top-[40%] w-[450px] border-none bg-transparent px-0 pr-2 pt-0" hideCloseButton>
         <div className="bg-chinese-black overflow-hidden rounded-3xl border border-eerie-black font-poppins">
           <div className="flex items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
