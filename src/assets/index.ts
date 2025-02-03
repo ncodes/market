@@ -9,3 +9,7 @@ export {default as FrenchIcon} from "@/assets/french.png";
 export {default as GermanIcon} from "@/assets/german.png";
 export {default as SpanishIcon} from "@/assets/spanish.png";
 export {default as SwahiliIcon} from "@/assets/swahili.png";
+export {default as EthereumIcon} from "@/assets/ethereum.png";
+export {default as BitcoinIcon} from "@/assets/bitcoin.png";
+export {default as AllNetworksIcon} from "@/assets/all-networks.png";
+export {default as AllNetworksAltIcon} from "@/assets/all-networks-alt.png";

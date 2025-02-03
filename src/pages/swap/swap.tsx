@@ -1,6 +1,5 @@
 import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
-import AssetAvatar from "@/components/avatar/AssetAvatar";
-import IconDropDown from "@/components/icons/IconDropDown";
+import AssetButton from "@/components/AssetButton";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigateUpDown from "@/components/icons/IconNavigateUpDown";
 import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
@@ -20,7 +19,7 @@ export default function SwapPage() {
     <PageLayout title="Swap">
       <div className="mt-16 flex w-full justify-center">
         <div className="relative w-full max-w-xl">
-          <div className="h-full w-full rounded-3xl border border-gunmetal/30 bg-raisin-black/40">
+          <div className="bg-chinese-black h-full w-full rounded-3xl border border-eerie-black">
             <Tab
               tabHeaders={["Swap", "Limit", "Send", "Buy"]}
               headerRight={<SwapSettings />}
@@ -87,8 +86,8 @@ function AssetSelect({
   text: string;
 }) {
   return (
-    <div className="flex flex-col justify-between gap-2 px-5 py-4">
-      <div className="flex items-center justify-between pl-2">
+    <div className="flex flex-col items-start justify-between gap-2 px-5 py-4">
+      <div className="flex w-full items-center justify-between pl-2">
         <p className="text-sm font-extralight tracking-wider text-[#fafafa]">{title}</p>
         <p className="text-sm font-light tracking-wider">
           <span className="text-gray-500">Balance:</span> <span className="text-[#fafafa]/70">{balance}</span>
@@ -101,28 +100,6 @@ function AssetSelect({
         <span className="text-sm font-light text-[#8f90a6]">$0.00</span>
       </div>
     </div>
-  );
-}
-
-function AssetButton({
-  text,
-  assetImage,
-  networkImage,
-  className,
-}: {
-  text: string;
-  assetImage: string;
-  networkImage: string;
-  className?: string;
-}) {
-  return (
-    <Button variant={"gray"} className={cn("scale-btn h-auto w-[140px] justify-start px-[4px] py-1 pr-2", className)}>
-      <div className="flex items-center gap-2">
-        <AssetAvatar assetImage={assetImage} networkImage={networkImage} />
-        <span className="text-base font-bold text-anti-flash-white">{text}</span>
-        <IconDropDown />
-      </div>
-    </Button>
   );
 }
 

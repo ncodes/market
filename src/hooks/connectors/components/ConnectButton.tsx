@@ -53,23 +53,23 @@ export function ConnectButton() {
         hideCloseButton
         hideOverlay
       >
-        <div ref={mainContainerRef} className="rounded-3xl border border-gunmetal bg-raisin-black font-poppins">
-          <div className="flex items-center justify-between border-b border-gunmetal px-5 py-4">
-            <Label className="text-2xl font-bold text-lotion">Connect Wallet</Label>
+        <div ref={mainContainerRef} className="border-gunmetal bg-raisin-black rounded-3xl border font-poppins">
+          <div className="border-gunmetal flex items-center justify-between border-b px-5 py-4">
+            <Label className="text-lotion text-2xl font-bold">Connect Wallet</Label>
             <div
-              className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-gunmetal"
+              className="bg-gunmetal flex h-11 w-11 cursor-pointer items-center justify-center rounded-full"
               onClick={() => setOpenConnectWalletSheet(false)}
             >
               <IconClose />
             </div>
           </div>
           <div className="flex w-full flex-col px-0 py-3">
-            {Wallets.map((wallet) => (
-              <Wallet name={wallet.name} logo={wallet.logo} />
+            {Wallets.map((wallet, index) => (
+              <Wallet key={index} name={wallet.name} logo={wallet.logo} />
             ))}
           </div>
-          <div className="flex items-center justify-center border-t border-gunmetal py-5 font-poppins font-light tracking-wide">
-            <p className="max-w-xs text-center text-xs text-cool-grey">
+          <div className="border-gunmetal flex items-center justify-center border-t py-5 font-poppins font-light tracking-wide">
+            <p className="text-cool-grey max-w-xs text-center text-xs">
               By connecting your wallet, you agree to Joint Labs{" "}
               <Link className="text-chinese-green" to={"#"}>
                 Terms of Service
@@ -88,12 +88,12 @@ export function ConnectButton() {
 
 function Wallet({ name, logo }: { name: string; logo: string }) {
   return (
-    <div className="group flex cursor-pointer items-center justify-between from-gradientStart to-gradientEnd px-5 py-2 hover:bg-gradient-to-l">
+    <div className="group flex cursor-pointer items-center justify-between from-raisin-black to-gunmetal px-5 py-2 hover:bg-gradient-to-l">
       <div className="flex items-center gap-2">
         <img src={logo} alt="" className="h-8 w-8 rounded-full" />
         <div className="flex flex-col">
           <p className="text-anti-flash-white">{name}</p>
-          <label className="text-[14px] font-light text-pastel-green">Installed</label>
+          <label className="text-pastel-green text-[14px] font-light">Installed</label>
         </div>
       </div>
       <IconArrowRight className="hidden group-hover:block" />
