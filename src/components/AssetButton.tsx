@@ -76,7 +76,7 @@ export default function AssetButton({
 
 function AssetTile({ name, logo, network }: { name: string; logo: string; network: string }) {
   return (
-    <div className="group flex cursor-pointer items-center justify-between from-gradientStart to-gradientEnd px-5 py-2 hover:bg-gradient-to-l">
+    <div className="group flex cursor-pointer items-center justify-between from-gradientStart to-gradientEnd px-3 py-2 hover:bg-gradient-to-l">
       <div className="flex items-center gap-2">
         <Avatar src={logo} className="h-8 w-8" />
         <div className="flex flex-col gap-1">
