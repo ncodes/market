@@ -1,4 +1,5 @@
 import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
+import AssetButton from "@/components/AssetButton";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigateUpDown from "@/components/icons/IconNavigateUpDown";
 import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
@@ -8,7 +9,6 @@ import Tab from "@/components/ui/tab";
 import useStore from "@/hooks/store/useStore";
 import PageLayout from "@/layouts/PageLayout";
 import { cn } from "../../libs/utils";
-import AssetButton from "@/components/AssetButton";
 
 export default function SwapPage() {
   const { setOpenConnectWalletSheet } = useStore((s) => ({
@@ -19,7 +19,7 @@ export default function SwapPage() {
     <PageLayout title="Swap">
       <div className="mt-16 flex w-full justify-center">
         <div className="relative w-full max-w-xl">
-          <div className="border-gunmetal/30 bg-raisin-black/40 h-full w-full rounded-3xl border">
+          <div className="bg-chinese-black h-full w-full rounded-3xl border border-eerie-black">
             <Tab
               tabHeaders={["Swap", "Limit", "Send", "Buy"]}
               headerRight={<SwapSettings />}
@@ -61,10 +61,10 @@ function SwapTab() {
       <AssetSelect title="Sell" balance="0.00" assetImage={USDCIcon} networkImage={SolanaIcon} text="USDC" />
 
       <div className="relative flex w-full justify-center py-3">
-        <div className="bg-gunmetal z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full">
+        <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gunmetal">
           <IconNavigationArrows />
         </div>
-        <div className="bg-raisin-black absolute top-[28px] z-0 h-[1px] w-full"></div>
+        <div className="absolute top-[28px] z-0 h-[1px] w-full bg-raisin-black"></div>
       </div>
 
       <AssetSelect title="Buy" balance="0.00" assetImage={BNBIcon} networkImage={BSCIcon} text="USDC" />
@@ -109,7 +109,7 @@ function AssetAmountInput({ className }: { className?: string }) {
       <input
         type="number"
         className={cn(
-          "placeholder:text-cool-grey h-[40px] w-full bg-transparent p-0 font-dosis text-5xl text-white outline-none placeholder:text-5xl",
+          "h-[40px] w-full bg-transparent p-0 font-dosis text-5xl text-white outline-none placeholder:text-5xl placeholder:text-cool-grey",
           className,
         )}
         placeholder="0.00"

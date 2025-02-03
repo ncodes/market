@@ -1,17 +1,16 @@
-import { AllNetworksIcon } from "@/assets";
+import { AllNetworksIcon, BitcoinIcon } from "@/assets";
 import AssetAvatar from "@/components/avatar/AssetAvatar";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconArrowRight from "@/components/icons/IconArrowRight";
-import IconClose from "@/components/icons/IconClose";
 import IconDropDown from "@/components/icons/IconDropDown";
 import { IconSearch } from "@/components/icons/IconSearch";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
-import { Assets, Networks } from "@/libs/wallets";
+import { Assets } from "@/libs/wallets";
+import { CheckCircle2, XIcon } from "lucide-react";
 import { useState } from "react";
-import IconCircleActive from "./icons/IconCircleActive";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 export default function AssetButton({
@@ -42,18 +41,15 @@ export default function AssetButton({
         </Button>
       </DialogTrigger>
       <DialogContent className="-mt-[20px] w-[450px] border-none bg-transparent px-0 pr-2 pt-0" hideCloseButton>
-        <div className="rounded-3xl border border-gunmetal bg-raisin-black font-poppins">
-          <div className="flex items-center justify-between border-b border-gunmetal px-5 py-3">
-            <Label className="text-[20px] font-normal tracking-wider text-lotion">Select a token</Label>
-            <div
-              className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gunmetal"
-              onClick={() => setOpen(false)}
-            >
-              <IconClose />
+        <div className="bg-chinese-black overflow-hidden rounded-3xl border border-eerie-black font-poppins">
+          <div className="flex items-center justify-between px-5 py-3">
+            <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
+            <div className="cursor-pointer" onClick={() => setOpen(false)}>
+              <XIcon className="text-cool-grey/50 transition-all duration-300 hover:text-cool-grey" size={20} />
             </div>
           </div>
-          <div className="flex justify-between border-b border-gunmetal px-3 py-2 pr-0">
-            <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-black-coral/20 px-3 py-1">
+          <div className="flex justify-between border-y border-eerie-black px-3 py-2 pr-0">
+            <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">
               <IconSearch className="opacity-40" />
               <input
                 type="text"
@@ -63,9 +59,9 @@ export default function AssetButton({
             </div>
             <NetworkSelectorButton />
           </div>
-          <div className="flex w-full flex-col px-0 py-3">
+          <div className="flex w-full flex-col px-0">
             {Assets.map((asset, index) => (
-              <AssetTile key={index} name={asset.name} logo={asset.logo} network={asset.network} />
+              <AssetTile key={index} name={asset.name} logo={asset.logo} symbol={asset.symbol} />
             ))}
           </div>
         </div>
@@ -74,58 +70,86 @@ export default function AssetButton({
   );
 }
 
-function AssetTile({ name, logo, network }: { name: string; logo: string; network: string }) {
+function AssetTile({ name, logo, symbol }: { name: string; logo: string; symbol: string }) {
   return (
-    <div className="group flex cursor-pointer items-center justify-between from-gradientStart to-gradientEnd px-3 py-2 hover:bg-gradient-to-l">
-      <div className="flex items-center gap-2">
-        <Avatar src={logo} className="h-8 w-8" />
-        <div className="flex flex-col gap-1">
-          <Label className="text-anti-flash-white">{name}</Label>
-          <label className="text-sm text-cool-grey">{network}</label>
+    <Button
+      variant={"ghost"}
+      className="m-0 h-auto w-full justify-start rounded-none p-0 text-left hover:bg-transparent"
+    >
+      <div className="group flex w-full cursor-pointer items-center justify-between px-3 py-2 hover:bg-eerie-black">
+        <div className="flex items-center gap-2">
+          <Avatar src={logo} className="h-8 w-8" />
+          <div className="flex flex-col gap-1">
+            <Label className="font-light tracking-wide text-anti-flash-white">{name}</Label>
+            <span className="flex gap-2">
+              <label className="text-xs font-normal text-cool-grey">{symbol}</label>
+              <span className="text-xs text-cool-grey/40">0x123...432</span>
+            </span>
+          </div>
         </div>
+        <IconArrowRight className="hidden group-hover:block" />
       </div>
-      <IconArrowRight className="hidden group-hover:block" />
-    </div>
+    </Button>
   );
 }
 
+const Networks = [
+  { name: "All", logo: AllNetworksIcon },
+  { name: "Bitcoin", logo: BitcoinIcon },
+  { name: "Bitcoin", logo: BitcoinIcon },
+  { name: "Bitcoin", logo: BitcoinIcon },
+  { name: "Bitcoin", logo: BitcoinIcon },
+  { name: "Bitcoin", logo: BitcoinIcon },
+];
+
 function NetworkSelectorButton() {
-  const [selectedNetworkIndex, setSelectedNetworkIndex] = useState(0);
+  const [selectedIndex, setSelectedNetworkIndex] = useState(0);
+  const [open, setOpen] = useState(false);
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
         <Button variant={"ghost"} className="w-20 gap-1 rounded-none hover:bg-transparent">
-          {Networks[selectedNetworkIndex].name.toLowerCase() === "all" && (
+          {Networks[selectedIndex].name === "All" && (
             <Label className="cursor-pointer font-poppins text-xs tracking-[2px] text-lotion"></Label>
           )}
           <img
-            src={
-              Networks[selectedNetworkIndex].name.toLowerCase() === "all"
-                ? AllNetworksIcon
-                : Networks[selectedNetworkIndex].logo
-            }
+            src={Networks[selectedIndex].name === "All" ? AllNetworksIcon : Networks[selectedIndex].logo}
             alt=""
             className="h-6 w-6"
           />
-          <IconDropDown className="opacity-50" />
+          <IconDropDown
+            className={cn("h-6 w-6 shrink-0 opacity-40 transition-all duration-300", open && "rotate-180")}
+          />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align="end" className="mr-6 border-none bg-transparent px-0 py-0">
-        <div className="ml-[73px] mt-1 flex w-[240px] flex-col gap-2 rounded-3xl rounded-se-none rounded-ss-none border border-gunmetal bg-raisin-black px-3 py-4 font-poppins">
+      <PopoverContent
+        align="end"
+        className="bg-chinese-black w-[200px] rounded-2xl border border-gunmetal/50 px-0 py-0"
+      >
+        <div className="mt-1 flex flex-col gap-1 px-1 py-1 font-poppins">
           {Networks.map((network, index) => (
             <div
               key={index}
-              className="flex h-7 w-full cursor-pointer justify-between"
-              onClick={() => setSelectedNetworkIndex(index)}
+              className="flex w-full cursor-pointer justify-between p-0.5"
+              onClick={() => {
+                if (index === selectedIndex) return;
+                setSelectedNetworkIndex(index);
+                setOpen(false);
+              }}
             >
-              <div className="flex gap-2">
-                <img src={network.logo} className="h-[22px] w-auto" />
-                <Label className="cursor-pointer font-poppins text-sm text-anti-flash-white">
-                  {network.name.toLowerCase() === "all" ? "All Networks" : network.name}
-                </Label>
-              </div>
-              {selectedNetworkIndex === index && <IconCircleActive />}
+              <Button
+                variant={"ghost"}
+                className="m-0 flex h-auto w-full items-center justify-between rounded-xl p-[0.5rem] text-left hover:bg-eerie-black"
+              >
+                <span className="flex items-center gap-2">
+                  <img src={network.logo} className="h-[22px] w-auto" />
+                  <Label className="cursor-pointer font-poppins text-sm font-light tracking-wide text-anti-flash-white">
+                    {network.name.toLowerCase() === "all" ? "All networks" : network.name}
+                  </Label>
+                </span>
+                {selectedIndex === index && <CheckCircle2 size={20} className="text-green-400" />}
+              </Button>
             </div>
           ))}
         </div>

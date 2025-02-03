@@ -25,14 +25,12 @@ export default {
     },
     extend: {
       colors: {
-        gradientStart: "#1c1c28",
-        gradientEnd: "#28293d",
         "byzantine-blue": "#1F54DA",
         "alice-blue": "#E3EEF7",
         "light-green": "#8DE969",
         "screaming-green": "#A1FF7C",
         "ragoon-green": "#1D1C1C", // for border
-        "eerie-black": "#16181E", // for background
+        "eerie-black": "#181b23", // for background
         onyx: "#0F1013", // for gradient
         boulder: "#777777", // for text
         "baltic-sea": "#262931", // for background (card)
@@ -45,9 +43,12 @@ export default {
         "black-coral": "#555770",
         "cool-grey": "#8f90a6",
         "anti-flash-white": "#f2f2f5",
-        "lotion": "#fafafa",
+        lotion: "#fafafa",
         "pastel-green": "#8de969",
         "chinese-green": "#c8ed5a",
+
+        // Adjusted
+        "chinese-black": "#11131b",
 
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",
@@ -112,7 +113,7 @@ export default {
       fontFamily: {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
         dosis: ["Dosis", ...defaultTheme.fontFamily.sans],
-        inter: ['Inter', ...defaultTheme.fontFamily.sans],
+        inter: ["Inter", ...defaultTheme.fontFamily.sans],
       },
       transitionDelay: {
         10000: "50s",

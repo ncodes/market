@@ -88,7 +88,7 @@ export function ConnectButton() {
 
 function Wallet({ name, logo }: { name: string; logo: string }) {
   return (
-    <div className="group flex cursor-pointer items-center justify-between from-gradientStart to-gradientEnd px-5 py-2 hover:bg-gradient-to-l">
+    <div className="group flex cursor-pointer items-center justify-between from-raisin-black to-gunmetal px-5 py-2 hover:bg-gradient-to-l">
       <div className="flex items-center gap-2">
         <img src={logo} alt="" className="h-8 w-8 rounded-full" />
         <div className="flex flex-col">

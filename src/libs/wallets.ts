@@ -1,4 +1,4 @@
-import { AllNetworksAltIcon, BitcoinIcon, BNBIcon, EthereumIcon, MetamaskIcon, SolanaIcon } from "@/assets";
+import { AllNetworksIcon, BitcoinIcon, BNBIcon, EthereumIcon, MetamaskIcon, SolanaIcon } from "@/assets";
 
 export const Wallets = [
   {
@@ -28,21 +28,14 @@ export const Wallets = [
 ];
 
 export const Assets = [
-  { name: "BNBChain", network: "BEP20", logo: BNBIcon },
-  { name: "Polygon", network: "POS", logo: EthereumIcon },
-  { name: "Bitcoin", network: "BTC", logo: BitcoinIcon },
-  { name: "Avalance", network: "C-Chain", logo: SolanaIcon },
-  { name: "Base", network: "BC", logo: EthereumIcon },
-  { name: "Avalance", network: "C-Chain", logo: SolanaIcon },
-  { name: "Solana", network: "SOL", logo: SolanaIcon },
-  { name: "Ethereum", network: "ERC 20", logo: EthereumIcon },
+  { name: "BNB", symbol: "BNB", logo: BNBIcon },
+  { name: "Polygon", symbol: "POL", logo: EthereumIcon },
+  { name: "Bitcoin", symbol: "BTC", logo: BitcoinIcon },
+  { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
+  { name: "Base", symbol: "ETH", logo: EthereumIcon },
+  { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
+  { name: "Solana", symbol: "SOL", logo: SolanaIcon },
+  { name: "Ethereum", symbol: "ETH", logo: EthereumIcon },
 ];
 
-export const Networks = [
-  { name: "All", logo: AllNetworksAltIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-];
+
