@@ -1,4 +1,4 @@
-import { AfrikaansIcon, EnglishIcon, FrenchIcon, GermanIcon, SpanishIcon, SwahiliIcon } from "@/assets";
+import { AfrikaansIcon, EnglishIcon, FrenchIcon, GermanIcon } from "@/assets";
 
 export interface MenuItem {
   title: string;
@@ -11,24 +11,26 @@ export const MENU_ITEMS: MenuItem[] = [
     title: "Trade",
     url: "#",
     children: [
-      { title: "Item 1", url: "#" },
-      { title: "Item 2", url: "#" },
-    ],
-  },
-  {
-    title: "Liquidity",
-    url: "#",
-    children: [
-      { title: "Item 1", url: "#" },
-      { title: "Item 2", url: "#" },
+      { title: "Swap", url: "#" },
+      { title: "Pay", url: "#" },
     ],
   },
   {
     title: "Explore",
     url: "#",
     children: [
-      { title: "Item 1", url: "#" },
-      { title: "Item 2", url: "#" },
+      { title: "Markets", url: "#" },
+      { title: "Liquidity", url: "#" },
+      { title: "Tokens", url: "#" },
+      { title: "Transactions", url: "#" },
+    ],
+  },
+  {
+    title: "Liquidity",
+    url: "#",
+    children: [
+      { title: "Create", url: "#" },
+      { title: "My Liquidity", url: "#" },
     ],
   },
 ];
@@ -38,15 +40,4 @@ export const REGIONS = [
   { name: "Afrikaans", image: AfrikaansIcon },
   { name: "French", image: FrenchIcon },
   { name: "German", image: GermanIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
-  { name: "Swahili", image: SwahiliIcon },
 ];

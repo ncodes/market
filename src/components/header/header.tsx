@@ -1,7 +1,6 @@
 import { SearchBar } from "@/components/SearchBar";
 import { MENU_ITEMS } from "@/libs/menu.ts";
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
-import CombinedShape from "../icons/CombinedShape";
 import Logo from "../icons/Logo";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
@@ -24,7 +23,6 @@ export function Header() {
     <header className="relative flex select-none items-center justify-between p-4">
       <div className="relative -mt-3 flex items-center space-x-4">
         <div className="flex gap-1">
-          <CombinedShape />
           <Logo />
         </div>
         <nav className="relative left-2 flex text-sm font-normal tracking-wider">

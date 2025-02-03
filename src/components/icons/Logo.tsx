@@ -1,6 +1,8 @@
+import { ChevronDown } from "lucide-react";
 import React from "react";
+import LogoMark from "./LogoMark";
 
-export default function Logo(props: React.SVGProps<SVGSVGElement>) {
+export function WordMark(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width="96" height="18" viewBox="0 0 96 18" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g fill="none" fill-rule="evenodd">
@@ -12,5 +14,23 @@ export default function Logo(props: React.SVGProps<SVGSVGElement>) {
         <path fill="#8DE969" d="M44.24 4.527h6.932V0H44.24z" />
       </g>
     </svg>
+  );
+}
+
+function CompanyMenu() {
+  return (
+    <span>
+      <ChevronDown size={20} />
+    </span>
+  );
+}
+
+export default function Logo() {
+  return (
+    <div className="flex items-center space-x-2">
+      <LogoMark />
+      <WordMark />
+      <CompanyMenu />
+    </div>
   );
 }

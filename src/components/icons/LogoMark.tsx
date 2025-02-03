@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CombinedShape(props: React.SVGProps<SVGSVGElement>) {
+export default function LogoMark(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width="20" height="18" viewBox="0 0 20 18" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
