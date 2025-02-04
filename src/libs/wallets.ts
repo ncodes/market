@@ -1,4 +1,31 @@
-import { BitcoinIcon, BNBIcon, EthereumIcon, SolanaIcon } from "@/assets";
+import { BitcoinIcon, BNBIcon, EthereumIcon, MetaMaskIcon, SolanaIcon } from "@/assets";
+
+export const Wallets = [
+  {
+    name: "Metamask",
+    logo: MetaMaskIcon,
+  },
+  {
+    name: "CTRL Wallet",
+    logo: MetaMaskIcon,
+  },
+  {
+    name: "Coinbase",
+    logo: MetaMaskIcon,
+  },
+  {
+    name: "Trust Wallet",
+    logo: MetaMaskIcon,
+  },
+  {
+    name: "Browser Wallet",
+    logo: MetaMaskIcon,
+  },
+  {
+    name: "Wallet Connect",
+    logo: MetaMaskIcon,
+  },
+];
 
 export const Assets = [
   { name: "BNB", symbol: "BNB", logo: BNBIcon },
