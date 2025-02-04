@@ -1,13 +1,19 @@
+import { cn } from "@/libs/utils";
 import { Avatar } from "./Avatar";
 interface AssetAvatarProps {
   assetImage: string;
   networkImage?: string;
+  className?: string;
 }
 
-export default function AssetAvatar({ assetImage, networkImage }: AssetAvatarProps) {
+export default function AssetAvatar({ assetImage, networkImage, className }: AssetAvatarProps) {
   return (
     <div className="relative">
-      <Avatar src={assetImage} className="h-10 w-10 shadow-sm drop-shadow-sm" rootClassName="h-10 w-10" />
+      <Avatar
+        src={assetImage}
+        className={cn("h-10 w-10 shadow-sm drop-shadow-sm", className)}
+        rootClassName="h-10 w-10"
+      />
       {networkImage && (
         <Avatar
           src={networkImage}
