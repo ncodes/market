@@ -23,7 +23,7 @@ export function SearchBar() {
       <div className="z-20 w-[500px]">
         <Card
           className={cn(
-            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-pastel-green/10 bg-[#28293d]/30",
+            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-gray-700/30 bg-raisin-black/30",
             {
               "mx-auto rounded-none rounded-t-2xl border-b-0 border-gray-700/70": showSearch,
             },
