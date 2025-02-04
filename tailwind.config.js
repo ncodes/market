@@ -44,7 +44,6 @@ export default {
         "cool-grey": "#8f90a6",
         "anti-flash-white": "#f2f2f5",
         lotion: "#fafafa",
-        "pastel-green": "#8de969",
         "chinese-green": "#c8ed5a",
 
         // Adjusted

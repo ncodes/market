@@ -29,8 +29,8 @@ export function CustomNavigationMenu({ menuItem }: { menuItem: MenuItem }) {
       </NavigationMenuTrigger>
 
       <NavigationMenuContent className="flex flex-col px-1 py-1 pb-2">
-        {children.map((menu) => (
-          <NavigationMenuLink asChild className="w-[120px]">
+        {children.map((menu, index) => (
+          <NavigationMenuLink key={index} asChild className="w-[120px]">
             <Link to={menu.url} className="rounded-lg p-2 px-2 text-gray-300 hover:bg-eerie-black hover:text-white">
               {menu.title}
             </Link>

@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 import { Chain, HttpTransport, http } from "viem";
 import { arbitrum, hardhat } from "viem/chains";
 import { WagmiProvider, createConfig } from "wagmi";
+import { coinbaseWallet, walletConnect } from "wagmi/connectors";
 import { AppIcon, AppName, AppUrl, InfuraId, WalletConnectId } from "../../../constants.ts";
 import { isLocal } from "../../../libs/helpers.ts";
 import { getSupportedChains } from "../common.ts";
@@ -28,17 +29,19 @@ if (isLocal()) {
   transports[arbitrum.id] = http(`https://arbitrum-mainnet.infura.io/v3/${InfuraId}`);
 }
 
-const config = createConfig(
-  getDefaultConfig({
-    walletConnectProjectId: WalletConnectId,
-    appName: AppName,
-    chains: getSupportedChains() as unknown as readonly [Chain, ...Chain[]],
-    appDescription: "Swop allows you to swap tokens with regular people.",
-    appUrl: AppUrl,
-    appIcon: AppIcon,
-    transports,
-  } as any),
-);
+const defaultCfg = getDefaultConfig({
+  walletConnectProjectId: WalletConnectId,
+  appName: AppName,
+  chains: getSupportedChains() as unknown as readonly [Chain, ...Chain[]],
+  appDescription: "Swop allows you to swap tokens with regular people.",
+  appUrl: AppUrl,
+  appIcon: AppIcon,
+  transports,
+} as any);
+
+defaultCfg.connectors = [coinbaseWallet(), walletConnect({ projectId: WalletConnectId })];
+
+const config = createConfig(defaultCfg);
 
 const lastChainId = localStorage.getItem("lastChainId");
 

@@ -60,8 +60,8 @@ export function Header() {
             viewportClassName={"rounded-xl border border-eerie-black bg-chinese-black tracking-wider"}
           >
             <NavigationMenuList className="gap-3">
-              {MenuItems.map((menuItem) => (
-                <CustomNavigationMenu menuItem={menuItem} />
+              {MenuItems.map((menuItem, index) => (
+                <CustomNavigationMenu key={index} menuItem={menuItem} />
               ))}
             </NavigationMenuList>
           </NavigationMenu>
