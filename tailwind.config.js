@@ -45,6 +45,8 @@ export default {
         "anti-flash-white": "#f2f2f5",
         lotion: "#fafafa",
         "chinese-green": "#c8ed5a",
+        "silver-sand": "#c8c5c5",
+        "june-bud": "#bae148",
 
         // Adjusted
         "chinese-black": "#11131b",
