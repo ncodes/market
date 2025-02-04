@@ -30,7 +30,7 @@ export function ToolTip(props: {
           <TooltipContent
             side={props.side || "top"}
             className={cn(
-              "relative !z-50 border border-bright-gray/60 bg-baltic-sea text-sm font-light",
+              "bg-chinese-black relative !z-50 rounded-xl border border-eerie-black font-poppins text-xs font-light tracking-wider",
               props.className2,
             )}
           >
