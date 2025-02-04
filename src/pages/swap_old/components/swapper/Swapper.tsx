@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
+import { ConnectButton } from "@/hooks/connectors/components/old/ConnectButton";
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { isZero, toDec, trimZeros } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";

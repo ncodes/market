@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
+import { ConnectButton } from "@/hooks/connectors/components/old/ConnectButton";
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { cn } from "@/libs/utils.ts";
 import { AlertTriangle, Loader2 } from "lucide-react";

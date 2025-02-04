@@ -2,36 +2,22 @@ import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
 import AssetButton from "@/components/AssetButton";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
-import IconWallet from "@/components/icons/IconWallet";
 import { Button } from "@/components/ui/button";
 import Tab from "@/components/ui/tab";
-import useStore from "@/hooks/store/useStore";
 import PageLayout from "@/layouts/PageLayout";
+import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
 import { cn } from "../../libs/utils";
 
 export default function SwapPage() {
-  const { setOpenConnectWalletSheet } = useStore((s) => ({
-    setOpenConnectWalletSheet: s.setOpenConnectWalletSheet,
-  }));
-
   return (
     <PageLayout title="Swap">
       <div className="mt-16 flex w-full justify-center">
         <div className="relative w-[500px]">
-          <div className="bg-chinese-black h-full w-full rounded-3xl border border-eerie-black/50">
+          <div className="w-full rounded-3xl border border-eerie-black/50 bg-chinese-black">
             <Tab tabHeaders={["Swap"]} headerRight={<SwapSettings />} tabCompents={[<SwapTab />]} />
           </div>
-          <div className="absolute bottom-[-42px] left-0 right-0 flex h-16 justify-center">
-            <Button
-              variant={"secondary"}
-              className="scale-btn absolute"
-              onClick={() => setOpenConnectWalletSheet(true)}
-            >
-              <div className="flex items-center gap-8">
-                <span>Connect Wallet</span>
-                <IconWallet />
-              </div>
-            </Button>
+          <div className="mt-3">
+            <ConnectButton className="h-auto w-full py-2 text-lg" hideIcon hideOnConnected />
           </div>
         </div>
       </div>

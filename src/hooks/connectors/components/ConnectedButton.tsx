@@ -2,7 +2,6 @@ import EmojiAvatar from "@/components/avatar/EmojiAvatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
 import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
-import { SettingsIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext";
@@ -51,30 +50,22 @@ export const ConnectedButton = ({
   }, [ready, token]);
 
   return (
-    <div>
-      <div
-        className={cn(
-          "hover:bg-gunmetal/80 flex h-auto items-center justify-between gap-1 rounded-full bg-card py-1 pr-1 transition-all duration-500 hover:scale-x-[1.02] [&>*]:cursor-pointer",
-          className,
-        )}
-        onClick={() => {}}
-      >
-        <div className="pl-1 md:pl-2">
-          <EmojiAvatar size={AvatarSize.Small} randomStr={address as string} />
-        </div>
-        <p
-          className={cn("address text ml-2 font-poppins font-normal tracking-wider text-gray-100 lg:inline-block", {})}
-        >
-          <>
-            <span className="hidden lg:inline-block">{shortenAddress(address as string)}</span>
-            <span className="lg:hidden">{shortenAddress2(address as string)}</span>
-          </>
-        </p>
-        <p className={cn("ml-[2px] hidden rounded-full px-[8px] py-[6px] tracking-[0.19px] text-[#001029] lg:flex")}>
-          <SettingsIcon width="17" color="white" />
-        </p>
+    <div
+      className={cn(
+        "flex h-auto w-[150px] items-center justify-between rounded-full bg-card bg-chinese-black py-1 pr-2 transition-all duration-500 hover:scale-x-[1.02] hover:bg-eerie-black [&>*]:cursor-pointer",
+        className,
+      )}
+      onClick={() => {}}
+    >
+      <div className="pl-1">
+        <EmojiAvatar size={AvatarSize.Small} randomStr={address as string} />
       </div>
-      <div className="absolute">{/* <SettingsSheet openWalletManager={openWalletModal} /> */}</div>
+      <p className={cn("text font-poppins text-sm font-normal tracking-wider text-gray-100 lg:inline-block", {})}>
+        <>
+          <span className="hidden lg:inline-block">{shortenAddress(address as string)}</span>
+          <span className="lg:hidden">{shortenAddress2(address as string)}</span>
+        </>
+      </p>
     </div>
   );
 };

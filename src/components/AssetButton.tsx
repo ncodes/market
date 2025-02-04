@@ -28,7 +28,7 @@ export default function AssetButton({
 
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button
           className={cn(
             "scale-btn h-auto w-[140px] justify-start bg-black-coral/20 px-[4px] py-1 pr-2 hover:bg-black-coral/30",
@@ -43,7 +43,7 @@ export default function AssetButton({
         </Button>
       </DialogTrigger>
       <DialogContent className="top-[40%] w-[450px] border-none bg-transparent px-0 pr-2 pt-0" hideCloseButton>
-        <div className="bg-chinese-black overflow-hidden rounded-3xl border border-eerie-black font-poppins">
+        <div className="overflow-hidden rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
           <div className="flex items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
             <div className="cursor-pointer" onClick={() => setOpen(false)}>
@@ -127,7 +127,7 @@ function NetworkSelectorButton() {
       </PopoverTrigger>
       <PopoverContent
         align="end"
-        className="bg-chinese-black w-[200px] rounded-2xl border border-gunmetal/50 px-0 py-0"
+        className="w-[200px] rounded-2xl border border-gunmetal/50 bg-chinese-black px-0 py-0"
       >
         <div className="mt-1 flex flex-col gap-1 px-1 py-1 font-poppins">
           {Networks.map((network, index) => (

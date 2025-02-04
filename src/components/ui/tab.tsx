@@ -12,7 +12,7 @@ function Tab({ tabHeaders, headerRight, tabCompents, defaultSelectedIndex = 0 }:
   const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
 
   return (
-    <div className="w-full pb-10">
+    <div className="w-full">
       <div className="scrollbar-hide w-full overflow-x-auto">
         <div className="m-0 flex w-full items-center justify-between border-b border-gray-900 px-4 py-0">
           <div className="flex min-w-max items-center gap-4">

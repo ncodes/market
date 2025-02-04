@@ -20,8 +20,7 @@ export default function RegionSelectorButton() {
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger>
-        {" "}
+      <PopoverTrigger asChild>
         <Button
           className={cn(
             "bg-chinese-black px-2 py-2 transition-all duration-500 hover:bg-raisin-black",
@@ -33,7 +32,7 @@ export default function RegionSelectorButton() {
         </Button>
       </PopoverTrigger>
       <PopoverContent side="bottom" align="end" className="w-fit border-none bg-transparent p-0 outline-none">
-        <div className="bg-chinese-black mt-2 flex w-[299px] flex-col gap-1 rounded-3xl border border-eerie-black font-poppins">
+        <div className="mt-2 flex w-[299px] flex-col gap-1 rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
           <Label className="flex items-center gap-1 p-4 pb-0 text-sm tracking-wide text-lotion">
             <span className="tracking-wider">Select Region</span>
             <ToolTip
