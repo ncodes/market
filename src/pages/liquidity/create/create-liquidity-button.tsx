@@ -20,7 +20,7 @@ export function CreateLiquidityButton() {
       </DialogTrigger>
       <DialogContent className="w-[450px] border-none bg-transparent px-0 py-0" hideCloseButton>
         <div className="w-full">
-          <div className="mb-4 w-full rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
+          <div className="mb-1 w-full rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
             <div className="flex items-center justify-between border-b border-gunmetal px-5 py-4">
               <Label className="text-2xl font-semibold text-lotion">Confirm Liqudity Creation</Label>
               <Button
