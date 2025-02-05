@@ -114,6 +114,6 @@
   }
 
   .input {
-    @apply border border-boulder/50 bg-bright-gray/60 px-2 py-2.5 !pl-3 text-white outline-0 focus-visible:bg-bright-gray focus-visible:ring-2 focus-visible:ring-screaming-green;
+    @apply w-full border-none !bg-transparent transition-all duration-300 font-dosis text-lg outline-none placeholder:font-poppins placeholder:text-cool-grey active:border-none active:outline-none;
   }
 }

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import Tab from "@/components/ui/tab";
 import PageLayout from "@/layouts/PageLayout";
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
-import { cn } from "../../libs/utils";
+import { cn } from "@/libs/utils.ts";
 
 export default function SwapPage() {
   return (

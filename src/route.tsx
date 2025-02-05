@@ -4,7 +4,7 @@ import Layout from "./layouts/Layout";
 import CreateMarketPage from "./pages/create/create-market";
 import LandingPage from "./pages/landing";
 import SwapPage from "./pages/swap/swap";
-import CreateLiquidityPage from "./pages/liquidity/create-liquidity";
+import CreateLiquidityPage from "@/pages/liquidity/create/page.tsx";
 
 const router = createBrowserRouter([
   {
