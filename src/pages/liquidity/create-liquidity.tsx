@@ -14,7 +14,8 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import PageLayout from "@/layouts/PageLayout";
 import { cn } from "@/libs/utils";
-import { useState } from "react";
+import { PriceMethod } from "@/libs/wallets";
+import { useEffect, useRef, useState } from "react";
 
 export default function CreateLiquidityPage() {
   return (
@@ -67,23 +68,7 @@ export default function CreateLiquidityPage() {
                 </div>
               </div>
               <PriceInput />
-              <div className="flex w-full items-center gap-5">
-                <div className="flex w-fit flex-col gap-1 pr-2">
-                  <InfoLabel text="Margin" info="Margin" />
-                  <div className="bg-black-coral flex h-11 w-[90px] items-center justify-center rounded-3xl">
-                    <Label className="text-anti-flash-white text-base font-semibold">0%</Label>
-                  </div>
-                </div>
-                <div className="flex w-full flex-col gap-6">
-                  <div className="mt-5 flex flex-col gap-3">
-                    <Slider defaultValue={[0]} max={20} step={1} min={-21} />
-                    <div className="flex justify-between">
-                      <Label className="text-cool-grey font-inter font-semibold">-20%</Label>
-                      <Label className="text-cool-grey font-inter font-semibold">+20%</Label>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <MarginInput />
             </div>
             <div className="flex w-full flex-col gap-4 px-6 pb-7 pt-3">
               <AdvanceSetting />
@@ -214,16 +199,36 @@ function AssetOverview({ asset, assetImage, title }: { asset: string; assetImage
 }
 
 function PriceInput() {
+  const [activeMethod, setActiveMetho] = useState(PriceMethod.MANUAL);
+
+  function isActive(method: string) {
+    return activeMethod === method;
+  }
+
   return (
     <div className="mt-1 flex w-full flex-col gap-1">
       <div className="flex w-full justify-between">
         <InfoLabel text="Price" info="Price" />
         <div className="flex">
-          <div className="border-cool-grey flex cursor-pointer items-center rounded-es-3xl rounded-ss-3xl border border-r-0 px-[6px]">
-            <Label className="text-cool-grey m-0 cursor-pointer p-0 text-xs font-semibold">Auto</Label>
+          <div
+            onClick={() => setActiveMetho(PriceMethod.AUTO)}
+            className={`${isActive(PriceMethod.AUTO) ? "border-chinese-green" : "border-cool-grey border-r-0"} flex cursor-pointer items-center rounded-es-3xl rounded-ss-3xl border px-[6px]`}
+          >
+            <Label
+              className={`m-0 cursor-pointer p-0 text-xs font-semibold ${isActive(PriceMethod.AUTO) ? "text-white" : "text-cool-grey"}`}
+            >
+              Auto
+            </Label>
           </div>
-          <div className="border-chinese-green flex cursor-pointer items-center rounded-ee-3xl rounded-se-3xl border px-[6px]">
-            <Label className="m-0 cursor-pointer p-0 text-xs font-semibold text-white">Manual</Label>
+          <div
+            onClick={() => setActiveMetho(PriceMethod.MANUAL)}
+            className={`${isActive(PriceMethod.MANUAL) ? "border-chinese-green" : "border-cool-grey border-l-0"} flex cursor-pointer items-center rounded-ee-3xl rounded-se-3xl border px-[6px]`}
+          >
+            <Label
+              className={`m-0 cursor-pointer p-0 text-xs font-semibold ${isActive(PriceMethod.MANUAL) ? "text-white" : "text-cool-grey"}`}
+            >
+              Manual
+            </Label>
           </div>
         </div>
       </div>
@@ -235,6 +240,64 @@ function PriceInput() {
         />
         <div className="bg-cool-grey flex h-full w-max items-center rounded-3xl px-4">
           <Label className="text-lotion w-max font-light">Per USDT</Label>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MarginInput() {
+  const [margin, setMargin] = useState(0);
+  const spanRef = useRef<HTMLSpanElement | null>(null);
+  const [inputWidth, setInputWidth] = useState("1ch");
+
+  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
+    const value = event.currentTarget.value;
+    if (value) setMargin(Number(value));
+  }
+
+  useEffect(() => {
+    if (spanRef.current) {
+      setInputWidth(`${spanRef.current.offsetWidth}px`);
+    }
+  }, [margin]);
+
+  return (
+    <div className="flex w-full items-center gap-5">
+      <div className="flex w-fit flex-col gap-1 pr-2">
+        <InfoLabel text="Margin" info="Margin" />
+        <div className="bg-black-coral flex h-11 w-[90px] items-center justify-center rounded-3xl p-1">
+          <div className="relative inline-flex">
+            <span ref={spanRef} className="invisible absolute m-0 whitespace-pre p-0">
+              {margin || "0"}
+            </span>
+
+            <input
+              type="number"
+              className="text-anti-flash-white inline-block border-none bg-transparent text-base font-semibold outline-none"
+              style={{ width: inputWidth }}
+              value={margin}
+              onChange={handleInput}
+            />
+          </div>
+
+          <Label className="text-anti-flash-white text-base font-semibold">%</Label>
+        </div>
+      </div>
+      <div className="flex w-full flex-col gap-6">
+        <div className="mt-5 flex flex-col gap-3">
+          <Slider
+            defaultValue={[margin]}
+            max={20}
+            step={1}
+            min={-21}
+            onValueChange={(value) => setMargin(value[0])}
+            value={[margin]}
+          />
+          <div className="flex justify-between">
+            <Label className="text-cool-grey font-inter font-semibold">-20%</Label>
+            <Label className="text-cool-grey font-inter font-semibold">+20%</Label>
+          </div>
         </div>
       </div>
     </div>

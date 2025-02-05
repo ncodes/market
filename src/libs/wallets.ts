@@ -37,3 +37,8 @@ export const Assets = [
   { name: "Solana", symbol: "SOL", logo: SolanaIcon },
   { name: "Ethereum", symbol: "ETH", logo: EthereumIcon },
 ];
+
+export enum PriceMethod {
+  AUTO = "auto",
+  MANUAL = "manual",
+}
