@@ -61,37 +61,15 @@ export default function CreateLiquidityPage() {
                     <Label className="text-lotion font-light">USDC</Label>
                   </div>
                 </div>
-                <div className="flex w-full justify-between">
-                  <div className="flex gap-1">
-                    <Label className="text-silver-sand text-xs uppercase tracking-[1px]">Bal:</Label>
-                    <Label className="text-lotion text-xs uppercase tracking-[1px]">0.00</Label>
-                  </div>
-                  <Label className="text-lotion text-xs uppercase tracking-[1px]">$100</Label>
+                <div className="flex w-full items-center justify-between">
+                  <Label className="text-lotion text-xs font-extralight uppercase tracking-[2px]">Bal:0.00</Label>
+                  <Label className="text-lotion text-xs font-extralight">$100</Label>
                 </div>
               </div>
-              <div className="mt-1 flex w-full justify-between">
-                <InfoLabel text="Automatic Price" info="Automatic Price" className="text-base" />
-                <Switch />
-              </div>
-              <div className="flex w-full gap-5">
-                <div className="flex w-full flex-col gap-1 pr-2">
-                  <InfoLabel text="Price Per USDT" info="Price Per USDT" />
-                  <div className="bg-black-coral flex h-11 items-center rounded-3xl px-4">
-                    <input
-                      type="number"
-                      placeholder="0.0000000"
-                      className="text-cool-grey placeholder:text-cool-grey w-full border-none bg-transparent font-dosis text-lg outline-none active:border-none active:outline-none"
-                    />
-                  </div>
-                </div>
-                <div className="flex w-full flex-col gap-3">
-                  <InfoLabel text="Initial Price" info="Initial Price" />
-                  <Label className="text-cool-grey font-inter text-base font-semibold uppercase">10 USDT / USDC</Label>
-                </div>
-              </div>
+              <PriceInput />
               <div className="flex w-full items-center gap-5">
                 <div className="flex w-fit flex-col gap-1 pr-2">
-                  <Label className="text-lotion text-sm font-light">Margin</Label>
+                  <InfoLabel text="Margin" info="Margin" />
                   <div className="bg-black-coral flex h-11 w-[90px] items-center justify-center rounded-3xl">
                     <Label className="text-anti-flash-white text-base font-semibold">0%</Label>
                   </div>
@@ -107,7 +85,7 @@ export default function CreateLiquidityPage() {
                 </div>
               </div>
             </div>
-            <div className="flex w-full flex-col gap-4 px-6 pb-7 pt-6">
+            <div className="flex w-full flex-col gap-4 px-6 pb-7 pt-3">
               <AdvanceSetting />
             </div>
           </div>
@@ -230,6 +208,34 @@ function AssetOverview({ asset, assetImage, title }: { asset: string; assetImage
       <div className="bg-black-coral flex h-11 w-[106px] items-center justify-between rounded-3xl px-[10px]">
         <AssetAvatar assetImage={assetImage} className="h-8 w-8" />
         <Label className="text-cool-grey font-inter text-base font-semibold">{asset}</Label>
+      </div>
+    </div>
+  );
+}
+
+function PriceInput() {
+  return (
+    <div className="mt-1 flex w-full flex-col gap-1">
+      <div className="flex w-full justify-between">
+        <InfoLabel text="Price" info="Price" />
+        <div className="flex">
+          <div className="border-cool-grey flex cursor-pointer items-center rounded-es-3xl rounded-ss-3xl border border-r-0 px-[6px]">
+            <Label className="text-cool-grey m-0 cursor-pointer p-0 text-xs font-semibold">Auto</Label>
+          </div>
+          <div className="border-chinese-green flex cursor-pointer items-center rounded-ee-3xl rounded-se-3xl border px-[6px]">
+            <Label className="m-0 cursor-pointer p-0 text-xs font-semibold text-white">Manual</Label>
+          </div>
+        </div>
+      </div>
+      <div className="bg-black-coral flex h-11 w-full rounded-3xl pl-4">
+        <input
+          type="number"
+          placeholder="0.0000000"
+          className="placeholder:text-cool-grey w-full border-none bg-transparent font-dosis text-lg outline-none placeholder:font-dosis active:border-none active:outline-none"
+        />
+        <div className="bg-cool-grey flex h-full w-max items-center rounded-3xl px-4">
+          <Label className="text-lotion w-max font-light">Per USDT</Label>
+        </div>
       </div>
     </div>
   );
