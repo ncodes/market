@@ -24,7 +24,7 @@ export default function CreateLiquidityPage() {
           <div className="bg-raisin-black border-gunmetal mb-4 w-full rounded-3xl border">
             <div className="border-gunmetal flex items-center gap-4 border-b px-5 py-4">
               <IconArrowLeft />
-              <Label className="text-lotion text-2xl font-bold">Create Liquidity</Label>
+              <Label className="text-lotion text-2xl font-semibold">Create Liquidity</Label>
             </div>
             <div className="border-gunmetal flex w-full flex-col gap-4 border-b px-6 pb-6 pt-3">
               <div className="flex w-full gap-5">
@@ -35,6 +35,7 @@ export default function CreateLiquidityPage() {
                     assetImage={USDCIcon}
                     className="bg-black-coral h-11 w-full"
                     textClassName="text-cool-grey"
+                    assetClassName="w-8 h-8"
                   />
                 </div>
                 <div className="flex w-full flex-col gap-1">
@@ -44,6 +45,7 @@ export default function CreateLiquidityPage() {
                     assetImage={USDTIcon}
                     className="bg-black-coral h-11 w-full"
                     textClassName="text-cool-grey"
+                    assetClassName="w-8 h-8"
                   />
                 </div>
               </div>
@@ -84,22 +86,22 @@ export default function CreateLiquidityPage() {
                 </div>
                 <div className="flex w-full flex-col gap-3">
                   <InfoLabel text="Initial Price" info="Initial Price" />
-                  <Label className="text-cool-grey font-inter text-base font-bold uppercase">10 USDT / USDC</Label>
+                  <Label className="text-cool-grey font-inter text-base font-semibold uppercase">10 USDT / USDC</Label>
                 </div>
               </div>
               <div className="flex w-full items-center gap-5">
                 <div className="flex w-fit flex-col gap-1 pr-2">
                   <Label className="text-lotion text-sm font-light">Margin</Label>
                   <div className="bg-black-coral flex h-11 w-[90px] items-center justify-center rounded-3xl">
-                    <Label className="text-anti-flash-white text-base font-bold">0%</Label>
+                    <Label className="text-anti-flash-white text-base font-semibold">0%</Label>
                   </div>
                 </div>
                 <div className="flex w-full flex-col gap-6">
                   <div className="mt-5 flex flex-col gap-3">
                     <Slider defaultValue={[0]} max={20} step={1} min={-21} />
                     <div className="flex justify-between">
-                      <Label className="text-cool-grey font-inter font-bold">-20%</Label>
-                      <Label className="text-cool-grey font-inter font-bold">+20%</Label>
+                      <Label className="text-cool-grey font-inter font-semibold">-20%</Label>
+                      <Label className="text-cool-grey font-inter font-semibold">+20%</Label>
                     </div>
                   </div>
                 </div>
@@ -123,7 +125,7 @@ function AdvanceSetting() {
     <Collapsible className="w-full" onOpenChange={(open) => setIsOpened(open)}>
       <CollapsibleTrigger className="w-full">
         <div className="flex w-full justify-between">
-          <Label className="text-cool-grey font-poppins text-base font-bold">Advanced Settings</Label>
+          <Label className="text-cool-grey font-poppins text-base font-semibold">Advanced Settings</Label>
           <IconDropDown className={cn("transition-transform", isOpened ? "rotate-180" : "")} />
         </div>
       </CollapsibleTrigger>
@@ -132,7 +134,7 @@ function AdvanceSetting() {
           <div className="mt-3 flex w-full flex-col gap-1 pr-2">
             <InfoLabel text="Target" info="Target" />
             <div className="bg-black-coral flex h-11 items-center rounded-3xl px-4">
-              <Label className="text-cool-grey font-inter text-base font-bold">0x12k…23w</Label>
+              <Label className="text-cool-grey font-inter text-base font-semibold">0x12k…23w</Label>
             </div>
           </div>
           <div className="mt-1 flex w-full justify-between">
@@ -151,15 +153,15 @@ function CreateLiquidityButton() {
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger className="w-full">
-        <Button variant={"secondary"} className="w-full">
+        <Button variant={"secondary"} className="h-14 w-full text-lg font-semibold">
           Create
         </Button>
       </DialogTrigger>
-      <DialogContent className="border-none bg-transparent px-0 py-0" hideCloseButton>
-        <div className="w-[450px]">
+      <DialogContent className="w-[450px] border-none bg-transparent px-0 py-0" hideCloseButton>
+        <div className="w-full">
           <div className="border-gunmetal bg-raisin-black mb-4 w-full rounded-3xl border font-poppins">
             <div className="border-gunmetal flex items-center justify-between border-b px-5 py-4">
-              <Label className="text-lotion text-2xl font-bold">Confirm Liqudity Creation</Label>
+              <Label className="text-lotion text-2xl font-semibold">Confirm Liqudity Creation</Label>
               <div
                 className="bg-gunmetal flex h-11 w-11 cursor-pointer items-center justify-center rounded-full"
                 onClick={() => setOpen(false)}
@@ -170,33 +172,33 @@ function CreateLiquidityButton() {
             <div className="flex flex-col gap-4 px-6 py-4">
               <div className="flex gap-14">
                 <AssetOverview title="BASE ASSET" asset="USDC" assetImage={USDCIcon} />
-                <AssetOverview title="BASE ASSET" asset="USDC" assetImage={USDCIcon} />
+                <AssetOverview title="QUOTE ASSET" asset="USDC" assetImage={USDCIcon} />
               </div>
               <div className="flex gap-14">
-                <div className="flex w-32 flex-col gap-2">
+                <div className="flex w-[106px] flex-col gap-2">
                   <Label className="text-lotion text-sm font-light uppercase tracking-[2px]">Price</Label>
                   <div className="bg-black-coral flex h-11 w-[84px] items-center rounded-full px-[14px]">
-                    <Label className="text-cool-grey font-inter text-base font-bold">AUTO</Label>
+                    <Label className="text-cool-grey font-inter text-base font-semibold">AUTO</Label>
                   </div>
                 </div>
-                <div className="flex w-32 flex-col gap-2">
+                <div className="flex flex-col gap-2">
                   <Label className="text-lotion text-sm font-light uppercase tracking-[2px]">Initial Price</Label>
                   <div className="bg-black-coral flex h-11 w-[131px] items-center rounded-full px-[14px]">
-                    <Label className="text-anti-flash-white font-inter text-base font-bold">10 USDT</Label>
+                    <Label className="text-anti-flash-white font-inter text-base font-semibold">10 USDT</Label>
                   </div>
                 </div>
               </div>
               <div className="mb-4 flex gap-14">
-                <div className="flex w-32 flex-col gap-2">
+                <div className="flex w-[106px] flex-col gap-2">
                   <Label className="text-lotion text-sm font-light uppercase tracking-[2px]">Margin</Label>
                   <div className="bg-black-coral flex h-11 w-[84px] items-center justify-center rounded-full">
-                    <Label className="text-anti-flash-white font-inter text-base font-bold">0%</Label>
+                    <Label className="text-anti-flash-white font-inter text-base font-semibold">0%</Label>
                   </div>
                 </div>
-                <div className="flex w-32 flex-col gap-2">
+                <div className="flex flex-col gap-2">
                   <Label className="text-lotion text-sm font-light uppercase tracking-[2px]">Initial Price</Label>
                   <div className="bg-black-coral flex h-11 w-[131px] items-center rounded-full px-[14px]">
-                    <Label className="text-anti-flash-white font-inter text-base font-bold">1000 USDC</Label>
+                    <Label className="text-anti-flash-white font-inter text-base font-semibold">1000 USDC</Label>
                   </div>
                 </div>
               </div>
@@ -204,7 +206,7 @@ function CreateLiquidityButton() {
             <div className="border-gunmetal flex flex-col gap-4 border-t px-5 py-7">
               <div className="flex justify-between">
                 <Label className="text-lotion">Target</Label>
-                <Label className="text-cool-grey font-bold">0x12k…23w</Label>
+                <Label className="text-cool-grey font-semibold">0x12k…23w</Label>
               </div>
               <div className="flex justify-between">
                 <Label className="text-lotion">Paused Initially</Label>
@@ -212,7 +214,7 @@ function CreateLiquidityButton() {
               </div>
             </div>
           </div>
-          <Button variant={"secondary"} className="w-full">
+          <Button variant={"secondary"} className="h-14 w-full text-lg font-semibold">
             Confirm
           </Button>
         </div>
@@ -223,11 +225,11 @@ function CreateLiquidityButton() {
 
 function AssetOverview({ asset, assetImage, title }: { asset: string; assetImage: string; title: string }) {
   return (
-    <div className="flex w-32 flex-col">
+    <div className="flex flex-col">
       <Label className="text-lotion text-sm font-light tracking-[2px]">{title}</Label>
-      <div className="bg-black-coral flex h-11 items-center gap-3 rounded-full px-[10px]">
+      <div className="bg-black-coral flex h-11 w-[106px] items-center justify-between rounded-3xl px-[10px]">
         <AssetAvatar assetImage={assetImage} className="h-8 w-8" />
-        <Label className="text-cool-grey font-inter text-base font-bold">{asset}</Label>
+        <Label className="text-cool-grey font-inter text-base font-semibold">{asset}</Label>
       </div>
     </div>
   );

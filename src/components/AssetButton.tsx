@@ -19,12 +19,14 @@ export default function AssetButton({
   networkImage,
   className,
   textClassName,
+  assetClassName,
 }: {
   text: string;
   assetImage: string;
   networkImage?: string;
   className?: string;
   textClassName?: string;
+  assetClassName?: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -39,15 +41,15 @@ export default function AssetButton({
         >
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-2">
-              <AssetAvatar assetImage={assetImage} networkImage={networkImage} />
-              <span className={cn("text-anti-flash-white text-base font-bold", textClassName)}>{text}</span>
+              <AssetAvatar assetImage={assetImage} networkImage={networkImage} className={assetClassName} />
+              <span className={cn("text-anti-flash-white text-base font-semibold", textClassName)}>{text}</span>
             </div>
             <IconDropDown />
           </div>
         </Button>
       </DialogTrigger>
       <DialogContent className="top-[40%] w-[450px] border-none bg-transparent px-0 pr-2 pt-0" hideCloseButton>
-        <div className="overflow-hidden rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
+        <div className="bg-chinese-black overflow-hidden rounded-3xl border border-eerie-black font-poppins">
           <div className="flex items-center justify-between px-5 py-3">
             <Label className="text-lotion text-[18px] font-normal tracking-wider">Select a token</Label>
             <div className="cursor-pointer" onClick={() => setOpen(false)}>
