@@ -13,6 +13,7 @@ export { default as SolanaIcon } from "@/assets/solana.webp";
 export { default as TelegramIcon } from "@/assets/telegram.svg";
 export { default as USDCIcon } from "@/assets/usdc.webp";
 export { default as XIcon } from "@/assets/x.svg";
+export { default as USDTIcon } from "@/assets/usdt.png";
 
 // Wallets
 export { default as CoinbaseIcon } from "@/assets/wallet_icons/coinbasewallet.svg";

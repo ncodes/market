@@ -1,0 +1,57 @@
+import { cn } from "@/libs/utils.ts";
+import React, { ReactNode } from "react";
+import { Label } from "./ui/label";
+
+export default function Input({
+  suffix,
+  children,
+  hideSuffix,
+  type,
+  placeholder,
+  className,
+  disabled,
+}: {
+  type?: string;
+  suffix?: string;
+  children?: ReactNode;
+  hideSuffix?: boolean;
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
+}) {
+  const childrenArray = React.Children.toArray(children);
+  const leftLabel = children ? childrenArray.find((child: any) => child.type === LeftLabel) : null;
+  const rightLabel = children ? childrenArray.find((child: any) => child.type === RightLabel) : null;
+
+  return (
+    <div>
+      <div className="flex h-11 w-full rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
+        <input
+          type={type || "number"}
+          placeholder={placeholder || "0.00"}
+          className={cn("input focus-within:ring-0", className)}
+          disabled={disabled}
+        />
+        {!hideSuffix && (
+          <div className="flex h-full w-max items-center rounded-3xl bg-black-coral/20 px-4">
+            <Label className="w-max text-sm tracking-wide text-lotion">{suffix}</Label>
+          </div>
+        )}
+      </div>
+      {(leftLabel || rightLabel) && (
+        <div className="mt-1 flex w-full items-center justify-between">
+          {leftLabel && leftLabel}
+          {rightLabel && rightLabel}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function LeftLabel({ label }: { label: ReactNode }) {
+  return <Label className="text-xs font-extralight tracking-[2px] text-lotion">{label}</Label>;
+}
+
+export function RightLabel({ label }: { label: ReactNode }) {
+  return <Label className="text-xs font-extralight text-lotion">{label}</Label>;
+}
