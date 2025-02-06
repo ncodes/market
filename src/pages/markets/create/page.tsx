@@ -4,7 +4,7 @@ import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import PageLayout from "@/layouts/PageLayout.tsx";
 import { CommisionInput } from "./commission-input.tsx";
-import { CreateMarketButton } from "./create-liquidity-button.tsx";
+import { CreateMarketButton } from "./create-market-button.tsx";
 import { AdvanceSettings } from "./advance-settings.tsx";
 
 export default function CreateMarketPage() {
