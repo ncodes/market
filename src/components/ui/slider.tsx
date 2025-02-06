@@ -6,17 +6,28 @@ import { cn } from "@/libs/utils";
 
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> & {
+    trackClassName?: string;
+    thumbClassName?: string;
+    rangeClassName?: string;
+  }
+>(({ className, trackClassName, thumbClassName, rangeClassName, ...props }, ref) => (
   <SliderPrimitive.Root
     ref={ref}
     className={cn("relative flex w-full touch-none select-none items-center", className)}
     {...props}
   >
-    <SliderPrimitive.Track className="bg-june-bud relative h-1.5 w-full grow overflow-hidden rounded-full">
-      <SliderPrimitive.Range className="bg-gunmetal absolute h-full" />
+    <SliderPrimitive.Track
+      className={cn("relative h-1.5 w-full grow overflow-hidden rounded-full bg-primary/20", trackClassName)}
+    >
+      <SliderPrimitive.Range className={cn("absolute h-full bg-primary", rangeClassName)} />
     </SliderPrimitive.Track>
-    <SliderPrimitive.Thumb className="border-june-bud bg-june-bud block h-4 w-4 rounded-full border shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50" />
+    <SliderPrimitive.Thumb
+      className={cn(
+        "block h-4 w-4 rounded-full border border-primary/50 bg-background shadow transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+        thumbClassName,
+      )}
+    />
   </SliderPrimitive.Root>
 ));
 Slider.displayName = SliderPrimitive.Root.displayName;
