@@ -51,8 +51,9 @@ export function MarginInput({ className }: { className?: string }) {
             min={-20}
             onValueChange={(value) => setMargin(value[0])}
             value={[margin]}
-            rangeClassName="bg-gunmetal"
-            trackClassName="bg-june-bud"
+            className="bg-transparent border-none"
+            rangeClassName="bg-gunmetal border-none"
+            trackClassName="bg-june-bud border-none"
             thumbClassName="border-june-bud bg-june-bud"
           />
           <div className="flex justify-between">
