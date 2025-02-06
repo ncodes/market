@@ -21,7 +21,7 @@ export function CreateLiquidityButton() {
       <DialogContent className="w-[450px] border-none bg-transparent px-0 py-0" hideCloseButton>
         <div className="w-full">
           <div className="mb-1 w-full rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
-            <div className="flex items-center justify-between border-b border-gunmetal px-5 py-4">
+            <div className="flex items-center justify-between border-b border-eerie-black px-5 py-4">
               <Label className="text-2xl font-semibold text-lotion">Confirm Liqudity Creation</Label>
               <Button
                 variant="ghost"
@@ -62,7 +62,7 @@ export function CreateLiquidityButton() {
                   </div>
                 </div>
               </div>
-              <div className="mb-4 flex gap-14">
+              <div className="flex gap-14">
                 <div className="flex w-[106px] flex-col gap-2">
                   <Label className="text-sm font-light tracking-[2px] text-lotion/80">Margin</Label>
                   <div className="flex h-11 w-[84px] items-center justify-center rounded-full bg-black-coral/10">
@@ -71,7 +71,7 @@ export function CreateLiquidityButton() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 border-t border-gunmetal px-5 py-7">
+            <div className="flex flex-col gap-4 border-t border-eerie-black px-5 py-7">
               <div className="flex justify-between">
                 <Label className="text-lotion/80">Target</Label>
                 <ToolTip tip={"0x1234456"}>

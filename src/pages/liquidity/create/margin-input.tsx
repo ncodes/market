@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
 import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { Slider } from "@/components/ui/slider.tsx";
 import { cn } from "@/libs/utils.ts";
+import { useEffect, useRef, useState } from "react";
 
 export function MarginInput({ className }: { className?: string }) {
   const [margin, setMargin] = useState(0);
@@ -51,10 +51,10 @@ export function MarginInput({ className }: { className?: string }) {
             min={-20}
             onValueChange={(value) => setMargin(value[0])}
             value={[margin]}
-            className="bg-transparent border-none"
-            rangeClassName="bg-gunmetal border-none"
-            trackClassName="bg-june-bud border-none"
-            thumbClassName="border-june-bud bg-june-bud"
+            className="border-none bg-transparent"
+            rangeClassName="bg-black-coral/90 h-[6px] border-none"
+            trackClassName="bg-chinese-green border-none"
+            thumbClassName="border-chinese-green bg-chinese-green"
           />
           <div className="flex justify-between">
             <Label className="font-inter font-semibold text-cool-grey">-20%</Label>
