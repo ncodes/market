@@ -5,6 +5,7 @@ import LandingPage from "./pages/landing";
 import SwapPage from "./pages/swap/swap";
 import CreateLiquidityPage from "@/pages/liquidity/create/page.tsx";
 import CreateMarketPage from "@/pages/markets/create/page.tsx";
+import MyLiquidityPage from "@/pages/liquidity/my-liquidity/page";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,12 @@ const router = createBrowserRouter([
     path: "/create/market",
     element: <Layout page={<CreateMarketPage />} />,
     errorElement: <ErrorPage />,
-  }
+  },
+  {
+    path: "/my-liquidity",
+    element: <Layout page={<MyLiquidityPage />} />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 export default router;
