@@ -53,8 +53,8 @@ export function CommisionInput({ className }: { className?: string }) {
             onValueChange={(value) => setMargin(value[0])}
             value={[margin]}
             className="border-none bg-transparent"
-            rangeClassName="bg-black-coral/90 h-[6px] border-none"
-            trackClassName="bg-chinese-green border-none"
+            rangeClassName="bg-chinese-green h-[6px] border-none"
+            trackClassName="bg-black-coral/90 border-none"
             thumbClassName="border-chinese-green bg-chinese-green"
           />
           <div className="flex justify-between">
