@@ -71,7 +71,11 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: (_) => <div className="bg-go-green h-2 w-2 rounded-full"></div>,
+    cell: (_) => (
+      <div className="flex w-11 items-center justify-center">
+        <div className="bg-go-green h-2 w-2 rounded-full"></div>
+      </div>
+    ),
   },
   {
     accessorKey: "oneDayVolume",
