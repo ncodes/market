@@ -47,7 +47,8 @@ export default {
         "chinese-green": "#c8ed5a",
         "silver-sand": "#c8c5c5",
         "june-bud": "#bae148",
-
+        "go-green": "#06c270",
+        "vampire-black": "#0a0d10",
         // Adjusted
         "chinese-black": "#11131b",
 
