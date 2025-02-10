@@ -1,5 +1,4 @@
 import { USDCIcon, USDTIcon } from "@/assets";
-import AssetButton from "@/components/AssetButton.tsx";
 import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import PageLayout from "@/layouts/PageLayout.tsx";
@@ -7,6 +6,7 @@ import { AdvanceSettings } from "@/pages/liquidity/create/advance-settings.tsx";
 import { CreateLiquidityButton } from "@/pages/liquidity/create/create-liquidity-button.tsx";
 import { PriceInput } from "@/pages/liquidity/create/price-input.tsx";
 import Input, { LeftLabel, RightLabel } from "../../../components/Input.tsx";
+import { AssetButton } from "@/components/AssetButton.tsx";
 
 export default function CreateLiquidityPage() {
   return (

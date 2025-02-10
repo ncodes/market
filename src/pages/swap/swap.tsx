@@ -1,5 +1,4 @@
 import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
-import AssetButton from "@/components/AssetButton";
 import IconGeneralSettings from "@/components/icons/IconGeneralSettings";
 import IconNavigationArrows from "@/components/icons/IconNavigationArrows";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import Tab from "@/components/ui/tab";
 import PageLayout from "@/layouts/PageLayout";
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
 import { cn } from "@/libs/utils.ts";
+import { AssetButton } from "@/components/AssetButton";
 
 export default function SwapPage() {
   return (

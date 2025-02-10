@@ -1,11 +1,11 @@
 import { USDCIcon, USDTIcon } from "@/assets";
-import AssetButton from "@/components/AssetButton.tsx";
 import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import PageLayout from "@/layouts/PageLayout.tsx";
 import { CommisionInput } from "./commission-input.tsx";
 import { CreateMarketButton } from "./create-market-button.tsx";
 import { AdvanceSettings } from "./advance-settings.tsx";
+import { AssetButton } from "@/components/AssetButton.tsx";
 
 export default function CreateMarketPage() {
   return (

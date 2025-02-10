@@ -2,6 +2,7 @@
 
 import { SolanaIcon, USDCIcon } from "@/assets";
 import { Avatar } from "@/components/avatar/Avatar";
+import IconArrowRight from "@/components/icons/IconArrowRight";
 import { Label } from "@/components/ui/label";
 import { ColumnDef } from "@tanstack/react-table";
 
@@ -84,5 +85,13 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
   {
     accessorKey: "thirtyDayVolume",
     header: "30D Vol.",
+    cell: (props) => (
+      <div className="flex gap-8">
+        <Label className="text-sm font-light">{props.getValue() as string}</Label>
+        <div className="h-6 w-6">
+          <IconArrowRight className="hidden h-full w-full group-hover:block" />
+        </div>
+      </div>
+    ),
   },
 ];

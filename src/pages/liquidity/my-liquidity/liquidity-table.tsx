@@ -2,9 +2,9 @@ import { DataTable } from "@/components/DataTable";
 import { liquidityColumns, LiquidityProps } from "./liquidity-columns";
 import InfoLabel from "@/components/InfoLabel";
 import { Button } from "@/components/ui/button";
-import IconDropDown from "@/components/icons/IconDropDown";
-import { AllNetworksIcon } from "@/assets";
 import { Label } from "@/components/ui/label";
+import StatusFilter from "./status-filter";
+import { NetworkSelectorButton } from "@/components/AssetButton";
 
 function getData(): LiquidityProps[] {
   return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => ({
@@ -32,16 +32,9 @@ export default function LiquidityTable() {
           toolTipClassname="w-6 h-6"
         />
         <div className="flex items-center gap-2">
-          <Label className="font-medium text-white">Filter By:</Label>
-          <Button
-            variant={"ghost"}
-            className="text-cool-grey hover:text-cool-grey gap-1 font-light hover:bg-transparent"
-          >
-            <img src={AllNetworksIcon} className="h-6 w-6" /> Chain <IconDropDown />
-          </Button>
-          <Button variant={"ghost"} className="text-cool-grey hover:text-cool-grey font-light hover:bg-transparent">
-            Status <IconDropDown />
-          </Button>
+          <Label className="font-medium text-white mr-4">Filter By:</Label>
+          <NetworkSelectorButton text="Chain" className="text-cool-grey hover:text-cool-grey font-light"/>
+          <StatusFilter />
           <Button variant={"secondary"} className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70">
             Add +
           </Button>

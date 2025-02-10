@@ -35,7 +35,11 @@ export function DataTable<TData, TValue>({ columns, data, className }: DataTable
       <TableBody>
         {table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
-            <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+            <TableRow
+              className="hover:from-raisin-black hover:to-gunmetal data-[state=selected]:from-raisin-black data-[state=selected]:to-gunmetal group bg-gradient-to-l"
+              key={row.id}
+              data-state={row.getIsSelected() && "selected"}
+            >
               {row.getVisibleCells().map((cell) => (
                 <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
               ))}

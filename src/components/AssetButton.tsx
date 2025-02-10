@@ -13,7 +13,7 @@ import { CheckCircle2, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-export default function AssetButton({
+export function AssetButton({
   text,
   assetImage,
   networkImage,
@@ -110,14 +110,19 @@ const Networks = [
   { name: "Bitcoin", logo: BitcoinIcon },
 ];
 
-function NetworkSelectorButton() {
+interface NetworkSelectorButtonProps {
+  text?: string;
+  className?: string;
+}
+
+export function NetworkSelectorButton({ text, className }: NetworkSelectorButtonProps) {
   const [selectedIndex, setSelectedNetworkIndex] = useState(0);
   const [open, setOpen] = useState(false);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger>
-        <Button variant={"ghost"} className="w-20 gap-1 rounded-none hover:bg-transparent">
+        <Button variant={"ghost"} className={cn("w-20 gap-1 rounded-none hover:bg-transparent", className)}>
           {Networks[selectedIndex].name === "All" && (
             <Label className="text-lotion cursor-pointer font-poppins text-xs tracking-[2px]"></Label>
           )}
@@ -126,6 +131,7 @@ function NetworkSelectorButton() {
             alt=""
             className="h-6 w-6"
           />
+          {text}
           <IconDropDown
             className={cn("h-6 w-6 shrink-0 opacity-40 transition-all duration-300", open && "rotate-180")}
           />
