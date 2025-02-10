@@ -1,11 +1,11 @@
+import CreateLiquidityPage from "@/pages/liquidity/create/page.tsx";
+import MyLiquidityPage from "@/pages/liquidity/my-liquidity/page";
+import CreateMarketPage from "@/pages/markets/create/page.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./errors/error-page";
 import Layout from "./layouts/Layout";
 import LandingPage from "./pages/landing";
 import SwapPage from "./pages/swap/swap";
-import CreateLiquidityPage from "@/pages/liquidity/create/page.tsx";
-import CreateMarketPage from "@/pages/markets/create/page.tsx";
-import MyLiquidityPage from "@/pages/liquidity/my-liquidity/page";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/my-liquidity",
+    path: "/liquidity",
     element: <Layout page={<MyLiquidityPage />} />,
     errorElement: <ErrorPage />,
   },
