@@ -1,0 +1,28 @@
+import { DataTable } from "@/components/DataTable";
+import { liquidityTransactionsColumns, LiquidityTransactionsProps } from "./transactions-columns";
+
+function getData(): LiquidityTransactionsProps[] {
+  return [
+    { time: "13min ago", type: "Buy", usd: "$678", usdc: "100", usdt: "102", wallet: "0x124…867" },
+    { time: "13min ago", type: "Sell", usd: "$678", usdc: "100", usdt: "102", wallet: "0x124…867" },
+    { time: "1min ago", type: "Buy", usd: "$678", usdc: "100", usdt: "102", wallet: "0x124…867" },
+    { time: "13min ago", type: "Sell", usd: "$678", usdc: "100", usdt: "102", wallet: "0x124…867" },
+  ];
+}
+
+export default function LiquidityTransactions() {
+  const data = getData();
+
+  return (
+    <div className="w-full px-6">
+      <DataTable
+        className="[&_th]:border-gunmetal/40 text-sm font-light [&_th]:border-y [&_tr]:!border-none"
+        tableCellClassName="!cursor-pointer py-3"
+        tableRowClassName="hover:bg-transparent"
+        tableHeadClassName="text-cool-grey text-sm font-semibold"
+        columns={liquidityTransactionsColumns}
+        data={data}
+      />
+    </div>
+  );
+}

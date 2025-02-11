@@ -6,6 +6,7 @@ import ErrorPage from "./errors/error-page";
 import Layout from "./layouts/Layout";
 import LandingPage from "./pages/landing";
 import SwapPage from "./pages/swap/swap";
+import ViewLiquidityPage from "./pages/liquidity/view/page";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
   {
     path: "/liquidity",
     element: <Layout page={<MyLiquidityPage />} />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/liquidity/view",
+    element: <Layout page={<ViewLiquidityPage />} />,
     errorElement: <ErrorPage />,
   },
 ]);

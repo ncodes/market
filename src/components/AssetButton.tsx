@@ -20,6 +20,7 @@ export function AssetButton({
   className,
   textClassName,
   assetClassName,
+  networkClassName
 }: {
   text: string;
   assetImage: string;
@@ -27,6 +28,7 @@ export function AssetButton({
   className?: string;
   textClassName?: string;
   assetClassName?: string;
+  networkClassName?: string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -41,7 +43,7 @@ export function AssetButton({
         >
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-2">
-              <AssetAvatar assetImage={assetImage} networkImage={networkImage} className={assetClassName} />
+              <AssetAvatar assetImage={assetImage} networkImage={networkImage} className={assetClassName} networkClassName={networkClassName}/>
               <span className={cn("text-base font-semibold text-anti-flash-white", textClassName)}>{text}</span>
             </div>
             <IconDropDown />

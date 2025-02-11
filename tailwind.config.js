@@ -49,6 +49,11 @@ export default {
         "june-bud": "#bae148",
         "go-green": "#06c270",
         "vampire-black": "#0a0d10",
+        "light-periwinkle": "#c7c9d9",
+        "ufo-green": "#39d98a",
+        "sunset-orange": "#ff5c5c",
+
+        
         // Adjusted
         "chinese-black": "#11131b",
 
