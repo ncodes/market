@@ -22,11 +22,11 @@ function Tab({
   const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-auto">
       <div className="scrollbar-hide w-full overflow-x-auto">
         <div
           className={cn(
-            "m-0 flex w-full items-center justify-between border-b border-gray-900 px-4 py-0",
+            "m-0 flex w-full items-center justify-between border-b border-gray-900 px-1 py-0",
             headerWrapperClassName,
           )}
         >
@@ -42,7 +42,7 @@ function Tab({
                   <p
                     className={cn("py-4", {
                       "text-primary-500 text-2xl font-medium tracking-wider": isActive,
-                      "text-black-coral text-xl font-semibold": !isActive,
+                      "text-xl font-semibold text-black-coral": !isActive,
                     })}
                   >
                     {header}
