@@ -8,7 +8,7 @@ interface TapProps {
   tabCompents: React.ReactNode[];
   defaultSelectedIndex?: number;
   headersClassName?: string;
-  headerBorder?: string;
+  headerWrapperClassName?: string;
 }
 
 function Tab({
@@ -17,7 +17,7 @@ function Tab({
   tabCompents,
   defaultSelectedIndex = 0,
   headersClassName,
-  headerBorder,
+  headerWrapperClassName,
 }: TapProps) {
   const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
 
@@ -27,7 +27,7 @@ function Tab({
         <div
           className={cn(
             "m-0 flex w-full items-center justify-between border-b border-gray-900 px-4 py-0",
-            headerBorder,
+            headerWrapperClassName,
           )}
         >
           <div className={cn("flex min-w-max items-center gap-4", headersClassName)}>

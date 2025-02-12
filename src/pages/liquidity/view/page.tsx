@@ -19,7 +19,7 @@ export default function ViewLiquidityPage() {
       <div className="flex w-full justify-center">
         <div className="flex gap-6">
           <div className="bg-chinese-black border-gunmetal w-screen max-w-3xl rounded-3xl border">
-            <div className="border-gunmetal flex justify-between border-b p-6">
+            <div className="border-gunmetal flex justify-between border-b py-4 px-6">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
@@ -51,13 +51,13 @@ export default function ViewLiquidityPage() {
                 </Button>
               </div>
             </div>
-            <div className="border-gunmetal flex w-full items-center justify-between border-b px-6 py-4">
+            <div className="border-gunmetal flex w-full items-start justify-between border-b px-6 py-4">
               <div className="flex flex-col">
-                <Label className="text-cool-grey font-light">Amount</Label>
+                <Label className="text-cool-grey font-light h-4">Amount</Label>
                 <Label className="text-anti-flash-white font-dosis text-xl font-semibold">10,000,000 DOGWIFHAT…</Label>
               </div>
               <div className="flex flex-col">
-                <Label className="text-cool-grey font-light">Price</Label>
+                <Label className="text-cool-grey font-light h-4">Price</Label>
                 <Label className="text-anti-flash-white font-dosis text-xl font-semibold">10.5 SOL</Label>
                 <div className="flex gap-1">
                   <Label className="text-cool-grey text-sm font-light">Auto</Label>
@@ -65,7 +65,7 @@ export default function ViewLiquidityPage() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <Label className="text-cool-grey flex items-center font-light">
+                <Label className="text-cool-grey flex items-center font-light h-4">
                   1 Day Volume <IconDropDown className="h-5 w-5" />
                 </Label>
                 <Label className="text-anti-flash-white font-dosis text-xl font-semibold">400 USDC</Label>
@@ -75,7 +75,7 @@ export default function ViewLiquidityPage() {
             <div className="w-full">
               <Tab
                 headersClassName="gap-1"
-                headerBorder="border-gunmetal"
+                headerWrapperClassName="border-gunmetal px-0"
                 tabHeaders={[
                   <Label className="text-lotion cursor-pointer text-sm font-semibold">Transactions</Label>,
                   <Label className="text-lotion cursor-pointer text-sm font-semibold">Permitted LPs</Label>,

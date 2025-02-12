@@ -14,7 +14,7 @@ export default function LiquidityTransactions() {
   const data = getData();
 
   return (
-    <div className="w-full px-6">
+    <div className="w-full">
       <DataTable
         className="[&_th]:border-gunmetal/40 text-sm font-light [&_th]:border-y [&_tr]:!border-none"
         tableCellClassName="!cursor-pointer py-3"

@@ -35,8 +35,8 @@ const chartConfig = {
 
 export default function LiquidityChart() {
   return (
-    <div className="border-gunmetal w-full border-b py-1">
-      <div className="mb-2 flex w-full items-center justify-between px-6">
+    <div className="border-gunmetal w-full border-b py-6 flex flex-col gap-5">
+      <div className="flex w-full items-center justify-between px-6">
         <Label className="text-cool-grey font-dosis text-5xl font-light">
           $1.38b <span className="text-base">Per day</span>
         </Label>
@@ -56,10 +56,10 @@ export default function LiquidityChart() {
           </Button>
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full">
-        <BarChart accessibilityLayer data={chartData}>
+      <ChartContainer config={chartConfig} className="h-[190px] w-full text-left">
+        <BarChart accessibilityLayer data={chartData} className="text-left flex">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
-          <YAxis tickLine={false} axisLine={false} />
+          <YAxis tickLine={false} axisLine={false} className="!bg-red-500"/>
           <Bar dataKey="asset1" stackId={"b"} fill="var(--color-asset1)" radius={[16, 16, 16, 16]} maxBarSize={8} />
           <Bar dataKey="asset2" stackId="b" fill="var(--color-asset2)" radius={[16, 16, 0, 0]} maxBarSize={8} />
           <ChartTooltip content={<ChartTooltipContent indicator="line" />} cursor={false} defaultIndex={1} />
