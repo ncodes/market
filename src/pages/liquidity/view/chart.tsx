@@ -64,8 +64,8 @@ export default function LiquidityChart() {
           margin={{ left: 0, right: 0 }}
         >
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} tick={{ dy: -8 }} />
-          <YAxis tickLine={false} axisLine={false} tick={{ textAnchor: "start", dx: -10 }} tickMargin={0} width={20}/>
-          <Bar dataKey="asset1" stackId={"b"} fill="var(--color-asset1)" radius={[16, 16, 16, 16]} maxBarSize={8}/>
+          <YAxis tickLine={false} axisLine={false} tick={{ textAnchor: "start", dx: -10 }} tickMargin={0} width={20} />
+          <Bar dataKey="asset1" stackId={"b"} fill="var(--color-asset1)" radius={[16, 16, 16, 16]} maxBarSize={8} />
           <Bar dataKey="asset2" stackId="b" fill="var(--color-asset2)" radius={[16, 16, 0, 0]} maxBarSize={8} />
           <ChartTooltip content={<ChartTooltipContent indicator="line" />} cursor={false} defaultIndex={1} />
         </BarChart>
