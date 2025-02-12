@@ -14,6 +14,8 @@ export { default as TelegramIcon } from "@/assets/telegram.svg";
 export { default as USDCIcon } from "@/assets/usdc.webp";
 export { default as XIcon } from "@/assets/x.svg";
 export { default as USDTIcon } from "@/assets/usdt.png";
+export {default as OPIcon} from "@/assets/optimism.png";
+export {default as ConnectIcon} from "@/assets/connect.png";
 
 // Wallets
 export { default as CoinbaseIcon } from "@/assets/wallet_icons/coinbasewallet.svg";

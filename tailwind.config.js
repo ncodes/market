@@ -53,7 +53,7 @@ export default {
         "ufo-green": "#39d98a",
         "sunset-orange": "#ff5c5c",
 
-        
+
         // Adjusted
         "chinese-black": "#11131b",
 
