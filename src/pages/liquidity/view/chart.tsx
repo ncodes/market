@@ -56,7 +56,7 @@ export default function LiquidityChart() {
           </Button>
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full text-left">
+      <ChartContainer config={chartConfig} className="h-[160px] w-full text-left">
         <BarChart accessibilityLayer data={chartData} className="text-left flex">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
           <YAxis tickLine={false} axisLine={false} className="!bg-red-500"/>
