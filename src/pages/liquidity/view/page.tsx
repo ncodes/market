@@ -77,13 +77,11 @@ export default function ViewLiquidityPage() {
             <LiquidityChart />
             <div className="w-full">
               <Tab
-                headersClassName="gap-1 px-3"
+                headersClassName="gap-1 px-6"
                 headerWrapperClassName="border-eerie-black px-0"
-                tabHeaders={[
-                  <Label className="cursor-pointer text-sm font-semibold text-lotion">Transactions</Label>,
-                  <Label className="cursor-pointer text-sm font-semibold text-lotion">Permitted LPs</Label>,
-                  <Label className="cursor-pointer text-sm font-semibold text-lotion">Permitted Takers</Label>,
-                ]}
+                headerItemClassName="text-black-coral cursor-pointer text-sm font-medium"
+                activeHeaderItemClassName="text-lotion font-semibold"
+                tabHeaders={["Transactions", "Permitted LPs", "Permitted Takers"]}
                 tabCompents={[<LiquidityTransactions />]}
               />
             </div>
