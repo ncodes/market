@@ -3,12 +3,14 @@ import { cn } from "../../libs/utils";
 import { Button } from "./button";
 
 interface TapProps {
-  tabHeaders: string[] | React.ReactNode[];
+  tabHeaders: string[];
   headerRight?: React.ReactNode;
   tabCompents: React.ReactNode[];
   defaultSelectedIndex?: number;
   headersClassName?: string;
   headerWrapperClassName?: string;
+  headerItemClassName?: string;
+  activeHeaderItemClassName?: string;
 }
 
 function Tab({
@@ -18,6 +20,8 @@ function Tab({
   defaultSelectedIndex = 0,
   headersClassName,
   headerWrapperClassName,
+  headerItemClassName,
+  activeHeaderItemClassName,
 }: TapProps) {
   const [selectedIndex, setSelectedIndex] = useState(defaultSelectedIndex);
 
@@ -33,25 +37,22 @@ function Tab({
           <div className={cn("flex min-w-max items-center gap-4", headersClassName)}>
             {tabHeaders.map((header, index) => {
               const isActive = selectedIndex === index;
-              return typeof header === "string" ? (
-                <div
+              return (
+                <Button
                   key={index}
-                  className={`flex cursor-pointer flex-col gap-3 px-1`}
-                  onClick={() => setSelectedIndex(index)}
-                >
-                  <p
-                    className={cn("py-4", {
+                  className={cn(
+                    `flex cursor-pointer flex-col gap-3 bg-transparent px-1 py-4 hover:bg-transparent`,
+                    {
                       "text-primary-500 text-2xl font-medium tracking-wider": isActive,
                       "text-black-coral text-xl font-semibold": !isActive,
-                    })}
-                  >
-                    {header}
-                  </p>
-                  {/* <ShowActive isActive={isActive} /> */}
-                </div>
-              ) : (
-                <Button variant={"ghost"} className="hover:bg-transparent" onClick={() => setSelectedIndex(index)}>
+                    },
+                    headerItemClassName,
+                    isActive && activeHeaderItemClassName,
+                  )}
+                  onClick={() => setSelectedIndex(index)}
+                >
                   {header}
+                  {/* <ShowActive isActive={isActive} /> */}
                 </Button>
               );
             })}
