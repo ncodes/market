@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import IconGeneralSettings from "./icons/IconGeneralSettings";
 import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
 import { Label } from "./ui/label";
+import { cn } from "@/libs/utils";
 
 interface SwapProps {
   hideHeader?: boolean;
@@ -12,6 +13,7 @@ interface SwapProps {
   inputClassName?: string;
   assetClassName?: string;
   networkClassName?: string;
+  rootClassName?: string;
 }
 
 export default function Swap({
@@ -20,10 +22,11 @@ export default function Swap({
   inputClassName,
   assetClassName,
   networkClassName,
+  rootClassName,
 }: SwapProps) {
   return (
     <>
-      <div className="bg-chinese-black relative w-full rounded-3xl border border-eerie-black/50">
+      <div className={cn("bg-chinese-black relative w-full rounded-3xl border border-eerie-black/50", rootClassName)}>
         {!hideHeader && (
           <div className="flex w-full justify-between border-b border-eerie-black/50 py-2 pl-5 pr-3">
             <Label className="text-primary-500 text-2xl font-medium tracking-wider">Swap</Label>
