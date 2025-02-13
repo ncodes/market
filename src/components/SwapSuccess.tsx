@@ -1,50 +1,55 @@
 import { ConnectIcon, OPIcon, USDCIcon } from "@/assets";
 import { Avatar } from "@/components/avatar/Avatar";
-import IconArrowRight from "@/components/icons/IconArrowRight";
 import IconClose from "@/components/icons/IconClose";
 import IconLink from "@/components/icons/IconLink";
 import InfoLabel from "@/components/InfoLabel";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import useStore from "@/hooks/store/useStore";
 import { cn } from "@/libs/utils";
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import IconMarkSuccess from "./icons/IconMarkSuccess";
 
-export default function SwapConfirmationModal({ open }: { open: boolean }) {
+export default function SwapSuccessModal({ open }: { open: boolean }) {
+  const setOpenSwapSuccess = useStore((s) => s.setOpenSwapSuccess);
+
   return (
     <Dialog open={open}>
       <DialogContent className="max-w-[450px] border-none p-0" hideCloseButton>
         <div className="flex w-full flex-col gap-4">
           <div className="bg-chinese-black border-gunmetal rounded-3xl border">
             <div className="border-gunmetal flex w-full justify-between border-b px-5 py-4">
-              <Label className="text-lotion text-2xl font-semibold">Confirm Swap</Label>
-              <Button variant={"secondary"} className="bg-gunmetal hover:bg-gunmetal/70 h-11 w-11 rounded-full">
+              <Label className="text-lotion text-2xl font-semibold">Swap Completed</Label>
+              <Button
+                onClick={() => setOpenSwapSuccess(false)}
+                variant={"secondary"}
+                className="bg-gunmetal hover:bg-gunmetal/70 h-11 w-11 rounded-full p-0"
+              >
                 <IconClose className="h-6 w-6" />
               </Button>
             </div>
-            <div className="flex w-full items-center gap-4 px-5 py-4">
+            <div className="flex w-full items-center gap-[10px] px-5 py-[17px]">
               <Avatar src={OPIcon} rootClassName="w-8 h-8" className="h-8 w-8" />
-              <IconArrowRight />
+              <IconMarkSuccess />
               <Avatar src={USDCIcon} rootClassName="w-8 h-8" className="h-8 w-8" />
               <IconLink />
               <Avatar src={ConnectIcon} rootClassName="w-8 h-8" className="h-8 w-8" />
             </div>
 
-            <div className="flex flex-col gap-4 px-5">
-              <Label className="text-cool-grey text-sm font-light">
-                Authenticate the transaction your connected wallet
-              </Label>
+            <div className="flex flex-col gap-4 px-5 pt-1">
+              <Label className="text-cool-grey text-sm font-light">Your swap was successful.</Label>
               <div className="flex items-center gap-[30px]">
                 <div className="flex w-full flex-col gap-1">
-                  <Label className="font-inter text-base font-semibold text-white">You’re swapping</Label>
+                  <Label className="font-inter text-base font-medium text-white">You’re swapping</Label>
                   <div className="flex flex-col gap-[2px]">
                     <Label className="text-cool-grey font-dosis text-xl">100,000,000 OP</Label>
                     <Label className="text-sm font-light text-white">$120</Label>
                   </div>
                 </div>
                 <div className="flex w-full flex-col gap-1">
-                  <Label className="font-inter text-base font-semibold text-white">To</Label>
+                  <Label className="font-inter text-base font-medium text-white">To</Label>
                   <div className="flex flex-col gap-[2px]">
                     <Label className="text-cool-grey font-dosis text-xl">100 USDT</Label>
                     <Label className="text-sm font-light text-white">$120</Label>
@@ -56,8 +61,12 @@ export default function SwapConfirmationModal({ open }: { open: boolean }) {
               <SeeMore />
             </div>
           </div>
-          <Button variant={"secondary"} className="text-gunmetal h-12 text-lg font-semibold">
-            Approve & Swap
+          <Button
+            variant={"secondary"}
+            className="text-gunmetal h-12 text-lg font-semibold"
+            onClick={() => setOpenSwapSuccess(false)}
+          >
+            Finish
           </Button>
         </div>
       </DialogContent>
@@ -72,7 +81,7 @@ function SeeMore() {
     <div className={cn("mt-2 w-full rounded-2xl p-3 py-0 pt-0", { "bg-baltic-sea/40": open })}>
       <Button
         variant="link"
-        className={cn("text-cool-grey w-full justify-between gap-1.5 p-0 text-sm font-semibold hover:text-gray-200", {
+        className={cn("text-cool-grey w-full justify-between p-0 font-semibold hover:text-gray-200", {
           "text-gray-200": open,
         })}
         onClick={() => setOpen((prev) => !prev)}

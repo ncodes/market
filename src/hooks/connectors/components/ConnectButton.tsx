@@ -60,7 +60,7 @@ export function ConnectButton({
   hideIcon?: boolean;
   swapButtonClassName?: string;
   showSwapButton?: boolean;
-  onSwapClick?: () => {};
+  onSwapClick?: () => void;
 }) {
   return (
     <ConnectKitButton.Custom>
