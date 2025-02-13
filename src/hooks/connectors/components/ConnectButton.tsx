@@ -48,6 +48,9 @@ export function ConnectButton({
   connectBtnText,
   hideOnConnected,
   hideIcon,
+  showSwapButton,
+  swapButtonClassName,
+  onSwapClick,
 }: {
   className?: string;
   connectedClassName?: string;
@@ -55,6 +58,9 @@ export function ConnectButton({
   hideOnConnected?: boolean;
   connectBtnText?: string;
   hideIcon?: boolean;
+  swapButtonClassName?: string;
+  showSwapButton?: boolean;
+  onSwapClick?: () => {};
 }) {
   return (
     <ConnectKitButton.Custom>
@@ -76,6 +82,15 @@ export function ConnectButton({
                     show={show as () => void}
                     noSessionCreation={noSessionCreation}
                   />
+                )}
+                {showSwapButton && (
+                  <Button
+                    variant={"secondary"}
+                    onClick={onSwapClick}
+                    className={cn("text-gunmetal h-auto w-full py-2 text-lg font-semibold", swapButtonClassName)}
+                  >
+                    Swap
+                  </Button>
                 )}
               </>
             )}

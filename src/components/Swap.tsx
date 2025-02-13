@@ -69,13 +69,14 @@ export default function Swap({
               className="text-gunmetal h-auto w-full py-2 text-lg font-semibold"
               hideIcon
               hideOnConnected
+              showSwapButton
             />
           </div>
         )}
       </div>
       {!showEmbeddedButton && (
         <div className="mt-3">
-          <ConnectButton className="h-auto w-full py-2 text-lg" hideIcon hideOnConnected />
+          <ConnectButton className="h-auto w-full py-2 text-lg" hideIcon hideOnConnected showSwapButton />
         </div>
       )}
     </>
