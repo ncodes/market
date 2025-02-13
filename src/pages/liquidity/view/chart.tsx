@@ -52,10 +52,10 @@ export default function LiquidityChart() {
           <SelectVolume />
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full text-left">
+      <ChartContainer config={chartConfig} className="h-[190px] w-full text-left pl-6">
         <BarChart accessibilityLayer data={chartData} className="-ml-3 flex text-left">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
-          <YAxis tickLine={false} axisLine={false} className="!bg-red-500" />
+          <YAxis tickLine={false} axisLine={false}  tick={{ textAnchor: "start", dx: -10 }} width={25}/>
           <Bar dataKey="asset1" stackId={"b"} fill="var(--color-asset1)" radius={[5, 5, 5, 5]} maxBarSize={20} />
           <ChartTooltip
             content={
