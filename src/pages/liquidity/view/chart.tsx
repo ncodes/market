@@ -3,6 +3,7 @@ import IconDropDown from "@/components/icons/IconDropDown";
 import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { cn } from "@/libs/utils";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
@@ -48,12 +49,7 @@ export default function LiquidityChart() {
             <ChartFilter text="1M" />
             <ChartFilter text="1Y" />
           </div>
-          <Button
-            variant={"ghost"}
-            className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey"
-          >
-            Volume <IconDropDown />
-          </Button>
+          <SelectVolume />
         </div>
       </div>
       <ChartContainer config={chartConfig} className="h-[190px] w-full text-left">
@@ -87,9 +83,36 @@ function ChartFilter({ text, isActive }: { text: string; isActive?: boolean }) {
         isActive && "bg-white",
       )}
     >
-      <Label className={cn("cursor-pointer text-sm font-semibold text-cool-grey", isActive && "text-gunmetal")}>
+      <Label className={cn("text-cool-grey cursor-pointer text-sm font-semibold", isActive && "text-gunmetal")}>
         {text}
       </Label>
     </Button>
+  );
+}
+
+function SelectVolume() {
+  return (
+    <Select>
+      <SelectTrigger
+        hideCaret
+        className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
+      >
+        <Button
+          variant={"ghost"}
+          className="text-cool-grey hover:text-cool-grey flex items-center font-light hover:bg-transparent"
+        >
+          Volume <IconDropDown />
+        </Button>
+      </SelectTrigger>
+      <SelectContent className="bg-chinese-black border-eerie-black">
+        {[1, 2, 3, 4, 5].map((item) => (
+          <SelectItem
+            className="hover:!bg-june-bud active:!bg-june-bud data-[state=checked]:!bg-june-bud data-[state=unchecked]:!bg-transparent data-[state=unchecked]:!text-white"
+            key={item}
+            value={`Volume ${item}`}
+          >{`Volume ${item}`}</SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }
