@@ -116,4 +116,8 @@
   .input {
     @apply w-full border-none !bg-transparent transition-all duration-300 font-dosis text-lg outline-none placeholder:font-poppins placeholder:text-cool-grey active:border-none active:outline-none;
   }
+  
+  .reset-btn {
+    @apply h-auto p-0 m-0 rounded-none bg-transparent hover:bg-transparent;
+  }
 }
