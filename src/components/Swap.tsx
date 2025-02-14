@@ -8,7 +8,6 @@ import { Label } from "./ui/label";
 import { cn } from "@/libs/utils";
 import SwapConfirmationModal from "./SwapConfirmation";
 import useStore from "@/hooks/store/useStore";
-import SwapSuccessModal from "./SwapSuccess";
 
 interface SwapProps {
   hideHeader?: boolean;
@@ -27,7 +26,7 @@ export default function Swap({
   networkClassName,
   rootClassName,
 }: SwapProps) {
-  const { openSwapConfirmation, setOpenSwapConfirmation, openSwapSuccess, setOpenSwapSuccess } = useStore();
+  const { openSwapConfirmation, setOpenSwapConfirmation} = useStore();
 
   function performSwap() {
     setOpenSwapConfirmation(true);
@@ -35,7 +34,6 @@ export default function Swap({
 
   function completeSwap() {
     setOpenSwapConfirmation(false);
-    setOpenSwapSuccess(true);
   }
 
   return (
@@ -102,7 +100,6 @@ export default function Swap({
       )}
 
       <SwapConfirmationModal open={openSwapConfirmation} completeSwap={completeSwap} />
-      <SwapSuccessModal open={openSwapSuccess} />
     </>
   );
 }
