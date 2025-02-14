@@ -47,25 +47,25 @@ export default function SwapConfirmationModal({ open, completeSwap }: { open: bo
               </Label>
               <div className="mt-2 flex items-center gap-x-6">
                 <div className="flex flex-col">
-                  <Label className="font-inter text-sm font-normal text-cool-grey">You’re swapping</Label>
+                  <Label className="font-inter text-sm font-normal text-cool-grey/70">You’re swapping</Label>
                   <div className="flex flex-col gap-[2px]">
                     <Label className="font-dosis text-xl text-gray-100">100,000,000 OP</Label>
-                    <Label className="text-sm font-light text-cool-grey/70">$120</Label>
+                    <Label className="text-sm font-light text-cool-grey">$120</Label>
                   </div>
                 </div>
                 <div className="flex items-center justify-center">
                   <ChevronRight className="size-5 text-gray-200" />
                 </div>
                 <div className="flex flex-col">
-                  <Label className="font-inter text-sm font-normal text-cool-grey">To</Label>
+                  <Label className="font-inter text-sm font-normal text-cool-grey/70">To</Label>
                   <div className="flex flex-col gap-[2px]">
                     <Label className="font-dosis text-xl text-gray-100">100 USDT</Label>
-                    <Label className="text-sm font-light text-cool-grey/70">$120</Label>
+                    <Label className="text-sm font-light text-cool-grey">$120</Label>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="w-full py-5 pb-2 pt-3">
+            <div className="mt-4 w-full border-t border-cool-grey/10 py-5 pb-2 pt-0">
               <SwapTransactionDetails />
             </div>
           </div>
