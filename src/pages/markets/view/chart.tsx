@@ -1,0 +1,118 @@
+"use client";
+import IconDropDown from "@/components/icons/IconDropDown";
+import { Button } from "@/components/ui/button";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
+import { cn } from "@/libs/utils";
+import { Bar, BarChart, XAxis, YAxis } from "recharts";
+
+const chartData = [
+  { time: "1", asset1: 85, asset2: 15 },
+  { time: "2", asset1: 70, asset2: 20 },
+  { time: "3", asset1: 90, asset2: 20 },
+  { time: "4", asset1: 90, asset2: 15 },
+  { time: "5", asset1: 80, asset2: 20 },
+  { time: "6", asset1: 85, asset2: 30 },
+  { time: "7", asset1: 75, asset2: 30 },
+  { time: "8", asset1: 95, asset2: 35 },
+  { time: "9", asset1: 85, asset2: 40 },
+  { time: "10", asset1: 75, asset2: 30 },
+  { time: "11", asset1: 90, asset2: 15 },
+  { time: "12", asset1: 80, asset2: 20 },
+  { time: "13", asset1: 70, asset2: 25 },
+];
+
+const chartConfig = {
+  asset1: {
+    label: "Asset 1",
+    color: "#bae148",
+  },
+  asset2: {
+    label: "Asset 2",
+    color: "rgba(232, 255, 165, 0.5)",
+  },
+} satisfies ChartConfig;
+
+export default function LiquidityChart() {
+  return (
+    <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-6">
+      <div className="flex w-full items-center justify-between px-6 pr-3">
+        <Label className="font-dosis text-5xl text-gray-100">
+          $1.38b <span className="text-lg text-gray-400">Per day</span>
+        </Label>
+        <div className="flex items-center gap-1">
+          <div className="flex">
+            <ChartFilter text="1H" />
+            <ChartFilter text="1D" isActive />
+            <ChartFilter text="1W" />
+            <ChartFilter text="1M" />
+            <ChartFilter text="1Y" />
+          </div>
+          <SelectVolume />
+        </div>
+      </div>
+      <ChartContainer config={chartConfig} className="h-[190px] w-full text-left pl-6">
+        <BarChart accessibilityLayer data={chartData} className="-ml-3 flex text-left">
+          <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
+          <YAxis tickLine={false} axisLine={false}  tick={{ textAnchor: "start", dx: -10 }} width={25}/>
+          <Bar dataKey="asset1" stackId={"b"} fill="var(--color-asset1)" radius={[5, 5, 5, 5]} maxBarSize={20} />
+          <ChartTooltip
+            content={
+              <ChartTooltipContent
+                indicator="dot"
+                className="border-gunmetal p-2 text-gray-100"
+                tooltipSubLabel="text-cool-grey"
+              />
+            }
+            cursor={false}
+            defaultIndex={1}
+            labelStyle={{ color: "red" }}
+          />
+        </BarChart>
+      </ChartContainer>
+    </div>
+  );
+}
+
+function ChartFilter({ text, isActive }: { text: string; isActive?: boolean }) {
+  return (
+    <Button
+      className={cn(
+        "m-0 flex h-auto cursor-pointer items-center justify-center rounded-full bg-transparent px-2 py-0.5 hover:bg-transparent",
+        isActive && "bg-white",
+      )}
+    >
+      <Label className={cn("text-cool-grey cursor-pointer text-sm font-semibold", isActive && "text-gunmetal")}>
+        {text}
+      </Label>
+    </Button>
+  );
+}
+
+function SelectVolume() {
+  return (
+    <Select>
+      <SelectTrigger
+        hideCaret
+        className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
+      >
+        <Button
+          variant={"ghost"}
+          className="text-cool-grey hover:text-cool-grey flex items-center font-light hover:bg-transparent"
+        >
+          Volume <IconDropDown />
+        </Button>
+      </SelectTrigger>
+      <SelectContent className="bg-chinese-black border-eerie-black">
+        {[1, 2, 3, 4, 5].map((item) => (
+          <SelectItem
+            className="hover:!bg-june-bud active:!bg-june-bud data-[state=checked]:!bg-june-bud data-[state=unchecked]:!bg-transparent data-[state=unchecked]:!text-white"
+            key={item}
+            value={`Volume ${item}`}
+          >{`Volume ${item}`}</SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+}
