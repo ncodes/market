@@ -8,6 +8,9 @@ export interface IStore {
 
   browserCountryCode: string;
   setBrowserCountryCode: (code: string) => void;
+
+  openSwapConfirmation: boolean;
+  setOpenSwapConfirmation: (open: boolean) => void;
 }
 
 const useStore = create<IStore>((set) => ({
@@ -19,6 +22,9 @@ const useStore = create<IStore>((set) => ({
 
   browserCountryCode: "",
   setBrowserCountryCode: (code: string) => set({ browserCountryCode: code }),
+
+  openSwapConfirmation: false,
+  setOpenSwapConfirmation: (open: boolean) => set({ openSwapConfirmation: open }),
 }));
 
 export default useStore;

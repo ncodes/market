@@ -6,6 +6,8 @@ import IconGeneralSettings from "./icons/IconGeneralSettings";
 import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
 import { Label } from "./ui/label";
 import { cn } from "@/libs/utils";
+import SwapConfirmationModal from "./SwapConfirmation";
+import useStore from "@/hooks/store/useStore";
 
 interface SwapProps {
   hideHeader?: boolean;
@@ -24,6 +26,16 @@ export default function Swap({
   networkClassName,
   rootClassName,
 }: SwapProps) {
+  const { openSwapConfirmation, setOpenSwapConfirmation} = useStore();
+
+  function performSwap() {
+    setOpenSwapConfirmation(true);
+  }
+
+  function completeSwap() {
+    setOpenSwapConfirmation(false);
+  }
+
   return (
     <>
       <div className={cn("bg-chinese-black relative w-full rounded-3xl border border-eerie-black/50", rootClassName)}>
@@ -70,15 +82,24 @@ export default function Swap({
               hideIcon
               hideOnConnected
               showSwapButton
+              onSwapClick={performSwap}
             />
           </div>
         )}
       </div>
       {!showEmbeddedButton && (
         <div className="mt-3">
-          <ConnectButton className="h-auto w-full py-2 text-lg" hideIcon hideOnConnected showSwapButton />
+          <ConnectButton
+            className="h-auto w-full py-2 text-lg"
+            hideIcon
+            hideOnConnected
+            showSwapButton
+            onSwapClick={performSwap}
+          />
         </div>
       )}
+
+      <SwapConfirmationModal open={openSwapConfirmation} completeSwap={completeSwap} />
     </>
   );
 }
