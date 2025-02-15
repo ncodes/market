@@ -52,8 +52,8 @@ export default {
         "light-periwinkle": "#c7c9d9",
         "ufo-green": "#39d98a",
         "sunset-orange": "#ff5c5c",
-
-
+        "coral-red": "#ff3b3b",
+        
         // Adjusted
         "chinese-black": "#11131b",
 
