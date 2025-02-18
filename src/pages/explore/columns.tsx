@@ -11,6 +11,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ChevronRight } from "lucide-react";
 import EmojiAvatar from "../../components/avatar/EmojiAvatar";
 import { AvatarSize } from "../../components/avatar/useAvatar";
+import { shortenAddress } from "../../libs/helpers";
 
 export type TokenTableProps = {
   sn: number;
@@ -34,6 +35,8 @@ export type LiquidyTableProps = {
   tvl: string;
   "30d_vol": string;
   "1d_vol": string;
+  provider: string;
+  lastSwapAt: string;
 };
 
 export type MarketsProps = {
@@ -189,6 +192,21 @@ export const liquidityColumns: ColumnDef<LiquidyTableProps>[] = [
     header: "1D Vol",
   },
   {
+    accessorKey: "provider",
+    header: "Provider",
+    cell: (props) => (
+      <div className="flex w-32 items-center gap-1 py-1.5">
+        <EmojiAvatar randomStr={props.getValue() as string} size={AvatarSize.Micro} />
+        <span className="text-sm font-light text-gray-300">{shortenAddress(props.getValue() as any)}</span>
+      </div>
+    ),
+  },
+  {
+    accessorKey: "lastSwapAt",
+    header: "Last Swap Time",
+    cell: (props) => <span className="text-sm font-light text-gray-500">{props.getValue() as any}</span>,
+  },
+  {
     accessorKey: "action",
     header: "",
     cell: (_) => (
@@ -230,11 +248,7 @@ export const marketsColumns: ColumnDef<MarketsProps>[] = [
   {
     accessorKey: "feePct",
     header: "Fee",
-    cell: (props) => (
-      <div className="flex w-fit items-center rounded-xl bg-eerie-black px-2 py-1">
-        <Label className="text-xs text-gray-400">{props.getValue() as string}</Label>
-      </div>
-    ),
+    cell: (props) => <span className="text-xs text-gray-400">{props.getValue() as string}</span>,
   },
   {
     accessorKey: "tvl",
@@ -279,7 +293,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).from}</Label>
         </div>
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
-        <ChevronRight className="text-gray-400" />
+        <ChevronRight className="text-gray-600" />
         <div className="flex items-center gap-1">
           <Avatar src={SolanaIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).to}</Label>

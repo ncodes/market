@@ -9,6 +9,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
     {
       sn: 2,
@@ -16,6 +18,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
     {
       sn: 3,
@@ -23,6 +27,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
     {
       sn: 4,
@@ -30,6 +36,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
     {
       sn: 5,
@@ -37,6 +45,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
     {
       sn: 6,
@@ -44,6 +54,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
     {
       sn: 7,
@@ -51,6 +63,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
     {
       sn: 8,
@@ -58,6 +72,8 @@ function getData(): LiquidyTableProps[] {
       tvl: "$4B",
       "30d_vol": "$1B",
       "1d_vol": "$4B",
+      provider: "0x1234567890123456789012345678901234567890",
+      lastSwapAt: "10s ago",
     },
   ];
 }
