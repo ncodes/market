@@ -1,10 +1,8 @@
-import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
-import PageLayout from "@/layouts/PageLayout";
-import TokenTable from "./token-table";
-import TabHead from "@/components/TabHead";
 import { NetworkSelectorButton } from "@/components/AssetButton";
-import VolumeFilter from "./volume-filter";
+import TabHead from "@/components/TabHead";
 import { IconSearch } from "@/components/icons/IconSearch";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import {
   Pagination,
   PaginationContent,
@@ -14,12 +12,14 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
+import PageLayout from "@/layouts/PageLayout";
+import { useState } from "react";
 import LiquidityTable from "./liquidity-table";
 import MarketsTable from "./markets-table";
+import TokenTable from "./token-table";
 import TransactionsTable from "./transactions-table";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import VolumeFilter from "./volume-filter";
 
 enum TabHeader {
   TOKEN = "token",
@@ -34,11 +34,11 @@ export default function ExplorePage() {
   return (
     <PageLayout title="Explore">
       <div className="mt-4 flex w-full justify-center">
-        <div className="w-screen max-w-6xl">
+        <div className="w-screen max-w-5xl">
           <div className="rounded-3xl border border-eerie-black/50 bg-chinese-black">
             <Tabs defaultValue="token" className="w-full" onValueChange={(value) => setCurrentTab(value as any)}>
-              <TabsList className="flex h-fit w-full justify-between border-b border-eerie-black/50 bg-transparent px-6 py-3">
-                <div className="flex justify-start gap-[29px]">
+              <TabsList className="flex h-[55px] w-full justify-between bg-transparent px-5 pr-1 pt-2">
+                <div className="flex justify-start gap-[25px]">
                   <TabHead value="token" title="Token" />
                   <TabHead value="liquidity" title="Liquidity" />
                   <TabHead value="markets" title="Markets" />
@@ -80,22 +80,18 @@ export default function ExplorePage() {
               <Label className="text-sm font-semibold text-cool-grey">256</Label>
             </div>
             <Pagination className="m-0 w-fit">
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious className="hover:bg-chinese-green" href="#" hideText />
+              <PaginationContent className="">
+                <PaginationItem className="">
+                  <PaginationPrevious href="#" hideText />
                 </PaginationItem>
-                <PaginationItem>
-                  <PaginationLink
-                    className="text-xs font-semibold text-cool-grey hover:bg-chinese-green"
-                    href="#"
-                    isActive
-                  >
+                <PaginationItem className="flex gap-1">
+                  <PaginationLink className="text-xs font-semibold text-cool-grey" href="#" isActive>
                     1
                   </PaginationLink>
-                  <PaginationLink className="text-xs font-semibold text-cool-grey hover:bg-chinese-green" href="#">
+                  <PaginationLink className="text-xs font-semibold text-cool-grey" href="#">
                     2
                   </PaginationLink>
-                  <PaginationLink className="text-xs font-semibold text-cool-grey hover:bg-chinese-green" href="#">
+                  <PaginationLink className="text-xs font-semibold text-cool-grey" href="#">
                     3
                   </PaginationLink>
                 </PaginationItem>
@@ -103,12 +99,12 @@ export default function ExplorePage() {
                   <PaginationEllipsis className="text-xs font-semibold text-cool-grey" />
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationLink className="text-xs font-semibold text-cool-grey hover:bg-chinese-green" href="#">
+                  <PaginationLink className="text-xs font-semibold text-cool-grey" href="#">
                     12
                   </PaginationLink>
                 </PaginationItem>
                 <PaginationItem>
-                  <PaginationNext className="hover:bg-chinese-green" href="#" hideText />
+                  <PaginationNext className="" href="#" hideText />
                 </PaginationItem>
               </PaginationContent>
             </Pagination>

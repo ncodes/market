@@ -1,6 +1,6 @@
-import * as React from "react";
-import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { cn } from "@/libs/utils";
+import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import * as React from "react";
 import { ButtonProps, buttonVariants } from "./button";
 
 const Pagination = ({ className, ...props }: React.ComponentProps<"nav">) => (
@@ -39,7 +39,7 @@ const PaginationLink = ({ className, isActive, size = "icon", ...props }: Pagina
         size,
       }),
       className,
-      { "bg-chinese-green text-raisin-black": isActive },
+      { "bg-screaming-green text-raisin-black hover:!bg-screaming-green hover:text-raisin-black": isActive },
     )}
     {...props}
   />
@@ -81,9 +81,9 @@ PaginationEllipsis.displayName = "PaginationEllipsis";
 export {
   Pagination,
   PaginationContent,
-  PaginationLink,
-  PaginationItem,
-  PaginationPrevious,
-  PaginationNext,
   PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
 };
