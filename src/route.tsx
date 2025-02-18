@@ -8,6 +8,7 @@ import LandingPage from "./pages/landing";
 import SwapPage from "./pages/swap/swap";
 import ViewLiquidityPage from "./pages/liquidity/view/page";
 import ViewMarketPage from "./pages/markets/view/page";
+import ExplorePage from "./pages/explore/page";
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,11 @@ const router = createBrowserRouter([
   {
     path: "/market/view",
     element: <Layout page={<ViewMarketPage />} />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/explore",
+    element: <Layout page={<ExplorePage />} />,
     errorElement: <ErrorPage />,
   },
 ]);

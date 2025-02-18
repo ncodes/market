@@ -20,7 +20,8 @@ export function PriceInput() {
             className={cn(
               "scale-btn flex h-auto cursor-pointer items-center rounded-full bg-transparent p-1 px-4 hover:bg-transparent hover:text-white",
               {
-                "bg-chinese-green text-gray-800 hover:scale-100 hover:bg-chinese-green hover:text-gray-800": autoPrice,
+                "bg-screaming-green text-gray-800 hover:scale-100 hover:bg-screaming-green hover:text-gray-800":
+                  autoPrice,
               },
             )}
           >
@@ -33,7 +34,8 @@ export function PriceInput() {
             className={cn(
               "scale-btn flex h-auto cursor-pointer items-center rounded-full bg-transparent p-1 px-4 hover:bg-transparent hover:text-white",
               {
-                "bg-chinese-green text-gray-800 hover:scale-100 hover:bg-chinese-green hover:text-gray-800": !autoPrice,
+                "bg-screaming-green text-gray-800 hover:scale-100 hover:bg-screaming-green hover:text-gray-800":
+                  !autoPrice,
               },
             )}
           >

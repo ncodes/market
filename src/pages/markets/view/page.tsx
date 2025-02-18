@@ -1,16 +1,17 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
+import { NetworkSelectorButton } from "@/components/AssetButton";
+import TabHead from "@/components/TabHead";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconOpenLink from "@/components/icons/IconOpenLink";
+import IconTriangleDown from "@/components/icons/IconTriangleDown";
+import IconTriangleUp from "@/components/icons/IconTriangleUp";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
-import LiquiditySwap from "./swap";
 import LiquidityTable from "./liquidity-table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import IconTriangleUp from "@/components/icons/IconTriangleUp";
-import IconTriangleDown from "@/components/icons/IconTriangleDown";
-import { NetworkSelectorButton } from "@/components/AssetButton";
+import LiquiditySwap from "./swap";
 import TransactionsTable from "./transactions-table";
 
 export default function ViewMarketPage() {
@@ -18,7 +19,7 @@ export default function ViewMarketPage() {
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
         <div className="flex gap-6">
-          <div className="bg-chinese-black w-screen max-w-3xl rounded-3xl border border-eerie-black/50">
+          <div className="w-screen max-w-3xl rounded-3xl border border-eerie-black/50 bg-chinese-black">
             <div className="flex items-center gap-6 border-b border-eerie-black px-6 py-4">
               <div className="flex items-center">
                 <div className="relative w-16">
@@ -27,7 +28,9 @@ export default function ViewMarketPage() {
                 </div>
                 <Label className="text-lg font-medium text-white">USDC/SOL</Label>
               </div>
-              <Label className="text-chinese-green bg-gunmetal rounded-xl px-2 py-1 text-xs font-semibold">0.05%</Label>
+              <Label className="rounded-xl bg-gunmetal px-2 py-1 text-xs font-semibold text-screaming-green">
+                0.05%
+              </Label>
             </div>
             <LiquidityChart />
             <div className="w-full">
@@ -51,27 +54,27 @@ export default function ViewMarketPage() {
           <div className="flex w-screen max-w-[400px] flex-col gap-6">
             <div className="flex flex-col gap-3">
               <LiquiditySwap />
-              <div className="bg-chinese-black w-full rounded-3xl border border-eerie-black/50">
+              <div className="w-full rounded-3xl border border-eerie-black/50 bg-chinese-black">
                 <div className="border-b border-eerie-black/50 px-5 py-3">
-                  <Label className="text-lotion text-xl font-semibold">Stats</Label>
+                  <Label className="text-xl font-semibold text-lotion">Stats</Label>
                 </div>
                 <div className="flex w-full flex-col gap-4 px-5 py-3">
                   <div className="flex justify-between">
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col">
-                        <Label className="text-cool-grey font-light">Amount Available</Label>
-                        <Label className="text-anti-flash-white font-dosis text-2xl font-semibold">$10m USDC</Label>
+                        <Label className="font-light text-cool-grey">Amount Available</Label>
+                        <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">$10m USDC</Label>
                       </div>
                       <div className="flex flex-col">
-                        <Label className="text-cool-grey font-light">24Hr Fees.</Label>
-                        <Label className="text-anti-flash-white font-dosis text-2xl font-semibold">$100k</Label>
+                        <Label className="font-light text-cool-grey">24Hr Fees.</Label>
+                        <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">$100k</Label>
                       </div>
                     </div>
                     <div className="flex flex-col gap-4">
                       <div className="flex flex-col">
-                        <Label className="text-cool-grey font-light">TVL</Label>
+                        <Label className="font-light text-cool-grey">TVL</Label>
                         <div className="flex items-center gap-3">
-                          <Label className="text-anti-flash-white font-dosis text-2xl font-semibold">$40.5</Label>
+                          <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">$40.5</Label>
                           <div className="flex items-center">
                             <IconTriangleUp />
                             <Label className="text-go-green font-light">0.03%</Label>
@@ -79,9 +82,9 @@ export default function ViewMarketPage() {
                         </div>
                       </div>
                       <div className="flex flex-col">
-                        <Label className="text-cool-grey font-light">24Hr Vol.</Label>
+                        <Label className="font-light text-cool-grey">24Hr Vol.</Label>
                         <div className="flex items-center gap-3">
-                          <Label className="text-anti-flash-white font-dosis text-2xl font-semibold">$80.5m</Label>
+                          <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">$80.5m</Label>
                           <div className="flex items-center">
                             <IconTriangleDown />
                             <Label className="text-coral-red font-light">20%</Label>
@@ -94,7 +97,7 @@ export default function ViewMarketPage() {
               </div>
             </div>
             <div className="flex w-full flex-col gap-4 p-2 px-5">
-              <Label className="text-lotion text-xl font-medium">Links</Label>
+              <Label className="text-xl font-medium text-lotion">Links</Label>
               <div className="flex w-full flex-col gap-4">
                 {[1, 2, 3, 4].map((_) => (
                   <div className="flex w-full justify-between tracking-wide">
@@ -115,11 +118,11 @@ export default function ViewMarketPage() {
                     </div>
                     <div className="flex">
                       <div className="border-vampire-black rounded-s-3xl border bg-eerie-black px-3">
-                        <Label className="text-cool-grey text-xs font-light">0x123...9867</Label>
+                        <Label className="text-xs font-light text-cool-grey">0x123...9867</Label>
                       </div>
                       <Link to={"#"}>
                         <div className="flex items-center rounded-e-3xl border border-eerie-black bg-eerie-black px-1">
-                          <Label className="text-chinese-green text-xs font-normal">View</Label>
+                          <Label className="text-xs font-normal text-screaming-green">View</Label>
                           <IconOpenLink />
                         </div>
                       </Link>
@@ -132,16 +135,5 @@ export default function ViewMarketPage() {
         </div>
       </div>
     </PageLayout>
-  );
-}
-
-function TabHead({ value, title }: { value: string; title: string }) {
-  return (
-    <TabsTrigger
-      value={value}
-      className="text-black-coral flex items-center gap-1 p-0 text-sm font-semibold data-[state=active]:bg-transparent data-[state=active]:text-white"
-    >
-      {title}
-    </TabsTrigger>
   );
 }
