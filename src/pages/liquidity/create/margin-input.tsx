@@ -53,8 +53,8 @@ export function MarginInput({ className }: { className?: string }) {
             value={[margin]}
             className="border-none bg-transparent"
             rangeClassName="bg-black-coral/90 h-[6px] border-none"
-            trackClassName="bg-chinese-green border-none"
-            thumbClassName="border-chinese-green bg-chinese-green"
+            trackClassName="bg-screaming-green border-none"
+            thumbClassName="border-screaming-green bg-screaming-green"
           />
           <div className="flex justify-between">
             <Label className="font-inter font-semibold text-cool-grey">-20%</Label>

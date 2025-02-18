@@ -62,7 +62,7 @@ export const liquidityColumns: ColumnDef<LiquidityTableProps>[] = [
     cell: (_) => (
       <Button
         variant={"ghost"}
-        className="text-chinese-green hover:text-chinese-green hover:bg-chinese-green/30 h-8 py-0 text-center text-sm font-semibold"
+        className="h-8 py-0 text-center text-sm font-semibold text-screaming-green hover:bg-screaming-green/30 hover:text-screaming-green"
       >
         {"Swap >"}
       </Button>
@@ -89,7 +89,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).from}</Label>
         </div>
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
-        <ChevronRight className="text-chinese-green" />
+        <ChevronRight className="text-screaming-green" />
         <div className="flex gap-0.5">
           <Avatar src={SolanaIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).to}</Label>

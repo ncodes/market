@@ -1,6 +1,6 @@
-import * as React from "react";
 import * as DropdownMenuPrimitive from "@radix-ui/react-dropdown-menu";
 import { CheckIcon, ChevronRightIcon, DotFilledIcon } from "@radix-ui/react-icons";
+import * as React from "react";
 import { cn } from "../../libs/utils.ts";
 
 const DropdownMenu = DropdownMenuPrimitive.Root;
@@ -80,7 +80,7 @@ const DropdownMenuItem = React.forwardRef<
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
-      "focus:bg-chinese-green relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:text-accent-foreground",
+      "relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-screaming-green focus:text-accent-foreground",
       inset && "pl-8",
       className,
     )}
@@ -162,20 +162,20 @@ const DropdownMenuShortcut = ({ className, ...props }: React.HTMLAttributes<HTML
 DropdownMenuShortcut.displayName = "DropdownMenuShortcut";
 
 export {
-  DropdownMenu,
-  DropdownMenuTrigger,
   DropdownArrow,
-  DropdownMenuContent,
-  DropdownMenuItem,
+  DropdownMenu,
   DropdownMenuCheckboxItem,
-  DropdownMenuRadioItem,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuGroup,
-  DropdownMenuPortal,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuRadioGroup,
+  DropdownMenuTrigger,
 };

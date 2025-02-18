@@ -44,7 +44,6 @@ export default {
         "cool-grey": "#8f90a6",
         "anti-flash-white": "#f2f2f5",
         lotion: "#fafafa",
-        "chinese-green": "#c8ed5a",
         "silver-sand": "#c8c5c5",
         "june-bud": "#bae148",
         "go-green": "#06c270",
@@ -53,7 +52,7 @@ export default {
         "ufo-green": "#39d98a",
         "sunset-orange": "#ff5c5c",
         "coral-red": "#ff3b3b",
-        
+
         // Adjusted
         "chinese-black": "#11131b",
 
