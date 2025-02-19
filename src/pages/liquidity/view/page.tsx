@@ -13,6 +13,16 @@ import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { ChevronRight, XIcon } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
+import InfoLabel from "@/components/InfoLabel";
+import AssetField from "@/components/AssetField";
+import { Slider } from "@/components/ui/slider";
+import UpdatePrice from "./options/update-price";
+import UpdateManager from "./options/update-manager";
+import PauseLiquidity from "./options/pause-liquidity";
 
 export default function ViewLiquidityPage() {
   return (
@@ -33,7 +43,7 @@ export default function ViewLiquidityPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="text-light-periwinkle flex items-center gap-1 text-xs font-light">
+                <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
                   <IconActive /> Active
                 </Label>
               </div>
@@ -41,15 +51,8 @@ export default function ViewLiquidityPage() {
                 <Label className="flex items-center gap-1 text-xs font-semibold text-cool-grey">
                   <IconLock /> Permissioned
                 </Label>
-                <Button
-                  variant={"secondary"}
-                  className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70"
-                >
-                  Edit
-                </Button>
-                <Button variant={"ghost"} className="p-0 hover:bg-transparent">
-                  <Icon3Dots />
-                </Button>
+                <EditLiquidity />
+                <MoreButton />
               </div>
             </div>
             <div className="flex w-full items-start gap-32 border-b border-eerie-black px-6 py-4">
@@ -64,7 +67,7 @@ export default function ViewLiquidityPage() {
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">10.5 SOL</Label>
                 <div className="flex gap-1">
                   <Label className="text-xs font-light text-cool-grey">Auto</Label>
-                  <Label className="text-ufo-green text-xs font-light">+15%</Label>
+                  <Label className="text-xs font-light text-ufo-green">+15%</Label>
                 </div>
               </div>
               <div className="flex flex-col">
@@ -111,7 +114,7 @@ export default function ViewLiquidityPage() {
                       <Label className="text-xs font-light text-white">USDC/USDT</Label>
                     </div>
                     <div className="flex">
-                      <div className="border-vampire-black rounded-s-3xl border bg-eerie-black px-3">
+                      <div className="rounded-s-3xl border border-vampire-black bg-eerie-black px-3">
                         <Label className="text-xs font-light text-cool-grey">0x123...9867</Label>
                       </div>
                       <Link to={"#"}>
@@ -140,5 +143,115 @@ function TabHead({ value, title }: { value: string; title: string }) {
     >
       {title}
     </TabsTrigger>
+  );
+}
+
+function MoreButton() {
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Button variant={"ghost"} className="p-0 hover:bg-transparent">
+          <Icon3Dots />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="flex w-[217px] flex-col gap-3 rounded-3xl border-none bg-vampire-black p-4"
+        side="bottom"
+        align="end"
+      >
+        <Button
+          variant={"ghost"}
+          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
+        >
+          Adjust Amount
+          <ChevronRight className="text-cool-grey group-hover:text-white" />
+        </Button>
+        <UpdatePrice />
+        <UpdateManager />
+        <Button
+          variant={"ghost"}
+          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
+        >
+          Update Target
+          <ChevronRight className="text-cool-grey group-hover:text-white" />
+        </Button>
+        <PauseLiquidity />
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+function EditLiquidity() {
+  const [open, setOpen] = useState(false);
+  const [isSubmitted, setSubmitted] = useState(false);
+  return (
+    <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
+      <DialogTrigger>
+        <Button variant={"secondary"} className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70">
+          Edit
+        </Button>
+      </DialogTrigger>
+      <DialogContent
+        className="max-w-[360px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
+        hideCloseButton
+      >
+        <div className="flex w-full flex-col gap-2">
+          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+            <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
+              <Label className="text-2xl font-semibold text-lotion">{isSubmitted ? "Confirm" : "Adjust Amount"}</Label>
+              <Button
+                onClick={() => setOpen(false)}
+                variant="ghost"
+                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
+              >
+                <XIcon className="size-5" />
+              </Button>
+            </div>
+            <div className="mb-6 flex flex-col gap-3 px-5 py-[14px]">
+              <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
+              <div className="flex flex-col gap-1">
+                <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
+                <AssetField width={120} placeholder="10,000 USDC" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <InfoLabel text="New" info="New" className="text-sm font-light text-light-periwinkle" />
+                <AssetField width={120} placeholder="0.00" />
+              </div>
+              {isSubmitted && (
+                <div className="flex flex-col gap-1">
+                  <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
+                  <AssetField width={120} placeholder="0.00" />
+                </div>
+              )}
+              {!isSubmitted && (
+                <div className="mt-3 flex flex-col gap-3">
+                  <Slider
+                    defaultValue={[0]}
+                    max={30}
+                    step={1}
+                    min={0}
+                    className="border-none bg-transparent"
+                    rangeClassName="bg-screaming-green h-[6px] border-none"
+                    trackClassName="bg-black-coral/90 border-none"
+                    thumbClassName="border-screaming-green bg-screaming-green"
+                  />
+                  <div className="flex justify-between">
+                    <Label className="font-inter font-semibold text-cool-grey">0%</Label>
+                    <Label className="font-inter font-semibold text-cool-grey">30%</Label>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          <Button
+            variant={"secondary"}
+            className="h-12 text-lg font-semibold text-gunmetal"
+            onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
+          >
+            {isSubmitted ? "Update" : "Confirm"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -43,7 +43,7 @@ export function PriceInput() {
           </Button>
         </div>
       </div>
-      <Input suffix="USDT" disabled={autoPrice} />
+      <Input suffix="USDT" disabled={autoPrice} className="text-white"/>
       {autoPrice && <MarginInput className="mt-4" />}
     </div>
   );
