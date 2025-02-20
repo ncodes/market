@@ -1,4 +1,6 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
+import AssetField from "@/components/AssetField";
+import InfoLabel from "@/components/InfoLabel";
 import { Avatar } from "@/components/avatar/Avatar";
 import Icon3Dots from "@/components/icons/Icon3Dots";
 import IconActive from "@/components/icons/IconActive";
@@ -6,24 +8,23 @@ import IconDropDown from "@/components/icons/IconDropDown";
 import IconLock from "@/components/icons/IconLock";
 import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
+import { ChevronRight, XIcon } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
+import PauseLiquidity from "./options/pause-liquidity";
+import UpdateManager from "./options/update-manager";
+import UpdatePrice from "./options/update-price";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ChevronRight, XIcon } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useState } from "react";
-import InfoLabel from "@/components/InfoLabel";
-import AssetField from "@/components/AssetField";
-import { Slider } from "@/components/ui/slider";
-import UpdatePrice from "./options/update-price";
-import UpdateManager from "./options/update-manager";
-import PauseLiquidity from "./options/pause-liquidity";
 import { formatMoney } from "@telefonica/money-formatter";
+import UpdateTarget from "./options/update-target";
 
 export default function ViewLiquidityPage() {
   return (
@@ -156,7 +157,7 @@ function MoreButton() {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="flex w-[217px] flex-col gap-3 rounded-3xl border-none bg-vampire-black p-4"
+        className="flex w-[217px] flex-col gap-1 rounded-3xl border-none bg-vampire-black p-2"
         side="bottom"
         align="end"
       >
@@ -169,13 +170,7 @@ function MoreButton() {
         </Button>
         <UpdatePrice />
         <UpdateManager />
-        <Button
-          variant={"ghost"}
-          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
-        >
-          Update Target
-          <ChevronRight className="text-cool-grey group-hover:text-white" />
-        </Button>
+        <UpdateTarget />
         <PauseLiquidity />
       </PopoverContent>
     </Popover>
@@ -211,7 +206,7 @@ function EditLiquidity() {
                 <XIcon className="size-5" />
               </Button>
             </div>
-            <div className="mb-6 flex flex-col gap-3 px-5 py-[14px]">
+            <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
               <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
               <div className="flex flex-col gap-1">
                 <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
@@ -235,7 +230,13 @@ function EditLiquidity() {
               {isSubmitted && (
                 <div className="flex flex-col gap-1">
                   <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
-                  <AssetField width={120} placeholder="0.00" value={78} />
+                  <AssetField
+                    width={120}
+                    placeholder="0.00"
+                    type="text"
+                    value={formatMoney({ amount: newAmount, precision: 0, currency: "" })}
+                    readOnly
+                  />
                 </div>
               )}
               {!isSubmitted && (

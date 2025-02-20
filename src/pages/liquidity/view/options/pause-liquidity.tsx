@@ -43,8 +43,8 @@ export default function PauseLiquidity() {
               )}
               {isSubmitted && (
                 <div className="flex items-start gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-sunset-orange/20">
-                    <InfoCircledIcon className="h-5 w-5 text-sunset-orange" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500/20">
+                    <InfoCircledIcon className="h-5 w-5 text-yellow-500" />
                   </div>
                   <Label className="text-sm font-light text-cool-grey">
                     Are you sure you want to pause this liquidity?
@@ -55,7 +55,7 @@ export default function PauseLiquidity() {
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 text-lg font-semibold text-gunmetal"
+            className="h-12 text-lg font-semibold text-gunmetal bg-yellow-500 hover:bg-yellow-600"
             onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             {isSubmitted ? "Pause" : "Proceed"}

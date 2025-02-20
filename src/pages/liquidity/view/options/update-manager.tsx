@@ -1,12 +1,12 @@
+import InfoLabel from "@/components/InfoLabel";
+import Input from "@/components/Input";
+import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import { AvatarSize } from "@/components/avatar/useAvatar";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ChevronRight, XIcon } from "lucide-react";
 import { useState } from "react";
-import InfoLabel from "@/components/InfoLabel";
-import { Avatar } from "@/components/avatar/Avatar";
-import { CoinbaseIcon } from "@/assets";
-import Input from "@/components/Input";
 
 export default function UpdateManager() {
   const [open, setOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function UpdateManager() {
         <div className="flex w-full flex-col gap-2">
           <div className="rounded-3xl border border-gunmetal bg-chinese-black">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="max-w-[250px] text-2xl font-semibold text-lotion">
+              <Label className="max-w-[250px] text-xl font-semibold text-lotion">
                 {isSubmitted ? "Confirm" : "Update Liquidity Manager"}
               </Label>
               <Button
@@ -41,11 +41,11 @@ export default function UpdateManager() {
               </Button>
             </div>
             {!isSubmitted && (
-              <div className="mb-6 flex flex-col gap-5 px-5 py-[14px]">
+              <div className="mb-6 flex flex-col gap-5 px-5 py-[14px] pb-0">
                 <div className="flex flex-col gap-1">
                   <InfoLabel text="Current" info="Current" className="text-light-periwinkle" />
                   <div className="flex items-center gap-1">
-                    <Avatar src={CoinbaseIcon} rootClassName="w-5 h-5" className="h-5 w-5" />
+                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Medium} randomStr="" />
                     <Label className="font-dosis text-lg font-semibold text-cool-grey">0x231245762817</Label>
                   </div>
                 </div>
@@ -57,7 +57,7 @@ export default function UpdateManager() {
             )}
 
             {isSubmitted && (
-              <div className="mb-6 flex flex-col gap-4 px-5 py-[14px]">
+              <div className="mb-6 flex flex-col gap-4 px-5 py-[14px] pb-0">
                 <Label className="text-sm font-light text-cool-grey">
                   Setting a target ensures only the address can swap
                 </Label>
@@ -65,14 +65,14 @@ export default function UpdateManager() {
                 <div className="flex flex-col gap-1">
                   <InfoLabel text="Current" info="Current" className="text-light-periwinkle" />
                   <div className="flex items-center gap-1">
-                    <Avatar src={CoinbaseIcon} rootClassName="w-5 h-5" className="h-5 w-5" />
+                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Medium} randomStr="" />
                     <Label className="font-dosis text-lg font-semibold text-cool-grey">0x231245762817</Label>
                   </div>
                 </div>
                 <div className="flex flex-col gap-1">
                   <InfoLabel text="Current Liquidity Manager" info="Current Liquidity Manager" className="text-white" />
                   <div className="flex items-center gap-1">
-                    <Avatar src={CoinbaseIcon} rootClassName="w-5 h-5" className="h-5 w-5" />
+                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Medium} randomStr="" />
                     <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
                   </div>
                 </div>
