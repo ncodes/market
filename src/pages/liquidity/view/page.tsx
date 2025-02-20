@@ -1,4 +1,6 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
+import AssetField from "@/components/AssetField";
+import InfoLabel from "@/components/InfoLabel";
 import { Avatar } from "@/components/avatar/Avatar";
 import Icon3Dots from "@/components/icons/Icon3Dots";
 import IconActive from "@/components/icons/IconActive";
@@ -6,23 +8,21 @@ import IconDropDown from "@/components/icons/IconDropDown";
 import IconLock from "@/components/icons/IconLock";
 import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
+import { ChevronRight, XIcon } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
+import PauseLiquidity from "./options/pause-liquidity";
+import UpdateManager from "./options/update-manager";
+import UpdatePrice from "./options/update-price";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ChevronRight, XIcon } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { useState } from "react";
-import InfoLabel from "@/components/InfoLabel";
-import AssetField from "@/components/AssetField";
-import { Slider } from "@/components/ui/slider";
-import UpdatePrice from "./options/update-price";
-import UpdateManager from "./options/update-manager";
-import PauseLiquidity from "./options/pause-liquidity";
 
 export default function ViewLiquidityPage() {
   return (
@@ -43,7 +43,7 @@ export default function ViewLiquidityPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
+                <Label className="text-light-periwinkle flex items-center gap-1 text-xs font-light">
                   <IconActive /> Active
                 </Label>
               </div>
@@ -67,7 +67,7 @@ export default function ViewLiquidityPage() {
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">10.5 SOL</Label>
                 <div className="flex gap-1">
                   <Label className="text-xs font-light text-cool-grey">Auto</Label>
-                  <Label className="text-xs font-light text-ufo-green">+15%</Label>
+                  <Label className="text-ufo-green text-xs font-light">+15%</Label>
                 </div>
               </div>
               <div className="flex flex-col">
@@ -114,7 +114,7 @@ export default function ViewLiquidityPage() {
                       <Label className="text-xs font-light text-white">USDC/USDT</Label>
                     </div>
                     <div className="flex">
-                      <div className="rounded-s-3xl border border-vampire-black bg-eerie-black px-3">
+                      <div className="border-vampire-black rounded-s-3xl border bg-eerie-black px-3">
                         <Label className="text-xs font-light text-cool-grey">0x123...9867</Label>
                       </div>
                       <Link to={"#"}>
@@ -155,7 +155,7 @@ function MoreButton() {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="flex w-[217px] flex-col gap-3 rounded-3xl border-none bg-vampire-black p-4"
+        className="bg-vampire-black flex w-[217px] flex-col gap-1 rounded-3xl border-none p-2"
         side="bottom"
         align="end"
       >
@@ -207,19 +207,19 @@ function EditLiquidity() {
                 <XIcon className="size-5" />
               </Button>
             </div>
-            <div className="mb-6 flex flex-col gap-3 px-5 py-[14px]">
-              <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
-              <div className="flex flex-col gap-1">
-                <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
+            <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
+              <Label className="text-sm font-light text-cool-grey">Add or remove Liquidity</Label>
+              <div className="mt-2 flex flex-col gap-1">
+                <InfoLabel text="Current" info="Current" className="text-light-periwinkle text-sm font-light" />
                 <AssetField width={120} placeholder="10,000 USDC" />
               </div>
               <div className="flex flex-col gap-1">
-                <InfoLabel text="New" info="New" className="text-sm font-light text-light-periwinkle" />
+                <InfoLabel text="New" info="New" className="text-light-periwinkle text-sm font-light" />
                 <AssetField width={120} placeholder="0.00" />
               </div>
               {isSubmitted && (
                 <div className="flex flex-col gap-1">
-                  <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
+                  <InfoLabel text="Returned" info="Returned" className="text-light-periwinkle text-sm font-light" />
                   <AssetField width={120} placeholder="0.00" />
                 </div>
               )}
