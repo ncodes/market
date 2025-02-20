@@ -11,6 +11,9 @@ export interface IStore {
 
   openSwapConfirmation: boolean;
   setOpenSwapConfirmation: (open: boolean) => void;
+
+  openAdjustAmount: boolean;
+  setOpenAdjustAmount: (open: boolean) => void;
 }
 
 const useStore = create<IStore>((set) => ({
@@ -25,6 +28,9 @@ const useStore = create<IStore>((set) => ({
 
   openSwapConfirmation: false,
   setOpenSwapConfirmation: (open: boolean) => set({ openSwapConfirmation: open }),
+
+  openAdjustAmount: false,
+  setOpenAdjustAmount: (open: boolean) => set({ openAdjustAmount: open }),
 }));
 
 export default useStore;

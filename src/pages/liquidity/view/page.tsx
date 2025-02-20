@@ -1,6 +1,4 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
-import AssetField from "@/components/AssetField";
-import InfoLabel from "@/components/InfoLabel";
 import { Avatar } from "@/components/avatar/Avatar";
 import Icon3Dots from "@/components/icons/Icon3Dots";
 import IconActive from "@/components/icons/IconActive";
@@ -8,14 +6,11 @@ import IconDropDown from "@/components/icons/IconDropDown";
 import IconLock from "@/components/icons/IconLock";
 import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Slider } from "@/components/ui/slider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
-import { ChevronRight, XIcon } from "lucide-react";
-import { useState } from "react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
 import PauseLiquidity from "./options/pause-liquidity";
@@ -23,10 +18,13 @@ import UpdateManager from "./options/update-manager";
 import UpdatePrice from "./options/update-price";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
-import { formatMoney } from "@telefonica/money-formatter";
 import UpdateTarget from "./options/update-target";
+import useStore from "@/hooks/store/useStore";
+import AdjustAmount from "./options/adjust-amount";
 
 export default function ViewLiquidityPage() {
+  const { setOpenAdjustAmount } = useStore();
+
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
@@ -53,7 +51,14 @@ export default function ViewLiquidityPage() {
                 <Label className="flex items-center gap-1 text-xs font-semibold text-cool-grey">
                   <IconLock /> Permissioned
                 </Label>
-                <EditLiquidity />
+                <Button
+                  variant={"secondary"}
+                  className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70"
+                  onClick={() => setOpenAdjustAmount(true)}
+                >
+                  Edit
+                </Button>
+                <AdjustAmount />
                 <MoreButton />
               </div>
             </div>
@@ -149,6 +154,8 @@ function TabHead({ value, title }: { value: string; title: string }) {
 }
 
 function MoreButton() {
+  const { setOpenAdjustAmount } = useStore();
+
   return (
     <Popover>
       <PopoverTrigger>
@@ -162,6 +169,7 @@ function MoreButton() {
         align="end"
       >
         <Button
+          onClick={() => setOpenAdjustAmount(true)}
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
         >
@@ -174,95 +182,5 @@ function MoreButton() {
         <PauseLiquidity />
       </PopoverContent>
     </Popover>
-  );
-}
-
-function EditLiquidity() {
-  const [open, setOpen] = useState(false);
-  const [isSubmitted, setSubmitted] = useState(false);
-  const currentAmount = 10000;
-  const [newAmount, setNewAmount] = useState(10000);
-
-  return (
-    <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger>
-        <Button variant={"secondary"} className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70">
-          Edit
-        </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="max-w-[360px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
-        hideCloseButton
-      >
-        <div className="flex w-full flex-col gap-2">
-          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
-            <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-2xl font-semibold text-lotion">{isSubmitted ? "Confirm" : "Adjust Amount"}</Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
-            </div>
-            <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
-              <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
-              <div className="flex flex-col gap-1">
-                <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
-                <AssetField
-                  width={120}
-                  placeholder="10,000 USDC"
-                  value={formatMoney({ amount: currentAmount, precision: 0, currency: "" })}
-                  readOnly
-                  type="text"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <InfoLabel text="New" info="New" className="text-sm font-light text-light-periwinkle" />
-                <AssetField
-                  width={120}
-                  placeholder="0.00"
-                  value={newAmount}
-                  onChange={({ currentTarget }) => setNewAmount(Number(currentTarget.value))}
-                />
-              </div>
-              {isSubmitted && (
-                <div className="flex flex-col gap-1">
-                  <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
-                  <AssetField
-                    width={120}
-                    placeholder="0.00"
-                    type="text"
-                    value={formatMoney({ amount: newAmount, precision: 0, currency: "" })}
-                    readOnly
-                  />
-                </div>
-              )}
-              {!isSubmitted && (
-                <Slider
-                  defaultValue={[currentAmount]}
-                  max={currentAmount * 2}
-                  step={1}
-                  min={0}
-                  className="border-none bg-transparent"
-                  rangeClassName="bg-screaming-green h-[6px] border-none"
-                  trackClassName="bg-black-coral/90 border-none"
-                  thumbClassName="border-screaming-green bg-screaming-green"
-                  onValueChange={(value) => setNewAmount(value[0])}
-                />
-              )}
-            </div>
-          </div>
-          <Button
-            variant={"secondary"}
-            className="h-12 text-lg font-semibold text-gunmetal"
-            onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
-          >
-            {isSubmitted ? "Update" : "Confirm"}
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
   );
 }
