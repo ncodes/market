@@ -52,10 +52,10 @@ export default function LiquidityChart() {
           <SelectVolume />
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full text-left pl-6">
+      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-6 text-left">
         <BarChart accessibilityLayer data={chartData} className="-ml-3 flex text-left">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
-          <YAxis tickLine={false} axisLine={false}  tick={{ textAnchor: "start", dx: -10 }} width={25}/>
+          <YAxis tickLine={false} axisLine={false} tick={{ textAnchor: "start", dx: -10 }} width={25} />
           <Bar dataKey="asset1" stackId={"b"} fill="var(--color-asset1)" radius={[5, 5, 5, 5]} maxBarSize={20} />
           <ChartTooltip
             content={
@@ -83,7 +83,7 @@ function ChartFilter({ text, isActive }: { text: string; isActive?: boolean }) {
         isActive && "bg-white",
       )}
     >
-      <Label className={cn("text-cool-grey cursor-pointer text-sm font-semibold", isActive && "text-gunmetal")}>
+      <Label className={cn("cursor-pointer text-sm font-semibold text-cool-grey", isActive && "text-gunmetal")}>
         {text}
       </Label>
     </Button>
@@ -99,15 +99,15 @@ function SelectVolume() {
       >
         <Button
           variant={"ghost"}
-          className="text-cool-grey hover:text-cool-grey flex items-center font-light hover:bg-transparent"
+          className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey"
         >
           Volume <IconDropDown />
         </Button>
       </SelectTrigger>
-      <SelectContent className="bg-chinese-black border-eerie-black">
+      <SelectContent className="border-eerie-black bg-chinese-black">
         {[1, 2, 3, 4, 5].map((item) => (
           <SelectItem
-            className="hover:!bg-june-bud active:!bg-june-bud data-[state=checked]:!bg-june-bud data-[state=unchecked]:!bg-transparent data-[state=unchecked]:!text-white"
+            className="cursor-pointer data-[state=checked]:!bg-eerie-black data-[state=unchecked]:!bg-transparent data-[state=checked]:!text-white data-[state=unchecked]:!text-cool-grey hover:!bg-eerie-black active:!bg-eerie-black"
             key={item}
             value={`Volume ${item}`}
           >{`Volume ${item}`}</SelectItem>

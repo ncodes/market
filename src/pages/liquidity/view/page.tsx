@@ -23,6 +23,7 @@ import { Slider } from "@/components/ui/slider";
 import UpdatePrice from "./options/update-price";
 import UpdateManager from "./options/update-manager";
 import PauseLiquidity from "./options/pause-liquidity";
+import { formatMoney } from "@telefonica/money-formatter";
 
 export default function ViewLiquidityPage() {
   return (
@@ -184,6 +185,9 @@ function MoreButton() {
 function EditLiquidity() {
   const [open, setOpen] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
+  const currentAmount = 10000;
+  const [newAmount, setNewAmount] = useState(10000);
+
   return (
     <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger>
@@ -211,35 +215,41 @@ function EditLiquidity() {
               <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
               <div className="flex flex-col gap-1">
                 <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
-                <AssetField width={120} placeholder="10,000 USDC" />
+                <AssetField
+                  width={120}
+                  placeholder="10,000 USDC"
+                  value={formatMoney({ amount: currentAmount, precision: 0, currency: "" })}
+                  readOnly
+                  type="text"
+                />
               </div>
               <div className="flex flex-col gap-1">
                 <InfoLabel text="New" info="New" className="text-sm font-light text-light-periwinkle" />
-                <AssetField width={120} placeholder="0.00" />
+                <AssetField
+                  width={120}
+                  placeholder="0.00"
+                  value={newAmount}
+                  onChange={({ currentTarget }) => setNewAmount(Number(currentTarget.value))}
+                />
               </div>
               {isSubmitted && (
                 <div className="flex flex-col gap-1">
                   <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
-                  <AssetField width={120} placeholder="0.00" />
+                  <AssetField width={120} placeholder="0.00" value={78} />
                 </div>
               )}
               {!isSubmitted && (
-                <div className="mt-3 flex flex-col gap-3">
-                  <Slider
-                    defaultValue={[0]}
-                    max={30}
-                    step={1}
-                    min={0}
-                    className="border-none bg-transparent"
-                    rangeClassName="bg-screaming-green h-[6px] border-none"
-                    trackClassName="bg-black-coral/90 border-none"
-                    thumbClassName="border-screaming-green bg-screaming-green"
-                  />
-                  <div className="flex justify-between">
-                    <Label className="font-inter font-semibold text-cool-grey">0%</Label>
-                    <Label className="font-inter font-semibold text-cool-grey">30%</Label>
-                  </div>
-                </div>
+                <Slider
+                  defaultValue={[currentAmount]}
+                  max={currentAmount * 2}
+                  step={1}
+                  min={0}
+                  className="border-none bg-transparent"
+                  rangeClassName="bg-screaming-green h-[6px] border-none"
+                  trackClassName="bg-black-coral/90 border-none"
+                  thumbClassName="border-screaming-green bg-screaming-green"
+                  onValueChange={(value) => setNewAmount(value[0])}
+                />
               )}
             </div>
           </div>

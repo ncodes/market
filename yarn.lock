@@ -2078,6 +2078,18 @@
   resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.20.5.tgz#3974f0b090bed11243d4107283824167a395cf1d"
   integrity sha512-P9dF7XbibHph2PFRz8gfBKEXEY/HJPOhym8CHmjF8y3q5mWpKx9xtZapXQUWCgkqvsK0R46Azuz+VaxD4Xl+Tg==
 
+"@telefonica/money-formatter@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@telefonica/money-formatter/-/money-formatter-1.2.1.tgz#cdf14ab34308bb57cc4464c6bbd3f5855964b48b"
+  integrity sha512-9BqAT2PM0/FyIHhkJSL43uvgWs3Jg5DKfxLIfItsbXeZW+HjsOC/dRaTWy69MCrzHado+LBrq4Okr8doWS+exQ==
+  dependencies:
+    "@telefonica/number-formatter" "^1.0.0"
+
+"@telefonica/number-formatter@^1.0.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@telefonica/number-formatter/-/number-formatter-1.1.0.tgz#d75606a8ac302001fd9737553964d24c80aa56f1"
+  integrity sha512-+I9+SPXsUVCk6ajeO10jn9owBDP62hMCochvqQLvE6quTmgLgYEAsyFkNFD7WMTmvcuW9YBh8sc6HeVHLInPRQ==
+
 "@typechain/ethers-v5@^11.1.2":
   version "11.1.2"
   resolved "https://registry.yarnpkg.com/@typechain/ethers-v5/-/ethers-v5-11.1.2.tgz#82510c1744f37a2f906b9e0532ac18c0b74ffe69"
