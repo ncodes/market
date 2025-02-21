@@ -5,9 +5,9 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import useStore from "@/hooks/store/useStore";
+import { formatToMoney } from "@/libs/helpers";
 import { XIcon } from "lucide-react";
 import { useState } from "react";
-import { formatToMoney } from "../../../../libs/helpers";
 
 export default function AdjustAmount() {
   const { setOpenAdjustAmount, openAdjustAmount } = useStore();
@@ -50,9 +50,11 @@ export default function AdjustAmount() {
                 <InfoLabel text="New" info="New" className="text-light-periwinkle text-sm font-light" />
                 <AssetField
                   width={120}
+                  type={isSubmitted ? "text" : "number"}
                   placeholder="0.00"
-                  value={newAmount}
+                  value={isSubmitted ? formatToMoney(newAmount) : newAmount}
                   onChange={({ currentTarget }) => setNewAmount(Number(currentTarget.value))}
+                  readOnly={isSubmitted}
                 />
               </div>
               {isSubmitted && (
@@ -63,11 +65,12 @@ export default function AdjustAmount() {
               )}
               {!isSubmitted && (
                 <Slider
-                  defaultValue={[currentAmount]}
+                  defaultValue={[newAmount]}
+                  value={[newAmount]}
                   max={currentAmount * 2}
                   step={1}
                   min={0}
-                  className="border-none bg-transparent"
+                  className="mt-2 border-none bg-transparent"
                   rangeClassName="bg-screaming-green h-[6px] border-none"
                   trackClassName="bg-black-coral/90 border-none"
                   thumbClassName="border-screaming-green bg-screaming-green"
