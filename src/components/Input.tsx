@@ -10,14 +10,18 @@ export default function Input({
   placeholder,
   className,
   disabled,
+  onChange,
+  value,
 }: {
   type?: string;
-  suffix?: string;
+  suffix?: string | React.ReactNode;
   children?: ReactNode;
   hideSuffix?: boolean;
   placeholder?: string;
   className?: string;
   disabled?: boolean;
+  value?: string | number;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }) {
   const childrenArray = React.Children.toArray(children);
   const leftLabel = children ? childrenArray.find((child: any) => child.type === LeftLabel) : null;
@@ -25,17 +29,21 @@ export default function Input({
 
   return (
     <div>
-      <div className="flex h-11 w-full rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
+      <div className="flex items-center h-11 w-full rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
         <input
+          onChange={onChange}
           type={type || "number"}
+          value={value}
           placeholder={placeholder || "0.00"}
           className={cn("input focus-within:ring-0", className)}
           disabled={disabled}
         />
-        {!hideSuffix && (
+        {!hideSuffix && typeof suffix === "string" ? (
           <div className="flex h-full w-max items-center rounded-3xl bg-black-coral/20 px-4">
             <Label className="w-max text-sm tracking-wide text-lotion">{suffix}</Label>
           </div>
+        ) : (
+          suffix
         )}
       </div>
       {(leftLabel || rightLabel) && (
