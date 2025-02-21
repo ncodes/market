@@ -34,7 +34,6 @@
     "@rollup/plugin-inject": "^5.0.5",
     "@tanstack/react-query": "^5.51.3",
     "@tanstack/react-table": "^8.20.6",
-    "@telefonica/money-formatter": "^1.2.1",
     "@uidotdev/usehooks": "^2.4.1",
     "approximate-number": "^2.1.1",
     "axios": "^1.7.4",

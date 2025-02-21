@@ -6,8 +6,8 @@ import InfoLabel from "@/components/InfoLabel";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { XIcon } from "lucide-react";
-import { formatMoney } from "@telefonica/money-formatter";
 import useStore from "@/hooks/store/useStore";
+import { formatToMoney } from "@/libs/helpers";
 
 export default function AdjustAmount() {
   const { setOpenAdjustAmount, openAdjustAmount } = useStore();
@@ -41,7 +41,7 @@ export default function AdjustAmount() {
                 <AssetField
                   width={120}
                   placeholder="10,000 USDC"
-                  value={formatMoney({ amount: currentAmount, precision: 0, currency: "" })}
+                  value={formatToMoney(currentAmount)}
                   readOnly
                   type="text"
                 />
@@ -50,30 +50,27 @@ export default function AdjustAmount() {
                 <InfoLabel text="New" info="New" className="text-sm font-light text-light-periwinkle" />
                 <AssetField
                   width={120}
+                  type={isSubmitted ? "text" : "number"}
                   placeholder="0.00"
-                  value={newAmount}
+                  value={isSubmitted ? formatToMoney(newAmount) : newAmount}
                   onChange={({ currentTarget }) => setNewAmount(Number(currentTarget.value))}
+                  readOnly={isSubmitted}
                 />
               </div>
               {isSubmitted && (
                 <div className="flex flex-col gap-1">
                   <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
-                  <AssetField
-                    width={120}
-                    placeholder="0.00"
-                    type="text"
-                    value={formatMoney({ amount: newAmount, precision: 0, currency: "" })}
-                    readOnly
-                  />
+                  <AssetField width={120} placeholder="0.00" type="text" value={formatToMoney(newAmount)} readOnly />
                 </div>
               )}
               {!isSubmitted && (
                 <Slider
-                  defaultValue={[currentAmount]}
+                  defaultValue={[newAmount]}
+                  value={[newAmount]}
                   max={currentAmount * 2}
                   step={1}
                   min={0}
-                  className="border-none bg-transparent"
+                  className="border-none bg-transparent mt-2"
                   rangeClassName="bg-screaming-green h-[6px] border-none"
                   trackClassName="bg-black-coral/90 border-none"
                   thumbClassName="border-screaming-green bg-screaming-green"
