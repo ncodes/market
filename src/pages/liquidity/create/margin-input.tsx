@@ -4,7 +4,7 @@ import { Slider } from "@/components/ui/slider.tsx";
 import { cn } from "@/libs/utils.ts";
 import { useEffect, useRef, useState } from "react";
 
-export function MarginInput({ className }: { className?: string }) {
+export function MarginInput({ className, ref }: { className?: string; ref?: React.LegacyRef<HTMLDivElement> }) {
   const [margin, setMargin] = useState(0);
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const [inputWidth, setInputWidth] = useState("1ch");
@@ -21,7 +21,7 @@ export function MarginInput({ className }: { className?: string }) {
   }, [margin]);
 
   return (
-    <div className={cn("flex w-full items-center gap-5", className)}>
+    <div className={cn("flex w-full items-center gap-5", className)} ref={ref}>
       <div className="flex w-fit flex-col gap-1 pr-2">
         <InfoLabel text="Margin" info="Margin" />
         <div className="mt-1 flex h-11 w-[90px] items-center justify-center rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">

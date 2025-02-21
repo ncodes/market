@@ -7,14 +7,24 @@ import IconLock from "@/components/icons/IconLock";
 import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
+import { ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
+import PauseLiquidity from "./options/pause-liquidity";
+import UpdateManager from "./options/update-manager";
+import UpdatePrice from "./options/update-price";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
+import UpdateTarget from "./options/update-target";
+import useStore from "@/hooks/store/useStore";
+import AdjustAmount from "./options/adjust-amount";
 
 export default function ViewLiquidityPage() {
+  const { setOpenAdjustAmount } = useStore();
+
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
@@ -33,7 +43,7 @@ export default function ViewLiquidityPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="text-light-periwinkle flex items-center gap-1 text-xs font-light">
+                <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
                   <IconActive /> Active
                 </Label>
               </div>
@@ -44,12 +54,12 @@ export default function ViewLiquidityPage() {
                 <Button
                   variant={"secondary"}
                   className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70"
+                  onClick={() => setOpenAdjustAmount(true)}
                 >
                   Edit
                 </Button>
-                <Button variant={"ghost"} className="p-0 hover:bg-transparent">
-                  <Icon3Dots />
-                </Button>
+                <AdjustAmount />
+                <MoreButton />
               </div>
             </div>
             <div className="flex w-full items-start gap-32 border-b border-eerie-black px-6 py-4">
@@ -64,7 +74,7 @@ export default function ViewLiquidityPage() {
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">10.5 SOL</Label>
                 <div className="flex gap-1">
                   <Label className="text-xs font-light text-cool-grey">Auto</Label>
-                  <Label className="text-ufo-green text-xs font-light">+15%</Label>
+                  <Label className="text-xs font-light text-ufo-green">+15%</Label>
                 </div>
               </div>
               <div className="flex flex-col">
@@ -111,7 +121,7 @@ export default function ViewLiquidityPage() {
                       <Label className="text-xs font-light text-white">USDC/USDT</Label>
                     </div>
                     <div className="flex">
-                      <div className="border-vampire-black rounded-s-3xl border bg-eerie-black px-3">
+                      <div className="rounded-s-3xl border border-vampire-black bg-eerie-black px-3">
                         <Label className="text-xs font-light text-cool-grey">0x123...9867</Label>
                       </div>
                       <Link to={"#"}>
@@ -140,5 +150,37 @@ function TabHead({ value, title }: { value: string; title: string }) {
     >
       {title}
     </TabsTrigger>
+  );
+}
+
+function MoreButton() {
+  const { setOpenAdjustAmount } = useStore();
+
+  return (
+    <Popover>
+      <PopoverTrigger>
+        <Button variant={"ghost"} className="p-0 hover:bg-transparent">
+          <Icon3Dots />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="flex w-[217px] flex-col gap-1 rounded-3xl border-none bg-vampire-black p-2"
+        side="bottom"
+        align="end"
+      >
+        <Button
+          onClick={() => setOpenAdjustAmount(true)}
+          variant={"ghost"}
+          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
+        >
+          Adjust Amount
+          <ChevronRight className="text-cool-grey group-hover:text-white" />
+        </Button>
+        <UpdatePrice />
+        <UpdateManager />
+        <UpdateTarget />
+        <PauseLiquidity />
+      </PopoverContent>
+    </Popover>
   );
 }
