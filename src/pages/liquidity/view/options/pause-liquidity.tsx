@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import { ChevronRight, XIcon } from "lucide-react";
+import { ChevronRight, PauseIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function PauseLiquidity() {
@@ -13,9 +13,12 @@ export default function PauseLiquidity() {
       <DialogTrigger>
         <Button
           variant={"ghost"}
-          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
+          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-yellow-500 hover:bg-eerie-black hover:text-yellow-500"
         >
-          Pause
+          <span className="flex items-center gap-1">
+            <PauseIcon className="size-4" />
+            <span>Pause</span>
+          </span>
           <ChevronRight className="text-cool-grey group-hover:text-white" />
         </Button>
       </DialogTrigger>
@@ -55,7 +58,7 @@ export default function PauseLiquidity() {
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 bg-yellow-500 text-lg font-semibold text-gunmetal hover:bg-yellow-600"
+            className="h-12 bg-yellow-500 text-lg font-semibold text-gunmetal hover:bg-yellow-400"
             onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             {isSubmitted ? "Pause" : "Proceed"}
