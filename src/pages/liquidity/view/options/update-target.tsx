@@ -43,12 +43,12 @@ export default function UpdateTarget() {
             {!isSubmitted && (
               <div className="mb-6 flex flex-col gap-5 px-5 py-[14px] pb-0">
                 <Label className="text-sm font-light text-cool-grey">
-                  Setting a target ensures only the address can swap
+                  Setting a target address ensures only the address owner can swap your liquidity.
                 </Label>
                 <div className="flex flex-col gap-1">
                   <InfoLabel text="Current" info="Current" className="text-light-periwinkle" />
-                  <div className="flex items-center gap-1">
-                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Medium} randomStr="" />
+                  <div className="flex items-center gap-2">
+                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Small} randomStr="" />
                     <Label className="font-dosis text-lg font-semibold text-cool-grey">0x231245762817</Label>
                   </div>
                 </div>
@@ -62,20 +62,20 @@ export default function UpdateTarget() {
             {isSubmitted && (
               <div className="mb-6 flex flex-col gap-4 px-5 py-[14px] pb-0">
                 <Label className="text-sm font-light text-cool-grey">
-                  Setting a target ensures only the address can swap
+                  Are you sure you want to update the target address?
                 </Label>
 
-                <div className="flex flex-col gap-1">
-                  <InfoLabel text="Current Target" info="Current Target" className="text-light-periwinkle" />
-                  <div className="flex items-center gap-1">
-                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Medium} randomStr="" />
+                <div className="flex flex-col gap-1 opacity-50">
+                  <InfoLabel text="Current" info="Current Target" className="text-light-periwinkle" />
+                  <div className="flex items-center gap-2">
+                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Small} randomStr="" />
                     <Label className="font-dosis text-lg font-semibold text-cool-grey">0x231245762817</Label>
                   </div>
                 </div>
                 <div className="flex flex-col gap-1">
-                  <InfoLabel text="New Target" info="New Target" className="text-white" />
-                  <div className="flex items-center gap-1">
-                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Medium} randomStr="" />
+                  <InfoLabel text="New" info="New Target" className="text-white" />
+                  <div className="flex items-center gap-2">
+                    <EmojiAvatar className="h-5 w-5" size={AvatarSize.Small} randomStr="" />
                     <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
                   </div>
                 </div>

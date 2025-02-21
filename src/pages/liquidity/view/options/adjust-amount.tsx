@@ -1,13 +1,13 @@
-import { useState } from "react";
-import { Slider } from "@/components/ui/slider";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import AssetField from "@/components/AssetField";
 import InfoLabel from "@/components/InfoLabel";
-import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { XIcon } from "lucide-react";
-import { formatMoney } from "@telefonica/money-formatter";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 import useStore from "@/hooks/store/useStore";
+import { XIcon } from "lucide-react";
+import { useState } from "react";
+import { formatToMoney } from "../../../../libs/helpers";
 
 export default function AdjustAmount() {
   const { setOpenAdjustAmount, openAdjustAmount } = useStore();
@@ -37,17 +37,17 @@ export default function AdjustAmount() {
             <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
               <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
               <div className="flex flex-col gap-1">
-                <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
+                <InfoLabel text="Current" info="Current" className="text-light-periwinkle text-sm font-light" />
                 <AssetField
                   width={120}
                   placeholder="10,000 USDC"
-                  value={formatMoney({ amount: currentAmount, precision: 0, currency: "" })}
+                  value={formatToMoney(currentAmount)}
                   readOnly
                   type="text"
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <InfoLabel text="New" info="New" className="text-sm font-light text-light-periwinkle" />
+                <InfoLabel text="New" info="New" className="text-light-periwinkle text-sm font-light" />
                 <AssetField
                   width={120}
                   placeholder="0.00"
@@ -57,14 +57,8 @@ export default function AdjustAmount() {
               </div>
               {isSubmitted && (
                 <div className="flex flex-col gap-1">
-                  <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
-                  <AssetField
-                    width={120}
-                    placeholder="0.00"
-                    type="text"
-                    value={formatMoney({ amount: newAmount, precision: 0, currency: "" })}
-                    readOnly
-                  />
+                  <InfoLabel text="Returned" info="Returned" className="text-light-periwinkle text-sm font-light" />
+                  <AssetField width={120} placeholder="0.00" type="text" value={formatToMoney(newAmount)} readOnly />
                 </div>
               )}
               {!isSubmitted && (

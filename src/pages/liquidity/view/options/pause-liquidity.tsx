@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { ChevronRight, XIcon } from "lucide-react";
 import { useState } from "react";
-import { InfoCircledIcon } from "@radix-ui/react-icons";
 
 export default function PauseLiquidity() {
   const [open, setOpen] = useState(false);
@@ -35,16 +35,16 @@ export default function PauseLiquidity() {
                 <XIcon className="size-5" />
               </Button>
             </div>
-            <div className="mb-6 flex flex-col gap-3 px-5 py-[14px]">
+            <div className="mb-6 flex flex-col gap-3 px-5 py-[14px] pb-0">
               {!isSubmitted && (
                 <Label className="text-sm font-light text-cool-grey">
-                  Pausing your liquidity will prevent new swaps
+                  You can pause your liquidity to prevent new swaps. You can unpause it at any time.
                 </Label>
               )}
               {isSubmitted && (
                 <div className="flex items-start gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500/20">
-                    <InfoCircledIcon className="h-5 w-5 text-yellow-500" />
+                    <InfoCircledIcon className="h-8 w-8 text-yellow-500" />
                   </div>
                   <Label className="text-sm font-light text-cool-grey">
                     Are you sure you want to pause this liquidity?
@@ -55,7 +55,7 @@ export default function PauseLiquidity() {
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 text-lg font-semibold text-gunmetal bg-yellow-500 hover:bg-yellow-600"
+            className="h-12 bg-yellow-500 text-lg font-semibold text-gunmetal hover:bg-yellow-600"
             onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             {isSubmitted ? "Pause" : "Proceed"}
