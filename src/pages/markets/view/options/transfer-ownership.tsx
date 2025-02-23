@@ -46,7 +46,7 @@ export default function TransferOwnership() {
               <div className="flex flex-col gap-1">
                 <InfoLabel text="New Owner" info="New Owner" />
                 <Input
-                  suffix={<EmojiAvatar size={AvatarSize.Medium} randomStr="" className="mr-1 h-5 w-5" />}
+                  suffix={<EmojiAvatar size={AvatarSize.Medium} randomStr="" className="mr-1 h-5 w-5 shrink-0" />}
                   placeholder="0x2345…."
                   type="text"
                   className="text-white"
