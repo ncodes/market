@@ -8,6 +8,7 @@ import { useState } from "react";
 
 export default function UpdateCommision() {
   const [open, setOpen] = useState(false);
+  const [isSubmitted, setSubmitted] = useState(false);
 
   return (
     <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
@@ -27,7 +28,9 @@ export default function UpdateCommision() {
         <div className="flex w-full flex-col gap-2">
           <div className="rounded-3xl border border-gunmetal bg-chinese-black">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-2xl font-semibold text-lotion">Update Commission</Label>
+              <Label className="text-2xl font-semibold text-lotion">
+                {isSubmitted ? "Confirm" : "Update Commission"}
+              </Label>
               <Button
                 onClick={() => setOpen(false)}
                 variant="ghost"
@@ -36,15 +39,29 @@ export default function UpdateCommision() {
                 <XIcon className="size-5" />
               </Button>
             </div>
-            <div className="mb-8 flex flex-col gap-2 px-5 py-[14px] pb-0">
-              <InfoLabel text="Commission" info="Commission" />
-              <Input suffix="%" className="text-white" />
-            </div>
+            {!isSubmitted && (
+              <div className="mb-8 flex flex-col gap-2 px-5 py-[14px] pb-0">
+                <InfoLabel text="Commission" info="Commission" />
+                <Input suffix="%" className="text-white" />
+              </div>
+            )}
+            {isSubmitted && (
+              <div className="mb-8 flex gap-[30px] px-5 py-[14px] pb-0">
+                <div className="flex w-full flex-col gap-2">
+                  <Label className="text-sm font-light text-cool-grey">Old Commission</Label>
+                  <Input className="text-cool-grey" value={"20%"} type="text" />
+                </div>
+                <div className="flex w-full flex-col gap-2">
+                  <Label className="text-sm font-light text-white">New Commission</Label>
+                  <Input className="text-white" value={"20%"} type="text" />
+                </div>
+              </div>
+            )}
           </div>
           <Button
             variant={"secondary"}
             className="h-12 text-lg font-semibold text-gunmetal"
-            onClick={() => setOpen(false)}
+            onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             Update
           </Button>

@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
-import { ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
 import PauseLiquidity from "./options/pause-liquidity";
@@ -21,6 +21,8 @@ import LiquidityTransactions from "./transactions";
 import UpdateTarget from "./options/update-target";
 import useStore from "@/hooks/store/useStore";
 import AdjustAmount from "./options/adjust-amount";
+import { cn } from "@/libs/utils";
+import { useState } from "react";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -155,12 +157,18 @@ function TabHead({ value, title }: { value: string; title: string }) {
 
 function MoreButton() {
   const { setOpenAdjustAmount } = useStore();
+  const [open, setOpen] = useState(false);
 
   return (
-    <Popover>
+    <Popover onOpenChange={(open) => setOpen(open)}>
       <PopoverTrigger>
-        <Button variant={"ghost"} className="p-0 hover:bg-transparent">
-          <Icon3Dots />
+        <Button
+          variant={"secondary"}
+          className="flex h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70"
+          onClick={() => setOpen(true)}
+        >
+          Manage
+          <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
         </Button>
       </PopoverTrigger>
       <PopoverContent

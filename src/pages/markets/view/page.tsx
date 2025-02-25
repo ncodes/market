@@ -47,7 +47,7 @@ export default function ViewMarketPage() {
                   0.05%
                 </Label>
               </div>
-              <EditButton />
+              <ManageButton />
             </div>
             <LiquidityChart />
             <div className="w-full">
@@ -155,7 +155,7 @@ export default function ViewMarketPage() {
   );
 }
 
-function EditButton() {
+function ManageButton() {
   const [open, setOpen] = useState(false);
 
   return (
@@ -166,7 +166,7 @@ function EditButton() {
           className="flex h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70"
           onClick={() => setOpen(true)}
         >
-          Edit
+          Manage
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
         </Button>
       </PopoverTrigger>
