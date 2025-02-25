@@ -1,6 +1,5 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
 import { Avatar } from "@/components/avatar/Avatar";
-import Icon3Dots from "@/components/icons/Icon3Dots";
 import IconActive from "@/components/icons/IconActive";
 import IconDropDown from "@/components/icons/IconDropDown";
 import IconLock from "@/components/icons/IconLock";
