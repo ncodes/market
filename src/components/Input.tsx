@@ -12,6 +12,7 @@ export default function Input({
   disabled,
   onChange,
   value,
+  readOnly,
 }: {
   type?: string;
   suffix?: string | React.ReactNode;
@@ -21,6 +22,7 @@ export default function Input({
   className?: string;
   disabled?: boolean;
   value?: string | number;
+  readOnly?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }) {
   const childrenArray = React.Children.toArray(children);
@@ -29,11 +31,12 @@ export default function Input({
 
   return (
     <div>
-      <div className="flex items-center h-11 w-full rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
+      <div className="flex h-11 w-full items-center rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
         <input
           onChange={onChange}
           type={type || "number"}
           value={value}
+          readOnly={readOnly}
           placeholder={placeholder || "0.00"}
           className={cn("input focus-within:ring-0", className)}
           disabled={disabled}
