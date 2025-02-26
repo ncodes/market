@@ -1,27 +1,27 @@
+import TabHead from "@/components/TabHead.tsx";
 import EmojiAvatar from "@/components/avatar/EmojiAvatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
+import IconArrowRight from "@/components/icons/IconArrowRight.tsx";
+import IconBought from "@/components/icons/IconBought.tsx";
+import IconConnectedLink from "@/components/icons/IconConnectedLink.tsx";
+import IconMinus from "@/components/icons/IconMinus.tsx";
+import IconPlus from "@/components/icons/IconPlus.tsx";
+import IconSeeMore from "@/components/icons/IconSeeMore";
+import IconSold from "@/components/icons/IconSold.tsx";
+import IconUpdatedMarket from "@/components/icons/IconUpdatedMarket.tsx";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label.tsx";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.tsx";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs.tsx";
+import { transactions } from "@/libs/data.ts";
 import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
+import { TransactionType } from "@/libs/wallets.ts";
+import { CheckIcon, ChevronDown, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Label } from "@/components/ui/label.tsx";
-import IconConnectedLink from "@/components/icons/IconConnectedLink.tsx";
-import { CheckCheckIcon, CheckIcon, ChevronDown, XIcon } from "lucide-react";
-import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs.tsx";
-import TabHead from "@/components/TabHead.tsx";
-import { transactions } from "@/libs/data.ts";
-import IconArrowRight from "@/components/icons/IconArrowRight.tsx";
-import IconSold from "@/components/icons/IconSold.tsx";
-import { TransactionType } from "@/libs/wallets.ts";
-import IconPlus from "@/components/icons/IconPlus.tsx";
-import IconBought from "@/components/icons/IconBought.tsx";
-import IconMinus from "@/components/icons/IconMinus.tsx";
-import IconUpdatedMarket from "@/components/icons/IconUpdatedMarket.tsx";
-import IconSeeMore from "@/components/icons/IconSeeMore";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.tsx";
 
 export const ConnectedButton = ({
   className,
@@ -98,8 +98,8 @@ export const ConnectedButton = ({
         <div className="flex w-full flex-col">
           <div className="flex items-center justify-between px-4 py-4">
             <EmojiAvatar size={AvatarSize.Medium} randomStr="joint" />
-            <div className="flex gap-12 rounded-3xl bg-raisin-black px-[14px] py-2">
-              <Label className="text-base font-semibold text-white">0x121292JAK28NK</Label>
+            <div className="flex items-center gap-12 rounded-3xl bg-raisin-black px-[14px] py-2">
+              <Label className="text-sm font-light tracking-wider text-gray-300">0x121292JAK28NK</Label>
               <IconConnectedLink />
             </div>
             <Button
@@ -107,7 +107,7 @@ export const ConnectedButton = ({
               variant="ghost"
               className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
             >
-              <XIcon className="size-5" />
+              <XIcon className="size-8" />
             </Button>
           </div>
           <Tabs defaultValue="balance" className="w-full">
@@ -118,7 +118,7 @@ export const ConnectedButton = ({
                 <TabHead value="join" title="$JOIN" />
               </div>
             </TabsList>
-            <TabsContent value="balance" className="w-full">
+            <TabsContent value="balance" className="m-0 w-full">
               <BalanceComponent />
             </TabsContent>
             <TabsContent value="eth" className="w-full"></TabsContent>
@@ -133,15 +133,15 @@ export const ConnectedButton = ({
 function BalanceComponent() {
   return (
     <div className="flex w-full flex-col">
-      <div className="w-full border-b border-eerie-black/50 px-4 pb-4">
-        <Label className="font-dosis text-[32px] font-semibold text-white">$6000.00</Label>
+      <div className="w-full border-b border-eerie-black px-4 py-5">
+        <Label className="font-dosis text-[32px] font-semibold leading-none text-white">$6000.00</Label>
       </div>
-      <div className="flex w-full items-center gap-2 px-4 py-5">
-        <Label className="font-semibold text-cool-grey">Activity -</Label>
+      <div className="flex w-full items-center gap-2 px-4 py-3">
+        <Label className="font-semibold text-cool-grey">Activity</Label>
         <TypesButton />
         <Label className="text-sm font-light text-cool-grey">(All)</Label>
       </div>
-      <div className="flex w-full flex-col gap-3">
+      <div className="flex w-full flex-col gap-2">
         <Label className="ml-4 text-sm font-light text-white">Today</Label>
         <div className="flex w-full flex-col">
           {transactions.map((transaction, index) => (
@@ -151,7 +151,7 @@ function BalanceComponent() {
                 key={index}
               >
                 <div
-                  className={cn("flex h-6 w-6 items-center justify-center rounded-full", {
+                  className={cn("flex h-6 w-6 shrink-0 items-center justify-center rounded-full", {
                     "bg-[#ff5c5c23]": transaction.type.toLowerCase() === TransactionType.SOLD,
                     "bg-[#c8ed5a18]": transaction.type.toLowerCase() === TransactionType.BOUGHT,
                     "bg-[#28293d]":
@@ -195,21 +195,21 @@ function TypesButton() {
   return (
     <Popover open={open} onOpenChange={(open) => setOpen(open)}>
       <PopoverTrigger>
-        <Button className="flex h-[30px] items-center bg-raisin-black px-3 py-0 hover:bg-raisin-black/70">
+        <Button className="flex h-[30px] items-center bg-transparent px-3 py-0 hover:bg-raisin-black/70">
           Type <ChevronDown />
         </Button>
       </PopoverTrigger>
       <PopoverContent
         side="bottom"
         align="start"
-        className="w-[213px] rounded-2xl border-gunmetal/50 bg-chinese-black p-0 px-1 py-1"
+        className="w-[180px] rounded-2xl border-gunmetal/50 bg-chinese-black p-0 px-1 py-1"
       >
         {types.map((type) => (
-          <div className="flex h-auto w-full justify-between rounded-xl p-2 px-2 py-2 text-base font-light text-cool-grey">
+          <div className="flex h-auto w-full justify-between rounded-xl px-2 py-1 text-sm font-light text-cool-grey">
             {type}
             <Button
               onClick={() => setSelectedType(type)}
-              className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-sm bg-[#282943] p-0"
+              className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm bg-[#282943] p-0"
             >
               {selectedType === type && <CheckIcon className="text-white" />}
             </Button>
