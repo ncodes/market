@@ -151,7 +151,7 @@ function BalanceComponent() {
                 key={index}
               >
                 <div
-                  className={cn("flex h-6 w-6 shrink-0 items-center justify-center rounded-full", {
+                  className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full", {
                     "bg-[#ff5c5c23]": transaction.type.toLowerCase() === TransactionType.SOLD,
                     "bg-[#c8ed5a18]": transaction.type.toLowerCase() === TransactionType.BOUGHT,
                     "bg-[#28293d]":
@@ -168,8 +168,12 @@ function BalanceComponent() {
                 </div>
                 <div className="flex w-full items-center justify-between">
                   <div className="flex flex-col">
-                    <Label className="cursor-pointer text-xs font-semibold text-white">{transaction.type}</Label>
-                    <Label className="cursor-pointer text-sm font-light text-cool-grey">{transaction.content}</Label>
+                    <Label className="cursor-pointer text-sm font-normal tracking-wide text-gray-200">
+                      {transaction.type}
+                    </Label>
+                    <Label className="cursor-pointer text-xs font-light tracking-wide text-cool-grey">
+                      {transaction.content}
+                    </Label>
                   </div>
                   <IconArrowRight className="hidden group-hover:block" />
                 </div>
