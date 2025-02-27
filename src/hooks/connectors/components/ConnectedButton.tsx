@@ -21,6 +21,7 @@ import { CheckIcon, ChevronDown, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog.tsx";
 
 export const ConnectedButton = ({
   className,
@@ -99,12 +100,7 @@ export const ConnectedButton = ({
             <EmojiAvatar size={AvatarSize.Medium} randomStr="joint" />
             <div className="flex items-center gap-12 rounded-3xl bg-raisin-black px-[14px] py-2">
               <Label className="text-sm font-light tracking-wider text-gray-300">0x121292JAK28NK</Label>
-              <Button
-                variant={"ghost"}
-                className="m-0 h-6 w-6 bg-transparent p-0 transition-transform duration-200 hover:scale-125 hover:bg-transparent"
-              >
-                <IconConnectedLink />
-              </Button>
+              <DisconnectWallet />
             </div>
             <Button
               onClick={() => setOpenSheet(false)}
@@ -232,5 +228,53 @@ function TypesButton() {
         ))}
       </PopoverContent>
     </Popover>
+  );
+}
+
+function DisconnectWallet() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
+      <DialogTrigger>
+        <Button
+          variant={"ghost"}
+          className="m-0 h-6 w-6 bg-transparent p-0 transition-transform duration-200 hover:scale-125 hover:bg-transparent"
+        >
+          <IconConnectedLink />
+        </Button>
+      </DialogTrigger>
+      <DialogContent
+        className="max-w-[401px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
+        hideCloseButton
+      >
+        <div className="flex w-full flex-col gap-2">
+          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+            <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
+              <Label className="text-2xl font-semibold text-lotion">Disconnect Wallet</Label>
+              <Button
+                onClick={() => setOpen(false)}
+                variant="ghost"
+                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
+              >
+                <XIcon className="size-5" />
+              </Button>
+            </div>
+            <div className="mb-6 px-5 py-4 pb-0">
+              <Label className="text-sm font-light text-cool-grey">
+                Are you sure you want to disconnect your wallet?
+              </Label>
+            </div>
+          </div>
+          <Button
+            variant={"secondary"}
+            className="h-12 bg-sunset-orange text-lg font-semibold text-white hover:bg-sunset-orange/70"
+            onClick={() => setOpen(false)}
+          >
+            Yes
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
