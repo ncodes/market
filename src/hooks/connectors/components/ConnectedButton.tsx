@@ -3,12 +3,12 @@ import EmojiAvatar from "@/components/avatar/EmojiAvatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
 import IconArrowRight from "@/components/icons/IconArrowRight.tsx";
 import IconBought from "@/components/icons/IconBought.tsx";
-import IconConnectedLink from "@/components/icons/IconConnectedLink.tsx";
 import IconMinus from "@/components/icons/IconMinus.tsx";
 import IconPlus from "@/components/icons/IconPlus.tsx";
 import IconSold from "@/components/icons/IconSold.tsx";
 import IconUpdatedMarket from "@/components/icons/IconUpdatedMarket.tsx";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover.tsx";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -17,11 +17,10 @@ import { transactions } from "@/libs/data.ts";
 import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
 import { TransactionType } from "@/libs/wallets.ts";
-import { CheckIcon, ChevronDown, XIcon } from "lucide-react";
+import { CheckIcon, ChevronDown, Copy, ListFilter, Power, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog.tsx";
 
 export const ConnectedButton = ({
   className,
@@ -96,19 +95,22 @@ export const ConnectedButton = ({
         className="mr-6 mt-4 h-[97%] w-[382px] overflow-hidden rounded-3xl border-none bg-chinese-black p-0"
       >
         <div className="flex h-full w-full flex-col">
-          <div className="flex items-center justify-between px-4 py-4">
+          <div className="flex items-center justify-between gap-4 px-4 py-4">
             <EmojiAvatar size={AvatarSize.Medium} randomStr="joint" />
-            <div className="flex items-center gap-12 rounded-3xl bg-raisin-black px-[14px] py-2">
-              <Label className="text-sm font-light tracking-wider text-gray-300">0x121292JAK28NK</Label>
-              <DisconnectWallet />
+            <div className="flex flex-1 items-center justify-between rounded-3xl bg-eerie-black/70 px-[14px] py-2">
+              <Label className="font-semi-bold text-xs tracking-wider text-gray-500">0xAEA70653A...52390A077</Label>
+              <Copy className="size-4 cursor-pointer text-gray-500 transition-all duration-300 hover:text-screaming-green" />
             </div>
-            <Button
-              onClick={() => setOpenSheet(false)}
-              variant="ghost"
-              className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-            >
-              <XIcon className="size-8" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <DisconnectWallet />
+              <Button
+                onClick={() => setOpenSheet(false)}
+                variant="ghost"
+                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
+              >
+                <XIcon className="size-6" />
+              </Button>
+            </div>
           </div>
           <Tabs defaultValue="balance" className="w-full">
             <TabsList className="flex w-full justify-between border-b border-eerie-black/50 bg-transparent px-4 py-0">
@@ -202,11 +204,15 @@ function TypesButton() {
     <Popover open={open} onOpenChange={(open) => setOpen(open)}>
       <PopoverTrigger>
         <Button
-          className={cn("flex h-[30px] items-center bg-transparent px-3 py-0 hover:bg-eerie-black", {
-            "bg-eerie-black": open,
-          })}
+          className={cn(
+            "flex h-[30px] items-center gap-1 bg-transparent px-3 py-0 text-cool-grey hover:bg-eerie-black",
+            {
+              "bg-eerie-black text-white": open,
+            },
+          )}
         >
-          {selectedType} <ChevronDown />
+          <ListFilter className="size-4" /> {selectedType}{" "}
+          <ChevronDown className={cn("size-4 transition-all duration-500", { "rotate-180": open })} />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -237,11 +243,8 @@ function DisconnectWallet() {
   return (
     <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger>
-        <Button
-          variant={"ghost"}
-          className="m-0 h-6 w-6 bg-transparent p-0 transition-transform duration-200 hover:scale-125 hover:bg-transparent"
-        >
-          <IconConnectedLink />
+        <Button variant={"ghost"} className="m-0 h-6 w-6 bg-transparent p-0 hover:bg-transparent">
+          <Power className="size-5 text-gray-500 transition-all duration-500 hover:text-gray-100" />
         </Button>
       </DialogTrigger>
       <DialogContent
