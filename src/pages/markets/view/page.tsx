@@ -13,6 +13,16 @@ import LiquidityChart from "./chart";
 import LiquidityTable from "./liquidity-table";
 import LiquiditySwap from "./swap";
 import TransactionsTable from "./transactions-table";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { cn } from "@/libs/utils";
+import { ChevronDown } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import UpdateCommision from "./options/update-commision";
+import AddSwapper from "./options/add-swapper";
+import AddProvider from "./options/add-provider";
+import RenounceOwnership from "./options/renounce-ownership";
+import TransferOwnership from "./options/transfer-ownership";
 
 export default function ViewMarketPage() {
   return (
@@ -20,17 +30,24 @@ export default function ViewMarketPage() {
       <div className="flex w-full justify-center">
         <div className="flex gap-6">
           <div className="w-screen max-w-3xl rounded-3xl border border-eerie-black/50 bg-chinese-black">
-            <div className="flex items-center gap-6 border-b border-eerie-black px-6 py-4">
-              <div className="flex items-center">
-                <div className="relative w-16">
-                  <Avatar src={USDCIcon} className="h-8 w-8 shadow-sm drop-shadow-sm" rootClassName="h-8 w-8 z-10" />
-                  <Avatar src={SolanaIcon} className="h-8 w-8" rootClassName="absolute bottom-0 right-3 h-8 w-8 z-0" />
+            <div className="flex items-center justify-between border-b border-eerie-black px-6 py-4">
+              <div className="flex items-center gap-6">
+                <div className="flex items-center">
+                  <div className="relative w-16">
+                    <Avatar src={USDCIcon} className="h-8 w-8 shadow-sm drop-shadow-sm" rootClassName="h-8 w-8 z-10" />
+                    <Avatar
+                      src={SolanaIcon}
+                      className="h-8 w-8"
+                      rootClassName="absolute bottom-0 right-3 h-8 w-8 z-0"
+                    />
+                  </div>
+                  <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="text-lg font-medium text-white">USDC/SOL</Label>
+                <Label className="rounded-xl bg-gunmetal px-2 py-1 text-xs font-semibold text-screaming-green">
+                  0.05%
+                </Label>
               </div>
-              <Label className="rounded-xl bg-gunmetal px-2 py-1 text-xs font-semibold text-screaming-green">
-                0.05%
-              </Label>
+              <ManageButton />
             </div>
             <LiquidityChart />
             <div className="w-full">
@@ -77,7 +94,7 @@ export default function ViewMarketPage() {
                           <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">$40.5</Label>
                           <div className="flex items-center">
                             <IconTriangleUp />
-                            <Label className="text-go-green font-light">0.03%</Label>
+                            <Label className="font-light text-go-green">0.03%</Label>
                           </div>
                         </div>
                       </div>
@@ -87,7 +104,7 @@ export default function ViewMarketPage() {
                           <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">$80.5m</Label>
                           <div className="flex items-center">
                             <IconTriangleDown />
-                            <Label className="text-coral-red font-light">20%</Label>
+                            <Label className="font-light text-coral-red">20%</Label>
                           </div>
                         </div>
                       </div>
@@ -117,7 +134,7 @@ export default function ViewMarketPage() {
                       <Label className="text-xs font-light text-white">USDC/USDT</Label>
                     </div>
                     <div className="flex">
-                      <div className="border-vampire-black rounded-s-3xl border bg-eerie-black px-3">
+                      <div className="rounded-s-3xl border border-vampire-black bg-eerie-black px-3">
                         <Label className="text-xs font-light text-cool-grey">0x123...9867</Label>
                       </div>
                       <Link to={"#"}>
@@ -135,5 +152,35 @@ export default function ViewMarketPage() {
         </div>
       </div>
     </PageLayout>
+  );
+}
+
+function ManageButton() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover open={open} onOpenChange={(open) => setOpen(open)}>
+      <PopoverTrigger>
+        <Button
+          variant={"secondary"}
+          className="flex h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70"
+          onClick={() => setOpen(true)}
+        >
+          Manage
+          <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="flex w-[217px] flex-col gap-1 rounded-3xl border-none bg-vampire-black p-2"
+        side="bottom"
+        align="end"
+      >
+        <UpdateCommision />
+        <AddSwapper />
+        <AddProvider />
+        <TransferOwnership />
+        <RenounceOwnership />
+      </PopoverContent>
+    </Popover>
   );
 }
