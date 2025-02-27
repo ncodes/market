@@ -6,7 +6,6 @@ import IconBought from "@/components/icons/IconBought.tsx";
 import IconConnectedLink from "@/components/icons/IconConnectedLink.tsx";
 import IconMinus from "@/components/icons/IconMinus.tsx";
 import IconPlus from "@/components/icons/IconPlus.tsx";
-import IconSeeMore from "@/components/icons/IconSeeMore";
 import IconSold from "@/components/icons/IconSold.tsx";
 import IconUpdatedMarket from "@/components/icons/IconUpdatedMarket.tsx";
 import { Button } from "@/components/ui/button";
@@ -75,7 +74,7 @@ export const ConnectedButton = ({
         <Button
           variant={"ghost"}
           className={cn(
-            "flex h-auto min-w-[150px] items-center justify-between rounded-full bg-card bg-chinese-black px-2 py-1 transition-all duration-500 hover:scale-x-[1.02] hover:bg-eerie-black [&>*]:cursor-pointer",
+            "flex h-auto min-w-[150px] items-center justify-between gap-1 rounded-full bg-card bg-chinese-black px-2 py-1 pl-[2px] transition-all duration-500 hover:scale-x-[1.02] hover:bg-eerie-black [&>*]:cursor-pointer",
             className,
           )}
           onClick={() => {}}
@@ -93,14 +92,19 @@ export const ConnectedButton = ({
       </SheetTrigger>
       <SheetContent
         hideCloseButton
-        className="mr-6 mt-4 h-fit max-h-[97%] w-[382px] overflow-hidden rounded-3xl border-none bg-chinese-black p-0"
+        className="mr-6 mt-4 h-[97%] w-[382px] overflow-hidden rounded-3xl border-none bg-chinese-black p-0"
       >
-        <div className="flex w-full flex-col">
+        <div className="flex h-full w-full flex-col">
           <div className="flex items-center justify-between px-4 py-4">
             <EmojiAvatar size={AvatarSize.Medium} randomStr="joint" />
             <div className="flex items-center gap-12 rounded-3xl bg-raisin-black px-[14px] py-2">
               <Label className="text-sm font-light tracking-wider text-gray-300">0x121292JAK28NK</Label>
-              <IconConnectedLink />
+              <Button
+                variant={"ghost"}
+                className="m-0 h-6 w-6 bg-transparent p-0 transition-transform duration-200 hover:scale-125 hover:bg-transparent"
+              >
+                <IconConnectedLink />
+              </Button>
             </div>
             <Button
               onClick={() => setOpenSheet(false)}
@@ -119,77 +123,79 @@ export const ConnectedButton = ({
               </div>
             </TabsList>
             <TabsContent value="balance" className="m-0 w-full">
-              <BalanceComponent />
+              <div className="flex w-full flex-col">
+                <div className="w-full border-b border-eerie-black px-4 py-5">
+                  <Label className="font-dosis text-[32px] font-semibold leading-none text-white">$6000.00</Label>
+                </div>
+              </div>
             </TabsContent>
-            <TabsContent value="eth" className="w-full"></TabsContent>
-            <TabsContent value="join" className="w-full"></TabsContent>
+            <TabsContent value="eth" className="m-0 w-full">
+              <div className="flex w-full flex-col">
+                <div className="w-full border-b border-eerie-black px-4 py-5">
+                  <Label className="font-dosis text-[32px] font-semibold leading-none text-white">6000 ETH</Label>
+                </div>
+              </div>
+            </TabsContent>
+            <TabsContent value="join" className="m-0 w-full">
+              <div className="flex w-full flex-col">
+                <div className="w-full border-b border-eerie-black px-4 py-5">
+                  <Label className="font-dosis text-[32px] font-semibold leading-none text-white">6000 $JOIN</Label>
+                </div>
+              </div>
+            </TabsContent>
           </Tabs>
+          <div className="h-auto w-full overflow-hidden">
+            <div className="flex w-full items-center gap-2 px-4 py-3">
+              <Label className="font-semibold text-cool-grey">Activity</Label>
+              <TypesButton />
+            </div>
+            <div className="flex h-[100%] w-full flex-col gap-2 overflow-auto">
+              <Label className="ml-4 text-sm font-light text-white">Today</Label>
+              <div className="flex w-full flex-col">
+                {transactions.map((transaction, index) => (
+                  <div className="group w-full">
+                    <div
+                      className="flex w-full cursor-pointer items-start gap-2 bg-gradient-to-r px-4 py-2 group-hover:from-eerie-black group-hover:to-chinese-black"
+                      key={index}
+                    >
+                      <div
+                        className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full", {
+                          "bg-[#ff5c5c23]": transaction.type.toLowerCase() === TransactionType.SOLD,
+                          "bg-[#c8ed5a18]": transaction.type.toLowerCase() === TransactionType.BOUGHT,
+                          "bg-[#28293d]":
+                            transaction.type.toLowerCase() === TransactionType.ADDED_LIQUIDITY ||
+                            transaction.type.toLowerCase() === TransactionType.REMOVED_LIQUITY ||
+                            transaction.type.toLowerCase() === TransactionType.UPDATED_MARKET,
+                        })}
+                      >
+                        {transaction.type.toLowerCase() === TransactionType.SOLD && <IconSold />}
+                        {transaction.type.toLowerCase() === TransactionType.ADDED_LIQUIDITY && <IconPlus />}
+                        {transaction.type.toLowerCase() === TransactionType.BOUGHT && <IconBought />}
+                        {transaction.type.toLowerCase() === TransactionType.REMOVED_LIQUITY && <IconMinus />}
+                        {transaction.type.toLowerCase() === TransactionType.UPDATED_MARKET && <IconUpdatedMarket />}
+                      </div>
+                      <div className="flex w-full items-center justify-between">
+                        <div className="flex flex-col">
+                          <Label className="cursor-pointer text-sm font-normal tracking-wide text-gray-200">
+                            {transaction.type}
+                          </Label>
+                          <Label className="cursor-pointer text-xs font-light tracking-wide text-cool-grey">
+                            {transaction.content}
+                          </Label>
+                        </div>
+                        <IconArrowRight className="hidden group-hover:block" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </SheetContent>
     </Sheet>
   );
 };
-
-function BalanceComponent() {
-  return (
-    <div className="flex w-full flex-col">
-      <div className="w-full border-b border-eerie-black px-4 py-5">
-        <Label className="font-dosis text-[32px] font-semibold leading-none text-white">$6000.00</Label>
-      </div>
-      <div className="flex w-full items-center gap-2 px-4 py-3">
-        <Label className="font-semibold text-cool-grey">Activity</Label>
-        <TypesButton />
-        <Label className="text-sm font-light text-cool-grey">(All)</Label>
-      </div>
-      <div className="flex w-full flex-col gap-2">
-        <Label className="ml-4 text-sm font-light text-white">Today</Label>
-        <div className="flex w-full flex-col">
-          {transactions.map((transaction, index) => (
-            <div className="group w-full">
-              <div
-                className="flex w-full cursor-pointer items-start gap-2 bg-gradient-to-r px-4 py-2 group-hover:from-eerie-black group-hover:to-chinese-black"
-                key={index}
-              >
-                <div
-                  className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-full", {
-                    "bg-[#ff5c5c23]": transaction.type.toLowerCase() === TransactionType.SOLD,
-                    "bg-[#c8ed5a18]": transaction.type.toLowerCase() === TransactionType.BOUGHT,
-                    "bg-[#28293d]":
-                      transaction.type.toLowerCase() === TransactionType.ADDED_LIQUIDITY ||
-                      transaction.type.toLowerCase() === TransactionType.REMOVED_LIQUITY ||
-                      transaction.type.toLowerCase() === TransactionType.UPDATED_MARKET,
-                  })}
-                >
-                  {transaction.type.toLowerCase() === TransactionType.SOLD && <IconSold />}
-                  {transaction.type.toLowerCase() === TransactionType.ADDED_LIQUIDITY && <IconPlus />}
-                  {transaction.type.toLowerCase() === TransactionType.BOUGHT && <IconBought />}
-                  {transaction.type.toLowerCase() === TransactionType.REMOVED_LIQUITY && <IconMinus />}
-                  {transaction.type.toLowerCase() === TransactionType.UPDATED_MARKET && <IconUpdatedMarket />}
-                </div>
-                <div className="flex w-full items-center justify-between">
-                  <div className="flex flex-col">
-                    <Label className="cursor-pointer text-sm font-normal tracking-wide text-gray-200">
-                      {transaction.type}
-                    </Label>
-                    <Label className="cursor-pointer text-xs font-light tracking-wide text-cool-grey">
-                      {transaction.content}
-                    </Label>
-                  </div>
-                  <IconArrowRight className="hidden group-hover:block" />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="absolute bottom-0 left-0 right-0 flex h-[120px] items-end justify-center bg-gradient-to-b from-[rgba(17,19,27,0)] via-[rgba(17,19,27,0.86)_45%] to-[#11131b]">
-        <Button variant={"secondary"} className="mb-[17px] flex h-[30px] items-center bg-white text-sm font-semibold">
-          Show More <IconSeeMore />
-        </Button>
-      </div>
-    </div>
-  );
-}
 
 function TypesButton() {
   const [open, setOpen] = useState(false);
@@ -199,8 +205,12 @@ function TypesButton() {
   return (
     <Popover open={open} onOpenChange={(open) => setOpen(open)}>
       <PopoverTrigger>
-        <Button className="flex h-[30px] items-center bg-transparent px-3 py-0 hover:bg-raisin-black/70">
-          Type <ChevronDown />
+        <Button
+          className={cn("flex h-[30px] items-center bg-transparent px-3 py-0 hover:bg-eerie-black", {
+            "bg-eerie-black": open,
+          })}
+        >
+          {selectedType} <ChevronDown />
         </Button>
       </PopoverTrigger>
       <PopoverContent
@@ -209,15 +219,16 @@ function TypesButton() {
         className="w-[180px] rounded-2xl border-gunmetal/50 bg-chinese-black p-0 px-1 py-1"
       >
         {types.map((type) => (
-          <div className="flex h-auto w-full justify-between rounded-xl px-2 py-1 text-sm font-light text-cool-grey">
+          <Button
+            onClick={() => setSelectedType(type)}
+            variant={"ghost"}
+            className="h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
+          >
             {type}
-            <Button
-              onClick={() => setSelectedType(type)}
-              className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm bg-[#282943] p-0"
-            >
+            <div className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-sm bg-[#282943] p-0">
               {selectedType === type && <CheckIcon className="text-white" />}
-            </Button>
-          </div>
+            </div>
+          </Button>
         ))}
       </PopoverContent>
     </Popover>
