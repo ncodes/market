@@ -42,3 +42,11 @@ export enum PriceMethod {
   AUTO = "auto",
   MANUAL = "manual",
 }
+
+export enum TransactionType {
+  SOLD = 'sold',
+  ADDED_LIQUIDITY = 'added liquidity',
+  BOUGHT = 'bought',
+  REMOVED_LIQUITY = 'removed liquidity',
+  UPDATED_MARKET = 'updated market',
+}

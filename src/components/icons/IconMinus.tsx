@@ -1,15 +1,16 @@
-import React from "react";
-
-function IconMinus(props: React.SVGProps<SVGSVGElement>) {
+export default function IconMinus(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg width="25" height="24" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g transform="translate(.647)" fill="none" fill-rule="evenodd">
-        <path d="M0 0h24v24H0z" />
-        <circle fill="#FF5C5C" opacity=".3" cx="12" cy="12" r="10" />
-        <rect fill="#FF5C5C" x="6" y="11" width="12" height="2" rx="1" />
-      </g>
+    <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" {...props}>
+      <rect
+        x="2.667"
+        y="7.333"
+        width="10.667"
+        height="1.333"
+        rx=".667"
+        transform="matrix(1 0 0 -1 0 16)"
+        fill="#FFF"
+        fill-rule="evenodd"
+      />
     </svg>
   );
 }
-
-export default IconMinus;
