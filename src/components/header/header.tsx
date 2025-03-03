@@ -5,6 +5,8 @@ import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
 import RegionSelectorButton from "./RegionSelectorButton";
 import SettingsButton from "./SettingsButton";
+import Icon3Dots from "../icons/Icon3Dots";
+import { Button } from "../ui/button";
 
 export interface MenuItem {
   title: string;
@@ -51,10 +53,10 @@ export function Header() {
   }
 
   return (
-    <header className="relative flex select-none items-center justify-between p-4">
+    <header className="relative flex w-full select-none items-center justify-between p-4">
       <div className="relative -mt-3 flex items-center space-x-4">
         <Logo />
-        <nav className="relative -top-0.5 left-2 flex text-sm font-normal tracking-wider">
+        <nav className="relative -top-0.5 left-2 hidden text-sm font-normal tracking-wider md:flex">
           <NavigationMenu
             onValueChange={onNavChange}
             viewportClassName={"rounded-xl border border-eerie-black bg-chinese-black tracking-wider"}
@@ -72,7 +74,15 @@ export function Header() {
       <div className="relative -top-1 flex items-center space-x-3">
         <RegionSelectorButton />
         <SettingsButton />
-        <ConnectButton />
+        <Button
+          variant={"ghost"}
+          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-chinese-black transition-all duration-500 hover:bg-raisin-black"
+        >
+          <Icon3Dots className="rotate-90" />
+        </Button>
+        <div className="hidden md:block">
+          <ConnectButton />
+        </div>
       </div>
     </header>
   );

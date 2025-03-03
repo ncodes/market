@@ -20,7 +20,7 @@ export default function SwapConfirmationModal({ open, completeSwap }: { open: bo
   return (
     <Dialog open={open} modal={true}>
       <DialogContent
-        className="max-w-[500px] border-none p-0 tracking-wide transition-all duration-300"
+        className="max-w-[500px] border-none p-4 md:p-0 tracking-wide transition-all duration-300"
         hideCloseButton
       >
         <div className="flex w-full flex-col gap-2">

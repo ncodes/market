@@ -1,4 +1,3 @@
-import { Avatar } from "@/components/avatar/Avatar";
 import { IconSearch } from "@/components/icons/IconSearch";
 import { Overlay } from "@/components/Overlay";
 import { Card, CardContent } from "@/components/ui/card";
@@ -7,16 +6,18 @@ import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/libs/utils.ts";
 import { motion } from "framer-motion";
-import { GlobeIcon } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import AssetAvatar from "./avatar/AssetAvatar";
+import { EthereumIcon, USDTIcon } from "@/assets";
+import IconTriangleUp from "./icons/IconTriangleUp";
+import IconTriangleDown from "./icons/IconTriangleDown";
 
 export function SearchBar() {
   const [showSearch, setShowSearch] = useState(false);
 
   return (
     <div
-      className={cn("pointer-events-none absolute left-0 top-0 flex w-full items-center justify-center", {
+      className={cn("pointer-events-none absolute left-0 top-0 hidden w-full items-center justify-center lg:flex", {
         "!pointer-events-auto": showSearch,
       })}
     >
@@ -25,7 +26,7 @@ export function SearchBar() {
           className={cn(
             "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-gray-700/30 bg-raisin-black/30",
             {
-              "mx-auto rounded-none rounded-t-2xl border-b-0 border-gray-700/70": showSearch,
+              "border-pastel-green": showSearch,
             },
           )}
         >
@@ -51,67 +52,68 @@ export function SearchBar() {
         {showSearch && (
           <motion.div
             animate={{ minHeight: "200px", maxHeight: "500px" }}
-            className="relative h-auto w-full overflow-hidden rounded-2xl rounded-t-none border border-t-0 border-gray-700/70 bg-eerie-black"
+            className="relative mt-4 h-auto w-full overflow-hidden rounded-3xl border border-raisin-black bg-vampire-black"
           >
-            <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto px-3 py-1" orientation="vertical">
-              <Label className="tracking-wide text-cool-grey">Popular tokens</Label>
-              <ul className="mx-0.5 mt-2 flex flex-col space-y-2">
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984/logo.png"
-                  tokenSymbol="UNI"
-                  name="Uniswap"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x221657776846890989a759BA2973e427DfF5C9bB/logo.png"
-                  tokenSymbol="REP"
-                  name="Reputation"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEX"
-                  name="HEX"
-                />
-                <Item
-                  src="https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0x2b591e99afE9f32eAA6214f7B7629768c40Eeb39/logo.png"
-                  tokenSymbol="HEXx"
-                  name="HEXx"
-                />
-              </ul>
+            <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto py-4" orientation="vertical">
+              <div className="mb-2">
+                <Label className="px-3 text-lotion">Recent Search</Label>
+              </div>
+              <Item
+                token="Tether"
+                tokenSymbol="USDT"
+                amount="$10.60"
+                percentage="20%"
+                assetImge={USDTIcon}
+                networkImage={EthereumIcon}
+                isPositive
+              />
+              <Item
+                token="Tether"
+                tokenSymbol="USDT"
+                amount="$10.60"
+                percentage="20%"
+                assetImge={USDTIcon}
+                networkImage={EthereumIcon}
+              />
+              <Item
+                token="Tether"
+                tokenSymbol="USDT"
+                amount="$10.60"
+                percentage="20%"
+                assetImge={USDTIcon}
+                networkImage={EthereumIcon}
+              />
+
+              <div className="my-2 border border-raisin-black py-4">
+                <Label className="px-3 text-lotion">Popular Tokens</Label>
+              </div>
+              <Item
+                token="Tether"
+                tokenSymbol="USDT"
+                amount="$10.60"
+                percentage="20%"
+                assetImge={USDTIcon}
+                networkImage={EthereumIcon}
+                isPositive
+              />
+              <Item
+                token="Tether"
+                tokenSymbol="USDT"
+                amount="$10.60"
+                percentage="20%"
+                assetImge={USDTIcon}
+                networkImage={EthereumIcon}
+                isPositive
+              />
+              <Item
+                token="Tether"
+                tokenSymbol="USDT"
+                amount="$10.60"
+                percentage="20%"
+                assetImge={USDTIcon}
+                networkImage={EthereumIcon}
+                isPositive
+              />
             </ScrollArea>
           </motion.div>
         )}
@@ -127,18 +129,49 @@ export function SearchBar() {
   );
 }
 
-function Item({ src, tokenSymbol, name }: { src: string; tokenSymbol: string; name: string }) {
+function Item({
+  token,
+  tokenSymbol,
+  assetImge,
+  networkImage,
+  amount,
+  percentage,
+  isPositive,
+}: {
+  token: string;
+  tokenSymbol: string;
+  assetImge: string;
+  networkImage: string;
+  amount: string;
+  percentage: string;
+  isPositive?: boolean;
+}) {
   return (
-    <li className="flex cursor-pointer items-center justify-between rounded-3xl pl-1 pr-3 transition-all duration-300 hover:scale-[1.01] hover:bg-baltic-sea/50 hover:bg-bright-gray hover:text-white">
-      <div className="flex items-center space-x-3">
-        <Avatar src={src} fallback={tokenSymbol} className="h-8 w-8" />
-        <div className="flex space-x-2 text-white">
-          <span className="font-bold">{name}</span> <span className="text-[#6b6b6b]">{tokenSymbol}</span>
+    <div className="flex cursor-pointer items-center justify-between from-[#1c1c28] to-[#1c1c28] px-3 py-3 hover:bg-gradient-to-l">
+      <div className="flex cursor-pointer items-center gap-2">
+        <div className="w-min">
+          <AssetAvatar
+            assetImage={assetImge}
+            networkImage={networkImage}
+            className="h-[33px] w-[33px]"
+            networkClassName="w-[17px] h-[17px] border-none"
+          />
+        </div>
+        <div className="flex h-fit w-fit flex-col">
+          <Label className="cursor-pointer text-base font-light text-anti-flash-white">{token}</Label>
+          <Label className="cursor-pointer text-sm font-light text-cool-grey">{tokenSymbol}</Label>
         </div>
       </div>
-      <Link to={""} className="opacity-90 hover:opacity-100">
-        <GlobeIcon className="h-4 w-4 text-[#6b6b6b]" />
-      </Link>
-    </li>
+      <div className="flex items-center">
+        <Label className="cursor-pointer font-light text-anti-flash-white">{amount} - </Label>
+        <div className="flex items-start">
+          {isPositive && <IconTriangleUp className="m-1" />}
+          {!isPositive && <IconTriangleDown className="m-[2px]" />}
+          <Label className={cn("cursor-pointer text-base font-light text-coral-red", { "text-go-green": isPositive })}>
+            {percentage}
+          </Label>
+        </div>
+      </div>
+    </div>
   );
 }
