@@ -14,7 +14,7 @@ export function AdvanceSettings() {
     <Collapsible className="w-full" onOpenChange={(open) => setIsOpened(open)}>
       <CollapsibleTrigger className="w-full">
         <div className="flex w-full justify-between">
-          <Label className="font-poppins text-base font-semibold text-cool-grey">Advanced Settings</Label>
+          <Label className="font-poppins text-sm lg:text-base font-semibold text-cool-grey">Advanced Settings</Label>
           <IconDropDown className={cn("transition-transform", isOpened ? "rotate-180" : "")} />
         </div>
       </CollapsibleTrigger>

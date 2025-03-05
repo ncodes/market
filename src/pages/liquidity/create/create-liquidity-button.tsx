@@ -14,15 +14,18 @@ export function CreateLiquidityButton() {
   return (
     <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
       <DialogTrigger className="w-full">
-        <Button variant={"secondary"} className="h-14 w-full text-lg font-semibold">
+        <Button variant={"secondary"} className="h-14 w-full text-base font-semibold lg:text-lg">
           Create
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-[450px] border-none bg-transparent px-0 py-0" hideCloseButton>
+      <DialogContent
+        className="fixed bottom-0 left-1/2 w-full -translate-x-1/2 border-none bg-transparent px-0 py-0 lg:top-[45%] lg:w-[450px] lg:translate-y-[-50%] data-[state=open]:slide-in-from-bottom-[48%] lg:data-[state=open]:slide-in-from-top-[48%]"
+        hideCloseButton
+      >
         <div className="w-full">
-          <div className="mb-1 w-full rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
+          <div className="mb-1 w-full rounded-t-3xl rounded-b-none lg:rounded-b-3xl border border-eerie-black bg-chinese-black font-poppins">
             <div className="flex items-center justify-between border-b border-eerie-black px-5 py-4">
-              <Label className="text-2xl font-semibold text-lotion">Confirm Liqudity Creation</Label>
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">Confirm Liqudity Creation</Label>
               <Button
                 variant="ghost"
                 className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
@@ -83,8 +86,13 @@ export function CreateLiquidityButton() {
                 <Switch checked={true} onCheckedChange={() => {}} />
               </div>
             </div>
+            <div className="block px-5 lg:hidden">
+              <Button variant={"secondary"} className="h-14 w-full font-semibold">
+                Confirm
+              </Button>
+            </div>
           </div>
-          <Button variant={"secondary"} className="h-14 w-full text-lg font-semibold">
+          <Button variant={"secondary"} className="hidden h-14 w-full text-lg font-semibold lg:block">
             Confirm
           </Button>
         </div>
