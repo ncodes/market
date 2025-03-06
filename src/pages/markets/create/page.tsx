@@ -14,7 +14,7 @@ export default function CreateMarketPage() {
         <div className="mt-10 w-full max-w-md">
           <div className="bg-chinese-black mb-2 w-full rounded-3xl border border-eerie-black">
             <div className="flex items-center gap-4 border-b border-eerie-black px-5 py-4">
-              <Label className="text-lotion text-2xl font-semibold">Create Market</Label>
+              <Label className="text-lotion text-base lg:text-2xl font-semibold">Create Market</Label>
             </div>
             <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-6 py-3">
               <div className="flex w-full gap-5">

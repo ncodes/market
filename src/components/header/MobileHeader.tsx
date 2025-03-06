@@ -13,9 +13,12 @@ export default function MobileHeader() {
 
   return (
     <div className="flex lg:hidden">
-      <Dialog onOpenChange={(open) => setOpen(open)}>
+      <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
         <DialogTrigger>
-          <Button className="m-0 h-auto justify-start gap-1 rounded-none bg-transparent p-0 text-start hover:bg-transparent">
+          <Button
+            onClick={() => setOpen(false)}
+            className="m-0 h-auto justify-start gap-1 rounded-none bg-transparent p-0 text-start hover:bg-transparent"
+          >
             <div className="flex items-center gap-2">
               <LogoMark />
             </div>
