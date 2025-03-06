@@ -7,6 +7,7 @@ import RegionSelectorButton from "./RegionSelectorButton";
 import SettingsButton from "./SettingsButton";
 import Icon3Dots from "../icons/Icon3Dots";
 import { Button } from "../ui/button";
+import MobileHeader from "./MobileHeader";
 
 export interface MenuItem {
   title: string;
@@ -41,34 +42,10 @@ const MenuItems: MenuItem[] = [
 ];
 
 export function Header() {
-  function onNavChange() {
-    setTimeout(() => {
-      const triggers = document.querySelectorAll('.submenu-trigger[data-state="open"]');
-      if (triggers.length === 0) return;
-
-      const firstTrigger = triggers[0] as HTMLElement;
-
-      document.documentElement.style.setProperty("--menu-left-position", `${firstTrigger.offsetLeft}px`);
-    });
-  }
-
   return (
     <header className="relative flex w-full select-none items-center justify-between p-4">
-      <div className="relative -mt-3 flex items-center space-x-4">
-        <Logo />
-        <nav className="relative -top-0.5 left-2 hidden text-sm font-normal tracking-wider md:flex">
-          <NavigationMenu
-            onValueChange={onNavChange}
-            viewportClassName={"rounded-xl border border-eerie-black bg-chinese-black tracking-wider"}
-          >
-            <NavigationMenuList className="gap-3">
-              {MenuItems.map((menuItem, index) => (
-                <CustomNavigationMenu key={index} menuItem={menuItem} />
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </nav>
-      </div>
+      <DesktopViewHeader />
+      <MobileHeader />
 
       <SearchBar />
       <div className="relative -top-1 flex items-center space-x-3">
@@ -85,5 +62,36 @@ export function Header() {
         </div>
       </div>
     </header>
+  );
+}
+
+function DesktopViewHeader() {
+  function onNavChange() {
+    setTimeout(() => {
+      const triggers = document.querySelectorAll('.submenu-trigger[data-state="open"]');
+      if (triggers.length === 0) return;
+
+      const firstTrigger = triggers[0] as HTMLElement;
+
+      document.documentElement.style.setProperty("--menu-left-position", `${firstTrigger.offsetLeft}px`);
+    });
+  }
+
+  return (
+    <div className="relative -mt-3 hidden items-center space-x-4 lg:flex">
+      <Logo />
+      <nav className="relative -top-0.5 left-2 hidden text-sm font-normal tracking-wider md:flex">
+        <NavigationMenu
+          onValueChange={onNavChange}
+          viewportClassName={"rounded-xl border border-eerie-black bg-chinese-black tracking-wider"}
+        >
+          <NavigationMenuList className="gap-3">
+            {MenuItems.map((menuItem, index) => (
+              <CustomNavigationMenu key={index} menuItem={menuItem} />
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </nav>
+    </div>
   );
 }
