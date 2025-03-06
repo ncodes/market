@@ -20,7 +20,7 @@ export function AssetButton({
   className,
   textClassName,
   assetClassName,
-  networkClassName
+  networkClassName,
 }: {
   text: string;
   assetImage: string;
@@ -43,15 +43,23 @@ export function AssetButton({
         >
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-2">
-              <AssetAvatar assetImage={assetImage} networkImage={networkImage} className={assetClassName} networkClassName={networkClassName}/>
+              <AssetAvatar
+                assetImage={assetImage}
+                networkImage={networkImage}
+                className={assetClassName}
+                networkClassName={networkClassName}
+              />
               <span className={cn("text-base font-semibold text-anti-flash-white", textClassName)}>{text}</span>
             </div>
             <IconDropDown />
           </div>
         </Button>
       </DialogTrigger>
-      <DialogContent className="top-[40%] w-[450px] border-none bg-transparent px-0 pr-2 pt-0" hideCloseButton>
-        <div className="overflow-hidden rounded-3xl border border-eerie-black bg-chinese-black font-poppins">
+      <DialogContent
+        className="relative left-1/2 top-0 !h-screen w-full -translate-x-1/2 border-none bg-transparent px-0 py-0 data-[state=open]:slide-in-from-bottom-[48%] lg:fixed lg:top-[60%] lg:h-fit lg:w-[450px] lg:translate-y-[-50%] lg:data-[state=open]:slide-in-from-top-[48%]"
+        hideCloseButton
+      >
+        <div className="absolute -bottom-[342px] w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins lg:relative lg:bottom-0 lg:h-fit lg:rounded-b-3xl">
           <div className="flex items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
             <div className="cursor-pointer" onClick={() => setOpen(false)}>
