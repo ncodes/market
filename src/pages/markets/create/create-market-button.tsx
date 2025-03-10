@@ -1,30 +1,31 @@
 import { USDCIcon } from "@/assets";
 import { Button } from "@/components/ui/button.tsx";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { XIcon } from "lucide-react";
 import { useState } from "react";
 import { Switch } from "../../../components/ui/switch";
 import { AssetOverview } from "./asset-overview";
+import Modal from "@/components/Modal";
 
 export function CreateMarketButton() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger className="w-full">
+    <Modal
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+      triggerClassName="w-full"
+      triggerComponent={
         <Button variant={"secondary"} className="h-14 w-full text-base font-semibold lg:text-lg">
           Create
         </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="fixed bottom-0 left-1/2 w-full -translate-x-1/2 border-none bg-transparent px-0 py-0 data-[state=open]:slide-in-from-bottom-[48%] lg:top-[45%] lg:w-[450px] lg:translate-y-[-50%] lg:data-[state=open]:slide-in-from-top-[48%]"
-        hideCloseButton
-      >
+      }
+      desktopClassName="w-[450px]"
+      content={
         <div className="w-full">
           <div className="mb-1 w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins lg:rounded-b-3xl">
             <div className="flex items-center justify-between border-b border-gunmetal px-5 py-4">
-              <Label className="text-base lg:text-2xl font-semibold text-lotion">Confirm Market Creation</Label>
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">Confirm Market Creation</Label>
               <Button
                 variant="ghost"
                 className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
@@ -81,7 +82,7 @@ export function CreateMarketButton() {
               </div>
             </div>
 
-            <Button variant={"secondary"} className="mt-1 block h-14 w-full font-semibold lg:hidden mb-6">
+            <Button variant={"secondary"} className="mb-6 mt-1 block h-14 w-full font-semibold lg:hidden">
               Confirm
             </Button>
           </div>
@@ -89,7 +90,7 @@ export function CreateMarketButton() {
             Confirm
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }
