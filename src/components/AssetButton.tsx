@@ -12,6 +12,7 @@ import { Assets } from "@/libs/wallets";
 import { CheckCircle2, XIcon } from "lucide-react";
 import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import Modal from "./Modal";
 
 export function AssetButton({
   text,
@@ -33,8 +34,10 @@ export function AssetButton({
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger asChild>
+    <Modal
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+      triggerComponent={
         <Button
           className={cn(
             "scale-btn h-auto w-[140px] justify-start bg-black-coral/20 px-[4px] py-1 pr-2 hover:bg-black-coral/30",
@@ -54,12 +57,9 @@ export function AssetButton({
             <IconDropDown />
           </div>
         </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="relative left-1/2 top-0 !h-screen w-full -translate-x-1/2 border-none bg-transparent px-0 py-0 data-[state=open]:slide-in-from-bottom-[48%] lg:fixed lg:top-[60%] lg:h-fit lg:w-[450px] lg:translate-y-[-50%] lg:data-[state=open]:slide-in-from-top-[48%]"
-        hideCloseButton
-      >
-        <div className="absolute -bottom-[342px] w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins lg:relative lg:bottom-0 lg:h-fit lg:rounded-b-3xl">
+      }
+      content={
+        <div className="w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black lg:rounded-b-3xl">
           <div className="flex items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
             <div className="cursor-pointer" onClick={() => setOpen(false)}>
@@ -83,8 +83,8 @@ export function AssetButton({
             ))}
           </div>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }
 
