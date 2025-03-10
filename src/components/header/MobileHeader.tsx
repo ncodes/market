@@ -1,5 +1,4 @@
 import { Button } from "../ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import LogoMark from "../icons/LogoMark";
 import { ChevronDown, XIcon } from "lucide-react";
 import { cn } from "@/libs/utils";
@@ -7,14 +6,16 @@ import { useRef, useState } from "react";
 import { Label } from "../ui/label";
 import { motion } from "framer-motion";
 import { DiscordIcon, TelegramIcon, XIcon as TwitterIcon } from "@/assets";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
 
   return (
     <div className="flex lg:hidden">
-      <Dialog open={open} onOpenChange={(open) => setOpen(open)}>
-        <DialogTrigger>
+      <Sheet open={open} onOpenChange={(open) => setOpen(open)}>
+        <SheetTrigger>
+          {" "}
           <Button
             onClick={() => setOpen(false)}
             className="m-0 h-auto justify-start gap-1 rounded-none bg-transparent p-0 text-start hover:bg-transparent"
@@ -24,53 +25,52 @@ export default function MobileHeader() {
             </div>
             <ChevronDown size={20} className={cn("transition-all", { "rotate-180": open })} />
           </Button>
-        </DialogTrigger>
-        <DialogContent
-          className="fixed -bottom-[135px] left-1/2 w-full -translate-x-1/2 border-none bg-transparent px-0 py-0 data-[state=open]:slide-in-from-bottom-[48%]"
+        </SheetTrigger>
+        <SheetContent
+          className="max-h-[90vh] w-full rounded-b-none rounded-t-3xl border border-raisin-black bg-chinese-black p-0 font-poppins"
           hideCloseButton
+          side={"bottom"}
         >
-          <div className="mb-1 w-full rounded-b-none rounded-t-3xl border border-raisin-black bg-chinese-black font-poppins">
-            <div className="flex items-center justify-end px-5 pt-4">
-              <Button
-                variant="ghost"
-                className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
-                onClick={() => setOpen(false)}
-              >
-                <XIcon className="h-7 w-7" />
+          <div className="flex items-center justify-end px-5 pt-4">
+            <Button
+              variant="ghost"
+              className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
+              onClick={() => setOpen(false)}
+            >
+              <XIcon className="h-7 w-7" />
+            </Button>
+          </div>
+          <div className="flex w-full flex-col gap-3 px-5">
+            <div className="flex flex-col gap-4">
+              <Label className="text-base text-white">App</Label>
+              <MobileMenuItem text="Swap" url="#" />
+              <MobileMenuItem text="Liquidity" url="#" />
+              <MobileMenuItem text="Explore" url="#" />
+              <MobileMenuItem text="Markets" url="#" />
+            </div>
+            <CompanyMenu />
+            <ProtocolMenu />
+            <NeedHelpMenu />
+            <div className="flex flex-col gap-4">
+              <Label className="text-base text-white">Legal</Label>
+              <MobileMenuItem text="Terms of Service" url="#" />
+              <MobileMenuItem text="Privacy Policy" url="#" />
+              <MobileMenuItem text="Copyright" url="#" />
+            </div>
+            <div className="flex gap-[14px] pb-5 pt-2">
+              <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
+                <img src={DiscordIcon} className="h-5 w-5" />
+              </Button>
+              <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
+                <img src={TwitterIcon} className="h-5 w-5" />
+              </Button>
+              <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
+                <img src={TelegramIcon} className="h-5 w-5" />
               </Button>
             </div>
-            <div className="flex w-full flex-col gap-3 px-5">
-              <div className="flex flex-col gap-4">
-                <Label className="text-base text-white">App</Label>
-                <MobileMenuItem text="Swap" url="#" />
-                <MobileMenuItem text="Liquidity" url="#" />
-                <MobileMenuItem text="Explore" url="#" />
-                <MobileMenuItem text="Markets" url="#" />
-              </div>
-              <CompanyMenu />
-              <ProtocolMenu />
-              <NeedHelpMenu />
-              <div className="flex flex-col gap-4">
-                <Label className="text-base text-white">Legal</Label>
-                <MobileMenuItem text="Terms of Service" url="#" />
-                <MobileMenuItem text="Privacy Policy" url="#" />
-                <MobileMenuItem text="Copyright" url="#" />
-              </div>
-              <div className="flex gap-[14px] pb-5 pt-2">
-                <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
-                  <img src={DiscordIcon} className="h-5 w-5" />
-                </Button>
-                <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
-                  <img src={TwitterIcon} className="h-5 w-5" />
-                </Button>
-                <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
-                  <img src={TelegramIcon} className="h-5 w-5" />
-                </Button>
-              </div>
-            </div>
           </div>
-        </DialogContent>
-      </Dialog>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 }
