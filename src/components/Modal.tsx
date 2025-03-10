@@ -37,11 +37,7 @@ export default function Modal({
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
       {triggerComponent && <SheetTrigger className={triggerClassName}>{triggerComponent}</SheetTrigger>}
-      <SheetContent
-        className="h-fit max-h-[90vh] w-full rounded-b-none rounded-t-3xl border border-raisin-black bg-chinese-black p-0 font-poppins"
-        hideCloseButton
-        side="bottom"
-      >
+      <SheetContent className="h-fit max-h-[90vh] w-full border-none p-0 font-poppins" hideCloseButton side="bottom">
         {content}
       </SheetContent>
     </Sheet>
