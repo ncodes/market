@@ -1,7 +1,7 @@
 import AssetField from "@/components/AssetField";
 import InfoLabel from "@/components/InfoLabel";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import useStore from "@/hooks/store/useStore";
@@ -16,16 +16,16 @@ export default function AdjustAmount() {
   const [newAmount, setNewAmount] = useState(10000);
 
   return (
-    <Dialog modal={true} open={openAdjustAmount} onOpenChange={(open) => setOpenAdjustAmount(open)}>
-      <DialogTrigger></DialogTrigger>
-      <DialogContent
-        className="max-w-[360px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
-        hideCloseButton
-      >
+    <Modal
+      open={openAdjustAmount}
+      onOpenChange={(open) => setOpenAdjustAmount(open)}
+      content={
         <div className="flex w-full flex-col gap-2">
-          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black lg:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-2xl font-semibold text-lotion">{isSubmitted ? "Confirm" : "Adjust Amount"}</Label>
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">
+                {isSubmitted ? "Confirm" : "Adjust Amount"}
+              </Label>
               <Button
                 onClick={() => setOpenAdjustAmount(false)}
                 variant="ghost"
@@ -37,7 +37,7 @@ export default function AdjustAmount() {
             <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
               <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
               <div className="flex flex-col gap-1">
-                <InfoLabel text="Current" info="Current" className="text-light-periwinkle text-sm font-light" />
+                <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
                 <AssetField
                   width={120}
                   placeholder="10,000 USDC"
@@ -47,7 +47,7 @@ export default function AdjustAmount() {
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <InfoLabel text="New" info="New" className="text-light-periwinkle text-sm font-light" />
+                <InfoLabel text="New" info="New" className="text-sm font-light text-light-periwinkle" />
                 <AssetField
                   width={120}
                   type={isSubmitted ? "text" : "number"}
@@ -59,7 +59,7 @@ export default function AdjustAmount() {
               </div>
               {isSubmitted && (
                 <div className="flex flex-col gap-1">
-                  <InfoLabel text="Returned" info="Returned" className="text-light-periwinkle text-sm font-light" />
+                  <InfoLabel text="Returned" info="Returned" className="text-sm font-light text-light-periwinkle" />
                   <AssetField width={120} placeholder="0.00" type="text" value={formatToMoney(newAmount)} readOnly />
                 </div>
               )}
@@ -78,16 +78,25 @@ export default function AdjustAmount() {
                 />
               )}
             </div>
+            <div className="flex w-full px-5 pt-3 lg:hidden">
+              <Button
+                variant={"secondary"}
+                className="h-12 w-full text-lg font-semibold text-gunmetal"
+                onClick={isSubmitted ? () => setOpenAdjustAmount(false) : () => setSubmitted(true)}
+              >
+                {isSubmitted ? "Update" : "Confirm"}
+              </Button>
+            </div>
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 text-lg font-semibold text-gunmetal"
+            className="hidden h-12 text-lg font-semibold text-gunmetal lg:flex"
             onClick={isSubmitted ? () => setOpenAdjustAmount(false) : () => setSubmitted(true)}
           >
             {isSubmitted ? "Update" : "Confirm"}
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }

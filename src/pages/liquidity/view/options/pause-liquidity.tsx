@@ -1,5 +1,5 @@
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { ChevronRight, PauseIcon, XIcon } from "lucide-react";
@@ -9,8 +9,10 @@ export default function PauseLiquidity() {
   const [open, setOpen] = useState(false);
   const [isSubmitted, setSubmitted] = useState(false);
   return (
-    <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger>
+    <Modal
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+      triggerComponent={
         <Button
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-yellow-500 hover:bg-eerie-black hover:text-yellow-500"
@@ -21,15 +23,12 @@ export default function PauseLiquidity() {
           </span>
           <ChevronRight className="text-cool-grey group-hover:text-white" />
         </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="max-w-[360px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
-        hideCloseButton
-      >
+      }
+      content={
         <div className="flex w-full flex-col gap-2">
-          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black lg:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-2xl font-semibold text-lotion">Pause Liquidity</Label>
+              <Label className="text-base lg:text-2xl font-semibold text-lotion">Pause Liquidity</Label>
               <Button
                 onClick={() => setOpen(false)}
                 variant="ghost"
@@ -55,16 +54,25 @@ export default function PauseLiquidity() {
                 </div>
               )}
             </div>
+            <div className="flex w-full px-5 py-2 lg:hidden">
+              <Button
+                variant={"secondary"}
+                className="h-12 w-full bg-yellow-500 text-lg font-semibold text-gunmetal hover:bg-yellow-400"
+                onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
+              >
+                {isSubmitted ? "Pause" : "Proceed"}
+              </Button>
+            </div>
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 bg-yellow-500 text-lg font-semibold text-gunmetal hover:bg-yellow-400"
+            className="hidden h-12 bg-yellow-500 text-lg font-semibold text-gunmetal hover:bg-yellow-400 lg:flex"
             onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             {isSubmitted ? "Pause" : "Proceed"}
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }

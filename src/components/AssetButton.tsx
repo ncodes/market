@@ -5,7 +5,6 @@ import IconArrowRight from "@/components/icons/IconArrowRight";
 import IconDropDown from "@/components/icons/IconDropDown";
 import { IconSearch } from "@/components/icons/IconSearch";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
 import { Assets } from "@/libs/wallets";
