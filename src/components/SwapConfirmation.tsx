@@ -4,7 +4,6 @@ import { Avatar } from "@/components/avatar/Avatar";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 import IconLink from "@/components/icons/IconLink";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import useStore from "@/hooks/store/useStore";
 import { cn } from "@/libs/utils";
@@ -12,21 +11,20 @@ import { motion } from "framer-motion";
 import { ChevronDown, ChevronRight, XIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import IconMarkSuccess from "./icons/IconMarkSuccess";
+import Modal from "./Modal";
 
 export default function SwapConfirmationModal({ open, completeSwap }: { open: boolean; completeSwap: () => void }) {
   const setOpenSwapConfirmation = useStore((s) => s.setOpenSwapConfirmation);
   const [isSubmitted, setSubmitted] = useState(false);
 
   return (
-    <Dialog open={open} modal={true}>
-      <DialogContent
-        className="fixed bottom-[290px] lg:bottom-0 left-1/2 w-full -translate-x-1/2 border-none bg-transparent px-0 py-0 data-[state=open]:slide-in-from-bottom-[48%] lg:top-[45%] lg:w-[500px] lg:translate-y-[-50%] lg:data-[state=open]:slide-in-from-top-[48%]"
-        hideCloseButton
-      >
+    <Modal
+      open={open}
+      content={
         <div className="flex w-full flex-col gap-2">
           <div className="w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins lg:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-base lg:text-2xl font-semibold text-lotion">
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Swap Completed" : "Confirm Swap"}
               </Label>
               <Button
@@ -91,8 +89,8 @@ export default function SwapConfirmationModal({ open, completeSwap }: { open: bo
             {isSubmitted ? "Finish" : "Approve & Swap"}
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }
 
