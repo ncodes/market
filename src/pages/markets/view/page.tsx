@@ -28,7 +28,7 @@ export default function ViewMarketPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex w-full flex-col gap-6 px-4 lg:flex-row lg:px-0">
+        <div className="flex flex-col gap-6 px-4 lg:flex-row lg:px-0">
           <div className="w-screen max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black lg:max-w-3xl">
             <div className="flex items-center justify-between border-b border-eerie-black px-6 py-4">
               <div className="flex items-center gap-6">

@@ -29,8 +29,8 @@ export default function ViewLiquidityPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex gap-6">
-          <div className="w-screen max-w-3xl rounded-3xl border border-eerie-black/50 bg-chinese-black">
+        <div className="flex flex-col lg:flex-row gap-6">
+          <div className="w-screen max-w-full lg:max-w-3xl rounded-3xl border border-eerie-black/50 bg-chinese-black">
             <div className="flex justify-between border-b border-eerie-black px-6 py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
