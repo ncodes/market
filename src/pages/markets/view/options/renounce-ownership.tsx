@@ -1,5 +1,5 @@
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { ChevronRight, XIcon } from "lucide-react";
 import { useState } from "react";
@@ -9,8 +9,10 @@ export default function RenounceOwnership() {
   const [isSubmitted, setSubmitted] = useState(false);
 
   return (
-    <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger>
+    <Modal
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+      triggerComponent={
         <Button
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-sunset-orange hover:bg-eerie-black hover:text-sunset-orange"
@@ -18,15 +20,12 @@ export default function RenounceOwnership() {
           Renounce Ownership
           <ChevronRight className="text-sunset-orange group-hover:text-sunset-orange" />
         </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="max-w-[360px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
-        hideCloseButton
-      >
+      }
+      content={
         <div className="flex w-full flex-col gap-2">
-          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black lg:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-2xl font-semibold text-lotion">
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm Renounce" : "Renounce Ownership"}
               </Label>
               <Button
@@ -43,17 +42,26 @@ export default function RenounceOwnership() {
                   ? "Are you sure you want to renounce ownership  of this market?"
                   : "Your are about to renounce ownership of this market. If you proceed you will lose control and not be able to update the market. This action cannot be reversed."}
               </Label>
+
+              <Button
+                variant={"secondary"}
+                className="flex h-12 bg-sunset-orange text-lg font-semibold text-white hover:bg-sunset-orange/70 lg:hidden"
+                onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
+              >
+                {isSubmitted ? "Proceed" : "Renounce"}
+              </Button>
             </div>
+            <div></div>
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 bg-sunset-orange text-lg font-semibold text-white hover:bg-sunset-orange/70"
+            className="hidden h-12 bg-sunset-orange text-lg font-semibold text-white hover:bg-sunset-orange/70 lg:flex"
             onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             {isSubmitted ? "Proceed" : "Renounce"}
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }
