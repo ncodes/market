@@ -82,9 +82,11 @@ export function CreateMarketButton() {
               </div>
             </div>
 
-            <Button variant={"secondary"} className="mb-6 mt-1 block h-14 w-full font-semibold lg:hidden">
-              Confirm
-            </Button>
+            <div className="block w-full px-5 pb-3 lg:hidden">
+              <Button variant={"secondary"} className="h-14 w-full font-semibold">
+                Confirm
+              </Button>
+            </div>
           </div>
           <Button variant={"secondary"} className="mt-1 hidden h-14 w-full text-lg font-semibold lg:block">
             Confirm
