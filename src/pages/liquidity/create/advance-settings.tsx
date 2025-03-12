@@ -1,25 +1,42 @@
-import { useState } from "react";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible.tsx";
+import { useRef, useState } from "react";
 import { Label } from "@/components/ui/label.tsx";
 import IconDropDown from "@/components/icons/IconDropDown.tsx";
 import { cn } from "@/libs/utils.ts";
 import InfoLabel from "@/components/InfoLabel.tsx";
 import { Switch } from "@/components/ui/switch.tsx";
 import Input from "@/components/Input.tsx";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 export function AdvanceSettings() {
   const [isOpened, setIsOpened] = useState(false);
+  const contentHeight = useRef<HTMLDivElement>(null);
+  const [animCount, setAnimCount] = useState(0);
 
   return (
-    <Collapsible className="w-full" onOpenChange={(open) => setIsOpened(open)}>
-      <CollapsibleTrigger className="w-full">
-        <div className="flex w-full justify-between">
-          <Label className="font-poppins text-sm lg:text-base font-semibold text-cool-grey">Advanced Settings</Label>
-          <IconDropDown className={cn("transition-transform", isOpened ? "rotate-180" : "")} />
-        </div>
-      </CollapsibleTrigger>
-      <CollapsibleContent className="mt-2 w-full">
-        <div className="flex w-full flex-col gap-4">
+    <motion.div className={cn("relative w-full overflow-hidden py-0 pt-0")}>
+      <Button
+        variant={"ghost"}
+        className="flex w-full justify-between bg-transparent p-0 hover:bg-transparent"
+        onClick={() => setIsOpened((prev) => !prev)}
+      >
+        <Label className="font-poppins text-sm font-semibold text-cool-grey lg:text-base">Advanced Settings</Label>
+        <IconDropDown className={cn("transition-transform", isOpened ? "rotate-180" : "")} />
+      </Button>
+      <motion.div
+        initial={{ opacity: 0, visibility: "hidden", position: "absolute" }}
+        animate={{
+          height: isOpened ? contentHeight.current?.clientHeight : "0",
+          opacity: isOpened ? [0, 0.5, 1] : 0,
+          visibility: isOpened ? "visible" : "hidden",
+          position: animCount === 0 ? (isOpened ? "relative" : "absolute") : "relative",
+        }}
+        transition={{ duration: 0.3, ease: "linear" }}
+        onAnimationComplete={() => {
+          setAnimCount((prev) => prev + 1);
+        }}
+      >
+        <div ref={contentHeight} className="flex w-full flex-col gap-4">
           <div className="mt-3 flex w-full flex-col gap-1 pr-2">
             <InfoLabel text="Target" info="Target" className="mb-1" />
             <Input type="text" placeholder="0x000" className="!font-poppins" hideSuffix />
@@ -29,7 +46,7 @@ export function AdvanceSettings() {
             <Switch defaultChecked />
           </div>
         </div>
-      </CollapsibleContent>
-    </Collapsible>
+      </motion.div>
+    </motion.div>
   );
 }

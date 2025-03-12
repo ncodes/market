@@ -23,7 +23,7 @@ export default function UpdatePrice() {
       }
       content={
         <div className="flex w-full flex-col gap-2">
-          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black lg:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Adjust Price"}
@@ -42,7 +42,7 @@ export default function UpdatePrice() {
               </Label>
               {isSubmitted && (
                 <div className="flex flex-col gap-3">
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 opacity-50">
                     <Label className="text-sm font-light tracking-wider text-lotion/80">Old Price</Label>
                     <div className="flex w-[160px] items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
                       <Label className="text-base text-gray-100">

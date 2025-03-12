@@ -44,7 +44,7 @@ export default function PauseLiquidity() {
                 </Label>
               )}
               {isSubmitted && (
-                <div className="flex items-start gap-2">
+                <div className="flex items-center gap-2">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-500/20">
                     <InfoCircledIcon className="h-8 w-8 text-yellow-500" />
                   </div>

@@ -147,7 +147,7 @@ function Item({
   isPositive?: boolean;
 }) {
   return (
-    <div className="flex cursor-pointer items-center justify-between from-[#1c1c28] to-[#1c1c28] px-3 py-2 hover:bg-gradient-to-l">
+    <div className="flex cursor-pointer items-center justify-between px-3 py-2 hover:bg-eerie-black">
       <div className="flex cursor-pointer items-center gap-2">
         <div className="w-min">
           <AssetAvatar

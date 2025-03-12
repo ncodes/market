@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import useStore from "@/hooks/store/useStore";
 import { formatToMoney } from "@/libs/helpers";
+import { cn } from "@/libs/utils";
 import { XIcon } from "lucide-react";
 import { useState } from "react";
 
@@ -36,7 +37,7 @@ export default function AdjustAmount() {
             </div>
             <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
               <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>
-              <div className="flex flex-col gap-1">
+              <div className={cn("flex flex-col gap-1", { "opacity-50": isSubmitted })}>
                 <InfoLabel text="Current" info="Current" className="text-sm font-light text-light-periwinkle" />
                 <AssetField
                   width={120}
@@ -78,7 +79,7 @@ export default function AdjustAmount() {
                 />
               )}
             </div>
-            <div className="flex w-full px-5 pt-3 lg:hidden">
+            <div className="flex w-full px-5 py-3 lg:hidden">
               <Button
                 variant={"secondary"}
                 className="h-12 w-full text-lg font-semibold text-gunmetal"
