@@ -1,5 +1,6 @@
-import { IconSearch } from "@/components/icons/IconSearch";
+import { EthereumIcon, USDTIcon } from "@/assets";
 import { Overlay } from "@/components/Overlay";
+import { IconSearch } from "@/components/icons/IconSearch";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,9 +9,8 @@ import { cn } from "@/libs/utils.ts";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import AssetAvatar from "./avatar/AssetAvatar";
-import { EthereumIcon, USDTIcon } from "@/assets";
-import IconTriangleUp from "./icons/IconTriangleUp";
 import IconTriangleDown from "./icons/IconTriangleDown";
+import IconTriangleUp from "./icons/IconTriangleUp";
 
 export function SearchBar() {
   const [showSearch, setShowSearch] = useState(false);
@@ -24,7 +24,7 @@ export function SearchBar() {
       <div className="z-20 w-[500px]">
         <Card
           className={cn(
-            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-full border border-gray-700/30 bg-raisin-black/30",
+            "pointer-events-auto relative z-10 mt-3 flex w-full rounded-xl border border-gray-700/30 bg-raisin-black/30",
             {
               "border-pastel-green": showSearch,
             },
@@ -36,7 +36,7 @@ export function SearchBar() {
               type="text"
               placeholder="Search tokens"
               className={cn(
-                "!rounded-full border-0 bg-transparent py-2.5 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
+                "!rounded-xl border-0 bg-transparent py-2.5 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
                 {},
               )}
               onFocus={() => {
@@ -52,9 +52,9 @@ export function SearchBar() {
         {showSearch && (
           <motion.div
             animate={{ minHeight: "200px", maxHeight: "500px" }}
-            className="relative mt-4 h-auto w-full overflow-hidden rounded-3xl border border-raisin-black bg-vampire-black"
+            className="relative mt-2 h-auto w-full overflow-hidden rounded-xl border border-raisin-black bg-vampire-black"
           >
-            <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto py-4" orientation="vertical">
+            <ScrollArea className="max-h-[500px] min-h-[200px] overflow-auto pt-2" orientation="vertical">
               <div className="mb-2">
                 <Label className="px-3 text-lotion">Recent Search</Label>
               </div>
@@ -84,7 +84,7 @@ export function SearchBar() {
                 networkImage={EthereumIcon}
               />
 
-              <div className="my-2 border border-raisin-black py-4">
+              <div className="mt-2 py-2">
                 <Label className="px-3 text-lotion">Popular Tokens</Label>
               </div>
               <Item
@@ -147,19 +147,19 @@ function Item({
   isPositive?: boolean;
 }) {
   return (
-    <div className="flex cursor-pointer items-center justify-between from-[#1c1c28] to-[#1c1c28] px-3 py-3 hover:bg-gradient-to-l">
+    <div className="flex cursor-pointer items-center justify-between from-[#1c1c28] to-[#1c1c28] px-3 py-2 hover:bg-gradient-to-l">
       <div className="flex cursor-pointer items-center gap-2">
         <div className="w-min">
           <AssetAvatar
             assetImage={assetImge}
             networkImage={networkImage}
             className="h-[33px] w-[33px]"
-            networkClassName="w-[17px] h-[17px] border-none"
+            networkClassName="w-[17px] h-[17px]"
           />
         </div>
-        <div className="flex h-fit w-fit flex-col">
-          <Label className="cursor-pointer text-base font-light text-anti-flash-white">{token}</Label>
-          <Label className="cursor-pointer text-sm font-light text-cool-grey">{tokenSymbol}</Label>
+        <div className="flex h-fit w-fit flex-col tracking-wider">
+          <Label className="cursor-pointer text-sm text-anti-flash-white">{token}</Label>
+          <Label className="cursor-pointer text-xs font-light text-cool-grey">{tokenSymbol}</Label>
         </div>
       </div>
       <div className="flex items-center">

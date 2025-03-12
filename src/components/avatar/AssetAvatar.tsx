@@ -19,7 +19,10 @@ export default function AssetAvatar({ assetImage, networkImage, className, netwo
         <Avatar
           src={networkImage}
           className={cn("h-5 w-5", networkClassName)}
-          rootClassName={cn("absolute bottom-0 right-0 h-5 w-5 border border-white", networkClassName)}
+          rootClassName={cn(
+            "absolute bottom-0  -right-1 h-5 w-5 border-2 border-gray-200/50 drop-shadow-md shadow-gray-100",
+            networkClassName,
+          )}
         />
       )}
     </div>
