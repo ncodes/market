@@ -21,6 +21,7 @@ import { CheckIcon, ChevronDown, Copy, ListFilter, Power, XIcon } from "lucide-r
 import { useEffect, useState } from "react";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext";
+import { useMediaQuery } from "usehooks-ts";
 
 export const ConnectedButton = ({
   className,
@@ -33,6 +34,7 @@ export const ConnectedButton = ({
   const { address, ready } = useConnectorContext();
   const { token } = useSession();
   const [openSheet, setOpenSheet] = useState(false);
+  const isDesktop = useMediaQuery("(min-width: 1024px)");
 
   // const { setUser } = useStore((state) => ({ setUser: state.setUser }));
   // const { createSessionFromWallet } = useAuthService();
@@ -70,19 +72,21 @@ export const ConnectedButton = ({
   return (
     <Sheet open={openSheet} onOpenChange={(open) => setOpenSheet(open)}>
       <SheetTrigger>
-        {" "}
         <Button
           variant={"ghost"}
           className={cn(
-            "flex h-auto min-w-[150px] items-center justify-between gap-1 rounded-full bg-card bg-chinese-black px-2 py-1 pl-[2px] transition-all duration-500 hover:scale-x-[1.02] hover:bg-eerie-black [&>*]:cursor-pointer",
+            "flex h-11 w-11 items-center justify-center gap-2 rounded-full bg-card bg-chinese-black px-0 py-1 transition-all duration-500 hover:scale-x-[1.02] hover:bg-eerie-black lg:h-auto lg:w-auto lg:min-w-[150px] lg:justify-between lg:px-2 [&>*]:cursor-pointer",
             className,
           )}
           onClick={() => {}}
         >
-          <div className="pl-1">
-            <EmojiAvatar size={AvatarSize.Small} randomStr={address as string} />
-          </div>
-          <p className={cn("text font-poppins text-sm font-normal tracking-wider text-gray-100 lg:inline-block", {})}>
+          <EmojiAvatar size={AvatarSize.Small} randomStr={address as string} />
+          <p
+            className={cn(
+              "text hidden pr-1 font-poppins text-sm font-normal tracking-wider text-gray-100 lg:inline-block",
+              {},
+            )}
+          >
             <>
               <span className="hidden lg:inline-block">{shortenAddress(address as string)}</span>
               <span className="lg:hidden">{shortenAddress2(address as string)}</span>
@@ -92,7 +96,8 @@ export const ConnectedButton = ({
       </SheetTrigger>
       <SheetContent
         hideCloseButton
-        className="mr-6 mt-4 h-[97%] w-[382px] overflow-hidden rounded-3xl border-none bg-chinese-black p-0"
+        className="mr-0 mt-4 h-[97%] max-h-[90vh] w-full overflow-hidden rounded-b-none rounded-t-3xl border-none bg-chinese-black p-0 lg:mr-6 lg:max-h-full lg:w-[382px] lg:rounded-b-3xl"
+        side={isDesktop ? "right" : "bottom"}
       >
         <div className="flex h-full w-full flex-col">
           <div className="flex items-center justify-between gap-4 px-4 py-4">

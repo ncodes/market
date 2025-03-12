@@ -34,11 +34,7 @@ function Connected({
   className?: string;
   noSessionCreation?: boolean;
 }) {
-  return (
-    <div>
-      <ConnectedButton openWalletModal={show} className={className} noSessionCreation={noSessionCreation} />
-    </div>
-  );
+  return <ConnectedButton openWalletModal={show} className={className} noSessionCreation={noSessionCreation} />;
 }
 
 export function ConnectButton({
@@ -66,7 +62,7 @@ export function ConnectButton({
     <ConnectKitButton.Custom>
       {({ isConnected, show }) => {
         return (
-          <div className="w-full">
+          <div className={cn("w-fit", { "w-full": showSwapButton })}>
             {!isConnected ? (
               <Connect
                 className={className}
@@ -87,7 +83,7 @@ export function ConnectButton({
                   <Button
                     variant={"secondary"}
                     onClick={onSwapClick}
-                    className={cn("text-gunmetal h-auto w-full py-2 text-lg font-semibold", swapButtonClassName)}
+                    className={cn("h-auto w-full py-2 text-lg font-semibold text-gunmetal", swapButtonClassName)}
                   >
                     Swap
                   </Button>

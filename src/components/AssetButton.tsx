@@ -58,14 +58,14 @@ export function AssetButton({
         </Button>
       }
       content={
-        <div className="w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black lg:rounded-b-3xl">
-          <div className="flex items-center justify-between px-5 py-3">
+        <div className="flex flex-col w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black lg:rounded-b-3xl">
+          <div className="h-fit flex items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
             <div className="cursor-pointer" onClick={() => setOpen(false)}>
               <XIcon className="text-cool-grey/50 transition-all duration-300 hover:text-cool-grey" size={20} />
             </div>
           </div>
-          <div className="flex justify-between border-y border-eerie-black px-3 py-2 pr-0">
+          <div className="h-fit flex justify-between border-y border-eerie-black px-3 py-2 pr-0">
             <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">
               <IconSearch className="opacity-40" />
               <input
@@ -76,7 +76,7 @@ export function AssetButton({
             </div>
             <NetworkSelectorButton />
           </div>
-          <div className="flex w-full flex-col px-0">
+          <div className="h-[70vh] flex w-full flex-col px-0 overflow-y-auto">
             {Assets.map((asset, index) => (
               <AssetTile key={index} name={asset.name} logo={asset.logo} symbol={asset.symbol} />
             ))}

@@ -48,18 +48,18 @@ export function Header() {
       <MobileHeader />
 
       <SearchBar />
-      <div className="relative -top-1 flex items-center space-x-3">
+      <div className="relative -top-1 flex w-fit items-center space-x-3">
         <RegionSelectorButton />
         <SettingsButton />
-        <Button
-          variant={"ghost"}
-          className="flex h-11 w-11 cursor-pointer items-center justify-center rounded-full bg-chinese-black transition-all duration-500 hover:bg-raisin-black"
-        >
-          <Icon3Dots className="rotate-90" />
-        </Button>
-        <div className="hidden md:block">
-          <ConnectButton />
+        <div className="flex lg:hidden">
+          <Button
+            variant={"ghost"}
+            className="flex !h-11 !w-11 cursor-pointer items-center justify-center rounded-full bg-chinese-black p-0 transition-all duration-500 hover:bg-raisin-black"
+          >
+            <Icon3Dots className="rotate-90" />
+          </Button>
         </div>
+        <ConnectButton />
       </div>
     </header>
   );

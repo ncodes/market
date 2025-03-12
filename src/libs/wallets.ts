@@ -36,6 +36,11 @@ export const Assets = [
   { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
   { name: "Solana", symbol: "SOL", logo: SolanaIcon },
   { name: "Ethereum", symbol: "ETH", logo: EthereumIcon },
+  { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
+  { name: "Base", symbol: "ETH", logo: EthereumIcon },
+  { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
+  { name: "Solana", symbol: "SOL", logo: SolanaIcon },
+  { name: "Ethereum", symbol: "ETH", logo: EthereumIcon },
 ];
 
 export enum PriceMethod {

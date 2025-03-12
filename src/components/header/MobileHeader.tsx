@@ -40,33 +40,35 @@ export default function MobileHeader() {
               <XIcon className="h-7 w-7" />
             </Button>
           </div>
-          <div className="flex w-full flex-col gap-3 px-5">
-            <div className="flex flex-col gap-4">
-              <Label className="text-base text-white">App</Label>
-              <MobileMenuItem text="Swap" url="#" />
-              <MobileMenuItem text="Liquidity" url="#" />
-              <MobileMenuItem text="Explore" url="#" />
-              <MobileMenuItem text="Markets" url="#" />
-            </div>
-            <CompanyMenu />
-            <ProtocolMenu />
-            <NeedHelpMenu />
-            <div className="flex flex-col gap-4">
-              <Label className="text-base text-white">Legal</Label>
-              <MobileMenuItem text="Terms of Service" url="#" />
-              <MobileMenuItem text="Privacy Policy" url="#" />
-              <MobileMenuItem text="Copyright" url="#" />
-            </div>
-            <div className="flex gap-[14px] pb-5 pt-2">
-              <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
-                <img src={DiscordIcon} className="h-5 w-5" />
-              </Button>
-              <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
-                <img src={TwitterIcon} className="h-5 w-5" />
-              </Button>
-              <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
-                <img src={TelegramIcon} className="h-5 w-5" />
-              </Button>
+          <div className="h-[80vh] overflow-y-auto">
+            <div className="flex h-fit w-full flex-col gap-3 px-5">
+              <div className="flex flex-col gap-4">
+                <Label className="text-base text-white">App</Label>
+                <MobileMenuItem text="Swap" url="#" />
+                <MobileMenuItem text="Liquidity" url="#" />
+                <MobileMenuItem text="Explore" url="#" />
+                <MobileMenuItem text="Markets" url="#" />
+              </div>
+              <CompanyMenu />
+              <ProtocolMenu />
+              <NeedHelpMenu />
+              <div className="flex flex-col gap-4">
+                <Label className="text-base text-white">Legal</Label>
+                <MobileMenuItem text="Terms of Service" url="#" />
+                <MobileMenuItem text="Privacy Policy" url="#" />
+                <MobileMenuItem text="Copyright" url="#" />
+              </div>
+              <div className="flex gap-[14px] pb-5 pt-2">
+                <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
+                  <img src={DiscordIcon} className="h-5 w-5" />
+                </Button>
+                <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
+                  <img src={TwitterIcon} className="h-5 w-5" />
+                </Button>
+                <Button variant={"link"} className="flex h-7 w-7 items-center justify-center rounded-full bg-white p-0">
+                  <img src={TelegramIcon} className="h-5 w-5" />
+                </Button>
+              </div>
             </div>
           </div>
         </SheetContent>
