@@ -30,7 +30,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
     accessorKey: "market",
     header: "Market",
     cell: (props) => (
-      <div className="flex items-center py-1.5">
+      <div className="flex items-center py-1.5 min-w-36">
         <div className="flex">
           <div className="relative w-12">
             <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
@@ -46,10 +46,10 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
     header: "Amount",
     meta: { tooltip: "Total amount of liquidity" },
     cell: (props) => {
-      const { value, info } = props.getValue() as any;
+      const { value } = props.getValue() as any;
 
       return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-26">
           <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
           <Label className="text-sm font-light text-gray-200">{value}</Label>
           {/* <Label className="text-xs text-cool-grey">{info}</Label> */}
@@ -65,7 +65,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
       const { value, info } = props.getValue() as any;
 
       return (
-        <div className="flex items-center gap-1">
+        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-1 min-w-24">
           <span className="flex items-center gap-1">
             <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
             <Label className="text-sm font-light">{value}</Label>
@@ -89,12 +89,13 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
   {
     accessorKey: "oneDayVolume",
     header: "1D Vol.",
+    cell: ({ row }) => <div className="min-w-[50px]">{row.getValue("oneDayVolume")}</div>,
   },
   {
     accessorKey: "thirtyDayVolume",
     header: "30D Vol.",
     cell: (props) => (
-      <div>
+      <div className="min-w-[65px]">
         <Label className="text-sm font-light">{props.getValue() as string}</Label>
       </div>
     ),

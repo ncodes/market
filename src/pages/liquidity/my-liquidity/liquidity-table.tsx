@@ -4,6 +4,7 @@ import InfoLabel from "@/components/InfoLabel";
 import { Button } from "@/components/ui/button";
 import { liquidityColumns, LiquidityProps } from "./liquidity-columns";
 import StatusFilter from "./status-filter";
+import { ChevronDown } from "lucide-react";
 
 function getData(): LiquidityProps[] {
   return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => ({
@@ -30,7 +31,8 @@ export default function LiquidityTable() {
           text="My Liquidity"
           toolTipClassname="w-6 h-6"
         />
-        <div className="flex items-center gap-2">
+        <Button variant={"ghost"} className="p-0 hover:bg-transparent hover:text-white flex lg:hidden"><ChevronDown className="w-6 text-2xl"/></Button>
+        <div className="hidden items-center gap-2 lg:flex">
           <NetworkSelectorButton text="Chain" className="text-gray-200 hover:text-white" />
           <StatusFilter />
           <Button variant={"secondary"} className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70">
