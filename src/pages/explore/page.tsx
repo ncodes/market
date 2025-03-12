@@ -20,6 +20,7 @@ import MarketsTable from "./markets-table";
 import TokenTable from "./token-table";
 import TransactionsTable from "./transactions-table";
 import VolumeFilter from "./volume-filter";
+import { ChevronDown } from "lucide-react";
 
 enum TabHeader {
   TOKEN = "token",
@@ -33,18 +34,21 @@ export default function ExplorePage() {
 
   return (
     <PageLayout title="Explore">
-      <div className="mt-4 flex w-full justify-center">
-        <div className="w-screen max-w-5xl">
+      <div className="mt-4 flex w-full justify-center px-4">
+        <div className="w-full max-w-5xl">
           <div className="rounded-3xl border border-eerie-black/50 bg-chinese-black">
             <Tabs defaultValue="token" className="w-full" onValueChange={(value) => setCurrentTab(value as any)}>
               <TabsList className="flex h-[55px] w-full justify-between bg-transparent px-5 pr-1 pt-2">
-                <div className="flex justify-start gap-[25px]">
+                <div className="flex justify-start gap-4 lg:gap-[25px]">
                   <TabHead value="token" title="Token" />
                   <TabHead value="liquidity" title="Liquidity" />
                   <TabHead value="markets" title="Markets" />
                   <TabHead value="transactions" title="Transactions" />
                 </div>
-                <div className="flex items-center gap-2">
+                <Button variant={"ghost"} className="hover:bg-transparent hover:text-white">
+                  <ChevronDown />
+                </Button>
+                <div className="hidden items-center gap-2 lg:flex">
                   {shouldAddLiquidity(currentTab) && (
                     <Button
                       variant={"secondary"}
@@ -72,14 +76,14 @@ export default function ExplorePage() {
               </TabsContent>
             </Tabs>
           </div>
-          <div className="mt-4 flex w-full items-center justify-between">
+          <div className="mt-4 flex w-full items-center justify-center lg:justify-between">
             <div className="flex w-fit gap-1">
               <Label className="text-sm font-light text-cool-grey">Showing</Label>
               <Label className="text-sm font-semibold text-cool-grey">31-40</Label>
               <Label className="text-sm font-light text-cool-grey">of</Label>
               <Label className="text-sm font-semibold text-cool-grey">256</Label>
             </div>
-            <Pagination className="m-0 w-fit">
+            <Pagination className="hidden lg:block m-0 w-fit">
               <PaginationContent className="">
                 <PaginationItem className="">
                   <PaginationPrevious href="#" hideText />
