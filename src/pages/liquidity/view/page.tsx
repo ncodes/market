@@ -29,8 +29,8 @@ export default function ViewLiquidityPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex flex-col lg:flex-row gap-6">
-          <div className="w-screen max-w-full lg:max-w-3xl rounded-3xl border border-eerie-black/50 bg-chinese-black">
+        <div className="flex flex-col gap-6 px-5 lg:flex-row">
+          <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black lg:max-w-3xl">
             <div className="flex justify-between border-b border-eerie-black px-6 py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
@@ -44,17 +44,17 @@ export default function ViewLiquidityPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
+                <Label className="hidden items-center gap-1 text-xs font-light text-light-periwinkle lg:flex">
                   <IconActive /> Active
                 </Label>
               </div>
               <div className="flex items-center gap-2">
-                <Label className="flex items-center gap-1 text-xs font-semibold text-cool-grey">
+                <Label className="hidden items-center gap-1 text-xs font-semibold text-cool-grey lg:flex">
                   <IconLock /> Permissioned
                 </Label>
                 <Button
                   variant={"secondary"}
-                  className="h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70"
+                  className="hidden h-[30px] bg-white px-7 text-sm font-semibold hover:bg-white/70 lg:flex"
                   onClick={() => setOpenAdjustAmount(true)}
                 >
                   Edit
@@ -63,14 +63,14 @@ export default function ViewLiquidityPage() {
                 <MoreButton />
               </div>
             </div>
-            <div className="flex w-full items-start gap-32 border-b border-eerie-black px-6 py-4">
-              <div className="flex flex-col">
+            <div className="flex w-full flex-wrap items-start justify-between px-6 py-4 lg:border-b lg:border-eerie-black">
+              <div className="flex w-1/2 max-w-[134px] flex-col lg:w-fit">
                 <Label className="h-4 text-sm font-light text-cool-grey">Amount</Label>
-                <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">
+                <Label className="text-nowrap font-dosis text-2xl font-semibold text-anti-flash-white">
                   10,000,000 <span className="text-gray-400">JOIN</span>
                 </Label>
               </div>
-              <div className="flex flex-col">
+              <div className="flex w-fit flex-col">
                 <Label className="h-4 text-sm font-light text-cool-grey">Price</Label>
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">10.5 SOL</Label>
                 <div className="flex gap-1">
@@ -78,17 +78,25 @@ export default function ViewLiquidityPage() {
                   <Label className="text-xs font-light text-ufo-green">+15%</Label>
                 </div>
               </div>
-              <div className="flex flex-col">
+              <div className="mt-4 flex w-full flex-col lg:w-fit">
                 <Label className="flex h-4 items-center text-sm font-light text-cool-grey">
                   1 Day Volume <IconDropDown className="h-5 w-5" />
                 </Label>
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">400 USDC</Label>
               </div>
             </div>
+            <div className="flex w-full justify-between border-b border-eerie-black px-6 py-4 lg:hidden">
+              <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
+                <IconActive /> Active
+              </Label>
+              <Label className="flex items-center gap-1 text-xs font-semibold text-cool-grey">
+                <IconLock /> Permissioned
+              </Label>
+            </div>
             <LiquidityChart />
             <div className="w-full">
               <Tabs defaultValue="transactions" className="w-full">
-                <TabsList className="flex w-full justify-start gap-[29px] border-b border-eerie-black/50 bg-transparent px-6">
+                <TabsList className="flex w-full justify-start gap-[16px] border-b border-eerie-black/50 bg-transparent px-6 lg:gap-[29px]">
                   <TabHead value="transactions" title="Transactions" />
                   <TabHead value="lps" title="Permitted LPs" />
                   <TabHead value="takers" title="Permitted Takers" />
@@ -99,7 +107,7 @@ export default function ViewLiquidityPage() {
               </Tabs>
             </div>
           </div>
-          <div className="flex w-screen max-w-[400px] flex-col gap-6">
+          <div className="flex w-full max-w-full lg:max-w-[400px] flex-col gap-6">
             <LiquiditySwap />
             <div className="flex w-full flex-col gap-4 p-2 px-5">
               <Label className="text-xl font-medium text-lotion">Links</Label>
@@ -147,7 +155,7 @@ function TabHead({ value, title }: { value: string; title: string }) {
   return (
     <TabsTrigger
       value={value}
-      className="flex items-center gap-1 p-0 text-sm font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-white"
+      className="flex items-center gap-1 p-0 text-xs font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-white lg:text-sm"
     >
       {title}
     </TabsTrigger>
