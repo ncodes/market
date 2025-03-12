@@ -70,7 +70,16 @@ export default function RegionSelectorButton() {
         hideCloseButton
         side={"bottom"}
       >
-        <div className="flex items-center justify-end px-5 pt-4">
+        <div className="flex items-start justify-between px-5 pt-4">
+          <Label className="flex items-center gap-1 p-0 text-sm tracking-wide text-lotion">
+            <span className="tracking-wider">Select Region</span>
+            <ToolTip
+              tip="Only markets and liquidity available in the selected region will be displayed."
+              className="opacity-50 hover:opacity-100"
+            >
+              <InfoIcon className="h-4 w-4" />
+            </ToolTip>
+          </Label>
           <Button
             variant="ghost"
             className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
@@ -88,7 +97,7 @@ export default function RegionSelectorButton() {
 function RegionContent({ activeIndex, selectRegion }: { activeIndex: number; selectRegion: (index: number) => void }) {
   return (
     <div className="mt-2 flex w-full flex-col gap-1">
-      <Label className="flex items-center gap-1 p-4 pb-0 text-sm tracking-wide text-lotion">
+      <Label className="hidden items-center gap-1 p-4 pb-0 text-sm tracking-wide text-lotion lg:flex">
         <span className="tracking-wider">Select Region</span>
         <ToolTip
           tip="Only markets and liquidity available in the selected region will be displayed."

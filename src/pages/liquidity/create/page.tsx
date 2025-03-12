@@ -10,9 +10,9 @@ import { AssetButton } from "@/components/AssetButton.tsx";
 
 export default function CreateLiquidityPage() {
   return (
-    <PageLayout title="Swap">
+    <PageLayout title="Create Liquidity">
       <div className="flex w-full justify-center px-4">
-        <div className="mt-10 w-full max-w-sm lg:max-w-md">
+        <div className="mt-5 lg:mt-10 w-full max-w-sm lg:max-w-md">
           <div className="mb-2 w-full rounded-3xl border border-eerie-black bg-chinese-black">
             <div className="flex items-center gap-4 border-b border-eerie-black px-5 py-4">
               <Label className="text-base lg:text-2xl font-semibold text-lotion">Create Liquidity</Label>

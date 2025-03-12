@@ -55,7 +55,8 @@ export default function SettingsButton() {
         hideCloseButton
         side={"bottom"}
       >
-        <div className="flex items-center justify-end px-5 pt-4">
+        <div className="flex items-center justify-between px-5 pt-4">
+          <Label className="text-base tracking-wider text-lotion">Preferences</Label>
           <Button
             variant="ghost"
             className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
@@ -73,8 +74,7 @@ export default function SettingsButton() {
 function SettingsContent() {
   return (
     <div className="mt-2 flex w-full flex-col gap-4 p-4 font-poppins">
-      <Label className="text-base tracking-wider text-lotion">Preferences</Label>
-
+      <Label className="hidden lg:block text-base tracking-wider text-lotion">Preferences</Label>
       <div className="flex justify-between">
         <Label className="font-poppins text-base font-normal tracking-wide text-cool-grey">Theme</Label>
         <div className="flex items-center gap-4">

@@ -72,7 +72,7 @@ export default function AddProvider() {
                   />
                 </div>
                 {addresses.length > 0 && (
-                  <div className="flex w-full flex-col gap-3 rounded-[14px] bg-raisin-black py-4 pl-4">
+                  <div className="flex max-h-[55vh] w-full flex-col gap-3 overflow-y-auto rounded-[14px] bg-raisin-black py-4 pl-4">
                     {addresses.map((address, index) => (
                       <div className="flex w-full items-center justify-between">
                         <div className="flex items-center gap-1">
@@ -95,7 +95,7 @@ export default function AddProvider() {
             )}
 
             {isSubmitted && (
-              <div className="mb-8 flex flex-col gap-4 px-5 py-[14px] pb-0">
+              <div className="mb-8 flex max-h-[55vh] flex-col gap-4 overflow-y-auto px-5 py-[14px] pb-0">
                 <Label className="text-sm font-light text-cool-grey">Confirm provider(s)</Label>
                 <div className="flex w-full flex-col">
                   <Label className="text-sm font-light text-white">Provider 1</Label>

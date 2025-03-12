@@ -37,12 +37,12 @@ const chartConfig = {
 export default function LiquidityChart() {
   return (
     <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-6">
-      <div className="flex w-full items-center justify-between px-6 pr-3">
+      <div className="flex w-full items-start justify-between px-6 pr-0 lg:items-center lg:pr-3">
         <Label className="font-dosis text-5xl text-gray-100">
           $1.38b <span className="text-lg text-gray-400">Per day</span>
         </Label>
         <div className="flex items-center gap-1">
-          <div className="flex">
+          <div className="hidden lg:flex">
             <ChartFilter text="1H" />
             <ChartFilter text="1D" isActive />
             <ChartFilter text="1W" />
@@ -52,10 +52,10 @@ export default function LiquidityChart() {
           <SelectVolume />
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full text-left pl-6">
+      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-6 text-left">
         <BarChart accessibilityLayer data={chartData} className="-ml-3 flex text-left">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
-          <YAxis tickLine={false} axisLine={false}  tick={{ textAnchor: "start", dx: -10 }} width={25}/>
+          <YAxis tickLine={false} axisLine={false} tick={{ textAnchor: "start", dx: -10 }} width={25} />
           <Bar dataKey="asset1" stackId={"b"} fill="var(--color-asset1)" radius={[5, 5, 5, 5]} maxBarSize={20} />
           <ChartTooltip
             content={
@@ -71,6 +71,15 @@ export default function LiquidityChart() {
           />
         </BarChart>
       </ChartContainer>
+      <div className="flex justify-center">
+        <div className="flex">
+          <ChartFilter text="1H" />
+          <ChartFilter text="1D" isActive />
+          <ChartFilter text="1W" />
+          <ChartFilter text="1M" />
+          <ChartFilter text="1Y" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -83,7 +92,7 @@ function ChartFilter({ text, isActive }: { text: string; isActive?: boolean }) {
         isActive && "bg-white",
       )}
     >
-      <Label className={cn("text-cool-grey cursor-pointer text-sm font-semibold", isActive && "text-gunmetal")}>
+      <Label className={cn("cursor-pointer text-sm font-semibold text-cool-grey", isActive && "text-gunmetal")}>
         {text}
       </Label>
     </Button>
@@ -99,15 +108,15 @@ function SelectVolume() {
       >
         <Button
           variant={"ghost"}
-          className="text-cool-grey hover:text-cool-grey flex items-center font-light hover:bg-transparent"
+          className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey"
         >
           Volume <IconDropDown />
         </Button>
       </SelectTrigger>
-      <SelectContent className="bg-chinese-black border-eerie-black">
+      <SelectContent className="border-eerie-black bg-chinese-black">
         {[1, 2, 3, 4, 5].map((item) => (
           <SelectItem
-            className="hover:!bg-june-bud active:!bg-june-bud data-[state=checked]:!bg-june-bud data-[state=unchecked]:!bg-transparent data-[state=unchecked]:!text-white"
+            className="data-[state=checked]:!bg-june-bud data-[state=unchecked]:!bg-transparent data-[state=unchecked]:!text-white hover:!bg-june-bud active:!bg-june-bud"
             key={item}
             value={`Volume ${item}`}
           >{`Volume ${item}`}</SelectItem>

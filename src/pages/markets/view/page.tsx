@@ -28,7 +28,7 @@ export default function ViewMarketPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex flex-col gap-6 px-4 lg:flex-row lg:px-0">
+        <div className="flex flex-col gap-6 lg:flex-row lg:px-0">
           <div className="w-screen max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black lg:max-w-3xl">
             <div className="flex items-center justify-between border-b border-eerie-black px-6 py-4">
               <div className="flex items-center gap-6">
@@ -43,7 +43,7 @@ export default function ViewMarketPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="rounded-xl bg-gunmetal px-2 py-1 text-xs font-semibold text-screaming-green">
+                <Label className="hidden lg:block rounded-xl bg-gunmetal px-2 py-1 text-xs font-semibold text-screaming-green">
                   0.05%
                 </Label>
               </div>
