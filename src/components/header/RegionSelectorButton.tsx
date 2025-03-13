@@ -1,8 +1,9 @@
-import { CheckCircle2, InfoIcon, XIcon } from "lucide-react";
+import { CheckCircle2, InfoIcon } from "lucide-react";
 import { useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { FranceFlagIcon, GermanFlagIcon, UKFlagIcon } from "../../assets";
 import { cn } from "../../libs/utils";
+import CloseIcon from "../CloseIcon";
 import { ToolTip } from "../ToolTip";
 import IconDropDown from "../icons/IconDropDown";
 import { Button } from "../ui/button";
@@ -70,7 +71,7 @@ export default function RegionSelectorButton() {
         hideCloseButton
         side={"bottom"}
       >
-        <div className="flex items-start justify-between px-5 pt-4">
+        <div className="flex items-center justify-between px-5 pr-3.5 pt-4">
           <Label className="flex items-center gap-1 p-0 text-lg tracking-wide text-lotion">
             <span className="tracking-wider">Select Region</span>
             <ToolTip
@@ -80,13 +81,11 @@ export default function RegionSelectorButton() {
               <InfoIcon className="h-4 w-4" />
             </ToolTip>
           </Label>
-          <Button
-            variant="ghost"
-            className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
-            onClick={() => setOpen(false)}
-          >
-            <XIcon className="h-7 w-7" />
-          </Button>
+          <CloseIcon
+            setOpen={(open) => {
+              setOpen(open);
+            }}
+          />
         </div>
         <RegionContent activeIndex={activeIndex} selectRegion={selectRegion} />
       </SheetContent>
