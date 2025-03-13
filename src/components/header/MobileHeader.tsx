@@ -12,7 +12,7 @@ export default function MobileHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex lg:hidden">
+    <div className="flex md:hidden">
       <Sheet open={open} onOpenChange={(open) => setOpen(open)}>
         <SheetTrigger>
           {" "}

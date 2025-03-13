@@ -19,7 +19,7 @@ const Regions = [
 export default function RegionSelectorButton() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   function selectRegion(index: number) {
     setActiveIndex(index);

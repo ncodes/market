@@ -26,7 +26,7 @@ export default function Swap({
   networkClassName,
   rootClassName,
 }: SwapProps) {
-  const { openSwapConfirmation, setOpenSwapConfirmation} = useStore();
+  const { openSwapConfirmation, setOpenSwapConfirmation } = useStore();
 
   function performSwap() {
     setOpenSwapConfirmation(true);
@@ -38,10 +38,15 @@ export default function Swap({
 
   return (
     <>
-      <div className={cn("bg-chinese-black relative w-full rounded-3xl border border-eerie-black/50", rootClassName)}>
+      <div
+        className={cn(
+          "relative w-full rounded-b-none rounded-t-3xl border border-eerie-black/50 bg-chinese-black lg:rounded-b-3xl",
+          rootClassName,
+        )}
+      >
         {!hideHeader && (
           <div className="flex w-full justify-between border-b border-eerie-black/50 py-2 pl-5 pr-3">
-            <Label className="text-primary-500 text-2xl font-medium tracking-wider">Swap</Label>
+            <Label className="text-2xl font-medium tracking-wider text-white">Swap</Label>
             <SwapSettings />
           </div>
         )}
@@ -59,7 +64,7 @@ export default function Swap({
           />
 
           <div className="absolute -mt-4 flex w-full justify-center">
-            <div className="bg-gunmetal z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full">
+            <div className="z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gunmetal">
               <IconNavigationArrows />
             </div>
           </div>
@@ -78,7 +83,7 @@ export default function Swap({
         {showEmbeddedButton && (
           <div className="w-full pb-6 pl-5 pr-3">
             <ConnectButton
-              className="text-gunmetal h-auto w-full py-2 text-lg font-semibold"
+              className="h-auto w-full py-2 text-lg font-semibold text-gunmetal"
               hideIcon
               hideOnConnected
               showSwapButton

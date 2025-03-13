@@ -17,7 +17,7 @@ export function SearchBar() {
 
   return (
     <div
-      className={cn("pointer-events-none absolute left-0 top-0 hidden w-full items-center justify-center lg:flex", {
+      className={cn("pointer-events-none absolute left-0 top-0 hidden w-full items-center justify-center lg:hidden xl:flex", {
         "!pointer-events-auto": showSearch,
       })}
     >

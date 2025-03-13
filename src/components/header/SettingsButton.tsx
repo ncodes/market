@@ -10,7 +10,7 @@ import { Button } from "../ui/button";
 
 export default function SettingsButton() {
   const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (

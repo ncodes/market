@@ -8,6 +8,8 @@ import SettingsButton from "./SettingsButton";
 import Icon3Dots from "../icons/Icon3Dots";
 import { Button } from "../ui/button";
 import MobileHeader from "./MobileHeader";
+import { IconSearch } from "../icons/IconSearch";
+import { Search } from "lucide-react";
 
 export interface MenuItem {
   title: string;
@@ -49,8 +51,18 @@ export function Header() {
 
       <SearchBar />
       <div className="relative -top-1 flex w-fit items-center space-x-3">
+        <div className="xl:hidden flex">
+          <Button
+            variant={"ghost"}
+            className="flex !h-11 !w-11 cursor-pointer items-center justify-center rounded-full bg-chinese-black p-0 transition-all duration-500 hover:bg-raisin-black"
+          >
+            <Search />
+          </Button>
+        </div>
         <RegionSelectorButton />
-        <SettingsButton />
+        <div className="hidden lg:flex">
+          <SettingsButton />
+        </div>
         <div className="flex lg:hidden">
           <Button
             variant={"ghost"}
@@ -59,7 +71,12 @@ export function Header() {
             <Icon3Dots className="rotate-90" />
           </Button>
         </div>
-        <ConnectButton />
+        <div className="flex lg:hidden">
+          <ConnectButton hideTextOnMobile className="h-11 w-11 p-0" />
+        </div>
+        <div className="hidden lg:flex">
+          <ConnectButton />
+        </div>
       </div>
     </header>
   );
@@ -78,7 +95,7 @@ function DesktopViewHeader() {
   }
 
   return (
-    <div className="relative -mt-3 hidden items-center space-x-4 lg:flex">
+    <div className="relative -mt-3 hidden items-center space-x-4 md:flex">
       <Logo />
       <nav className="relative -top-0.5 left-2 hidden text-sm font-normal tracking-wider md:flex">
         <NavigationMenu

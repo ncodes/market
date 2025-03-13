@@ -45,7 +45,7 @@ export default function ExplorePage() {
                   <TabHead value="markets" title="Markets" />
                   <TabHead value="transactions" title="Transactions" />
                 </div>
-                <Button variant={"ghost"} className="hover:bg-transparent hover:text-white">
+                <Button variant={"ghost"} className="flex lg:hidden hover:bg-transparent hover:text-white">
                   <ChevronDown />
                 </Button>
                 <div className="hidden items-center gap-2 lg:flex">

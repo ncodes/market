@@ -22,6 +22,7 @@ import useStore from "@/hooks/store/useStore";
 import AdjustAmount from "./options/adjust-amount";
 import { cn } from "@/libs/utils";
 import { useState } from "react";
+import SwapModal from "@/components/SwapModal";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -29,8 +30,8 @@ export default function ViewLiquidityPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex flex-col gap-6 px-5 lg:flex-row">
-          <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black lg:max-w-3xl">
+        <div className="flex w-full justify-center flex-col gap-6 px-5 xl:flex-row">
+          <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:max-w-3xl">
             <div className="flex justify-between border-b border-eerie-black px-6 py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
@@ -78,7 +79,7 @@ export default function ViewLiquidityPage() {
                   <Label className="text-xs font-light text-ufo-green">+15%</Label>
                 </div>
               </div>
-              <div className="mt-4 flex w-full flex-col lg:w-fit">
+              <div className="mt-4 flex w-full flex-col lg:mt-0 lg:w-fit">
                 <Label className="flex h-4 items-center text-sm font-light text-cool-grey">
                   1 Day Volume <IconDropDown className="h-5 w-5" />
                 </Label>
@@ -107,7 +108,7 @@ export default function ViewLiquidityPage() {
               </Tabs>
             </div>
           </div>
-          <div className="flex w-full max-w-full lg:max-w-[400px] flex-col gap-6">
+          <div className="flex w-full max-w-full flex-col gap-6 lg:max-w-[400px]">
             <LiquiditySwap />
             <div className="flex w-full flex-col gap-4 p-2 px-5">
               <Label className="text-xl font-medium text-lotion">Links</Label>
@@ -145,6 +146,9 @@ export default function ViewLiquidityPage() {
               </div>
             </div>
           </div>
+        </div>
+        <div className="fixed bottom-0 flex w-full justify-center px-5 pb-4 xl:hidden">
+          <SwapModal />
         </div>
       </div>
     </PageLayout>

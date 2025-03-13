@@ -21,7 +21,7 @@ export default function Modal({
   triggerClassName,
   desktopClassName,
 }: ModalProps) {
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (

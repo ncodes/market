@@ -34,7 +34,7 @@ export const ConnectedButton = ({
   const { address, ready } = useConnectorContext();
   const { token } = useSession();
   const [openSheet, setOpenSheet] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 1024px)");
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   // const { setUser } = useStore((state) => ({ setUser: state.setUser }));
   // const { createSessionFromWallet } = useAuthService();
