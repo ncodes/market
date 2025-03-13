@@ -1,5 +1,6 @@
 import { CheckCircle2, InfoIcon, XIcon } from "lucide-react";
 import { useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
 import { FranceFlagIcon, GermanFlagIcon, UKFlagIcon } from "../../assets";
 import { cn } from "../../libs/utils";
 import { ToolTip } from "../ToolTip";
@@ -7,7 +8,6 @@ import IconDropDown from "../icons/IconDropDown";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { useMediaQuery } from "usehooks-ts";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 const Regions = [
@@ -71,7 +71,7 @@ export default function RegionSelectorButton() {
         side={"bottom"}
       >
         <div className="flex items-start justify-between px-5 pt-4">
-          <Label className="flex items-center gap-1 p-0 text-sm tracking-wide text-lotion">
+          <Label className="flex items-center gap-1 p-0 text-lg tracking-wide text-lotion">
             <span className="tracking-wider">Select Region</span>
             <ToolTip
               tip="Only markets and liquidity available in the selected region will be displayed."
