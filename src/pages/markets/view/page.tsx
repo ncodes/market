@@ -28,9 +28,9 @@ export default function ViewMarketPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex w-full flex-col justify-center gap-6 px-2 sm:px-5 xl:flex-row xl:px-0">
+        <div className="flex w-full flex-col justify-center gap-6 px-2 xs:px-5 xl:flex-row xl:px-0">
           <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:max-w-3xl">
-            <div className="flex items-center justify-between border-b border-eerie-black px-2 sm:px-6 py-2 sm:py-4">
+            <div className="flex items-center justify-between border-b border-eerie-black px-2 py-2 xs:px-6 sm:py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
@@ -52,7 +52,7 @@ export default function ViewMarketPage() {
             <LiquidityChart />
             <div className="w-full">
               <Tabs defaultValue="liquidity" className="w-full">
-                <TabsList className="flex w-full justify-between border-b border-eerie-black/50 bg-transparent px-2 sm:px-6 py-6">
+                <TabsList className="flex w-full justify-between border-b border-eerie-black/50 bg-transparent px-2 py-6 sm:px-6">
                   <div className="flex justify-start gap-[29px]">
                     <TabHead value="liquidity" title="Liquidity" />
                     <TabHead value="transactions" title="Transactions" />
@@ -113,7 +113,7 @@ export default function ViewMarketPage() {
             </div>
           </div>
         </div>
-        <div className="fixed bottom-0 z-50 flex w-full justify-center px-5 pb-4 xl:hidden">
+        <div className="fixed bottom-0 z-50 flex w-full justify-center px-2 pb-4 xs:px-5 xl:hidden">
           <SwapModal />
         </div>
       </div>

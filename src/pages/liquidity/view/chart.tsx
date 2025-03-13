@@ -36,8 +36,8 @@ const chartConfig = {
 
 export default function LiquidityChart() {
   return (
-    <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-6">
-      <div className="flex w-full items-start justify-between px-6 pr-3 lg:items-center">
+    <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-3 xs:py-6">
+      <div className="flex w-full items-start justify-between px-2 xs:px-6 xs:pr-3 lg:items-center">
         <Label className="font-dosis text-5xl text-gray-100">
           $1.38b <span className="text-lg text-gray-400">Per day</span>
         </Label>
@@ -52,7 +52,7 @@ export default function LiquidityChart() {
           <SelectVolume />
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-6 text-left">
+      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-2 xs:pl-6 text-left">
         <BarChart accessibilityLayer data={chartData} className="-ml-3 flex text-left">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
           <YAxis tickLine={false} axisLine={false} tick={{ textAnchor: "start", dx: -10 }} width={25} />

@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
-import { ChevronDown, ChevronRight } from "lucide-react";
+import { ChevronDown, ChevronRight, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
 import PauseLiquidity from "./options/pause-liquidity";
@@ -30,9 +30,9 @@ export default function ViewLiquidityPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex w-full justify-center flex-col gap-6 px-5 xl:flex-row">
+        <div className="flex w-full flex-col justify-center gap-6 px-2 xs:px-5 xl:flex-row">
           <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:max-w-3xl">
-            <div className="flex justify-between border-b border-eerie-black px-6 py-4">
+            <div className="flex justify-between border-b border-eerie-black px-2 py-2 xs:px-6 sm:py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
@@ -64,7 +64,7 @@ export default function ViewLiquidityPage() {
                 <MoreButton />
               </div>
             </div>
-            <div className="flex w-full flex-wrap items-start justify-between px-6 py-4 lg:border-b lg:border-eerie-black">
+            <div className="flex w-full flex-col flex-wrap items-start justify-between px-2 py-2 xs:px-6 sm:py-4 xs:flex-row lg:border-b lg:border-eerie-black gap-4 xs:gap-0">
               <div className="flex w-1/2 max-w-[134px] flex-col lg:w-fit">
                 <Label className="h-4 text-sm font-light text-cool-grey">Amount</Label>
                 <Label className="text-nowrap font-dosis text-2xl font-semibold text-anti-flash-white">
@@ -79,14 +79,14 @@ export default function ViewLiquidityPage() {
                   <Label className="text-xs font-light text-ufo-green">+15%</Label>
                 </div>
               </div>
-              <div className="mt-4 flex w-full flex-col lg:mt-0 lg:w-fit">
+              <div className="mt-0 xs:mt-4 flex w-full flex-col lg:mt-0 lg:w-fit">
                 <Label className="flex h-4 items-center text-sm font-light text-cool-grey">
                   1 Day Volume <IconDropDown className="h-5 w-5" />
                 </Label>
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">400 USDC</Label>
               </div>
             </div>
-            <div className="flex w-full justify-between border-b border-eerie-black px-6 py-4 lg:hidden">
+            <div className="flex w-full justify-between border-b border-eerie-black px-2 py-2 xs:px-6 sm:py-4 lg:hidden">
               <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
                 <IconActive /> Active
               </Label>
@@ -97,7 +97,7 @@ export default function ViewLiquidityPage() {
             <LiquidityChart />
             <div className="w-full">
               <Tabs defaultValue="transactions" className="w-full">
-                <TabsList className="flex w-full justify-start gap-[16px] border-b border-eerie-black/50 bg-transparent px-6 lg:gap-[29px]">
+                <TabsList className="flex w-full justify-start gap-[16px] border-b border-eerie-black/50 bg-transparent px-2 xs:px-6  lg:gap-[29px]">
                   <TabHead value="transactions" title="Transactions" />
                   <TabHead value="lps" title="Permitted LPs" />
                   <TabHead value="takers" title="Permitted Takers" />
@@ -110,7 +110,7 @@ export default function ViewLiquidityPage() {
           </div>
           <div className="flex w-full max-w-full flex-col gap-6 lg:max-w-[400px]">
             <LiquiditySwap />
-            <div className="flex w-full flex-col gap-4 p-2 px-5">
+            <div className="flex w-full flex-col gap-4 py-2">
               <Label className="text-xl font-medium text-lotion">Links</Label>
               <div className="flex w-full flex-col gap-4">
                 {[1, 2, 3, 4].map((_) => (
@@ -147,7 +147,7 @@ export default function ViewLiquidityPage() {
             </div>
           </div>
         </div>
-        <div className="fixed bottom-0 flex w-full justify-center px-5 pb-4 xl:hidden z-50">
+        <div className="fixed bottom-0 z-50 flex w-full justify-center px-2 pb-4 xs:px-5 xl:hidden">
           <SwapModal />
         </div>
       </div>
@@ -175,11 +175,15 @@ function MoreButton() {
       <PopoverTrigger>
         <Button
           variant={"secondary"}
-          className="flex h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70"
+          className="hidden h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70 xs:hidden sm:flex"
           onClick={() => setOpen(true)}
         >
           Manage
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
+        </Button>
+
+        <Button variant={"ghost"} className="block p-0 hover:bg-transparent hover:text-white sm:hidden">
+          <Settings className="h-5 w-5" />
         </Button>
       </PopoverTrigger>
       <PopoverContent

@@ -16,7 +16,7 @@ export default function LiquidityTransactions() {
   return (
     <div className="w-full">
       <DataTable
-        className="[&_th]:border-gunmetal/40 overflow-auto rounded-b-3xl text-sm font-light [&_td:first-child]:pl-7 [&_th:first-child]:pl-7 [&_th]:border-y [&_tr]:!border-none"
+        className="[&_th]:border-gunmetal/40 overflow-auto rounded-b-3xl text-sm font-light [&_td:first-child]:pl-2 [&_th:first-child]:pl-2 [&_td:first-child]:xs:pl-6 [&_th:first-child]:xs:pl-6 [&_th]:border-y [&_tr]:!border-none"
         tableCellClassName="!cursor-pointer py-3"
         tableRowClassName="hover:bg-transparent"
         tableHeadClassName="text-cool-grey text-sm font-semibold"
