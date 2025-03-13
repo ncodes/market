@@ -23,7 +23,7 @@ export function CreateMarketButton() {
       desktopClassName="w-[450px]"
       content={
         <div className="w-full">
-          <div className="mb-1 w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins lg:rounded-b-3xl">
+          <div className="mb-1 w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins md:rounded-b-3xl">
             <div className="flex items-center justify-between border-b border-gunmetal px-5 py-4">
               <Label className="text-base font-semibold text-lotion lg:text-2xl">Confirm Market Creation</Label>
               <Button

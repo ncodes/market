@@ -7,6 +7,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { useMediaQuery } from "usehooks-ts";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
+import Icon3Dots from "../icons/Icon3Dots";
 
 export default function SettingsButton() {
   const [open, setOpen] = useState(false);
@@ -23,7 +24,8 @@ export default function SettingsButton() {
               open && "bg-raisin-black",
             )}
           >
-            <Settings className="h-5 w-5 text-gray-500" />
+            <Settings className="hidden lg:block h-5 w-5 text-gray-500" />
+            <Icon3Dots className="block lg:hidden rotate-90" />
           </Button>
         </PopoverTrigger>
         <PopoverContent

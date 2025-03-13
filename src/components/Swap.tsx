@@ -16,6 +16,7 @@ interface SwapProps {
   assetClassName?: string;
   networkClassName?: string;
   rootClassName?: string;
+  closeButton?: React.ReactNode;
 }
 
 export default function Swap({
@@ -25,6 +26,7 @@ export default function Swap({
   assetClassName,
   networkClassName,
   rootClassName,
+  closeButton,
 }: SwapProps) {
   const { openSwapConfirmation, setOpenSwapConfirmation } = useStore();
 
@@ -40,14 +42,17 @@ export default function Swap({
     <>
       <div
         className={cn(
-          "relative w-full rounded-b-none rounded-t-3xl border border-eerie-black/50 bg-chinese-black lg:rounded-b-3xl",
+          "relative w-full rounded-b-none rounded-t-3xl border border-eerie-black/50 bg-chinese-black md:rounded-b-3xl",
           rootClassName,
         )}
       >
         {!hideHeader && (
           <div className="flex w-full justify-between border-b border-eerie-black/50 py-2 pl-5 pr-3">
             <Label className="text-2xl font-medium tracking-wider text-white">Swap</Label>
-            <SwapSettings />
+            <div className="flex gap-3">
+              <SwapSettings />
+              {closeButton && closeButton}
+            </div>
           </div>
         )}
         <div className="w-full">

@@ -58,7 +58,7 @@ export function AssetButton({
         </Button>
       }
       content={
-        <div className="flex flex-col w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black lg:rounded-b-3xl">
+        <div className="flex flex-col w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
           <div className="h-fit flex items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
             <div className="cursor-pointer" onClick={() => setOpen(false)}>

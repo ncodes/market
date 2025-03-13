@@ -22,7 +22,7 @@ export default function SwapConfirmationModal({ open, completeSwap }: { open: bo
       open={open}
       content={
         <div className="flex w-full flex-col gap-2">
-          <div className="w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins lg:rounded-b-3xl">
+          <div className="w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins md:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Swap Completed" : "Confirm Swap"}

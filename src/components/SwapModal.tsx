@@ -1,11 +1,17 @@
+import { useState } from "react";
+import CloseIcon from "./CloseIcon";
 import Modal from "./Modal";
 import Swap from "./Swap";
 import { Button } from "./ui/button";
 
 export default function SwapModal() {
+  const [open, setOpen] = useState(false);
+
   return (
     <Modal
-      triggerClassName="w-full"
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+      triggerClassName="w-full z-50"
       triggerComponent={
         <Button
           variant={"secondary"}
@@ -14,7 +20,7 @@ export default function SwapModal() {
           Swap
         </Button>
       }
-      content={<Swap showEmbeddedButton />}
+      content={<Swap showEmbeddedButton closeButton={<CloseIcon setOpen={setOpen} />} />}
     />
   );
 }

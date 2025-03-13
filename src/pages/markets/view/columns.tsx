@@ -36,7 +36,7 @@ export const liquidityColumns: ColumnDef<LiquidityTableProps>[] = [
       <div className="flex items-center py-1.5">
         <div className="flex">
           <div className="relative w-12">
-            <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+            <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-[1]" />
             <Avatar src={SolanaIcon} className="h-6 w-6" rootClassName="absolute bottom-0 right-2 h-6 w-6 z-0" />
           </div>
         </div>
@@ -80,6 +80,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
   {
     accessorKey: "time",
     header: "Time",
+    cell: ({ row }) => <div className="min-w-[100px]">{row.getValue("time")}</div>,
   },
   {
     accessorKey: "type",
@@ -90,10 +91,10 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
           <Label className="text-sm font-light text-white">Swap</Label>
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).from}</Label>
         </div>
-        <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+        <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <ChevronRight className="text-screaming-green" />
         <div className="flex gap-0.5">
-          <Avatar src={SolanaIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+          <Avatar src={SolanaIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).to}</Label>
         </div>
       </div>
@@ -108,7 +109,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     header: "Quote Amount",
     cell: (props) => (
       <div className="flex min-w-[130px] items-center gap-1">
-        <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+        <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <Label className="text-sm font-light text-white">{props.getValue() as any}</Label>
       </div>
     ),
@@ -118,7 +119,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     header: "Base Amount",
     cell: (props) => (
       <div className="flex min-w-[130px] items-center gap-1">
-        <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+        <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <Label className="text-sm font-light text-white">{props.getValue() as any}</Label>
       </div>
     ),

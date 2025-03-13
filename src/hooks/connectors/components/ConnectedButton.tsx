@@ -96,7 +96,7 @@ export const ConnectedButton = ({
       </SheetTrigger>
       <SheetContent
         hideCloseButton
-        className="mr-0 mt-4 h-[97%] max-h-[90vh] w-full overflow-hidden rounded-b-none rounded-t-3xl border-none bg-chinese-black p-0 lg:mr-6 lg:max-h-full lg:w-[382px] lg:rounded-b-3xl"
+        className="mr-0 mt-4 h-[97%] max-h-[90vh] w-full overflow-hidden rounded-b-none rounded-t-3xl border-none bg-chinese-black p-0 lg:mr-6 lg:max-h-full lg:w-[382px] md:rounded-b-3xl"
         side={isDesktop ? "right" : "bottom"}
       >
         <div className="flex h-full w-full flex-col">

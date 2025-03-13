@@ -33,7 +33,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
       <div className="flex items-center py-1.5 min-w-36">
         <div className="flex">
           <div className="relative w-12">
-            <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+            <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-[1]" />
             <Avatar src={SolanaIcon} className="h-6 w-6" rootClassName="absolute bottom-0 right-2 h-6 w-6 z-0" />
           </div>
         </div>
@@ -50,7 +50,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
 
       return (
         <div className="flex items-center gap-2 min-w-26">
-          <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+          <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
           <Label className="text-sm font-light text-gray-200">{value}</Label>
           {/* <Label className="text-xs text-cool-grey">{info}</Label> */}
         </div>
@@ -67,7 +67,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
       return (
         <div className="flex flex-col lg:flex-row items-start lg:items-center gap-1 min-w-24">
           <span className="flex items-center gap-1">
-            <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-10" />
+            <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
             <Label className="text-sm font-light">{value}</Label>
           </span>
           <Label className="rounded-xl border border-eerie-black bg-eerie-black/50 p-1 px-2 text-xs font-light text-gray-500">

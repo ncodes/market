@@ -26,7 +26,7 @@ export default function UpdateTarget() {
       }
       content={
         <div className="flex w-full flex-col gap-2">
-          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black lg:rounded-b-3xl">
+          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black md:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
               <Label className="max-w-[250px] text-base font-semibold text-lotion lg:text-xl">
                 {isSubmitted ? "Confirm" : "Update Target"}

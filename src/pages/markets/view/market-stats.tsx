@@ -6,11 +6,11 @@ import { cn } from "@/libs/utils";
 export default function MarketStats({ className }: { className?: string }) {
   return (
     <div className={cn("w-full rounded-3xl border border-eerie-black/50 bg-chinese-black lg:block", className)}>
-      <div className="border-b border-eerie-black/50 px-5 py-3">
+      <div className="border-b border-eerie-black/50 px-2 sm:px-6 py-3">
         <Label className="text-xl font-semibold text-lotion">Stats</Label>
       </div>
-      <div className="flex w-full flex-col gap-4 px-5 py-3">
-        <div className="flex justify-between">
+      <div className="flex w-full flex-col gap-4 px-2 sm:px-6 py-3">
+        <div className="flex flex-col justify-between sm:flex-row gap-4 sm:gap-0">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
               <Label className="font-light text-cool-grey">Amount Available</Label>

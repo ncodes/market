@@ -14,7 +14,7 @@ import TransactionsTable from "./transactions-table";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { cn } from "@/libs/utils";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Settings } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import UpdateCommision from "./options/update-commision";
 import AddSwapper from "./options/add-swapper";
@@ -28,13 +28,13 @@ export default function ViewMarketPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex w-full flex-col justify-center gap-6 px-5 xl:flex-row xl:px-0">
+        <div className="flex w-full flex-col justify-center gap-6 px-2 sm:px-5 xl:flex-row xl:px-0">
           <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:max-w-3xl">
-            <div className="flex items-center justify-between border-b border-eerie-black px-6 py-4">
+            <div className="flex items-center justify-between border-b border-eerie-black px-2 sm:px-6 py-2 sm:py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
-                    <Avatar src={USDCIcon} className="h-8 w-8 shadow-sm drop-shadow-sm" rootClassName="h-8 w-8 z-10" />
+                    <Avatar src={USDCIcon} className="h-8 w-8 shadow-sm drop-shadow-sm" rootClassName="h-8 w-8 z-[1]" />
                     <Avatar
                       src={SolanaIcon}
                       className="h-8 w-8"
@@ -52,7 +52,7 @@ export default function ViewMarketPage() {
             <LiquidityChart />
             <div className="w-full">
               <Tabs defaultValue="liquidity" className="w-full">
-                <TabsList className="flex w-full justify-between border-b border-eerie-black/50 bg-transparent px-6 py-6">
+                <TabsList className="flex w-full justify-between border-b border-eerie-black/50 bg-transparent px-2 sm:px-6 py-6">
                   <div className="flex justify-start gap-[29px]">
                     <TabHead value="liquidity" title="Liquidity" />
                     <TabHead value="transactions" title="Transactions" />
@@ -74,7 +74,7 @@ export default function ViewMarketPage() {
               <MarketStats className="block md:hidden lg:hidden xl:block" />
             </div>
             <div className="flex w-full gap-12">
-              <div className="flex w-full flex-col gap-4 p-2 px-5">
+              <div className="flex w-full flex-col gap-4 p-2">
                 <Label className="text-xl font-medium text-lotion">Links</Label>
                 <div className="flex w-full flex-col gap-4">
                   {[1, 2, 3, 4].map((_) => (
@@ -113,7 +113,7 @@ export default function ViewMarketPage() {
             </div>
           </div>
         </div>
-        <div className="fixed bottom-0 flex w-full justify-center px-5 pb-4 xl:hidden">
+        <div className="fixed bottom-0 z-50 flex w-full justify-center px-5 pb-4 xl:hidden">
           <SwapModal />
         </div>
       </div>
@@ -129,11 +129,15 @@ function ManageButton() {
       <PopoverTrigger>
         <Button
           variant={"secondary"}
-          className="flex h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70"
+          className="hidden h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70 xs:hidden sm:flex"
           onClick={() => setOpen(true)}
         >
           Manage
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
+        </Button>
+
+        <Button variant={"ghost"} className="block p-0 hover:bg-transparent hover:text-white sm:hidden">
+          <Settings className="h-5 w-5" />
         </Button>
       </PopoverTrigger>
       <PopoverContent

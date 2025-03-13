@@ -36,7 +36,7 @@ export default function ViewLiquidityPage() {
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
-                    <Avatar src={USDCIcon} className="h-8 w-8 shadow-sm drop-shadow-sm" rootClassName="h-8 w-8 z-10" />
+                    <Avatar src={USDCIcon} className="h-8 w-8 shadow-sm drop-shadow-sm" rootClassName="h-8 w-8 z-[1]" />
                     <Avatar
                       src={SolanaIcon}
                       className="h-8 w-8"
@@ -147,7 +147,7 @@ export default function ViewLiquidityPage() {
             </div>
           </div>
         </div>
-        <div className="fixed bottom-0 flex w-full justify-center px-5 pb-4 xl:hidden">
+        <div className="fixed bottom-0 flex w-full justify-center px-5 pb-4 xl:hidden z-50">
           <SwapModal />
         </div>
       </div>

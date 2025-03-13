@@ -5,10 +5,8 @@ import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
 import RegionSelectorButton from "./RegionSelectorButton";
 import SettingsButton from "./SettingsButton";
-import Icon3Dots from "../icons/Icon3Dots";
 import { Button } from "../ui/button";
 import MobileHeader from "./MobileHeader";
-import { IconSearch } from "../icons/IconSearch";
 import { Search } from "lucide-react";
 
 export interface MenuItem {
@@ -51,7 +49,7 @@ export function Header() {
 
       <SearchBar />
       <div className="relative -top-1 flex w-fit items-center space-x-3">
-        <div className="xl:hidden flex">
+        <div className="flex xl:hidden">
           <Button
             variant={"ghost"}
             className="flex !h-11 !w-11 cursor-pointer items-center justify-center rounded-full bg-chinese-black p-0 transition-all duration-500 hover:bg-raisin-black"
@@ -60,17 +58,7 @@ export function Header() {
           </Button>
         </div>
         <RegionSelectorButton />
-        <div className="hidden lg:flex">
-          <SettingsButton />
-        </div>
-        <div className="flex lg:hidden">
-          <Button
-            variant={"ghost"}
-            className="flex !h-11 !w-11 cursor-pointer items-center justify-center rounded-full bg-chinese-black p-0 transition-all duration-500 hover:bg-raisin-black"
-          >
-            <Icon3Dots className="rotate-90" />
-          </Button>
-        </div>
+        <SettingsButton />
         <div className="flex lg:hidden">
           <ConnectButton hideTextOnMobile className="h-11 w-11 p-0" />
         </div>
