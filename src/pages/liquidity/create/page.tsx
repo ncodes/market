@@ -15,7 +15,7 @@ export default function CreateLiquidityPage() {
         <div className="mt-5 w-full max-w-sm lg:mt-10 lg:max-w-md">
           <div className="mb-2 w-full rounded-3xl border border-eerie-black bg-chinese-black">
             <div className="flex items-center gap-4 border-b border-eerie-black px-5 py-4">
-              <Label className="text-base font-semibold text-lotion lg:text-2xl">Create Liquidity</Label>
+              <Label className="text-xl font-semibold text-lotion lg:text-2xl">Create Liquidity</Label>
             </div>
             <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-6 pb-6 pt-3">
               <div className="flex w-full gap-5">
