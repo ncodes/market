@@ -7,16 +7,16 @@ export default function LiquiditySwap() {
   return (
     <div className="hidden w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:flex">
       <Tabs defaultValue="swap" className="w-full">
-        <TabsList className="flex w-full justify-start gap-[29px] border-b border-eerie-black/50 bg-transparent px-4">
+        <TabsList className="flex h-auto w-full justify-start gap-[29px] rounded-none border-b border-eerie-black/50 bg-red-400 bg-transparent px-4">
           <TabsTrigger
             value="swap"
-            className="flex items-center gap-1 p-0 text-base font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-lotion"
+            className="flex items-center gap-1 p-0 py-3 text-base font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-lotion"
           >
             <IconSwap /> Swap
           </TabsTrigger>
           <TabsTrigger
             value="liquidity"
-            className="flex items-center gap-1 p-0 text-base font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-lotion"
+            className="flex items-center gap-1 p-0 py-3 text-base font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-lotion"
           >
             <IconLiquidity /> Add Liquidity
           </TabsTrigger>

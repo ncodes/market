@@ -28,7 +28,7 @@ export default function PauseLiquidity() {
         <div className="flex w-full flex-col gap-2">
           <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black md:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-base lg:text-2xl font-semibold text-lotion">Pause Liquidity</Label>
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">Pause Liquidity</Label>
               <Button
                 onClick={() => setOpen(false)}
                 variant="ghost"
@@ -37,7 +37,7 @@ export default function PauseLiquidity() {
                 <XIcon className="size-5" />
               </Button>
             </div>
-            <div className="mb-6 flex flex-col gap-3 px-5 py-[14px] pb-0">
+            <div className="mb-3 flex flex-col gap-3 px-5 py-[14px] pb-0">
               {!isSubmitted && (
                 <Label className="text-sm font-light text-cool-grey">
                   You can pause your liquidity to prevent new swaps. You can unpause it at any time.

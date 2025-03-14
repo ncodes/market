@@ -2,14 +2,14 @@ import { NetworkSelectorButton } from "@/components/AssetButton";
 import { DataTable } from "@/components/DataTable";
 import InfoLabel from "@/components/InfoLabel";
 import { Button } from "@/components/ui/button";
-import { liquidityColumns, LiquidityProps } from "./liquidity-columns";
-import StatusFilter from "./status-filter";
-import { ChevronDown, Plus } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { SelectStatusButton } from "./options/select-volume";
-import { SelectChainButton } from "@/pages/explore/options/select-chain";
-import { useState } from "react";
 import { cn } from "@/libs/utils";
+import { SelectChainButton } from "@/pages/explore/options/select-chain";
+import { ChevronDown, Plus } from "lucide-react";
+import { useState } from "react";
+import { LiquidityProps, liquidityColumns } from "./liquidity-columns";
+import { SelectStatusButton } from "./options/select-volume";
+import StatusFilter from "./status-filter";
 
 function getData(): LiquidityProps[] {
   return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => ({
@@ -29,9 +29,9 @@ export default function LiquidityTable() {
 
   return (
     <div className="w-full overflow-hidden rounded-3xl border border-eerie-black bg-chinese-black">
-      <div className="flex w-full items-center justify-between px-6 py-4">
+      <div className="flex w-full items-center justify-between px-6 py-2">
         <InfoLabel
-          className="text-base font-semibold tracking-wider lg:text-2xl"
+          className="text-xl font-semibold tracking-wider lg:text-2xl"
           info="My Liquidity"
           text="My Liquidity"
           toolTipClassname="w-6 h-6"

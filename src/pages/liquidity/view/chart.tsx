@@ -1,10 +1,10 @@
 "use client";
-import IconDropDown from "@/components/icons/IconDropDown";
 import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { cn } from "@/libs/utils";
+import { ChevronDown } from "lucide-react";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
 const chartData = [
@@ -36,10 +36,10 @@ const chartConfig = {
 
 export default function LiquidityChart() {
   return (
-    <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-3 xs:py-6">
-      <div className="flex w-full items-start justify-between px-2 xs:px-6 xs:pr-3 lg:items-center">
-        <Label className="font-dosis text-5xl text-gray-100">
-          $1.38b <span className="text-lg text-gray-400">Per day</span>
+    <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-3 xs:py-3">
+      <div className="flex w-full items-start justify-between px-2 xs:px-3 xs:pr-3 lg:items-center">
+        <Label className="flex flex-col font-dosis text-5xl text-gray-100 xs:flex-row xs:gap-2">
+          <div>$1.38b</div> <div className="text-lg text-gray-400 xs:self-end">Per day</div>
         </Label>
         <div className="flex items-center gap-1">
           <div className="hidden lg:flex">
@@ -52,7 +52,7 @@ export default function LiquidityChart() {
           <SelectVolume />
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-2 xs:pl-6 text-left">
+      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-2 text-left xs:pl-3 md:pl-6">
         <BarChart accessibilityLayer data={chartData} className="-ml-3 flex text-left">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
           <YAxis tickLine={false} axisLine={false} tick={{ textAnchor: "start", dx: -10 }} width={25} />
@@ -110,7 +110,7 @@ function SelectVolume() {
           variant={"ghost"}
           className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey"
         >
-          Volume <IconDropDown />
+          Volume <ChevronDown className="ml-1 h-5 w-5" />
         </Button>
       </SelectTrigger>
       <SelectContent className="border-eerie-black bg-chinese-black">
