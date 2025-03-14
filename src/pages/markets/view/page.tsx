@@ -30,7 +30,7 @@ export default function ViewMarketPage() {
       <div className="flex w-full justify-center">
         <div className="flex w-full flex-col justify-center gap-6 px-2 xs:px-5 xl:flex-row xl:px-0">
           <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:max-w-3xl">
-            <div className="flex items-center justify-between border-b border-eerie-black px-2 py-2 xs:px-6 sm:py-4">
+            <div className="flex items-center justify-between border-b border-eerie-black px-2 py-2 sm:px-6 sm:py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
