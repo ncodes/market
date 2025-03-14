@@ -3,10 +3,10 @@ import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { AssetOverview } from "@/pages/liquidity/create/asset-overview.tsx";
-import { XIcon } from "lucide-react";
 import { useState } from "react";
 import { ToolTip } from "../../../components/ToolTip";
 import { Switch } from "../../../components/ui/switch";
+import CloseIcon from "@/components/CloseIcon";
 
 export function CreateLiquidityButton() {
   const [open, setOpen] = useState(false);
@@ -26,13 +26,7 @@ export function CreateLiquidityButton() {
           <div className="w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins md:rounded-b-3xl">
             <div className="flex items-center justify-between border-b border-eerie-black px-5 py-4">
               <Label className="text-xl font-semibold text-lotion lg:text-2xl">Confirm Liqudity Creation</Label>
-              <Button
-                variant="ghost"
-                className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
-                onClick={() => setOpen(false)}
-              >
-                <XIcon className="h-7 w-7" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             <div className="flex flex-col gap-4 px-6 py-4">
               <div className="flex gap-14">

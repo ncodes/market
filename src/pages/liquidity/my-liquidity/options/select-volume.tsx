@@ -1,8 +1,9 @@
+import CloseIcon from "@/components/CloseIcon";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
-import { CheckCircle2, ChevronRight, XIcon } from "lucide-react";
+import { CheckCircle2, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export function SelectStatusButton() {
@@ -26,9 +27,7 @@ export function SelectStatusButton() {
         <div className="flex w-full flex-col overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
           <div className="flex h-fit items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Status</Label>
-            <div className="cursor-pointer" onClick={() => setOpen(false)}>
-              <XIcon className="text-cool-grey/50 transition-all duration-300 hover:text-cool-grey" size={20} />
-            </div>
+            <CloseIcon setOpen={setOpen}/>
           </div>
           
           <div className="border-t border-eerie-black flex w-full flex-col px-0 gap-2 py-3">

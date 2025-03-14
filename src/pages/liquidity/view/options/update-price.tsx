@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ChevronRight, XIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { PriceInput } from "../../create/price-input";
 import Modal from "@/components/Modal";
+import CloseIcon from "@/components/CloseIcon";
 
 export default function UpdatePrice() {
   const [open, setOpen] = useState(false);
@@ -28,13 +29,7 @@ export default function UpdatePrice() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Adjust Price"}
               </Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             <div className="mb-6 flex flex-col gap-3 px-5 py-[14px] pb-0">
               <Label className="text-sm font-light text-cool-grey">

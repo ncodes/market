@@ -1,4 +1,4 @@
-import { Settings, XIcon } from "lucide-react";
+import { Settings } from "lucide-react";
 import { useState } from "react";
 import { cn } from "../../libs/utils";
 import IconArrowRight from "../icons/IconArrowRight";
@@ -8,6 +8,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import Icon3Dots from "../icons/Icon3Dots";
+import CloseIcon from "../CloseIcon";
 
 export default function SettingsButton() {
   const [open, setOpen] = useState(false);
@@ -59,13 +60,7 @@ export default function SettingsButton() {
       >
         <div className="flex items-center justify-between px-5 pt-4">
           <Label className="text-base tracking-wider text-lotion">Preferences</Label>
-          <Button
-            variant="ghost"
-            className="flex h-auto w-auto items-center justify-center p-0 text-gray-100 opacity-80 hover:bg-transparent hover:text-gray-100 hover:opacity-100"
-            onClick={() => setOpen(false)}
-          >
-            <XIcon className="h-7 w-7" />
-          </Button>
+          <CloseIcon setOpen={setOpen}/>
         </div>
         <SettingsContent />
       </SheetContent>

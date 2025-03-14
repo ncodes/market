@@ -1,9 +1,10 @@
+import CloseIcon from "@/components/CloseIcon";
 import InfoLabel from "@/components/InfoLabel";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ChevronRight, XIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export default function UpdateCommision() {
@@ -30,13 +31,7 @@ export default function UpdateCommision() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Update Commission"}
               </Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             {!isSubmitted && (
               <div className="mb-8 flex flex-col gap-2 px-5 py-[14px] pb-0">

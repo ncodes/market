@@ -1,8 +1,9 @@
+import CloseIcon from "@/components/CloseIcon";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import { ChevronRight, PauseIcon, XIcon } from "lucide-react";
+import { ChevronRight, PauseIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function PauseLiquidity() {
@@ -29,13 +30,7 @@ export default function PauseLiquidity() {
           <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black md:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
               <Label className="text-base font-semibold text-lotion lg:text-2xl">Pause Liquidity</Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             <div className="mb-3 flex flex-col gap-3 px-5 py-[14px] pb-0">
               {!isSubmitted && (

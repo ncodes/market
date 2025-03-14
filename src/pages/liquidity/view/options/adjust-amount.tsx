@@ -1,4 +1,5 @@
 import AssetField from "@/components/AssetField";
+import CloseIcon from "@/components/CloseIcon";
 import InfoLabel from "@/components/InfoLabel";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,6 @@ import { Slider } from "@/components/ui/slider";
 import useStore from "@/hooks/store/useStore";
 import { formatToMoney } from "@/libs/helpers";
 import { cn } from "@/libs/utils";
-import { XIcon } from "lucide-react";
 import { useState } from "react";
 
 export default function AdjustAmount() {
@@ -27,13 +27,7 @@ export default function AdjustAmount() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Adjust Amount"}
               </Label>
-              <Button
-                onClick={() => setOpenAdjustAmount(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpenAdjustAmount}/>
             </div>
             <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
               <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>

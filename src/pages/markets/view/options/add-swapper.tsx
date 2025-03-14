@@ -1,12 +1,13 @@
 import EmojiAvatar from "@/components/avatar/EmojiAvatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
+import CloseIcon from "@/components/CloseIcon";
 import IconMinus from "@/components/icons/IconMinus";
 import InfoLabel from "@/components/InfoLabel";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { ChevronRight, XIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export default function AddSwapper() {
@@ -35,13 +36,7 @@ export default function AddSwapper() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Add Swapper"}
               </Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             <div className="h-full max-h-[85vh] w-full overflow-y-auto">
               {!isSubmitted && (

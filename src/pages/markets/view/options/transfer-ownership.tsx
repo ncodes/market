@@ -1,11 +1,12 @@
 import EmojiAvatar from "@/components/avatar/EmojiAvatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
+import CloseIcon from "@/components/CloseIcon";
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
-import { ChevronRight, XIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export default function TransferOwnership() {
@@ -32,13 +33,7 @@ export default function TransferOwnership() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm Transfer" : "Transfer Ownership"}
               </Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             <div className="mb-6 flex flex-col gap-3 px-5 py-[14px] pb-0">
               <Label className="text-sm font-light text-cool-grey">

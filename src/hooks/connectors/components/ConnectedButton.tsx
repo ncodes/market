@@ -17,11 +17,12 @@ import { transactions } from "@/libs/data.ts";
 import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
 import { cn } from "@/libs/utils.ts";
 import { TransactionType } from "@/libs/wallets.ts";
-import { CheckIcon, ChevronDown, Copy, ListFilter, Power, XIcon } from "lucide-react";
+import { CheckIcon, ChevronDown, Copy, ListFilter, Power } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext";
 import { useMediaQuery } from "usehooks-ts";
+import CloseIcon from "@/components/CloseIcon.tsx";
 
 export const ConnectedButton = ({
   className,
@@ -108,13 +109,7 @@ export const ConnectedButton = ({
             </div>
             <div className="flex items-center gap-2">
               <DisconnectWallet />
-              <Button
-                onClick={() => setOpenSheet(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-6" />
-              </Button>
+              <CloseIcon setOpen={setOpenSheet}/>
             </div>
           </div>
           <Tabs defaultValue="balance" className="w-full">
@@ -260,13 +255,7 @@ function DisconnectWallet() {
           <div className="rounded-3xl border border-gunmetal bg-chinese-black">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
               <Label className="text-2xl font-semibold text-lotion">Disconnect Wallet</Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             <div className="mb-6 px-5 py-4 pb-0">
               <Label className="text-sm font-light text-cool-grey">

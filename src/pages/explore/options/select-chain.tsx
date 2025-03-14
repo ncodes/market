@@ -1,11 +1,12 @@
 import { Avatar } from "@/components/avatar/Avatar";
+import CloseIcon from "@/components/CloseIcon";
 import { IconSearch } from "@/components/icons/IconSearch";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
 import { Networks } from "@/libs/wallets";
-import { CheckCircle2, ChevronRight, XIcon } from "lucide-react";
+import { CheckCircle2, ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export function SelectChainButton() {
@@ -29,9 +30,7 @@ export function SelectChainButton() {
         <div className="flex w-full flex-col overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
           <div className="flex h-fit items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Choose Chain</Label>
-            <div className="cursor-pointer" onClick={() => setOpen(false)}>
-              <XIcon className="text-cool-grey/50 transition-all duration-300 hover:text-cool-grey" size={20} />
-            </div>
+            <CloseIcon setOpen={setOpen}/>
           </div>
           <div className="flex h-fit justify-between border-y border-eerie-black px-3 py-2">
             <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">

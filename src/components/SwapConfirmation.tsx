@@ -8,10 +8,11 @@ import { Label } from "@/components/ui/label";
 import useStore from "@/hooks/store/useStore";
 import { cn } from "@/libs/utils";
 import { motion } from "framer-motion";
-import { ChevronDown, ChevronRight, XIcon } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useRef, useState } from "react";
 import IconMarkSuccess from "./icons/IconMarkSuccess";
 import Modal from "./Modal";
+import CloseIcon from "./CloseIcon";
 
 export default function SwapConfirmationModal({ open, completeSwap }: { open: boolean; completeSwap: () => void }) {
   const setOpenSwapConfirmation = useStore((s) => s.setOpenSwapConfirmation);
@@ -27,13 +28,7 @@ export default function SwapConfirmationModal({ open, completeSwap }: { open: bo
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Swap Completed" : "Confirm Swap"}
               </Label>
-              <Button
-                onClick={() => setOpenSwapConfirmation(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpenSwapConfirmation}/>
             </div>
             <div className="flex w-full items-center gap-[10px] px-5 py-[17px] pb-3">
               <Avatar src={OPIcon} rootClassName="w-8 h-8" className="h-8 w-8" />
