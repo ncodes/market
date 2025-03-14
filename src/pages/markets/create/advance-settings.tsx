@@ -38,21 +38,21 @@ export function AdvanceSettings() {
         }}
       >
         <div ref={contentHeight} className="flex w-full flex-col gap-4 py-2">
-          <div className="flex w-full flex-col gap-1 pr-2">
-            <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
-            <Input type="text" placeholder="0x000" className="!font-poppins" hideSuffix />
-          </div>
           <div className="flex w-full justify-between">
-            <InfoLabel text="Anyone can add liquidity" info="Anyone can add liquidity" className="text-base" />
+            <InfoLabel text="Anyone can add liquidity" info="Anyone can add liquidity" className="text-sm" />
             <Switch defaultChecked />
           </div>
           <div className="flex w-full justify-between">
-            <InfoLabel text="Anyone can swap" info="Anyone can swap" className="text-base" />
+            <InfoLabel text="Anyone can swap" info="Anyone can swap" className="text-sm" />
             <Switch />
           </div>
           <div className="flex w-full justify-between">
-            <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-base" />
+            <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />
             <SelectMediatorPool />
+          </div>
+          <div className="flex w-full flex-col gap-1 pr-2">
+            <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
+            <Input type="text" placeholder="0x000" className="!font-poppins" hideSuffix />
           </div>
         </div>
       </motion.div>
