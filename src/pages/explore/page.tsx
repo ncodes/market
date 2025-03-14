@@ -20,7 +20,12 @@ import MarketsTable from "./markets-table";
 import TokenTable from "./token-table";
 import TransactionsTable from "./transactions-table";
 import VolumeFilter from "./volume-filter";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/libs/utils";
+import { SelectChainButton } from "./options/select-chain";
+import { SearchTokenButton } from "./options/search-token";
+import { SelectVolumeButton } from "./options/select-volume";
 
 enum TabHeader {
   TOKEN = "token",
@@ -40,14 +45,14 @@ export default function ExplorePage() {
             <Tabs defaultValue="token" className="w-full" onValueChange={(value) => setCurrentTab(value as any)}>
               <TabsList className="flex h-[55px] w-full justify-between bg-transparent px-5 pr-1 pt-2">
                 <div className="flex justify-start gap-4 lg:gap-[25px]">
-                  <TabHead value="token" title="Token" />
-                  <TabHead value="liquidity" title="Liquidity" />
-                  <TabHead value="markets" title="Markets" />
-                  <TabHead value="transactions" title="Transactions" />
+                  <TabHead className="text-sm md:text-base" value="token" title="Token" />
+                  <TabHead className="text-sm md:text-base" value="liquidity" title="Liquidity" />
+                  <TabHead className="text-sm md:text-base" value="markets" title="Markets" />
+                  <TabHead className="text-sm md:text-base" value="transactions" title="Transactions" />
                 </div>
-                <Button variant={"ghost"} className="flex lg:hidden hover:bg-transparent hover:text-white">
-                  <ChevronDown />
-                </Button>
+                <div className="flex lg:hidden">
+                  <MoreButton />
+                </div>
                 <div className="hidden items-center gap-2 lg:flex">
                   {shouldAddLiquidity(currentTab) && (
                     <Button
@@ -76,14 +81,14 @@ export default function ExplorePage() {
               </TabsContent>
             </Tabs>
           </div>
-          <div className="mt-4 flex w-full items-center justify-center lg:justify-between">
+          <div className="mt-6 flex w-full flex-col items-center justify-center gap-6 lg:flex-row lg:justify-between lg:gap-0">
             <div className="flex w-fit gap-1">
               <Label className="text-sm font-light text-cool-grey">Showing</Label>
               <Label className="text-sm font-semibold text-cool-grey">31-40</Label>
               <Label className="text-sm font-light text-cool-grey">of</Label>
               <Label className="text-sm font-semibold text-cool-grey">256</Label>
             </div>
-            <Pagination className="hidden lg:block m-0 w-fit">
+            <Pagination className="m-0 w-fit">
               <PaginationContent className="">
                 <PaginationItem className="">
                   <PaginationPrevious href="#" hideText />
@@ -142,4 +147,34 @@ function shouldVolumeFilter(option: TabHeader) {
 
 function shouldAddLiquidity(option: TabHeader) {
   return option === TabHeader.LIQUIDITY || option === TabHeader.MARKETS;
+}
+
+function MoreButton() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover onOpenChange={(open) => setOpen(open)}>
+      <PopoverTrigger>
+        <Button variant={"ghost"} className="p-0 hover:bg-transparent hover:text-white">
+          <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="flex w-[217px] flex-col gap-1 rounded-3xl border-none bg-vampire-black p-2"
+        side="bottom"
+        align="end"
+      >
+        <Button
+          variant={"ghost"}
+          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
+        >
+          Add Liquidity
+          <Plus className="text-cool-grey group-hover:text-white" />
+        </Button>
+        <SelectChainButton/>
+        <SelectVolumeButton/>
+        <SearchTokenButton/>
+      </PopoverContent>
+    </Popover>
+  );
 }

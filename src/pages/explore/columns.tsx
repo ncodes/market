@@ -73,7 +73,7 @@ export const tokenColumns: ColumnDef<TokenTableProps>[] = [
     accessorKey: "name",
     header: "Token Name",
     cell: (props) => (
-      <div className="flex w-20 lg:w-32 items-center gap-1 py-1.5">
+      <div className="flex w-20 lg:w-32 items-center gap-1 py-1.5 min-w-[100px]">
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <Label className="text-sm font-light text-gray-300">{props.getValue() as any}</Label>
       </div>
@@ -91,7 +91,7 @@ export const tokenColumns: ColumnDef<TokenTableProps>[] = [
   },
   {
     accessorKey: "1h_change",
-    header: "1h Change.",
+    header: "1h Change",
     cell: (props) => {
       const { value, isPositive } = props.getValue() as any;
 
@@ -292,7 +292,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     accessorKey: "type",
     header: "Type",
     cell: (props) => (
-      <div className="flex items-center gap-1 py-1.5">
+      <div className="flex items-center gap-1 py-1.5 mr-4">
         <div className="flex items-center gap-1.5">
           <Label className="text-sm font-light text-gray-400">Swap</Label>
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).from}</Label>
@@ -314,9 +314,9 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     accessorKey: "base",
     header: "Base Amount",
     cell: (props) => (
-      <div className="flex items-center gap-1 min-w-28">
+      <div className="flex items-center gap-1 min-w-28 mr-3">
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
-        <Label className="text-sm font-light text-white">{props.getValue() as any}</Label>
+        <Label className="text-nowrap text-sm font-light text-white">{props.getValue() as any}</Label>
       </div>
     ),
   },
@@ -324,9 +324,9 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     accessorKey: "quote",
     header: "Quote Amount",
     cell: (props) => (
-      <div className="flex items-center gap-1 min-w-28">
+      <div className="flex items-center gap-1 min-w-28 mr-3">
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
-        <Label className="text-sm font-light text-white">{props.getValue() as any}</Label>
+        <Label className="text-nowrap text-sm font-light text-white">{props.getValue() as any}</Label>
       </div>
     ),
   },
@@ -336,7 +336,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     cell: (props) => (
       <div className="flex items-center gap-1">
         <EmojiAvatar randomStr={props.getValue() as string} size={AvatarSize.Micro} />
-        <Label className="text-sm font-light text-gray-400">{props.getValue() as any}</Label>
+        <Label className="text-nowrap text-sm font-light text-gray-400">{props.getValue() as any}</Label>
       </div>
     ),
   },

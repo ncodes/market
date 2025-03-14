@@ -26,7 +26,7 @@ export default function LiquidityTable() {
     <div className="w-full overflow-hidden rounded-3xl border border-eerie-black bg-chinese-black">
       <div className="flex w-full items-center justify-between px-6 py-4">
         <InfoLabel
-          className="text-2xl font-semibold tracking-wider"
+          className="text-base lg:text-2xl font-semibold tracking-wider"
           info="My Liquidity"
           text="My Liquidity"
           toolTipClassname="w-6 h-6"
