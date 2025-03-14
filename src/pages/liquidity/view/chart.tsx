@@ -38,9 +38,10 @@ export default function LiquidityChart() {
   return (
     <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-3 xs:py-3">
       <div className="flex w-full items-start justify-between px-2 xs:px-3 xs:pr-3 lg:items-center">
-        <Label className="flex flex-col font-dosis text-5xl text-gray-100 xs:flex-row xs:gap-2">
-          <div>$1.38b</div> <div className="text-lg text-gray-400 xs:self-end">Per day</div>
+        <Label className="flex flex-col font-dosis text-3xl text-gray-100 xs:flex-row xs:gap-2 md:text-5xl">
+          <span>$1.38b</span> <span className="text-sm text-gray-400 xs:self-end md:text-lg">Per day</span>
         </Label>
+
         <div className="flex items-center gap-1">
           <div className="hidden lg:flex">
             <ChartFilter text="1H" />
@@ -71,7 +72,7 @@ export default function LiquidityChart() {
           />
         </BarChart>
       </ChartContainer>
-      <div className="flex w-full justify-center lg:hidden">
+      <div className="mb-4 flex w-full justify-center lg:hidden">
         <div className="flex">
           <ChartFilter text="1H" />
           <ChartFilter text="1D" isActive />

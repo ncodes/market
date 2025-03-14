@@ -44,8 +44,8 @@ export default function TransactionsTable() {
   return (
     <div className="w-full">
       <DataTable
-        className="[&_th]:border-gunmetal/40 overflow-hidden rounded-b-3xl text-sm font-light [&_td:first-child]:pl-2 [&_th:first-child]:pl-2 [&_td:first-child]:sm:pl-6 [&_th:first-child]:sm:pl-6 [&_th]:border-y [&_tr]:!border-none"
-        tableCellClassName="!cursor-pointer py-3"
+        className="overflow-hidden rounded-b-3xl text-sm font-light [&_td:first-child]:pl-2 [&_td:first-child]:sm:pl-6 [&_th:first-child]:pl-2 [&_th:first-child]:sm:pl-6 [&_th]:border-y [&_th]:border-gunmetal/40 [&_tr]:!border-none"
+        tableCellClassName="!cursor-pointer py-2"
         tableRowClassName="hover:bg-transparent"
         tableHeadClassName="text-cool-grey text-sm font-semibold"
         columns={transactionsColumns}
