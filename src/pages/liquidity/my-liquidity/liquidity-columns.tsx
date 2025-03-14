@@ -65,7 +65,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
       const { value, info } = props.getValue() as any;
 
       return (
-        <div className="flex flex-col lg:flex-row items-start lg:items-center gap-1 min-w-24">
+        <div className="flex flex-row items-start lg:items-center gap-1 min-w-[180px]">
           <span className="flex items-center gap-1">
             <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
             <Label className="text-sm font-light">{value}</Label>

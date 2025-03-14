@@ -8,7 +8,7 @@ export default function MyLiquidityPage() {
   return (
     <PageLayout title="My Liquidity">
       <div className="flex w-full justify-center px-4">
-        <div className="mt-6 flex w-full max-w-7xl flex-col gap-[30px] lg:flex-row">
+        <div className="mt-3 flex w-full max-w-7xl flex-col gap-[30px] lg:flex-row">
           <LiquidityTable />
           <div className="flex w-full max-w-full flex-col gap-6 lg:max-w-[330px]">
             <div className="flex flex-col">

@@ -4,7 +4,12 @@ import InfoLabel from "@/components/InfoLabel";
 import { Button } from "@/components/ui/button";
 import { liquidityColumns, LiquidityProps } from "./liquidity-columns";
 import StatusFilter from "./status-filter";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { SelectStatusButton } from "./options/select-volume";
+import { SelectChainButton } from "@/pages/explore/options/select-chain";
+import { useState } from "react";
+import { cn } from "@/libs/utils";
 
 function getData(): LiquidityProps[] {
   return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => ({
@@ -26,12 +31,14 @@ export default function LiquidityTable() {
     <div className="w-full overflow-hidden rounded-3xl border border-eerie-black bg-chinese-black">
       <div className="flex w-full items-center justify-between px-6 py-4">
         <InfoLabel
-          className="text-base lg:text-2xl font-semibold tracking-wider"
+          className="text-base font-semibold tracking-wider lg:text-2xl"
           info="My Liquidity"
           text="My Liquidity"
           toolTipClassname="w-6 h-6"
         />
-        <Button variant={"ghost"} className="p-0 hover:bg-transparent hover:text-white flex lg:hidden"><ChevronDown className="w-6 text-2xl"/></Button>
+        <div className="flex lg:hidden">
+          <MoreButton />
+        </div>
         <div className="hidden items-center gap-2 lg:flex">
           <NetworkSelectorButton text="Chain" className="text-gray-200 hover:text-white" />
           <StatusFilter />
@@ -49,5 +56,34 @@ export default function LiquidityTable() {
         data={data}
       />
     </div>
+  );
+}
+
+function MoreButton() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Popover onOpenChange={(open) => setOpen(open)}>
+      <PopoverTrigger>
+        <Button variant={"ghost"} className="p-0 hover:bg-transparent hover:text-white">
+          <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent
+        className="flex w-[217px] flex-col gap-1 rounded-3xl border-none bg-vampire-black p-2"
+        side="bottom"
+        align="end"
+      >
+        <SelectChainButton />
+        <SelectStatusButton />
+        <Button
+          variant={"ghost"}
+          className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
+        >
+          Add Liquidity
+          <Plus className="text-cool-grey group-hover:text-white" />
+        </Button>
+      </PopoverContent>
+    </Popover>
   );
 }

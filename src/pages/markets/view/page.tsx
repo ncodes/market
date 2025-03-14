@@ -84,7 +84,7 @@ export default function ViewMarketPage() {
                           <Avatar
                             src={USDCIcon}
                             className="h-6 w-6 shadow-sm drop-shadow-sm"
-                            rootClassName="h-6 w-6 z-10"
+                            rootClassName="h-6 w-6 z-[1]"
                           />
                           <Avatar
                             src={SolanaIcon}

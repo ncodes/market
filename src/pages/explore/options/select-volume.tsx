@@ -57,7 +57,7 @@ function VolumeTile({ name, isSelected, onClick }: { name: string; isSelected?: 
       className="m-0 h-auto w-full justify-start rounded-none p-0 text-left hover:bg-transparent"
       onClick={onClick}
     >
-      <div className="group flex w-full cursor-pointer items-center justify-between px-3 py-2">
+      <div className="group flex w-full cursor-pointer items-center justify-between px-5 py-2">
         <Label
           className={cn("text-sm font-light tracking-wide text-cool-grey", { "text-anti-flash-white": isSelected })}
         >
