@@ -1,4 +1,5 @@
 import { USDCIcon } from "@/assets";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { AssetOverview } from "@/pages/liquidity/create/asset-overview.tsx";
@@ -6,7 +7,6 @@ import { XIcon } from "lucide-react";
 import { useState } from "react";
 import { ToolTip } from "../../../components/ToolTip";
 import { Switch } from "../../../components/ui/switch";
-import Modal from "@/components/Modal";
 
 export function CreateLiquidityButton() {
   const [open, setOpen] = useState(false);
@@ -17,7 +17,7 @@ export function CreateLiquidityButton() {
       onOpenChange={(open) => setOpen(open)}
       triggerClassName="w-full"
       triggerComponent={
-        <Button variant={"secondary"} className="h-14 w-full text-base font-semibold lg:text-lg">
+        <Button variant={"secondary"} className="btn">
           Create
         </Button>
       }
