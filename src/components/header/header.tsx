@@ -8,6 +8,7 @@ import SettingsButton from "./SettingsButton";
 import { Button } from "../ui/button";
 import MobileHeader from "./MobileHeader";
 import { Search } from "lucide-react";
+import { SearchButton } from "./SearchButton";
 
 export interface MenuItem {
   title: string;
@@ -50,12 +51,7 @@ export function Header() {
       <SearchBar />
       <div className="relative -top-1 flex w-fit items-center space-x-3">
         <div className="flex xl:hidden">
-          <Button
-            variant={"ghost"}
-            className="flex !h-11 !w-11 cursor-pointer items-center justify-center rounded-full bg-chinese-black p-0 transition-all duration-500 hover:bg-raisin-black"
-          >
-            <Search />
-          </Button>
+          <SearchButton/>
         </div>
         <RegionSelectorButton />
         <SettingsButton />
