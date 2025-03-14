@@ -1,4 +1,5 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
+import SwapModal from "@/components/SwapModal";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconActive from "@/components/icons/IconActive";
 import IconDropDown from "@/components/icons/IconDropDown";
@@ -8,21 +9,20 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import useStore from "@/hooks/store/useStore";
 import PageLayout from "@/layouts/PageLayout";
+import { cn } from "@/libs/utils";
 import { ChevronDown, ChevronRight, Settings } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
+import AdjustAmount from "./options/adjust-amount";
 import PauseLiquidity from "./options/pause-liquidity";
 import UpdateManager from "./options/update-manager";
 import UpdatePrice from "./options/update-price";
+import UpdateTarget from "./options/update-target";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
-import UpdateTarget from "./options/update-target";
-import useStore from "@/hooks/store/useStore";
-import AdjustAmount from "./options/adjust-amount";
-import { cn } from "@/libs/utils";
-import { useState } from "react";
-import SwapModal from "@/components/SwapModal";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -32,7 +32,7 @@ export default function ViewLiquidityPage() {
       <div className="flex w-full justify-center">
         <div className="flex w-full flex-col justify-center gap-6 px-2 xs:px-5 xl:flex-row">
           <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:max-w-3xl">
-            <div className="flex justify-between border-b border-eerie-black px-2 py-2 xs:px-6 sm:py-4">
+            <div className="flex justify-between border-b border-eerie-black px-2 py-2 xs:px-3 sm:py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
@@ -45,12 +45,12 @@ export default function ViewLiquidityPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="hidden items-center gap-1 text-xs font-light text-light-periwinkle lg:flex">
+                <Label className="hidden items-center gap-1 text-xs font-light tracking-wider text-light-periwinkle lg:flex">
                   <IconActive /> Active
                 </Label>
               </div>
               <div className="flex items-center gap-2">
-                <Label className="hidden items-center gap-1 text-xs font-semibold text-cool-grey lg:flex">
+                <Label className="hidden items-center gap-1 text-xs font-semibold tracking-wider text-cool-grey lg:flex">
                   <IconLock /> Permissioned
                 </Label>
                 <Button
@@ -64,7 +64,7 @@ export default function ViewLiquidityPage() {
                 <MoreButton />
               </div>
             </div>
-            <div className="flex w-full flex-col flex-wrap items-start justify-between px-2 py-2 xs:px-6 sm:py-4 xs:flex-row lg:border-b lg:border-eerie-black gap-4 xs:gap-0">
+            <div className="flex w-full flex-col flex-wrap items-start justify-between gap-4 px-2 py-2 xs:flex-row xs:gap-0 xs:px-3 sm:py-4 lg:border-b lg:border-eerie-black">
               <div className="flex w-1/2 max-w-[134px] flex-col lg:w-fit">
                 <Label className="h-4 text-sm font-light text-cool-grey">Amount</Label>
                 <Label className="text-nowrap font-dosis text-2xl font-semibold text-anti-flash-white">
@@ -79,14 +79,14 @@ export default function ViewLiquidityPage() {
                   <Label className="text-xs font-light text-ufo-green">+15%</Label>
                 </div>
               </div>
-              <div className="mt-0 xs:mt-4 flex w-full flex-col lg:mt-0 lg:w-fit">
+              <div className="mt-0 flex w-full flex-col xs:mt-4 lg:mt-0 lg:w-fit">
                 <Label className="flex h-4 items-center text-sm font-light text-cool-grey">
                   1 Day Volume <IconDropDown className="h-5 w-5" />
                 </Label>
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">400 USDC</Label>
               </div>
             </div>
-            <div className="flex w-full justify-between border-b border-eerie-black px-2 py-2 xs:px-6 sm:py-4 lg:hidden">
+            <div className="flex w-full justify-between border-b border-eerie-black px-2 py-2 pb-4 tracking-wider xs:px-3 sm:py-4 lg:hidden">
               <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
                 <IconActive /> Active
               </Label>
@@ -95,9 +95,9 @@ export default function ViewLiquidityPage() {
               </Label>
             </div>
             <LiquidityChart />
-            <div className="w-full">
+            <div className="mt-2 w-full">
               <Tabs defaultValue="transactions" className="w-full">
-                <TabsList className="flex w-full justify-start gap-[16px] border-b border-eerie-black/50 bg-transparent px-2 xs:px-6  lg:gap-[29px]">
+                <TabsList className="flex w-full justify-start gap-[25px] bg-transparent px-2 xs:px-3 md:px-5 lg:gap-[29px]">
                   <TabHead value="transactions" title="Transactions" />
                   <TabHead value="lps" title="Permitted LPs" />
                   <TabHead value="takers" title="Permitted Takers" />
@@ -159,7 +159,7 @@ function TabHead({ value, title }: { value: string; title: string }) {
   return (
     <TabsTrigger
       value={value}
-      className="flex items-center gap-1 p-0 text-xs font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-white lg:text-sm"
+      className="flex items-center gap-1 p-0 text-sm font-semibold tracking-wide text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-white md:text-lg"
     >
       {title}
     </TabsTrigger>

@@ -1,13 +1,13 @@
 import { BNBIcon, BSCIcon, SolanaIcon, USDCIcon } from "@/assets";
+import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
+import useStore from "@/hooks/store/useStore";
+import { cn } from "@/libs/utils";
 import AssetSelect from "./AssetSelect";
+import SwapConfirmationModal from "./SwapConfirmation";
+import IconGeneralSettings from "./icons/IconGeneralSettings";
 import IconNavigationArrows from "./icons/IconNavigationArrows";
 import { Button } from "./ui/button";
-import IconGeneralSettings from "./icons/IconGeneralSettings";
-import { ConnectButton } from "@/hooks/connectors/components/ConnectButton";
 import { Label } from "./ui/label";
-import { cn } from "@/libs/utils";
-import SwapConfirmationModal from "./SwapConfirmation";
-import useStore from "@/hooks/store/useStore";
 
 interface SwapProps {
   hideHeader?: boolean;

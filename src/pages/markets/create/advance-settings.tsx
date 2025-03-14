@@ -1,13 +1,13 @@
-import { useRef, useState } from "react";
-import { Label } from "@/components/ui/label.tsx";
-import IconDropDown from "@/components/icons/IconDropDown.tsx";
-import { cn } from "@/libs/utils.ts";
 import InfoLabel from "@/components/InfoLabel.tsx";
-import { Switch } from "@/components/ui/switch.tsx";
 import Input from "@/components/Input.tsx";
-import SelectMediatorPool from "./select-mediator-pool";
-import { motion } from "framer-motion";
+import IconDropDown from "@/components/icons/IconDropDown.tsx";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label.tsx";
+import { Switch } from "@/components/ui/switch.tsx";
+import { cn } from "@/libs/utils.ts";
+import { motion } from "framer-motion";
+import { useRef, useState } from "react";
+import SelectMediatorPool from "./select-mediator-pool";
 
 export function AdvanceSettings() {
   const [isOpened, setIsOpened] = useState(false);
@@ -21,7 +21,7 @@ export function AdvanceSettings() {
         className="flex w-full justify-between bg-transparent p-0 hover:bg-transparent"
         onClick={() => setIsOpened((prev) => !prev)}
       >
-        <Label className="font-poppins text-base font-semibold text-cool-grey">Advanced Settings</Label>
+        <Label className="font-poppins text-sm font-semibold text-cool-grey lg:text-base">Advanced Settings</Label>
         <IconDropDown className={cn("transition-transform", isOpened ? "rotate-180" : "")} />
       </Button>
       <motion.div
@@ -38,21 +38,21 @@ export function AdvanceSettings() {
         }}
       >
         <div ref={contentHeight} className="flex w-full flex-col gap-4 py-2">
-          <div className="mt-3 flex w-full flex-col gap-1 pr-2">
-            <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
-            <Input type="text" placeholder="0x000" className="!font-poppins" hideSuffix />
-          </div>
           <div className="flex w-full justify-between">
-            <InfoLabel text="Anyone can add liquidity" info="Anyone can add liquidity" className="text-base" />
+            <InfoLabel text="Anyone can add liquidity" info="Anyone can add liquidity" className="text-sm" />
             <Switch defaultChecked />
           </div>
           <div className="flex w-full justify-between">
-            <InfoLabel text="Anyone can swap" info="Anyone can swap" className="text-base" />
+            <InfoLabel text="Anyone can swap" info="Anyone can swap" className="text-sm" />
             <Switch />
           </div>
           <div className="flex w-full justify-between">
-            <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-base" />
+            <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />
             <SelectMediatorPool />
+          </div>
+          <div className="flex w-full flex-col gap-1 pr-2">
+            <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
+            <Input type="text" placeholder="0x000" className="!font-poppins" hideSuffix />
           </div>
         </div>
       </motion.div>

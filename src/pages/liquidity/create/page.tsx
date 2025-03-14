@@ -1,4 +1,5 @@
 import { USDCIcon, USDTIcon } from "@/assets";
+import { AssetButton } from "@/components/AssetButton.tsx";
 import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import PageLayout from "@/layouts/PageLayout.tsx";
@@ -6,25 +7,24 @@ import { AdvanceSettings } from "@/pages/liquidity/create/advance-settings.tsx";
 import { CreateLiquidityButton } from "@/pages/liquidity/create/create-liquidity-button.tsx";
 import { PriceInput } from "@/pages/liquidity/create/price-input.tsx";
 import Input, { LeftLabel, RightLabel } from "../../../components/Input.tsx";
-import { AssetButton } from "@/components/AssetButton.tsx";
 
 export default function CreateLiquidityPage() {
   return (
     <PageLayout title="Create Liquidity">
       <div className="flex w-full justify-center px-4">
-        <div className="mt-5 lg:mt-10 w-full max-w-sm lg:max-w-md">
+        <div className="mt-5 w-full max-w-sm lg:mt-10 lg:max-w-md">
           <div className="mb-2 w-full rounded-3xl border border-eerie-black bg-chinese-black">
             <div className="flex items-center gap-4 border-b border-eerie-black px-5 py-4">
-              <Label className="text-base lg:text-2xl font-semibold text-lotion">Create Liquidity</Label>
+              <Label className="text-xl font-semibold text-lotion lg:text-2xl">Create Liquidity</Label>
             </div>
-            <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-6 pb-6 pt-3">
+            <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-5 pb-4 pt-3">
               <div className="flex w-full gap-5">
                 <div className="flex w-full flex-col gap-1">
                   <InfoLabel text="Add" info="This is the base asset" />
                   <AssetButton
                     text="USDC"
                     assetImage={USDCIcon}
-                    className="h-11 w-full bg-black-coral/20 hover:bg-black-coral/30"
+                    className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                     textClassName="text-cool-grey"
                     assetClassName="w-8 h-8"
                   />
@@ -34,7 +34,7 @@ export default function CreateLiquidityPage() {
                   <AssetButton
                     text="USDT"
                     assetImage={USDTIcon}
-                    className="h-11 w-full bg-black-coral/20 hover:bg-black-coral/30"
+                    className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                     textClassName="text-cool-grey"
                     assetClassName="w-8 h-8"
                   />
@@ -46,7 +46,7 @@ export default function CreateLiquidityPage() {
                 <Input suffix="USDC">
                   <LeftLabel
                     label={
-                      <span className="p-2 text-xs font-extralight tracking-[2px] text-lotion">
+                      <span className="text-xs tracking-wide text-lotion">
                         <span className="text-cool-grey">Bal: </span>
                         <span className="text-anti-flash-white">100</span>
                       </span>
@@ -54,7 +54,7 @@ export default function CreateLiquidityPage() {
                   />
                   <RightLabel
                     label={
-                      <span className="p-2 text-xs font-extralight tracking-[2px] text-lotion">
+                      <span className="text-xs tracking-wide text-lotion">
                         <span className="text-anti-flash-white/70">$103.3</span>
                       </span>
                     }
@@ -64,7 +64,7 @@ export default function CreateLiquidityPage() {
 
               <PriceInput />
             </div>
-            <div className="flex w-full flex-col gap-4 px-6 pb-7 pt-3">
+            <div className="flex w-full flex-col gap-4 px-6 pb-3 pt-3">
               <AdvanceSettings />
             </div>
           </div>
