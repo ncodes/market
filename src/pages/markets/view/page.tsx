@@ -1,36 +1,36 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
 import { NetworkSelectorButton } from "@/components/AssetButton";
+import SwapModal from "@/components/SwapModal";
 import TabHead from "@/components/TabHead";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconOpenLink from "@/components/icons/IconOpenLink";
+import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
+import { cn } from "@/libs/utils";
+import { ChevronDown, Settings } from "lucide-react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
 import LiquidityTable from "./liquidity-table";
-import LiquiditySwap from "./swap";
-import TransactionsTable from "./transactions-table";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { cn } from "@/libs/utils";
-import { ChevronDown, Settings } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import UpdateCommision from "./options/update-commision";
-import AddSwapper from "./options/add-swapper";
+import MarketStats from "./market-stats";
 import AddProvider from "./options/add-provider";
+import AddSwapper from "./options/add-swapper";
 import RenounceOwnership from "./options/renounce-ownership";
 import TransferOwnership from "./options/transfer-ownership";
-import SwapModal from "@/components/SwapModal";
-import MarketStats from "./market-stats";
+import UpdateCommision from "./options/update-commision";
+import LiquiditySwap from "./swap";
+import TransactionsTable from "./transactions-table";
 
 export default function ViewMarketPage() {
   return (
     <PageLayout title="View Liquidity">
       <div className="flex w-full justify-center">
-        <div className="flex w-full flex-col justify-center gap-6 px-2 xs:px-5 xl:flex-row xl:px-0">
+        <div className="flex w-full flex-col justify-center gap-6 px-2 xs:px-3 xl:flex-row xl:px-0">
           <div className="w-full max-w-full rounded-3xl border border-eerie-black/50 bg-chinese-black xl:max-w-3xl">
-            <div className="flex items-center justify-between border-b border-eerie-black px-2 py-2 sm:px-6 sm:py-4">
+            <div className="flex items-center justify-between border-b border-eerie-black px-2 py-2 sm:px-3 sm:py-4">
               <div className="flex items-center gap-6">
                 <div className="flex items-center">
                   <div className="relative w-16">
@@ -43,7 +43,7 @@ export default function ViewMarketPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="hidden rounded-xl bg-gunmetal px-2 py-1 text-xs font-semibold text-screaming-green lg:block">
+                <Label className="hidden rounded-xl bg-gunmetal px-2 py-1 text-xs font-semibold text-screaming-green md:block">
                   0.05%
                 </Label>
               </div>
@@ -52,7 +52,7 @@ export default function ViewMarketPage() {
             <LiquidityChart />
             <div className="w-full">
               <Tabs defaultValue="liquidity" className="w-full">
-                <TabsList className="flex w-full justify-between border-b border-eerie-black/50 bg-transparent px-2 py-6 sm:px-6">
+                <TabsList className="mt-2 flex w-full justify-between bg-transparent px-2 py-4 sm:px-4">
                   <div className="flex justify-start gap-[29px]">
                     <TabHead value="liquidity" title="Liquidity" />
                     <TabHead value="transactions" title="Transactions" />
