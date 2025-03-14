@@ -1,12 +1,12 @@
-import { useRef, useState } from "react";
-import { Label } from "@/components/ui/label.tsx";
-import IconDropDown from "@/components/icons/IconDropDown.tsx";
-import { cn } from "@/libs/utils.ts";
 import InfoLabel from "@/components/InfoLabel.tsx";
-import { Switch } from "@/components/ui/switch.tsx";
 import Input from "@/components/Input.tsx";
-import { motion } from "framer-motion";
+import IconDropDown from "@/components/icons/IconDropDown.tsx";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label.tsx";
+import { Switch } from "@/components/ui/switch.tsx";
+import { cn } from "@/libs/utils.ts";
+import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 
 export function AdvanceSettings() {
   const [isOpened, setIsOpened] = useState(false);

@@ -25,7 +25,7 @@ export function CommisionInput({ className }: { className?: string }) {
         <Label className="flex items-center gap-1 font-poppins text-sm font-normal tracking-wide text-lotion/90">
           Commision
         </Label>
-        <div className="mt-1 flex h-11 w-[90px] items-center justify-center rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
+        <div className="mt-2 flex h-11 w-[90px] items-center justify-center rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
           <div className="relative inline-flex">
             <span ref={spanRef} className="invisible absolute m-0 whitespace-pre p-0">
               {margin || "0"}
@@ -43,7 +43,7 @@ export function CommisionInput({ className }: { className?: string }) {
           <Label className="text-base font-semibold text-anti-flash-white">%</Label>
         </div>
       </div>
-      <div className="flex w-full flex-col gap-6">
+      <div className="mt-2 flex w-full flex-col gap-6">
         <div className="mt-5 flex flex-col gap-3">
           <Slider
             defaultValue={[margin]}

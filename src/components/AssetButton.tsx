@@ -10,8 +10,8 @@ import { cn } from "@/libs/utils";
 import { Assets } from "@/libs/wallets";
 import { CheckCircle2, XIcon } from "lucide-react";
 import { useState } from "react";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import Modal from "./Modal";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 export function AssetButton({
   text,
@@ -39,7 +39,7 @@ export function AssetButton({
       triggerComponent={
         <Button
           className={cn(
-            "scale-btn h-auto w-[140px] justify-start bg-black-coral/20 px-[4px] py-1 pr-2 hover:bg-black-coral/30",
+            "scale-btn h-auto w-[140px] justify-start bg-black-coral/20 py-1 pl-[4px] pr-2 hover:bg-black-coral/30",
             className,
           )}
         >
@@ -58,14 +58,14 @@ export function AssetButton({
         </Button>
       }
       content={
-        <div className="flex flex-col w-full overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
-          <div className="h-fit flex items-center justify-between px-5 py-3">
+        <div className="flex w-full flex-col overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
+          <div className="flex h-fit items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
             <div className="cursor-pointer" onClick={() => setOpen(false)}>
               <XIcon className="text-cool-grey/50 transition-all duration-300 hover:text-cool-grey" size={20} />
             </div>
           </div>
-          <div className="h-fit flex justify-between border-y border-eerie-black px-3 py-2 pr-0">
+          <div className="flex h-fit justify-between border-y border-eerie-black px-3 py-2 pr-0">
             <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">
               <IconSearch className="opacity-40" />
               <input
@@ -76,7 +76,7 @@ export function AssetButton({
             </div>
             <NetworkSelectorButton />
           </div>
-          <div className="h-[70vh] flex w-full flex-col px-0 overflow-y-auto">
+          <div className="flex h-[70vh] w-full flex-col overflow-y-auto px-0">
             {Assets.map((asset, index) => (
               <AssetTile key={index} name={asset.name} logo={asset.logo} symbol={asset.symbol} />
             ))}

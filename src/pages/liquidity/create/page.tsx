@@ -17,14 +17,14 @@ export default function CreateLiquidityPage() {
             <div className="flex items-center gap-4 border-b border-eerie-black px-5 py-4">
               <Label className="text-xl font-semibold text-lotion lg:text-2xl">Create Liquidity</Label>
             </div>
-            <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-6 pb-6 pt-3">
+            <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-5 pb-4 pt-3">
               <div className="flex w-full gap-5">
                 <div className="flex w-full flex-col gap-1">
                   <InfoLabel text="Add" info="This is the base asset" />
                   <AssetButton
                     text="USDC"
                     assetImage={USDCIcon}
-                    className="h-11 w-full bg-black-coral/20 hover:bg-black-coral/30"
+                    className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                     textClassName="text-cool-grey"
                     assetClassName="w-8 h-8"
                   />
@@ -34,7 +34,7 @@ export default function CreateLiquidityPage() {
                   <AssetButton
                     text="USDT"
                     assetImage={USDTIcon}
-                    className="h-11 w-full bg-black-coral/20 hover:bg-black-coral/30"
+                    className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                     textClassName="text-cool-grey"
                     assetClassName="w-8 h-8"
                   />
@@ -46,7 +46,7 @@ export default function CreateLiquidityPage() {
                 <Input suffix="USDC">
                   <LeftLabel
                     label={
-                      <span className="p-2 text-xs font-extralight tracking-[2px] text-lotion">
+                      <span className="text-xs tracking-wide text-lotion">
                         <span className="text-cool-grey">Bal: </span>
                         <span className="text-anti-flash-white">100</span>
                       </span>
@@ -54,7 +54,7 @@ export default function CreateLiquidityPage() {
                   />
                   <RightLabel
                     label={
-                      <span className="p-2 text-xs font-extralight tracking-[2px] text-lotion">
+                      <span className="text-xs tracking-wide text-lotion">
                         <span className="text-anti-flash-white/70">$103.3</span>
                       </span>
                     }
