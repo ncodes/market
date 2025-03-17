@@ -116,7 +116,7 @@ function SelectVolume() {
       <SelectContent className="border-eerie-black bg-chinese-black">
         {[1, 2, 3, 4, 5].map((item) => (
           <SelectItem
-            className="data-[state=checked]:!bg-june-bud data-[state=unchecked]:!bg-transparent data-[state=unchecked]:!text-white hover:!bg-june-bud active:!bg-june-bud"
+            className="cursor-pointer data-[state=checked]:!bg-eerie-black data-[state=unchecked]:!bg-transparent data-[state=checked]:!text-white data-[state=unchecked]:!text-cool-grey hover:!bg-eerie-black active:!bg-eerie-black"
             key={item}
             value={`Volume ${item}`}
           >{`Volume ${item}`}</SelectItem>

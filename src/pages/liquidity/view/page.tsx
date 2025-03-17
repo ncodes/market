@@ -7,7 +7,7 @@ import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import useStore from "@/hooks/store/useStore";
 import PageLayout from "@/layouts/PageLayout";
 import { cn } from "@/libs/utils";
@@ -23,6 +23,7 @@ import UpdateTarget from "./options/update-target";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
 import SelectDayVolume from "@/components/SelectDayVolume";
+import TabHeader from "@/components/TabHeader";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -80,7 +81,7 @@ export default function ViewLiquidityPage() {
                 </div>
               </div>
               <div className="flex w-fit flex-col">
-                <SelectDayVolume text="1 Day Volume" className="text-sm font-light text-cool-grey"/>
+                <SelectDayVolume text="1 Day Volume" className="text-sm font-light text-cool-grey" />
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">400 USDC</Label>
               </div>
             </div>
@@ -95,10 +96,8 @@ export default function ViewLiquidityPage() {
             <LiquidityChart />
             <div className="mt-2 w-full">
               <Tabs defaultValue="transactions" className="w-full">
-                <TabsList className="flex w-full justify-start gap-[25px] bg-transparent px-2 xs:px-3 md:px-5 lg:gap-[29px]">
-                  <TabHead value="transactions" title="Transactions" />
-                  <TabHead value="lps" title="Permitted LPs" />
-                  <TabHead value="takers" title="Permitted Takers" />
+                <TabsList className="flex w-full justify-start bg-transparent px-2 xs:px-3 md:px-5">
+                  <TabHeader items={["Transactions", "Permitted LPs", "Permitted Takers"]} />
                 </TabsList>
                 <TabsContent value="transactions" className="w-full">
                   <LiquidityTransactions />
@@ -150,17 +149,6 @@ export default function ViewLiquidityPage() {
         </div>
       </div>
     </PageLayout>
-  );
-}
-
-function TabHead({ value, title }: { value: string; title: string }) {
-  return (
-    <TabsTrigger
-      value={value}
-      className="flex items-center gap-1 p-0 text-sm font-semibold tracking-wide text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-white md:text-lg"
-    >
-      {title}
-    </TabsTrigger>
   );
 }
 

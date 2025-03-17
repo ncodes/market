@@ -1,7 +1,6 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
 import { NetworkSelectorButton } from "@/components/AssetButton";
 import SwapModal from "@/components/SwapModal";
-import TabHead from "@/components/TabHead";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
@@ -23,6 +22,7 @@ import TransferOwnership from "./options/transfer-ownership";
 import UpdateCommision from "./options/update-commision";
 import LiquiditySwap from "./swap";
 import TransactionsTable from "./transactions-table";
+import TabHeader from "@/components/TabHeader";
 
 export default function ViewMarketPage() {
   return (
@@ -53,10 +53,7 @@ export default function ViewMarketPage() {
             <div className="w-full">
               <Tabs defaultValue="liquidity" className="w-full">
                 <TabsList className="mt-2 flex w-full justify-between bg-transparent px-2 py-4 sm:px-4">
-                  <div className="flex justify-start gap-[29px]">
-                    <TabHead value="liquidity" title="Liquidity" />
-                    <TabHead value="transactions" title="Transactions" />
-                  </div>
+                  <TabHeader items={["Liquidity", "Transactions"]} className="lg:gap-[29px]" />
                   <NetworkSelectorButton text="Chain" className="py-0 text-gray-200 hover:text-white" />
                 </TabsList>
                 <TabsContent value="liquidity" className="w-full">

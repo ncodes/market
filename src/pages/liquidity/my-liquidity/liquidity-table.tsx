@@ -10,6 +10,8 @@ import { useState } from "react";
 import { LiquidityProps, liquidityColumns } from "./liquidity-columns";
 import { SelectStatusButton } from "./options/select-volume";
 import StatusFilter from "./status-filter";
+import { useNavigate } from "react-router-dom";
+import { AppPages } from "@/libs/pages";
 
 function getData(): LiquidityProps[] {
   return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => ({
@@ -61,6 +63,7 @@ export default function LiquidityTable() {
 
 function MoreButton() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Popover onOpenChange={(open) => setOpen(open)}>
@@ -77,6 +80,7 @@ function MoreButton() {
         <SelectChainButton />
         <SelectStatusButton />
         <Button
+          onClick={() => navigate(AppPages.CREATE_LIQUIDITY)}
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
         >

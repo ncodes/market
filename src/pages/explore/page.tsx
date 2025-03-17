@@ -1,5 +1,4 @@
 import { NetworkSelectorButton } from "@/components/AssetButton";
-import TabHead from "@/components/TabHead";
 import { IconSearch } from "@/components/icons/IconSearch";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -26,8 +25,11 @@ import { cn } from "@/libs/utils";
 import { SelectChainButton } from "./options/select-chain";
 import { SearchTokenButton } from "./options/search-token";
 import { SelectVolumeButton } from "./options/select-volume";
+import TabHeader from "@/components/TabHeader";
+import { useNavigate } from "react-router-dom";
+import { AppPages } from "@/libs/pages";
 
-enum TabHeader {
+enum PageTabHeaders {
   TOKEN = "token",
   LIQUIDITY = "liquidity",
   MARKETS = "markets",
@@ -35,7 +37,8 @@ enum TabHeader {
 }
 
 export default function ExplorePage() {
-  const [currentTab, setCurrentTab] = useState(TabHeader.TOKEN);
+  const [currentTab, setCurrentTab] = useState(PageTabHeaders.TOKEN);
+  const navigate = useNavigate();
 
   return (
     <PageLayout title="Explore">
@@ -44,18 +47,14 @@ export default function ExplorePage() {
           <div className="rounded-3xl border border-eerie-black/50 bg-chinese-black">
             <Tabs defaultValue="token" className="w-full" onValueChange={(value) => setCurrentTab(value as any)}>
               <TabsList className="flex h-[55px] w-full justify-between bg-transparent px-5 pr-1 pt-2">
-                <div className="flex justify-start gap-4 lg:gap-[25px]">
-                  <TabHead className="text-sm md:text-base" value="token" title="Token" />
-                  <TabHead className="text-sm md:text-base" value="liquidity" title="Liquidity" />
-                  <TabHead className="text-sm md:text-base" value="markets" title="Markets" />
-                  <TabHead className="text-sm md:text-base" value="transactions" title="Transactions" />
-                </div>
+                <TabHeader items={["Token", "Liquidity", "Markets", "Transactions"]} />
                 <div className="flex lg:hidden">
                   <MoreButton />
                 </div>
                 <div className="hidden items-center gap-2 lg:flex">
                   {shouldAddLiquidity(currentTab) && (
                     <Button
+                      onClick={() => navigate(AppPages.CREATE_LIQUIDITY)}
                       variant={"secondary"}
                       className="h-[30px] bg-white py-0 text-sm font-semibold text-gunmetal"
                     >
@@ -137,20 +136,21 @@ function SearchInput() {
   );
 }
 
-function shouldShowSearch(option: TabHeader) {
-  return option === TabHeader.LIQUIDITY || option === TabHeader.MARKETS || option === TabHeader.TOKEN;
+function shouldShowSearch(option: PageTabHeaders) {
+  return option === PageTabHeaders.LIQUIDITY || option === PageTabHeaders.MARKETS || option === PageTabHeaders.TOKEN;
 }
 
-function shouldVolumeFilter(option: TabHeader) {
-  return option === TabHeader.TOKEN;
+function shouldVolumeFilter(option: PageTabHeaders) {
+  return option === PageTabHeaders.TOKEN;
 }
 
-function shouldAddLiquidity(option: TabHeader) {
-  return option === TabHeader.LIQUIDITY || option === TabHeader.MARKETS;
+function shouldAddLiquidity(option: PageTabHeaders) {
+  return option === PageTabHeaders.LIQUIDITY || option === PageTabHeaders.MARKETS;
 }
 
 function MoreButton() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Popover onOpenChange={(open) => setOpen(open)}>
@@ -165,15 +165,16 @@ function MoreButton() {
         align="end"
       >
         <Button
+          onClick={() => navigate(AppPages.CREATE_LIQUIDITY)}
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
         >
           Add Liquidity
           <Plus className="text-cool-grey group-hover:text-white" />
         </Button>
-        <SelectChainButton/>
-        <SelectVolumeButton/>
-        <SearchTokenButton/>
+        <SelectChainButton />
+        <SelectVolumeButton />
+        <SearchTokenButton />
       </PopoverContent>
     </Popover>
   );
