@@ -10,9 +10,9 @@ import { cn } from "@/libs/utils";
 import { Assets } from "@/libs/wallets";
 import { CheckCircle2 } from "lucide-react";
 import { useState } from "react";
+import CloseIcon from "./CloseIcon";
 import Modal from "./Modal";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import CloseIcon from "./CloseIcon";
 
 export function AssetButton({
   text,
@@ -37,6 +37,7 @@ export function AssetButton({
     <Modal
       open={open}
       onOpenChange={(open) => setOpen(open)}
+      desktopClassName="w-[500px] h-[600px]"
       triggerComponent={
         <Button
           className={cn(
@@ -61,15 +62,15 @@ export function AssetButton({
       content={
         <div className="flex w-full flex-col overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
           <div className="flex h-fit items-center justify-between px-5 py-3">
-            <Label className="text-[18px] font-normal tracking-wider text-lotion">Select a token</Label>
-            <CloseIcon setOpen={setOpen}/>
+            <Label className="text-lg font-normal tracking-wider text-lotion md:text-xl">Select a token</Label>
+            <CloseIcon setOpen={setOpen} />
           </div>
-          <div className="flex h-fit justify-between border-y border-eerie-black px-3 py-2 pr-0">
+          <div className="flex h-fit justify-between border-y border-eerie-black px-3 py-2">
             <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">
               <IconSearch className="opacity-40" />
               <input
                 type="text"
-                className="w-full border-none bg-transparent text-white outline-none placeholder:text-cool-grey active:border-none active:bg-transparent active:outline-none"
+                className="w-full border-none bg-transparent tracking-wider text-white outline-none placeholder:text-cool-grey/60 active:border-none active:bg-transparent active:outline-none"
                 placeholder="Search tokens"
               />
             </div>
@@ -96,9 +97,9 @@ function AssetTile({ name, logo, symbol }: { name: string; logo: string; symbol:
         <div className="flex items-center gap-2">
           <Avatar src={logo} className="h-8 w-8" />
           <div className="flex flex-col gap-1">
-            <Label className="font-light tracking-wide text-anti-flash-white">{name}</Label>
-            <span className="flex gap-2">
-              <label className="text-xs font-normal text-cool-grey">{symbol}</label>
+            <Label className="text-lg font-light tracking-wider text-anti-flash-white">{name}</Label>
+            <span className="flex items-center gap-2">
+              <label className="text-sm font-normal text-cool-grey">{symbol}</label>
               <span className="text-xs text-cool-grey/40">0x123...432</span>
             </span>
           </div>
@@ -121,9 +122,10 @@ const Networks = [
 interface NetworkSelectorButtonProps {
   text?: string;
   className?: string;
+  imgClassName?: string;
 }
 
-export function NetworkSelectorButton({ text, className }: NetworkSelectorButtonProps) {
+export function NetworkSelectorButton({ text, className, imgClassName }: NetworkSelectorButtonProps) {
   const [selectedIndex, setSelectedNetworkIndex] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -132,7 +134,10 @@ export function NetworkSelectorButton({ text, className }: NetworkSelectorButton
       <PopoverTrigger>
         <Button
           variant={"ghost"}
-          className={cn("gap-1 rounded-2xl px-2 hover:bg-eerie-black", className, { "bg-eerie-black": open })}
+          className={cn("rounded-2xl p-2 pl-3 hover:bg-eerie-black", className, {
+            "!bg-eerie-black": open,
+            "!bg-transparent": !open,
+          })}
         >
           {Networks[selectedIndex].name === "All" && (
             <Label className="cursor-pointer font-poppins text-xs tracking-[2px] text-lotion"></Label>
@@ -140,11 +145,11 @@ export function NetworkSelectorButton({ text, className }: NetworkSelectorButton
           <img
             src={Networks[selectedIndex].name === "All" ? AllNetworksIcon : Networks[selectedIndex].logo}
             alt=""
-            className="h-5 w-5"
+            className={cn("h-7 w-7", imgClassName)}
           />
-          {text}
+          <span className="hidden xs:block">{text}</span>
           <IconDropDown
-            className={cn("h-6 w-6 shrink-0 opacity-40 transition-all duration-300", open && "rotate-180")}
+            className={cn("h-6 w-6 shrink-0 opacity-60 transition-all duration-300", open && "rotate-180")}
           />
         </Button>
       </PopoverTrigger>

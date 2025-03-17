@@ -54,7 +54,11 @@ export default function ViewMarketPage() {
               <Tabs defaultValue="liquidity" className="w-full">
                 <TabsList className="mt-2 flex w-full justify-between bg-transparent px-2 py-4 sm:px-4">
                   <TabHeader items={["Liquidity", "Transactions"]} className="lg:gap-[29px]" />
-                  <NetworkSelectorButton text="Chain" className="py-0 text-gray-200 hover:text-white" />
+                  <NetworkSelectorButton
+                    text="Chain"
+                    className="gap-1.5 px-1 py-0 text-gray-200 hover:text-white"
+                    imgClassName="h-6 w-6"
+                  />
                 </TabsList>
                 <TabsContent value="liquidity" className="w-full">
                   <LiquidityTable />

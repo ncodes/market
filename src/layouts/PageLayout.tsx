@@ -33,7 +33,7 @@ export default function PageLayout({ children, title }: PageLayoutProps) {
 function Footer() {
   return (
     <div className="h-10 w-full overflow-hidden">
-      <div className="absolute left-0 right-0 mt-[80px] h-[20px]">
+      <div className="absolute left-0 right-0 mt-[130px] h-[20px]">
         <div className="mx-auto h-full w-4/12 rounded-full border bg-light-green blur-[50px]"></div>
       </div>
     </div>
