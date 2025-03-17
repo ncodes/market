@@ -14,11 +14,11 @@ export default function CreateLiquidityPage() {
       <div className="flex w-full justify-center px-4">
         <div className="mt-5 w-full max-w-sm lg:mt-10 lg:max-w-md">
           <div className="mb-2 w-full rounded-3xl border border-eerie-black bg-chinese-black">
-            <div className="flex items-center gap-4 border-b border-eerie-black px-5 py-4">
+            <div className="flex items-center gap-4 border-b border-eerie-black px-3 md:px-5 py-4">
               <Label className="text-xl font-semibold text-lotion lg:text-2xl">Create Liquidity</Label>
             </div>
-            <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-5 pb-4 pt-3">
-              <div className="flex w-full gap-5">
+            <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-3 md:px-5 pb-4 pt-3">
+              <div className="flex flex-col xxxs:flex-row w-full gap-5">
                 <div className="flex w-full flex-col gap-1">
                   <InfoLabel text="Add" info="This is the base asset" />
                   <AssetButton
@@ -64,7 +64,7 @@ export default function CreateLiquidityPage() {
 
               <PriceInput />
             </div>
-            <div className="flex w-full flex-col gap-4 px-6 pb-3 pt-3">
+            <div className="flex w-full flex-col gap-4 px-3 md:px-5 pb-3 pt-3">
               <AdvanceSettings />
             </div>
           </div>

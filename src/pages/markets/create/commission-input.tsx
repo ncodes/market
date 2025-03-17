@@ -20,8 +20,8 @@ export function CommisionInput({ className }: { className?: string }) {
   }, [margin]);
 
   return (
-    <div className={cn("flex w-full items-center gap-5", className)}>
-      <div className="flex w-fit flex-col gap-1 pr-2">
+    <div className={cn("flex flex-col xxxs:flex-row w-full items-center gap-2 xxxs:gap-5", className)}>
+      <div className="flex w-full xxxs:w-fit flex-col gap-1 pr-2">
         <Label className="flex items-center gap-1 font-poppins text-sm font-normal tracking-wide text-lotion/90">
           Commision
         </Label>

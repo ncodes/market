@@ -18,7 +18,7 @@ export function AdvanceSettings() {
     <motion.div className={cn("relative w-full overflow-hidden py-0 pt-0")}>
       <Button
         variant={"ghost"}
-        className="flex w-full justify-between bg-transparent p-0 hover:bg-transparent"
+        className="flex w-full justify-between bg-transparent p-0 hover:bg-transparent text-nowrap"
         onClick={() => setIsOpened((prev) => !prev)}
       >
         <Label className="font-poppins text-sm font-semibold text-cool-grey lg:text-base">Advanced Settings</Label>

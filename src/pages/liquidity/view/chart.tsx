@@ -1,10 +1,9 @@
 "use client";
+import SelectVolume from "@/components/SelectVolume";
 import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { cn } from "@/libs/utils";
-import { ChevronDown } from "lucide-react";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
 const chartData = [
@@ -97,32 +96,5 @@ function ChartFilter({ text, isActive }: { text: string; isActive?: boolean }) {
         {text}
       </Label>
     </Button>
-  );
-}
-
-function SelectVolume() {
-  return (
-    <Select>
-      <SelectTrigger
-        hideCaret
-        className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
-      >
-        <Button
-          variant={"ghost"}
-          className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey"
-        >
-          Volume <ChevronDown className="ml-1 h-5 w-5" />
-        </Button>
-      </SelectTrigger>
-      <SelectContent className="border-eerie-black bg-chinese-black">
-        {[1, 2, 3, 4, 5].map((item) => (
-          <SelectItem
-            className="cursor-pointer data-[state=checked]:!bg-eerie-black data-[state=unchecked]:!bg-transparent data-[state=checked]:!text-white data-[state=unchecked]:!text-cool-grey hover:!bg-eerie-black active:!bg-eerie-black"
-            key={item}
-            value={`Volume ${item}`}
-          >{`Volume ${item}`}</SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
   );
 }

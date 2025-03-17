@@ -2,7 +2,6 @@ import { SolanaIcon, USDCIcon } from "@/assets";
 import SwapModal from "@/components/SwapModal";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconActive from "@/components/icons/IconActive";
-import IconDropDown from "@/components/icons/IconDropDown";
 import IconLock from "@/components/icons/IconLock";
 import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
@@ -23,6 +22,7 @@ import UpdatePrice from "./options/update-price";
 import UpdateTarget from "./options/update-target";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
+import SelectDayVolume from "@/components/SelectDayVolume";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -64,8 +64,8 @@ export default function ViewLiquidityPage() {
                 <MoreButton />
               </div>
             </div>
-            <div className="flex w-full flex-col flex-wrap items-start justify-between gap-4 px-2 py-2 xs:flex-row xs:gap-0 xs:px-3 sm:py-4 lg:border-b lg:border-eerie-black">
-              <div className="flex w-1/2 max-w-[134px] flex-col lg:w-fit">
+            <div className="grid w-full grid-cols-1 gap-4 px-2 py-2 xs:grid-cols-[auto_auto] xs:justify-between sm:justify-between sm:py-4 md:grid-cols-[auto_auto_auto] lg:border-b lg:border-eerie-black">
+              <div className="flex w-fit flex-col">
                 <Label className="h-4 text-sm font-light text-cool-grey">Amount</Label>
                 <Label className="text-nowrap font-dosis text-2xl font-semibold text-anti-flash-white">
                   10,000,000 <span className="text-gray-400">JOIN</span>
@@ -79,10 +79,8 @@ export default function ViewLiquidityPage() {
                   <Label className="text-xs font-light text-ufo-green">+15%</Label>
                 </div>
               </div>
-              <div className="mt-0 flex w-full flex-col xs:mt-4 lg:mt-0 lg:w-fit">
-                <Label className="flex h-4 items-center text-sm font-light text-cool-grey">
-                  1 Day Volume <IconDropDown className="h-5 w-5" />
-                </Label>
+              <div className="flex w-fit flex-col">
+                <SelectDayVolume text="1 Day Volume" className="text-sm font-light text-cool-grey"/>
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">400 USDC</Label>
               </div>
             </div>

@@ -10,7 +10,7 @@ export default function MarketStats({ className }: { className?: string }) {
         <Label className="text-xl font-semibold text-lotion">Stats</Label>
       </div>
       <div className="flex w-full flex-col gap-4 px-3 py-3 sm:px-6">
-        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:gap-0">
+        <div className="flex flex-col justify-between gap-4 xxxs:flex-row sm:gap-0">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col">
               <Label className="font-light tracking-wider text-cool-grey">Amount Available</Label>
