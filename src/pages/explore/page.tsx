@@ -1,4 +1,5 @@
 import { NetworkSelectorButton } from "@/components/AssetButton";
+import TabHeader from "@/components/TabHeader";
 import { IconSearch } from "@/components/icons/IconSearch";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -11,23 +12,22 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
+import { AppPages } from "@/libs/pages";
+import { cn } from "@/libs/utils";
+import { ChevronDown, Plus } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LiquidityTable from "./liquidity-table";
 import MarketsTable from "./markets-table";
+import { SearchTokenButton } from "./options/search-token";
+import { SelectChainButton } from "./options/select-chain";
+import { SelectVolumeButton } from "./options/select-volume";
 import TokenTable from "./token-table";
 import TransactionsTable from "./transactions-table";
 import VolumeFilter from "./volume-filter";
-import { ChevronDown, Plus } from "lucide-react";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { cn } from "@/libs/utils";
-import { SelectChainButton } from "./options/select-chain";
-import { SearchTokenButton } from "./options/search-token";
-import { SelectVolumeButton } from "./options/select-volume";
-import TabHeader from "@/components/TabHeader";
-import { useNavigate } from "react-router-dom";
-import { AppPages } from "@/libs/pages";
 
 enum PageTabHeaders {
   TOKEN = "token",
@@ -46,7 +46,7 @@ export default function ExplorePage() {
         <div className="w-full max-w-5xl">
           <div className="rounded-3xl border border-eerie-black/50 bg-chinese-black">
             <Tabs defaultValue="token" className="w-full" onValueChange={(value) => setCurrentTab(value as any)}>
-              <TabsList className="flex h-[55px] w-full justify-between bg-transparent px-5 pr-1 pt-2">
+              <TabsList className="flex h-[55px] w-full justify-between bg-transparent px-5 pt-2">
                 <TabHeader items={["Token", "Liquidity", "Markets", "Transactions"]} />
                 <div className="flex lg:hidden">
                   <MoreButton />
@@ -61,7 +61,11 @@ export default function ExplorePage() {
                       + Add Liquidity
                     </Button>
                   )}
-                  <NetworkSelectorButton text="Chain" className="text-gray-200 hover:text-white" />
+                  <NetworkSelectorButton
+                    text="Chain"
+                    className="gap-1.5 text-gray-200 hover:text-white"
+                    imgClassName="h-6 w-6"
+                  />
                   {shouldVolumeFilter(currentTab) && <VolumeFilter />}
                   {shouldShowSearch(currentTab) && <SearchInput />}
                 </div>

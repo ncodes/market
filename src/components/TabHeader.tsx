@@ -1,10 +1,10 @@
 import { cn } from "@/libs/utils";
-import TabHead from "./TabHead";
-import { useMediaQuery } from "usehooks-ts";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Button } from "./ui/button";
-import { useState } from "react";
 import { CheckCircle2, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
+import TabHead from "./TabHead";
+import { Button } from "./ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface TabHeaderProps {
   className?: string;
