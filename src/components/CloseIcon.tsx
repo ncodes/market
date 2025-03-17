@@ -5,7 +5,7 @@ export default function CloseIcon({ setOpen, onClick }: { setOpen?: (open: boole
   return (
     <Button
       variant="ghost"
-      className="flex h-auto w-auto shrink-0 items-center justify-center bg-cool-grey/20 p-1 px-1.5 text-cool-grey opacity-50 hover:bg-gray-700 hover:text-gray-100 hover:opacity-100"
+      className="flex h-auto w-auto shrink-0 items-center justify-center bg-cool-grey/20 p-1.5 text-cool-grey opacity-50 hover:bg-gray-700 hover:text-gray-100 hover:opacity-100"
       onClick={() => {
         setOpen?.(false);
         onClick?.();

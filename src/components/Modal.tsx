@@ -1,8 +1,8 @@
+import { cn } from "@/libs/utils";
 import React from "react";
+import { useMediaQuery } from "usehooks-ts";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { useMediaQuery } from "usehooks-ts";
-import { cn } from "@/libs/utils";
 
 interface ModalProps {
   open?: boolean;

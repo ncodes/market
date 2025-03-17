@@ -1,4 +1,5 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
+import SelectDayVolume from "@/components/SelectDayVolume";
 import SwapModal from "@/components/SwapModal";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconActive from "@/components/icons/IconActive";
@@ -22,7 +23,6 @@ import UpdatePrice from "./options/update-price";
 import UpdateTarget from "./options/update-target";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
-import SelectDayVolume from "@/components/SelectDayVolume";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -45,12 +45,12 @@ export default function ViewLiquidityPage() {
                   </div>
                   <Label className="text-lg font-medium text-white">USDC/SOL</Label>
                 </div>
-                <Label className="hidden items-center gap-1 text-xs font-light tracking-wider text-light-periwinkle lg:flex">
+                <Label className="hidden items-center gap-1 text-xs font-light tracking-wider text-light-periwinkle md:flex">
                   <IconActive /> Active
                 </Label>
               </div>
               <div className="flex items-center gap-2">
-                <Label className="hidden items-center gap-1 text-xs font-semibold tracking-wider text-cool-grey lg:flex">
+                <Label className="hidden items-center gap-1 text-xs font-semibold tracking-wider text-cool-grey md:flex">
                   <IconLock /> Permissioned
                 </Label>
                 <Button
@@ -64,7 +64,7 @@ export default function ViewLiquidityPage() {
                 <MoreButton />
               </div>
             </div>
-            <div className="grid w-full grid-cols-1 gap-4 px-2 py-2 xs:grid-cols-[auto_auto] xs:justify-between sm:justify-between sm:py-4 md:grid-cols-[auto_auto_auto] lg:border-b lg:border-eerie-black">
+            <div className="grid w-full grid-cols-1 gap-4 px-3 py-2 xs:grid-cols-[auto_auto] sm:justify-between sm:py-4 md:grid-cols-[auto_auto_auto] lg:border-b lg:border-eerie-black">
               <div className="flex w-fit flex-col">
                 <Label className="h-4 text-sm font-light text-cool-grey">Amount</Label>
                 <Label className="text-nowrap font-dosis text-2xl font-semibold text-anti-flash-white">
@@ -80,11 +80,11 @@ export default function ViewLiquidityPage() {
                 </div>
               </div>
               <div className="flex w-fit flex-col">
-                <SelectDayVolume text="1 Day Volume" className="text-sm font-light text-cool-grey"/>
+                <SelectDayVolume text="1 Day Volume" className="text-sm font-light text-cool-grey" />
                 <Label className="font-dosis text-2xl font-semibold text-anti-flash-white">400 USDC</Label>
               </div>
             </div>
-            <div className="flex w-full justify-between border-b border-eerie-black px-2 py-2 pb-4 tracking-wider xs:px-3 sm:py-4 lg:hidden">
+            <div className="flex w-full justify-between border-y border-eerie-black px-2 py-2 tracking-wider xs:px-3 sm:py-4 md:hidden">
               <Label className="flex items-center gap-1 text-xs font-light text-light-periwinkle">
                 <IconActive /> Active
               </Label>

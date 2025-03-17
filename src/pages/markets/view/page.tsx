@@ -57,7 +57,11 @@ export default function ViewMarketPage() {
                     <TabHead value="liquidity" title="Liquidity" />
                     <TabHead value="transactions" title="Transactions" />
                   </div>
-                  <NetworkSelectorButton text="Chain" className="py-0 text-gray-200 hover:text-white" />
+                  <NetworkSelectorButton
+                    text="Chain"
+                    className="gap-1.5 px-1 py-0 text-gray-200 hover:text-white"
+                    imgClassName="h-6 w-6"
+                  />
                 </TabsList>
                 <TabsContent value="liquidity" className="w-full">
                   <LiquidityTable />
