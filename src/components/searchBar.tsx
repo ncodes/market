@@ -17,9 +17,12 @@ export function SearchBar() {
 
   return (
     <div
-      className={cn("pointer-events-none absolute left-0 top-0 hidden w-full items-center justify-center lg:hidden xl:flex", {
-        "!pointer-events-auto": showSearch,
-      })}
+      className={cn(
+        "pointer-events-none absolute left-0 top-0 hidden w-full items-center justify-center lg:hidden xl:flex",
+        {
+          "!pointer-events-auto": showSearch,
+        },
+      )}
     >
       <div className="z-20 w-[500px]">
         <Card
@@ -36,7 +39,7 @@ export function SearchBar() {
               type="text"
               placeholder="Search tokens"
               className={cn(
-                "!rounded-xl border-0 bg-transparent py-2.5 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder",
+                "!rounded-xl border-0 bg-transparent py-2.5 pl-10 pr-4 !text-[16px] tracking-wider text-gray-300 outline-none placeholder:!text-boulder/50",
                 {},
               )}
               onFocus={() => {
