@@ -45,6 +45,14 @@ export default function Logo() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="ml-3 w-52 border border-raisin-black bg-chinese-black p-2 font-poppins font-light tracking-wide">
+          <DropdownMenuLabel className="block text-xs font-light text-gray-600 lg:hidden">App</DropdownMenuLabel>
+          <DropdownMenuGroup className="block lg:hidden">
+            <DropdownMenuItem className="text-gray-300 hover:!bg-eerie-black">Swap</DropdownMenuItem>
+            <DropdownMenuItem className="text-gray-300 hover:!bg-eerie-black">Liquidity</DropdownMenuItem>
+            <DropdownMenuItem className="text-gray-300 hover:!bg-eerie-black">Explore</DropdownMenuItem>
+            <DropdownMenuItem className="text-gray-300 hover:!bg-eerie-black">Markets</DropdownMenuItem>
+          </DropdownMenuGroup>
+
           <DropdownMenuLabel className="text-xs font-light text-gray-600">Company</DropdownMenuLabel>
           <DropdownMenuGroup className="">
             <DropdownMenuItem className="text-gray-300 hover:!bg-eerie-black">Career</DropdownMenuItem>

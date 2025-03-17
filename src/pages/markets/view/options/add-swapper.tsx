@@ -1,12 +1,13 @@
 import EmojiAvatar from "@/components/avatar/EmojiAvatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
+import CloseIcon from "@/components/CloseIcon";
 import IconMinus from "@/components/icons/IconMinus";
 import InfoLabel from "@/components/InfoLabel";
 import Input from "@/components/Input";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { ChevronRight, XIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export default function AddSwapper() {
@@ -16,8 +17,10 @@ export default function AddSwapper() {
   const [isSubmitted, setSubmitted] = useState(false);
 
   return (
-    <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger>
+    <Modal
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+      triggerComponent={
         <Button
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
@@ -25,111 +28,115 @@ export default function AddSwapper() {
           Add Swapper
           <ChevronRight className="text-cool-grey group-hover:text-white" />
         </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="max-w-[397px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
-        hideCloseButton
-      >
+      }
+      content={
         <div className="flex w-full flex-col gap-2">
-          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black md:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-2xl font-semibold text-lotion">{isSubmitted ? "Confirm" : "Add Swapper"}</Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">
+                {isSubmitted ? "Confirm" : "Add Swapper"}
+              </Label>
+              <CloseIcon setOpen={setOpen}/>
             </div>
-            {!isSubmitted && (
-              <div className="mb-8 flex flex-col gap-4 px-5 py-[14px] pb-0">
-                <Label className="text-sm font-light text-cool-grey">Add one or multiple swapper(s)</Label>
-                <div className="flex flex-col gap-2">
-                  <InfoLabel text="Address" info="Address" className="text-sm font-light text-light-periwinkle" />
-                  <Input
-                    onChange={({ currentTarget }) => {
-                      setAddressValue(currentTarget.value);
-                    }}
-                    value={addressValue}
-                    suffix={
-                      <Button
-                        variant={"secondary"}
-                        className="min-w-[81px] bg-white text-raisin-black"
-                        onClick={() => {
-                          if (addressValue) {
-                            setAddresses((prev) => [...prev, addressValue]);
-                            setAddressValue("");
-                          }
-                        }}
-                      >
-                        Add +
-                      </Button>
-                    }
-                    type="text"
-                    className="text-white"
-                  />
-                </div>
-                {addresses.length > 0 && (
-                  <div className="flex w-full flex-col gap-3 rounded-[14px] bg-raisin-black py-4 pl-4">
-                    {addresses.map((address, index) => (
-                      <div className="flex w-full items-center justify-between">
-                        <div className="flex items-center gap-1">
-                          <EmojiAvatar size={AvatarSize.Medium} randomStr="" className="h-5 w-5" />
-                          <Label className="font-dosis text-lg font-semibold text-cool-grey">{address}</Label>
-                        </div>
+            <div className="h-full max-h-[85vh] w-full overflow-y-auto">
+              {!isSubmitted && (
+                <div className="mb-8 flex flex-col gap-4 px-5 py-[14px] pb-0">
+                  <Label className="text-sm font-light text-cool-grey">Add one or multiple swapper(s)</Label>
+                  <div className="flex flex-col gap-2">
+                    <InfoLabel text="Address" info="Address" className="text-sm font-light text-light-periwinkle" />
+                    <Input
+                      onChange={({ currentTarget }) => {
+                        setAddressValue(currentTarget.value);
+                      }}
+                      value={addressValue}
+                      suffix={
                         <Button
-                          variant={"ghost"}
-                          className="flex gap-1 text-sm font-light text-sunset-orange hover:bg-transparent hover:text-sunset-orange"
-                          onClick={() => setAddresses(addresses.filter((_, id) => index != id))}
+                          variant={"secondary"}
+                          className="min-w-[81px] bg-white text-raisin-black"
+                          onClick={() => {
+                            if (addressValue) {
+                              setAddresses((prev) => [...prev, addressValue]);
+                              setAddressValue("");
+                            }
+                          }}
                         >
-                          Remove
-                          <IconMinus />
+                          Add +
                         </Button>
-                      </div>
-                    ))}
+                      }
+                      type="text"
+                      className="text-white"
+                    />
                   </div>
-                )}
-              </div>
-            )}
-            {isSubmitted && (
-              <div className="mb-8 flex flex-col gap-4 px-5 py-[14px] pb-0">
-                <Label className="text-sm font-light text-cool-grey">Confirm swapper(s).</Label>
-                <div className="flex w-full flex-col">
-                  <Label className="text-sm font-light text-white">Swapper 1</Label>
-                  <div className="flex items-center gap-1">
-                    <EmojiAvatar size={AvatarSize.Micro} randomStr="" className="h-5 w-5" />
-                    <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
-                  </div>
+                  {addresses.length > 0 && (
+                    <div className="flex w-full flex-col gap-3 rounded-[14px] bg-raisin-black py-4 pl-4">
+                      {addresses.map((address, index) => (
+                        <div className="flex w-full items-center justify-between">
+                          <div className="flex items-center gap-1">
+                            <EmojiAvatar size={AvatarSize.Medium} randomStr="" className="h-5 w-5" />
+                            <Label className="font-dosis text-lg font-semibold text-cool-grey">{address}</Label>
+                          </div>
+                          <Button
+                            variant={"ghost"}
+                            className="flex gap-1 text-sm font-light text-sunset-orange hover:bg-transparent hover:text-sunset-orange"
+                            onClick={() => setAddresses(addresses.filter((_, id) => index != id))}
+                          >
+                            Remove
+                            <IconMinus />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
+              )}
+              {isSubmitted && (
+                <div className="mb-8 flex flex-col gap-4 px-5 py-[14px] pb-0">
+                  <Label className="text-sm font-light text-cool-grey">Confirm swapper(s).</Label>
+                  <div className="flex w-full flex-col">
+                    <Label className="text-sm font-light text-white">Swapper 1</Label>
+                    <div className="flex items-center gap-1">
+                      <EmojiAvatar size={AvatarSize.Micro} randomStr="" className="h-5 w-5" />
+                      <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
+                    </div>
+                  </div>
 
-                <div className="flex w-full flex-col">
-                  <Label className="text-sm font-light text-white">Swapper 2</Label>
-                  <div className="flex items-center gap-1">
-                    <EmojiAvatar size={AvatarSize.Micro} randomStr="" className="h-5 w-5" />
-                    <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
+                  <div className="flex w-full flex-col">
+                    <Label className="text-sm font-light text-white">Swapper 2</Label>
+                    <div className="flex items-center gap-1">
+                      <EmojiAvatar size={AvatarSize.Micro} randomStr="" className="h-5 w-5" />
+                      <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
+                    </div>
                   </div>
-                </div>
 
-                <div className="flex w-full flex-col">
-                  <Label className="text-sm font-light text-white">Swapper 3</Label>
-                  <div className="flex items-center gap-1">
-                    <EmojiAvatar size={AvatarSize.Micro} randomStr="" className="h-5 w-5" />
-                    <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
+                  <div className="flex w-full flex-col">
+                    <Label className="text-sm font-light text-white">Swapper 3</Label>
+                    <div className="flex items-center gap-1">
+                      <EmojiAvatar size={AvatarSize.Micro} randomStr="" className="h-5 w-5" />
+                      <Label className="font-dosis text-lg font-semibold text-white">0x231245762817</Label>
+                    </div>
                   </div>
                 </div>
+              )}
+              <div className="flex w-full px-5 pb-3 lg:hidden">
+                <Button
+                  variant={"secondary"}
+                  className="h-12 w-full text-lg font-semibold text-gunmetal"
+                  onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
+                >
+                  {isSubmitted ? "Update" : "Add All"}
+                </Button>
               </div>
-            )}
+            </div>
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 text-lg font-semibold text-gunmetal"
+            className="hidden h-12 text-lg font-semibold text-gunmetal lg:flex"
             onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             {isSubmitted ? "Update" : "Add All"}
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }

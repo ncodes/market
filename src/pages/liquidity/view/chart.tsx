@@ -1,9 +1,8 @@
 "use client";
-import IconDropDown from "@/components/icons/IconDropDown";
+import SelectVolume from "@/components/SelectVolume";
 import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { cn } from "@/libs/utils";
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
@@ -36,13 +35,14 @@ const chartConfig = {
 
 export default function LiquidityChart() {
   return (
-    <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-6">
-      <div className="flex w-full items-center justify-between px-6 pr-3">
-        <Label className="font-dosis text-5xl text-gray-100">
-          $1.38b <span className="text-lg text-gray-400">Per day</span>
+    <div className="flex w-full flex-col gap-5 border-b border-eerie-black py-3 xs:py-3">
+      <div className="flex w-full items-start justify-between px-2 xs:px-3 xs:pr-3 lg:items-center">
+        <Label className="flex flex-col font-dosis text-3xl text-gray-100 xs:flex-row xs:gap-2 md:text-5xl">
+          <span>$1.38b</span> <span className="text-sm text-gray-400 xs:self-end md:text-lg">Per day</span>
         </Label>
+
         <div className="flex items-center gap-1">
-          <div className="flex">
+          <div className="hidden lg:flex">
             <ChartFilter text="1H" />
             <ChartFilter text="1D" isActive />
             <ChartFilter text="1W" />
@@ -52,7 +52,7 @@ export default function LiquidityChart() {
           <SelectVolume />
         </div>
       </div>
-      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-6 text-left">
+      <ChartContainer config={chartConfig} className="h-[190px] w-full pl-2 text-left xs:pl-3 md:pl-6">
         <BarChart accessibilityLayer data={chartData} className="-ml-3 flex text-left">
           <XAxis dataKey="time" tickLine={false} tickMargin={10} axisLine={false} />
           <YAxis tickLine={false} axisLine={false} tick={{ textAnchor: "start", dx: -10 }} width={25} />
@@ -71,6 +71,15 @@ export default function LiquidityChart() {
           />
         </BarChart>
       </ChartContainer>
+      <div className="mb-4 flex w-full justify-center lg:hidden">
+        <div className="flex">
+          <ChartFilter text="1H" />
+          <ChartFilter text="1D" isActive />
+          <ChartFilter text="1W" />
+          <ChartFilter text="1M" />
+          <ChartFilter text="1Y" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -87,32 +96,5 @@ function ChartFilter({ text, isActive }: { text: string; isActive?: boolean }) {
         {text}
       </Label>
     </Button>
-  );
-}
-
-function SelectVolume() {
-  return (
-    <Select>
-      <SelectTrigger
-        hideCaret
-        className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
-      >
-        <Button
-          variant={"ghost"}
-          className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey"
-        >
-          Volume <IconDropDown />
-        </Button>
-      </SelectTrigger>
-      <SelectContent className="border-eerie-black bg-chinese-black">
-        {[1, 2, 3, 4, 5].map((item) => (
-          <SelectItem
-            className="cursor-pointer data-[state=checked]:!bg-eerie-black data-[state=unchecked]:!bg-transparent data-[state=checked]:!text-white data-[state=unchecked]:!text-cool-grey hover:!bg-eerie-black active:!bg-eerie-black"
-            key={item}
-            value={`Volume ${item}`}
-          >{`Volume ${item}`}</SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
   );
 }

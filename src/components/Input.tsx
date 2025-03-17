@@ -50,7 +50,7 @@ export default function Input({
         )}
       </div>
       {(leftLabel || rightLabel) && (
-        <div className="mt-1 flex w-full items-center justify-between">
+        <div className="mt-1 flex w-full items-center justify-between px-1">
           {leftLabel && leftLabel}
           {rightLabel && rightLabel}
         </div>

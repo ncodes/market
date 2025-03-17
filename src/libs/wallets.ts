@@ -1,4 +1,4 @@
-import { BitcoinIcon, BNBIcon, EthereumIcon, MetaMaskIcon, SolanaIcon } from "@/assets";
+import { AllNetworksIcon, BitcoinIcon, BNBIcon, EthereumIcon, MetaMaskIcon, OPIcon, SolanaIcon } from "@/assets";
 
 export const Wallets = [
   {
@@ -36,6 +36,25 @@ export const Assets = [
   { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
   { name: "Solana", symbol: "SOL", logo: SolanaIcon },
   { name: "Ethereum", symbol: "ETH", logo: EthereumIcon },
+  { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
+  { name: "Base", symbol: "ETH", logo: EthereumIcon },
+  { name: "Avalance", symbol: "AVAX", logo: SolanaIcon },
+  { name: "Solana", symbol: "SOL", logo: SolanaIcon },
+  { name: "Ethereum", symbol: "ETH", logo: EthereumIcon },
+];
+
+export const Networks = [
+  { name: "All Networks", symbol: "", logo: AllNetworksIcon },
+  { name: "Polygon", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
+  { name: "Optimism", symbol: "PO", logo: OPIcon },
 ];
 
 export enum PriceMethod {

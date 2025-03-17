@@ -5,6 +5,10 @@ import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
 import RegionSelectorButton from "./RegionSelectorButton";
 import SettingsButton from "./SettingsButton";
+import { Button } from "../ui/button";
+import MobileHeader from "./MobileHeader";
+import { Search } from "lucide-react";
+import { SearchButton } from "./SearchButton";
 
 export interface MenuItem {
   title: string;
@@ -39,6 +43,30 @@ const MenuItems: MenuItem[] = [
 ];
 
 export function Header() {
+  return (
+    <header className="relative flex w-full select-none items-center justify-between p-4">
+      <DesktopViewHeader />
+      <MobileHeader />
+
+      <SearchBar />
+      <div className="relative -top-1 flex w-fit items-center space-x-3">
+        <div className="flex xl:hidden">
+          <SearchButton/>
+        </div>
+        <RegionSelectorButton />
+        <SettingsButton />
+        <div className="flex lg:hidden">
+          <ConnectButton hideTextOnMobile className="h-11 w-11 p-0" />
+        </div>
+        <div className="hidden lg:flex">
+          <ConnectButton />
+        </div>
+      </div>
+    </header>
+  );
+}
+
+function DesktopViewHeader() {
   function onNavChange() {
     setTimeout(() => {
       const triggers = document.querySelectorAll('.submenu-trigger[data-state="open"]');
@@ -51,29 +79,20 @@ export function Header() {
   }
 
   return (
-    <header className="relative flex select-none items-center justify-between p-4">
-      <div className="relative -mt-3 flex items-center space-x-4">
-        <Logo />
-        <nav className="relative -top-0.5 left-2 flex text-sm font-normal tracking-wider">
-          <NavigationMenu
-            onValueChange={onNavChange}
-            viewportClassName={"rounded-xl border border-eerie-black bg-chinese-black tracking-wider"}
-          >
-            <NavigationMenuList className="gap-3">
-              {MenuItems.map((menuItem, index) => (
-                <CustomNavigationMenu key={index} menuItem={menuItem} />
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-        </nav>
-      </div>
-
-      <SearchBar />
-      <div className="relative -top-1 flex items-center space-x-3">
-        <RegionSelectorButton />
-        <SettingsButton />
-        <ConnectButton />
-      </div>
-    </header>
+    <div className="relative -mt-3 hidden items-center space-x-4 md:flex">
+      <Logo />
+      <nav className="relative -top-0.5 left-2 hidden text-sm font-normal tracking-wider md:flex">
+        <NavigationMenu
+          onValueChange={onNavChange}
+          viewportClassName={"rounded-xl border border-eerie-black bg-chinese-black tracking-wider"}
+        >
+          <NavigationMenuList className="gap-3">
+            {MenuItems.map((menuItem, index) => (
+              <CustomNavigationMenu key={index} menuItem={menuItem} />
+            ))}
+          </NavigationMenuList>
+        </NavigationMenu>
+      </nav>
+    </div>
   );
 }

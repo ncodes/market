@@ -22,7 +22,7 @@ export function CustomNavigationMenu({ menuItem }: { menuItem: MenuItem }) {
 
   return (
     <NavigationMenuItem>
-      <NavigationMenuTrigger className="submenu-trigger data-[state=open]:!bg-transparent hover:bg-transparent">
+      <NavigationMenuTrigger className="submenu-trigger bg-transparent data-[state=open]:!bg-transparent hover:bg-transparent">
         <Link to={url ?? "#"} className="text-gray-300 transition-all duration-100 group-data-[state=open]:text-white">
           {title}
         </Link>

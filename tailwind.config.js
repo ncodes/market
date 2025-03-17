@@ -53,6 +53,7 @@ export default {
         "sunset-orange": "#ff5c5c",
         "coral-red": "#ff3b3b",
 
+        "pastel-green": "#8de969",
         // Adjusted
         "chinese-black": "#11131b",
 

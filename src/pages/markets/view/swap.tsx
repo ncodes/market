@@ -2,21 +2,22 @@ import IconLiquidity from "@/components/icons/IconLiquidity";
 import IconSwap from "@/components/icons/IconSwap";
 import Swap from "@/components/Swap";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { cn } from "@/libs/utils";
 
-export default function LiquiditySwap() {
+export default function LiquiditySwap({ className }: { className?: string }) {
   return (
-    <div className="bg-chinese-black w-full rounded-3xl border border-eerie-black/50">
+    <div className={cn("w-full rounded-3xl border border-eerie-black/50 bg-chinese-black", className)}>
       <Tabs defaultValue="swap" className="w-full">
         <TabsList className="flex w-full justify-start gap-[29px] border-b border-eerie-black/50 bg-transparent px-4">
           <TabsTrigger
             value="swap"
-            className="text-black-coral data-[state=active]:text-lotion flex items-center gap-1 p-0 text-base font-semibold data-[state=active]:bg-transparent"
+            className="flex items-center gap-1 p-0 text-base font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-lotion"
           >
             <IconSwap /> Swap
           </TabsTrigger>
           <TabsTrigger
             value="liquidity"
-            className="text-black-coral data-[state=active]:text-lotion flex items-center gap-1 p-0 text-base font-semibold data-[state=active]:bg-transparent"
+            className="flex items-center gap-1 p-0 text-base font-semibold text-black-coral data-[state=active]:bg-transparent data-[state=active]:text-lotion"
           >
             <IconLiquidity /> Add Liquidity
           </TabsTrigger>

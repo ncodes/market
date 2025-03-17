@@ -7,10 +7,10 @@ import LiquidityTable from "./liquidity-table";
 export default function MyLiquidityPage() {
   return (
     <PageLayout title="My Liquidity">
-      <div className="flex w-full justify-center">
-        <div className="mt-6 flex w-full max-w-7xl gap-[30px]">
+      <div className="flex w-full justify-center px-4">
+        <div className="mt-3 flex w-full max-w-7xl flex-col gap-[30px] lg:flex-row">
           <LiquidityTable />
-          <div className="flex w-full max-w-[330px] flex-col gap-6">
+          <div className="flex w-full max-w-full flex-col gap-6 lg:max-w-[330px]">
             <div className="flex flex-col">
               <Label className="text-sm font-light tracking-wide text-white">Learn About</Label>
               <Label className="text-2xl font-semibold tracking-wide text-lotion">Liquidity Provision</Label>
@@ -23,11 +23,13 @@ export default function MyLiquidityPage() {
                     item !== 4 && "border-b",
                   )}
                 >
-                  <div className="h-[68px] !w-[75px] cursor-pointer rounded-[10px] bg-eerie-black"></div>
-                  <Label className="w-[187px] cursor-pointer text-sm font-semibold text-white">
-                    How to become a Liquidity Provider on Joint Exchange
-                  </Label>
-                  <IconArrowRight className="h-6 w-6 text-3xl" />
+                  <div className="!h-[68px] !w-[75px] cursor-pointer rounded-[10px] bg-eerie-black"></div>
+                  <div className="flex flex-1 items-center justify-between">
+                    <Label className="max-w-[187px] cursor-pointer text-sm font-semibold text-white">
+                      How to become a Liquidity Provider on Joint Exchange
+                    </Label>
+                    <IconArrowRight className="h-6 w-6 text-3xl" />
+                  </div>
                 </div>
               ))}
             </div>

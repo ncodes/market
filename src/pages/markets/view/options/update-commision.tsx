@@ -1,9 +1,10 @@
+import CloseIcon from "@/components/CloseIcon";
 import InfoLabel from "@/components/InfoLabel";
 import Input from "@/components/Input";
+import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
-import { ChevronRight, XIcon } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useState } from "react";
 
 export default function UpdateCommision() {
@@ -11,8 +12,10 @@ export default function UpdateCommision() {
   const [isSubmitted, setSubmitted] = useState(false);
 
   return (
-    <Dialog modal={true} open={open} onOpenChange={(open) => setOpen(open)}>
-      <DialogTrigger>
+    <Modal
+      open={open}
+      onOpenChange={(open) => setOpen(open)}
+      triggerComponent={
         <Button
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
@@ -20,24 +23,15 @@ export default function UpdateCommision() {
           Update Commission
           <ChevronRight className="text-cool-grey group-hover:text-white" />
         </Button>
-      </DialogTrigger>
-      <DialogContent
-        className="max-w-[360px] border-none bg-transparent p-0 tracking-wide transition-all duration-300"
-        hideCloseButton
-      >
+      }
+      content={
         <div className="flex w-full flex-col gap-2">
-          <div className="rounded-3xl border border-gunmetal bg-chinese-black">
+          <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black md:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
-              <Label className="text-2xl font-semibold text-lotion">
+              <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Update Commission"}
               </Label>
-              <Button
-                onClick={() => setOpen(false)}
-                variant="ghost"
-                className="reset-btn text-gray-600 hover:bg-transparent hover:text-gray-100"
-              >
-                <XIcon className="size-5" />
-              </Button>
+              <CloseIcon setOpen={setOpen}/>
             </div>
             {!isSubmitted && (
               <div className="mb-8 flex flex-col gap-2 px-5 py-[14px] pb-0">
@@ -57,16 +51,26 @@ export default function UpdateCommision() {
                 </div>
               </div>
             )}
+
+            <div className="flex px-5 pb-3 lg:hidden">
+              <Button
+                variant={"secondary"}
+                className="h-12 w-full text-lg font-semibold text-gunmetal"
+                onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
+              >
+                Update
+              </Button>
+            </div>
           </div>
           <Button
             variant={"secondary"}
-            className="h-12 text-lg font-semibold text-gunmetal"
+            className="hidden h-12 text-lg font-semibold text-gunmetal lg:flex"
             onClick={isSubmitted ? () => setOpen(false) : () => setSubmitted(true)}
           >
             Update
           </Button>
         </div>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 }

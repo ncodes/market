@@ -16,19 +16,22 @@ export const liquidityTransactionsColumns: ColumnDef<LiquidityTransactionsProps>
   {
     accessorKey: "time",
     header: "Time",
+    cell: (props) => <div className="min-w-[80px] text-sm font-light text-white">{props.getValue() as string}</div>,
   },
   {
     accessorKey: "type",
     header: "Type",
     cell: (props) => (
-      <Label
-        className={cn(
-          "text-ufo-green text-sm font-light",
-          (props.getValue() as string).toLowerCase() == "sell" && "text-sunset-orange",
-        )}
-      >
-        {props.getValue() as string} USDC
-      </Label>
+      <div className="min-w-[80px]">
+        <Label
+          className={cn(
+            "text-sm font-light text-ufo-green",
+            (props.getValue() as string).toLowerCase() == "sell" && "text-sunset-orange",
+          )}
+        >
+          {props.getValue() as string} USDC
+        </Label>
+      </div>
     ),
   },
   {
@@ -46,5 +49,8 @@ export const liquidityTransactionsColumns: ColumnDef<LiquidityTransactionsProps>
   {
     accessorKey: "wallet",
     header: "Wallet",
+    cell: (props) => (
+      <div className="w-fit text-nowrap text-sm font-light text-white">{props.getValue() as string}</div>
+    ),
   },
 ];

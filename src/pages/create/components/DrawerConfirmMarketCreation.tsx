@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { TokenList } from "@jointlabs/meta";
-import { XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 import { Avatar } from "../../../components/avatar/Avatar";
 import { cn } from "../../../libs/utils";
+import CloseIcon from "@/components/CloseIcon";
 
 const defaultState: {
   mounted: boolean;
@@ -44,17 +44,7 @@ export function DrawerConfirmMarketCreation({
       <div>
         <h2 className="mb-2 flex items-center justify-between px-4 font-medium tracking-wider text-white">
           <span>Confirm Market</span>
-          <span>
-            <Button
-              variant="link"
-              className="h-auto p-0"
-              onClick={() => {
-                closeRequested?.();
-              }}
-            >
-              <XIcon className="h-5 w-5 cursor-pointer text-white opacity-30 transition-all duration-300 hover:opacity-100" />
-            </Button>
-          </span>
+          <CloseIcon onClick={closeRequested}/>
         </h2>
       </div>
 
