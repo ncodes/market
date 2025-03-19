@@ -9,16 +9,33 @@ import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import SelectMediatorPool from "./select-mediator-pool";
 
-export function AdvanceSettings() {
+export interface MarketSettinsProps {
+  permPut: boolean;
+  permSwap: boolean;
+  mediatorPool: string;
+  marketManager: string;
+}
+
+export function AdvanceSettings({
+  setMarketSettings,
+}: {
+  setMarketSettings: React.Dispatch<React.SetStateAction<MarketSettinsProps>>;
+}) {
   const [isOpened, setIsOpened] = useState(false);
   const contentHeight = useRef<HTMLDivElement>(null);
   const [animCount, setAnimCount] = useState(0);
+  const [options, setOptions] = useState<MarketSettinsProps>({
+    permPut: false,
+    permSwap: false,
+    mediatorPool: "",
+    marketManager: "",
+  });
 
   return (
     <motion.div className={cn("relative w-full overflow-hidden py-0 pt-0")}>
       <Button
         variant={"ghost"}
-        className="flex w-full justify-between bg-transparent p-0 hover:bg-transparent text-nowrap"
+        className="flex w-full justify-between text-nowrap bg-transparent p-0 hover:bg-transparent"
         onClick={() => setIsOpened((prev) => !prev)}
       >
         <Label className="font-poppins text-sm font-semibold text-cool-grey lg:text-base">Advanced Settings</Label>
@@ -40,11 +57,23 @@ export function AdvanceSettings() {
         <div ref={contentHeight} className="flex w-full flex-col gap-4 py-2">
           <div className="flex w-full justify-between">
             <InfoLabel text="Anyone can add liquidity" info="Anyone can add liquidity" className="text-sm" />
-            <Switch defaultChecked />
+            <Switch
+              checked={options.permPut}
+              onCheckedChange={(v) => {
+                setOptions((prev) => ({ ...prev, permPut: v }));
+                setMarketSettings?.((prev) => ({ ...prev, permPut: v }));
+              }}
+            />
           </div>
           <div className="flex w-full justify-between">
             <InfoLabel text="Anyone can swap" info="Anyone can swap" className="text-sm" />
-            <Switch />
+            <Switch
+              checked={options.permSwap}
+              onCheckedChange={(v) => {
+                setOptions((prev) => ({ ...prev, permSwap: v }));
+                setMarketSettings?.((prev) => ({ ...prev, permSwap: v }));
+              }}
+            />
           </div>
           <div className="flex w-full justify-between">
             <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />

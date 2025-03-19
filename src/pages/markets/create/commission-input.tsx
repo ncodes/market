@@ -3,14 +3,23 @@ import { Slider } from "@/components/ui/slider.tsx";
 import { cn } from "@/libs/utils.ts";
 import { useEffect, useRef, useState } from "react";
 
-export function CommisionInput({ className }: { className?: string }) {
+export function CommisionInput({
+  className,
+  setCommission,
+}: {
+  className?: string;
+  setCommission?: (value: number) => void;
+}) {
   const [margin, setMargin] = useState(15);
   const spanRef = useRef<HTMLSpanElement | null>(null);
   const [inputWidth, setInputWidth] = useState("1ch");
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.currentTarget.value;
-    if (value) setMargin(Number(value));
+    if (value) {
+      setMargin(Number(value));
+      setCommission?.(Number(value));
+    }
   }
 
   useEffect(() => {
@@ -20,8 +29,8 @@ export function CommisionInput({ className }: { className?: string }) {
   }, [margin]);
 
   return (
-    <div className={cn("flex flex-col xxxs:flex-row w-full items-center gap-2 xxxs:gap-5", className)}>
-      <div className="flex w-full xxxs:w-fit flex-col gap-1 pr-2">
+    <div className={cn("flex w-full flex-col items-center gap-2 xxxs:flex-row xxxs:gap-5", className)}>
+      <div className="flex w-full flex-col gap-1 pr-2 xxxs:w-fit">
         <Label className="flex items-center gap-1 font-poppins text-sm font-normal tracking-wide text-lotion/90">
           Commision
         </Label>
@@ -50,7 +59,10 @@ export function CommisionInput({ className }: { className?: string }) {
             max={30}
             step={1}
             min={0}
-            onValueChange={(value) => setMargin(value[0])}
+            onValueChange={(value) => {
+              setMargin(value[0]);
+              setCommission?.(Number(value));
+            }}
             value={[margin]}
             className="border-none bg-transparent"
             rangeClassName="bg-screaming-green h-[6px] border-none"

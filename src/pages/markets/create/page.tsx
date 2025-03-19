@@ -1,13 +1,43 @@
-import { USDCIcon, USDTIcon } from "@/assets";
 import { AssetButton } from "@/components/AssetButton.tsx";
 import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import PageLayout from "@/layouts/PageLayout.tsx";
-import { AdvanceSettings } from "./advance-settings.tsx";
+import { AdvanceSettings, MarketSettinsProps } from "./advance-settings.tsx";
 import { CommisionInput } from "./commission-input.tsx";
 import { CreateMarketButton } from "./create-market-button.tsx";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { useAssetService } from "@/hooks/services/backend/useAssetService.ts";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 export default function CreateMarketPage() {
+  const { getChainInfo, connected } = useConnectorContext();
+  const { getList } = useAssetService();
+  const [baseAsset, setBaseAsset] = useState<AssetInfo>();
+  const [quoteAsset, setQuoteAsset] = useState<AssetInfo>();
+  const [commission, setCommission] = useState<number>(15);
+  const [marketSettings, setMarketSettings] = useState<MarketSettinsProps>({
+    permPut: false,
+    permSwap: false,
+    mediatorPool: "",
+    marketManager: "",
+  });
+
+  const assets = useQuery({
+    queryKey: ["getList", { network: getChainInfo().queryName }],
+    queryFn: getList,
+    enabled: connected,
+  });
+
+  useEffect(() => {
+    if (!assets.isSuccess || !assets.data) return;
+    const base = assets.data[0];
+    const quote = assets.data[1];
+
+    setBaseAsset(base);
+    setQuoteAsset(quote);
+  }, [assets.isSuccess, assets.data]);
+
   return (
     <PageLayout title="Swap">
       <div className="flex w-full justify-center px-4">
@@ -21,8 +51,9 @@ export default function CreateMarketPage() {
                 <div className="flex w-full flex-col gap-1">
                   <InfoLabel text="Base Asset" info="This is the base asset" />
                   <AssetButton
-                    text="USDC"
-                    assetImage={USDCIcon}
+                    text={baseAsset?.symbol ?? ""}
+                    selectAsset={setBaseAsset}
+                    assetImage={baseAsset?.logoURI ?? ""}
                     className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                     textClassName="text-cool-grey"
                     assetClassName="w-8 h-8"
@@ -31,21 +62,27 @@ export default function CreateMarketPage() {
                 <div className="flex w-full flex-col gap-1">
                   <InfoLabel text="Quote Asset" info="This is the base asset" />
                   <AssetButton
-                    text="USDT"
-                    assetImage={USDTIcon}
+                    text={quoteAsset?.symbol ?? ""}
+                    assetImage={quoteAsset?.logoURI ?? ""}
+                    selectAsset={setQuoteAsset}
                     className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                     textClassName="text-cool-grey"
                     assetClassName="w-8 h-8"
                   />
                 </div>
               </div>
-              <CommisionInput className="mt-4" />
+              <CommisionInput className="mt-4" setCommission={setCommission} />
             </div>
             <div className="flex w-full flex-col gap-4 px-5 pb-3 pt-3 md:px-5">
-              <AdvanceSettings />
+              <AdvanceSettings setMarketSettings={setMarketSettings}/>
             </div>
           </div>
-          <CreateMarketButton />
+          <CreateMarketButton
+            baseAsset={baseAsset}
+            quoteAsset={quoteAsset}
+            marketSettings={marketSettings}
+            commission={commission}
+          />
         </div>
       </div>
     </PageLayout>

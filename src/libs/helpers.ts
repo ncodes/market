@@ -6,6 +6,7 @@ import * as humanizeDuration from "humanize-duration";
 import numeral from "numeral";
 import prettyBytes from "pretty-bytes";
 import { RequestError } from "./RequestError.ts";
+import { AssetType } from '../types/enums.ts';
 
 export function isDev() {
   return import.meta.env.VITE_ENV === "development";
@@ -319,4 +320,16 @@ export function toAbr(str: string): string {
   }
 
   return words.map((word) => word.charAt(0).toUpperCase()).join("");
+}
+
+/**
+ * Return AssetType equivalent of a token type
+ * @param tokenType
+ */
+export function tokenTypeToAssetType(tokenType: 'ERC20' | 'SYNTHETIC' | 'ERC721' | 'ERC1155') {
+	if (tokenType == 'ERC20') return AssetType.ERC20;
+	if (tokenType == 'SYNTHETIC') return AssetType.SYNTH;
+	if (tokenType == 'ERC721') return AssetType.ERC721;
+	if (tokenType == 'ERC1155') return AssetType.ERC1155;
+	throw new Error('unknown token type');
 }

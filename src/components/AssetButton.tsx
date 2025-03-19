@@ -7,12 +7,15 @@ import { IconSearch } from "@/components/icons/IconSearch";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
-import { Assets } from "@/libs/wallets";
 import { CheckCircle2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloseIcon from "./CloseIcon";
 import Modal from "./Modal";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { useQuery } from "@tanstack/react-query";
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
+import { useAssetService } from "@/hooks/services/backend/useAssetService";
+import { shortenAddress } from "@/libs/helpers";
 
 export function AssetButton({
   text,
@@ -22,6 +25,7 @@ export function AssetButton({
   textClassName,
   assetClassName,
   networkClassName,
+  selectAsset,
 }: {
   text: string;
   assetImage: string;
@@ -30,8 +34,24 @@ export function AssetButton({
   textClassName?: string;
   assetClassName?: string;
   networkClassName?: string;
+  selectAsset?: (asset: AssetInfo) => void;
 }) {
   const [open, setOpen] = useState(false);
+  const { getChainInfo, connected } = useConnectorContext();
+  const { getList } = useAssetService();
+  const [assets, setAssets] = useState<AssetInfo[]>([]);
+
+  const fetchedAssets = useQuery({
+    queryKey: ["getList", { network: getChainInfo().queryName }],
+    queryFn: getList,
+    enabled: connected,
+  });
+
+  useEffect(() => {
+    if (fetchedAssets.data) {
+      setAssets(fetchedAssets.data);
+    }
+  }, [fetchedAssets.data]);
 
   return (
     <Modal
@@ -77,8 +97,8 @@ export function AssetButton({
             <NetworkSelectorButton />
           </div>
           <div className="flex h-[70vh] w-full flex-col overflow-y-auto px-0">
-            {Assets.map((asset, index) => (
-              <AssetTile key={index} name={asset.name} logo={asset.logo} symbol={asset.symbol} />
+            {assets.map((asset, index) => (
+              <AssetTile key={index} asset={asset} selectAsset={selectAsset} setOpen={setOpen} />
             ))}
           </div>
         </div>
@@ -87,20 +107,32 @@ export function AssetButton({
   );
 }
 
-function AssetTile({ name, logo, symbol }: { name: string; logo: string; symbol: string }) {
+function AssetTile({
+  asset,
+  selectAsset,
+  setOpen,
+}: {
+  asset: AssetInfo;
+  setOpen: (open: boolean) => void;
+  selectAsset?: (asset: AssetInfo) => void;
+}) {
   return (
     <Button
+      onClick={() => {
+        setOpen(false);
+        selectAsset?.(asset);
+      }}
       variant={"ghost"}
       className="m-0 h-auto w-full justify-start rounded-none p-0 text-left hover:bg-transparent"
     >
       <div className="group flex w-full cursor-pointer items-center justify-between px-3 py-2 hover:bg-eerie-black">
-        <div className="flex items-center gap-2">
-          <Avatar src={logo} className="h-8 w-8" />
+        <div className="flex cursor-pointer items-center gap-2">
+          <Avatar src={asset.logoURI} className="h-8 w-8 cursor-pointer" />
           <div className="flex flex-col gap-1">
-            <Label className="text-lg font-light tracking-wider text-anti-flash-white">{name}</Label>
+            <Label className="text-lg font-light tracking-wider text-anti-flash-white">{asset.name}</Label>
             <span className="flex items-center gap-2">
-              <label className="text-sm font-normal text-cool-grey">{symbol}</label>
-              <span className="text-xs text-cool-grey/40">0x123...432</span>
+              <label className="text-sm font-normal text-cool-grey">{asset.symbol}</label>
+              <span className="text-xs text-cool-grey/40">{shortenAddress(asset.address)}</span>
             </span>
           </div>
         </div>
