@@ -9,9 +9,10 @@ import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx"
 import { useAssetService } from "@/hooks/services/backend/useAssetService.ts";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import useStore from "@/hooks/store/useStore.ts";
 
 export default function CreateMarketPage() {
-  const { getChainInfo, connected } = useConnectorContext();
+  const { connected } = useConnectorContext();
   const { getList } = useAssetService();
   const [baseAsset, setBaseAsset] = useState<AssetInfo>();
   const [quoteAsset, setQuoteAsset] = useState<AssetInfo>();
@@ -22,21 +23,22 @@ export default function CreateMarketPage() {
     mediatorPool: "",
     marketManager: "",
   });
+  const { selectedChain } = useStore();
 
   const assets = useQuery({
-    queryKey: ["getList", { network: getChainInfo().queryName }],
+    queryKey: ["getList", { network:  selectedChain.queryName}],
     queryFn: getList,
     enabled: connected,
   });
 
   useEffect(() => {
-    if (!assets.isSuccess || !assets.data) return;
+    if (!assets.isSuccess || !assets.data || baseAsset || quoteAsset) return;
     const base = assets.data[0];
     const quote = assets.data[1];
 
     setBaseAsset(base);
     setQuoteAsset(quote);
-  }, [assets.isSuccess, assets.data]);
+  }, [assets.data]);
 
   return (
     <PageLayout title="Swap">

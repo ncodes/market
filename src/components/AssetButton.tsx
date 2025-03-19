@@ -1,4 +1,3 @@
-import { AllNetworksIcon, BitcoinIcon } from "@/assets";
 import AssetAvatar from "@/components/avatar/AssetAvatar";
 import { Avatar } from "@/components/avatar/Avatar";
 import IconArrowRight from "@/components/icons/IconArrowRight";
@@ -16,6 +15,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import { useAssetService } from "@/hooks/services/backend/useAssetService";
 import { shortenAddress } from "@/libs/helpers";
+import Chains from "@jointlabs/meta";
+import useStore from "@/hooks/store/useStore";
 
 export function AssetButton({
   text,
@@ -37,12 +38,13 @@ export function AssetButton({
   selectAsset?: (asset: AssetInfo) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const { getChainInfo, connected } = useConnectorContext();
+  const { connected } = useConnectorContext();
   const { getList } = useAssetService();
   const [assets, setAssets] = useState<AssetInfo[]>([]);
+  const { selectedChain } = useStore();
 
   const fetchedAssets = useQuery({
-    queryKey: ["getList", { network: getChainInfo().queryName }],
+    queryKey: ["getList", { network: selectedChain.queryName }],
     queryFn: getList,
     enabled: connected,
   });
@@ -142,15 +144,6 @@ function AssetTile({
   );
 }
 
-const Networks = [
-  { name: "All", logo: AllNetworksIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-  { name: "Bitcoin", logo: BitcoinIcon },
-];
-
 interface NetworkSelectorButtonProps {
   text?: string;
   className?: string;
@@ -158,8 +151,8 @@ interface NetworkSelectorButtonProps {
 }
 
 export function NetworkSelectorButton({ text, className, imgClassName }: NetworkSelectorButtonProps) {
-  const [selectedIndex, setSelectedNetworkIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const { selectedChain, setSelectedChain } = useStore();
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -171,14 +164,12 @@ export function NetworkSelectorButton({ text, className, imgClassName }: Network
             "!bg-transparent": !open,
           })}
         >
-          {Networks[selectedIndex].name === "All" && (
-            <Label className="cursor-pointer font-poppins text-xs tracking-[2px] text-lotion"></Label>
+          {selectedChain.queryName.toLowerCase() === "all" && (
+            <Label className="cursor-pointer font-poppins text-xs tracking-[2px] text-lotion">
+              {selectedChain.displayName}
+            </Label>
           )}
-          <img
-            src={Networks[selectedIndex].name === "All" ? AllNetworksIcon : Networks[selectedIndex].logo}
-            alt=""
-            className={cn("h-7 w-7", imgClassName)}
-          />
+          <selectedChain.logoPath className={cn("h-7 w-7", imgClassName)} />
           <span className="hidden xs:block">{text}</span>
           <IconDropDown
             className={cn("h-6 w-6 shrink-0 opacity-60 transition-all duration-300", open && "rotate-180")}
@@ -190,29 +181,24 @@ export function NetworkSelectorButton({ text, className, imgClassName }: Network
         className="w-[200px] rounded-2xl border border-gunmetal/50 bg-chinese-black px-0 py-0"
       >
         <div className="mt-1 flex flex-col gap-1 px-1 py-0.5 pb-1 font-poppins">
-          {Networks.map((network, index) => (
-            <div
+          {Chains.map((chain, index) => (
+            <Button
               key={index}
-              className="flex w-full cursor-pointer justify-between"
               onClick={() => {
-                if (index === selectedIndex) return;
-                setSelectedNetworkIndex(index);
+                setSelectedChain(chain);
                 setOpen(false);
               }}
+              variant={"ghost"}
+              className="m-0 flex h-auto w-full items-center justify-between rounded-xl p-[0.5rem] text-left hover:bg-eerie-black"
             >
-              <Button
-                variant={"ghost"}
-                className="m-0 flex h-auto w-full items-center justify-between rounded-xl p-[0.5rem] text-left hover:bg-eerie-black"
-              >
-                <span className="flex items-center gap-2">
-                  <img src={network.logo} className="h-[22px] w-auto" />
-                  <Label className="cursor-pointer font-poppins text-sm font-light tracking-wide text-anti-flash-white">
-                    {network.name.toLowerCase() === "all" ? "All networks" : network.name}
-                  </Label>
-                </span>
-                {selectedIndex === index && <CheckCircle2 size={20} className="text-green-400" />}
-              </Button>
-            </div>
+              <span className="flex items-center gap-2">
+                <chain.logoPath className="h-[22px] w-auto" />
+                <Label className="cursor-pointer font-poppins text-sm font-light tracking-wide text-anti-flash-white">
+                  {chain.displayName.toLowerCase() === "all" ? "All networks" : chain.displayName}
+                </Label>
+              </span>
+              {selectedChain.chainId === chain.chainId && <CheckCircle2 size={20} className="text-green-400" />}
+            </Button>
           ))}
         </div>
       </PopoverContent>
