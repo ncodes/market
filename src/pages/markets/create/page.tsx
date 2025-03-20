@@ -10,6 +10,7 @@ import { useAssetService } from "@/hooks/services/backend/useAssetService.ts";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import useStore from "@/hooks/store/useStore.ts";
+import { Skeleton } from "@/components/ui/skeleton.tsx";
 
 export default function CreateMarketPage() {
   const { connected } = useConnectorContext();
@@ -24,7 +25,7 @@ export default function CreateMarketPage() {
   const { selectedChain } = useStore();
 
   const assets = useQuery({
-    queryKey: ["getList", { network:  selectedChain.queryName}],
+    queryKey: ["getList", { network: selectedChain.queryName }],
     queryFn: getList,
     enabled: connected,
   });
@@ -41,7 +42,8 @@ export default function CreateMarketPage() {
   return (
     <PageLayout title="Swap">
       <div className="flex w-full justify-center px-4">
-        <div className="mt-5 w-full max-w-sm lg:mt-10 lg:max-w-md">
+        {assets.isLoading && <PageLoader />}
+        {!assets.isLoading && <div className="mt-5 w-full max-w-sm lg:mt-10 lg:max-w-md">
           <div className="mb-2 w-full rounded-3xl border border-eerie-black bg-chinese-black">
             <div className="flex items-center gap-4 border-b border-eerie-black px-5 py-4 md:px-5">
               <Label className="text-xl font-semibold text-lotion lg:text-2xl">Create Market</Label>
@@ -74,7 +76,7 @@ export default function CreateMarketPage() {
               <CommisionInput className="mt-4" setCommission={setCommission} />
             </div>
             <div className="flex w-full flex-col gap-4 px-5 pb-3 pt-3 md:px-5">
-              <AdvanceSettings setMarketSettings={setMarketSettings}/>
+              <AdvanceSettings setMarketSettings={setMarketSettings} />
             </div>
           </div>
           <CreateMarketButton
@@ -83,8 +85,19 @@ export default function CreateMarketPage() {
             marketSettings={marketSettings}
             commission={commission}
           />
-        </div>
+        </div>}
       </div>
     </PageLayout>
+  );
+}
+
+function PageLoader() {
+  return (
+    <div className="mt-5 w-full max-w-sm rounded-3xl border border-eerie-black bg-chinese-black lg:mt-10 lg:max-w-md overflow-hidden py-5 px-4">
+      <Skeleton className="h-[40px] w-full max-w-[250px] rounded-xl bg-gunmetal" />
+      <Skeleton className="h-[80px] w-full rounded-xl bg-gunmetal mt-5" />
+      <Skeleton className="h-[80px] w-full rounded-xl bg-gunmetal mt-5" />
+      <Skeleton className="h-[80px] w-full rounded-xl bg-gunmetal mt-5" />
+    </div>
   );
 }

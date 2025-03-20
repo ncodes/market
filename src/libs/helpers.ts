@@ -326,10 +326,11 @@ export function toAbr(str: string): string {
  * Return AssetType equivalent of a token type
  * @param tokenType
  */
-export function tokenTypeToAssetType(tokenType: 'ERC20' | 'SYNTHETIC' | 'ERC721' | 'ERC1155') {
+export function tokenTypeToAssetType(tokenType: 'ERC20' | 'SYNTHETIC' | 'ERC721' | 'ERC1155'|'NATIVE') {
 	if (tokenType == 'ERC20') return AssetType.ERC20;
 	if (tokenType == 'SYNTHETIC') return AssetType.SYNTH;
 	if (tokenType == 'ERC721') return AssetType.ERC721;
 	if (tokenType == 'ERC1155') return AssetType.ERC1155;
+  if (tokenType == 'NATIVE') return AssetType.NATIVE;
 	throw new Error('unknown token type');
 }

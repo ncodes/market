@@ -55,6 +55,20 @@ export function AssetButton({
     }
   }, [fetchedAssets.data]);
 
+  function handleSearchInput({ currentTarget }: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = currentTarget;
+    if (value) {
+      const filteredAssets = fetchedAssets.data?.filter(
+        (asset) =>
+          asset.name.toLowerCase().includes(value.toLowerCase()) ||
+          asset.symbol.toLowerCase().includes(value.toLowerCase()),
+      );
+      setAssets(filteredAssets ?? []);
+    } else {
+      setAssets(fetchedAssets.data ?? []);
+    }
+  }
+
   return (
     <Modal
       open={open}
@@ -94,6 +108,7 @@ export function AssetButton({
                 type="text"
                 className="w-full border-none bg-transparent tracking-wider text-white outline-none placeholder:text-cool-grey/60 active:border-none active:bg-transparent active:outline-none"
                 placeholder="Search tokens"
+                onChange={handleSearchInput}
               />
             </div>
             <NetworkSelectorButton />

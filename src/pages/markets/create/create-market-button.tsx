@@ -9,6 +9,7 @@ import { MarketSettinsProps } from "./advance-settings";
 import useMarketContract from "@/hooks/services/contracts/useMarketContract";
 import { useQueryClient } from "@tanstack/react-query";
 import { delay, logError, tokenTypeToAssetType } from "@/libs/helpers";
+import LoadingIndicator from "@/components/LoadingIndicator";
 
 export function CreateMarketButton({
   baseAsset,
@@ -28,6 +29,15 @@ export function CreateMarketButton({
 
   const doCreateMarket = async () => {
     if (!baseAsset || !quoteAsset) return;
+    console.log(baseAsset.address,
+      quoteAsset.address,
+      tokenTypeToAssetType(baseAsset.type),
+      tokenTypeToAssetType(quoteAsset.type),
+      marketSettings.permPut,
+      marketSettings.permSwap,
+      (commission || 0) * 100,
+      marketSettings.mediatorPool?.id ?? 0,);
+
     try {
       setLoading(true);
       if (marketSettings.marketManager) {
@@ -135,19 +145,24 @@ export function CreateMarketButton({
               </div>
             </div>
 
-            <div className="block w-full px-5 pb-3 lg:hidden">
-              <Button onClick={() => doCreateMarket()} variant={"secondary"} className="btn w-full font-semibold">
-                Confirm
-              </Button>
-            </div>
+            {!loading && (
+              <div className="block w-full px-5 pb-3 lg:hidden">
+                <Button onClick={() => doCreateMarket()} variant={"secondary"} className="btn w-full font-semibold">
+                  Confirm
+                </Button>
+              </div>
+            )}
+            {loading && <LoadingIndicator />}
           </div>
-          <Button
-            onClick={() => doCreateMarket()}
-            variant={"secondary"}
-            className="btn mt-2 hidden w-full text-lg font-semibold lg:block"
-          >
-            Confirm
-          </Button>
+          {!loading && (
+            <Button
+              onClick={() => doCreateMarket()}
+              variant={"secondary"}
+              className="btn mt-2 hidden w-full text-lg font-semibold lg:block"
+            >
+              Confirm
+            </Button>
+          )}
         </div>
       }
     />
