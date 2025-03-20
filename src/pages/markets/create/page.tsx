@@ -20,8 +20,6 @@ export default function CreateMarketPage() {
   const [marketSettings, setMarketSettings] = useState<MarketSettinsProps>({
     permPut: false,
     permSwap: false,
-    mediatorPool: "",
-    marketManager: "",
   });
   const { selectedChain } = useStore();
 

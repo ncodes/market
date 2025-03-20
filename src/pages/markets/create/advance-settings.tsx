@@ -12,8 +12,8 @@ import SelectMediatorPool from "./select-mediator-pool";
 export interface MarketSettinsProps {
   permPut: boolean;
   permSwap: boolean;
-  mediatorPool: string;
-  marketManager: string;
+  mediatorPool?: MediatorPool;
+  marketManager?: string;
 }
 
 export function AdvanceSettings({
@@ -27,8 +27,6 @@ export function AdvanceSettings({
   const [options, setOptions] = useState<MarketSettinsProps>({
     permPut: false,
     permSwap: false,
-    mediatorPool: "",
-    marketManager: "",
   });
 
   return (
@@ -77,11 +75,21 @@ export function AdvanceSettings({
           </div>
           <div className="flex w-full justify-between">
             <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />
-            <SelectMediatorPool />
+            <SelectMediatorPool
+              onMediatorPoolSelected={(value) => setMarketSettings((prev) => ({ ...prev, mediatorPool: value }))}
+            />
           </div>
           <div className="flex w-full flex-col gap-1 pr-2">
             <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
-            <Input type="text" placeholder="0x000" className="!font-poppins" hideSuffix />
+            <Input
+              type="text"
+              placeholder="0x000"
+              className="!font-poppins"
+              hideSuffix
+              onChange={({ currentTarget }) => {
+                setMarketSettings((prev) => ({ ...prev, marketManager: currentTarget.value }));
+              }}
+            />
           </div>
         </div>
       </motion.div>

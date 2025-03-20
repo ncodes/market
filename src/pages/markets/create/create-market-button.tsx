@@ -9,7 +9,6 @@ import { MarketSettinsProps } from "./advance-settings";
 import useMarketContract from "@/hooks/services/contracts/useMarketContract";
 import { useQueryClient } from "@tanstack/react-query";
 import { delay, logError, tokenTypeToAssetType } from "@/libs/helpers";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 
 export function CreateMarketButton({
   baseAsset,
@@ -24,26 +23,38 @@ export function CreateMarketButton({
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { createMarket, humanizeErrors } = useMarketContract();
+  const { createMarket, humanizeErrors, createMarketWithManager } = useMarketContract();
   const queryClient = useQueryClient();
-  const { getChainInfo } = useConnectorContext();
 
   const doCreateMarket = async () => {
     if (!baseAsset || !quoteAsset) return;
     try {
       setLoading(true);
-      const txHash = await createMarket(
-        baseAsset.address,
-        quoteAsset.address,
-        tokenTypeToAssetType(baseAsset.type),
-        tokenTypeToAssetType(quoteAsset.type),
-        marketSettings.permPut,
-        marketSettings.permSwap,
-        (commission || 0) * 100,
-        0,
-      );
+      if (marketSettings.marketManager) {
+        await createMarketWithManager(
+          baseAsset.address,
+          quoteAsset.address,
+          tokenTypeToAssetType(baseAsset.type),
+          tokenTypeToAssetType(quoteAsset.type),
+          marketSettings.permPut,
+          marketSettings.permSwap,
+          (commission || 0) * 100,
+          marketSettings.mediatorPool?.id ?? 0,
+          marketSettings.marketManager,
+        );
+      } else {
+        await createMarket(
+          baseAsset.address,
+          quoteAsset.address,
+          tokenTypeToAssetType(baseAsset.type),
+          tokenTypeToAssetType(quoteAsset.type),
+          marketSettings.permPut,
+          marketSettings.permSwap,
+          (commission || 0) * 100,
+          marketSettings.mediatorPool?.id ?? 0,
+        );
+      }
       await delay(5000);
-      const explorer = getChainInfo().blockExplorer;
 
       queryClient.refetchQueries({ queryKey: ["getMarkets"] }).catch(logError);
       setOpen(false);
@@ -102,7 +113,7 @@ export function CreateMarketButton({
                 <div className="flex flex-col gap-2">
                   <Label className="text-sm tracking-wider text-lotion/60">Market Manager</Label>
                   <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                    <Label className="text-base text-gray-100">0x12k2...913w</Label>
+                    <Label className="text-base text-gray-100">{marketSettings.marketManager ?? "Not set"}</Label>
                   </div>
                 </div>
               </div>
@@ -119,7 +130,7 @@ export function CreateMarketButton({
               <div className="flex items-center justify-between">
                 <Label className="text-lotion/60">Select Mediator Pool</Label>
                 <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                  <Label className="text-base text-gray-100">Default</Label>
+                  <Label className="text-base text-gray-100">{marketSettings.mediatorPool?.name ?? "Not set"}</Label>
                 </div>
               </div>
             </div>
