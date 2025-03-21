@@ -113,6 +113,7 @@ export default function useMarketCreatorLogic() {
       setErrors({});
     }
   }, [state.commission, state.marketManager]);
+  
 
   // Set the default base and quote tokens
   useEffect(() => {

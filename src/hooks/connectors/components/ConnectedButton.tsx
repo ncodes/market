@@ -1,3 +1,4 @@
+import CloseIcon from "@/components/CloseIcon.tsx";
 import TabHead from "@/components/TabHead.tsx";
 import EmojiAvatar from "@/components/avatar/EmojiAvatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
@@ -19,10 +20,9 @@ import { cn } from "@/libs/utils.ts";
 import { TransactionType } from "@/libs/wallets.ts";
 import { CheckIcon, ChevronDown, Copy, ListFilter, Power } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "usehooks-ts";
 import { useSession } from "../../useSession.ts";
 import { useConnectorContext } from "../useConnectorContext";
-import { useMediaQuery } from "usehooks-ts";
-import CloseIcon from "@/components/CloseIcon.tsx";
 
 export const ConnectedButton = ({
   className,
@@ -97,7 +97,7 @@ export const ConnectedButton = ({
       </SheetTrigger>
       <SheetContent
         hideCloseButton
-        className="mr-0 mt-4 h-[97%] max-h-[90vh] w-full overflow-hidden rounded-b-none rounded-t-3xl border-none bg-chinese-black p-0 lg:mr-6 lg:max-h-full lg:w-[382px] md:rounded-b-3xl"
+        className="mr-0 mt-4 h-[97%] max-h-[90vh] w-full overflow-hidden rounded-b-none rounded-t-3xl border-none bg-chinese-black p-0 md:rounded-b-3xl lg:mr-6 lg:max-h-full lg:w-[382px]"
         side={isDesktop ? "right" : "bottom"}
       >
         <div className="flex h-full w-full flex-col">
@@ -109,7 +109,7 @@ export const ConnectedButton = ({
             </div>
             <div className="flex items-center gap-2">
               <DisconnectWallet />
-              <CloseIcon setOpen={setOpenSheet}/>
+              <CloseIcon setOpen={setOpenSheet} />
             </div>
           </div>
           <Tabs defaultValue="balance" className="w-full">
@@ -151,7 +151,7 @@ export const ConnectedButton = ({
               <Label className="ml-4 text-sm font-light text-white">Today</Label>
               <div className="flex w-full flex-col">
                 {transactions.map((transaction, index) => (
-                  <div className="group w-full">
+                  <div className="group w-full" key={index}>
                     <div
                       className="flex w-full cursor-pointer items-start gap-2 bg-gradient-to-r px-4 py-2 group-hover:from-eerie-black group-hover:to-chinese-black"
                       key={index}
@@ -255,7 +255,7 @@ function DisconnectWallet() {
           <div className="rounded-3xl border border-gunmetal bg-chinese-black">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
               <Label className="text-2xl font-semibold text-lotion">Disconnect Wallet</Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             <div className="mb-6 px-5 py-4 pb-0">
               <Label className="text-sm font-light text-cool-grey">

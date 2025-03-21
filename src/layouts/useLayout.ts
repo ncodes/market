@@ -38,18 +38,18 @@ export default function useLayout() {
     }
   }, [getAuthUserQry.data, getAuthUserQry.isSuccess, getAuthUserQry.isError]);
 
-  const getCountryCode = useQuery({
-    queryKey: ["getCountryCode", {}],
-    queryFn: getRequestCountryCode,
-    enabled: true,
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
-    refetchInterval: false,
-  });
+  // const getCountryCode = useQuery({
+  //   queryKey: ["getCountryCode", {}],
+  //   queryFn: getRequestCountryCode,
+  //   enabled: true,
+  //   refetchOnWindowFocus: false,
+  //   refetchOnMount: false,
+  //   refetchInterval: false,
+  // });
 
-  useEffect(() => {
-    if (getCountryCode.isSuccess) setBrowserCountryCode(getCountryCode.data);
-  }, [getCountryCode.isSuccess, getCountryCode.data]);
+  // useEffect(() => {
+  // if (getCountryCode.isSuccess) setBrowserCountryCode(getCountryCode.data);
+  // }, [getCountryCode.isSuccess, getCountryCode.data]);
 
   return {};
 }
