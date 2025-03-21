@@ -1,6 +1,6 @@
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import useMarketContract from "@/hooks/services/contracts/useMarketContract";
-import { delay, logError } from "@/libs/helpers";
+import { logError } from "@/libs/helpers";
 import { defaultChain } from "@/libs/utils";
 import { AssetType } from "@/types/enums";
 import { TokenList, TokenLists } from "@jointlabs/meta";

@@ -15,7 +15,9 @@ export function CreateMarketButton({
 }: {
   state: MarketCreatorState;
   errors: Record<string, string[]>;
-  onConfirm: () => Promise<void>;
+  onConfirm: () => Promise<{
+    marketId: string | null;
+  }>;
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -112,7 +114,7 @@ export function CreateMarketButton({
                 </Button>
               </div>
             )}
-            {loading && <LoadingIndicator className="pb-3"/>}
+            {loading && <LoadingIndicator className="pb-3" />}
           </div>
           {!loading && (
             <Button
