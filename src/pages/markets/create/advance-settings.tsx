@@ -8,26 +8,21 @@ import { cn } from "@/libs/utils.ts";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import SelectMediatorPool from "./select-mediator-pool";
-
-export interface MarketSettinsProps {
-  permPut: boolean;
-  permSwap: boolean;
-  mediatorPool?: MediatorPool;
-  marketManager?: string;
-}
+import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
+import { AlertTriangleIcon } from "lucide-react";
 
 export function AdvanceSettings({
-  setMarketSettings,
+  state,
+  errors,
+  setState,
 }: {
-  setMarketSettings: React.Dispatch<React.SetStateAction<MarketSettinsProps>>;
+  state: MarketCreatorState;
+  errors: Record<string, string[]>;
+  setState: React.Dispatch<React.SetStateAction<MarketCreatorState>>;
 }) {
   const [isOpened, setIsOpened] = useState(false);
   const contentHeight = useRef<HTMLDivElement>(null);
   const [animCount, setAnimCount] = useState(0);
-  const [options, setOptions] = useState<MarketSettinsProps>({
-    permPut: false,
-    permSwap: false,
-  });
 
   return (
     <motion.div className={cn("relative w-full overflow-hidden py-0 pt-0")}>
@@ -56,27 +51,25 @@ export function AdvanceSettings({
           <div className="flex w-full justify-between">
             <InfoLabel text="Anyone can add liquidity" info="Anyone can add liquidity" className="text-sm" />
             <Switch
-              checked={options.permPut}
+              checked={state.permPut}
               onCheckedChange={(v) => {
-                setOptions((prev) => ({ ...prev, permPut: v }));
-                setMarketSettings?.((prev) => ({ ...prev, permPut: v }));
+                setState((prev) => ({ ...prev, permPut: v }));
               }}
             />
           </div>
           <div className="flex w-full justify-between">
             <InfoLabel text="Anyone can swap" info="Anyone can swap" className="text-sm" />
             <Switch
-              checked={options.permSwap}
+              checked={state.permSwap}
               onCheckedChange={(v) => {
-                setOptions((prev) => ({ ...prev, permSwap: v }));
-                setMarketSettings?.((prev) => ({ ...prev, permSwap: v }));
+                setState((prev) => ({ ...prev, permSwap: v }));
               }}
             />
           </div>
           <div className="flex w-full justify-between">
             <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />
             <SelectMediatorPool
-              onMediatorPoolSelected={(value) => setMarketSettings((prev) => ({ ...prev, mediatorPool: value }))}
+              onMediatorPoolSelected={(value) => setState((prev) => ({ ...prev, mediatorPool: value }))}
             />
           </div>
           <div className="flex w-full flex-col gap-1 pr-2">
@@ -87,9 +80,15 @@ export function AdvanceSettings({
               className="!font-poppins"
               hideSuffix
               onChange={({ currentTarget }) => {
-                setMarketSettings((prev) => ({ ...prev, marketManager: currentTarget.value }));
+                setState((prev) => ({ ...prev, marketManager: currentTarget.value }));
               }}
             />
+            {errors.marketManager?.[0] && (
+              <span className="mt-2 flex items-center gap-1 text-xs tracking-wide text-red-500">
+                <AlertTriangleIcon className="h-3 w-3" />
+                <span>{errors.marketManager?.[0]}</span>
+              </span>
+            )}
           </div>
         </div>
       </motion.div>

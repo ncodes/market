@@ -5,81 +5,39 @@ import { useState } from "react";
 import { Switch } from "../../../components/ui/switch";
 import { AssetOverview } from "./asset-overview";
 import CloseIcon from "@/components/CloseIcon";
-import { MarketSettinsProps } from "./advance-settings";
-import useMarketContract from "@/hooks/services/contracts/useMarketContract";
-import { useQueryClient } from "@tanstack/react-query";
-import { delay, logError, tokenTypeToAssetType } from "@/libs/helpers";
 import LoadingIndicator from "@/components/LoadingIndicator";
+import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
 
 export function CreateMarketButton({
-  baseAsset,
-  quoteAsset,
-  marketSettings,
-  commission,
+  state,
+  errors,
+  onConfirm,
 }: {
-  commission: number;
-  baseAsset?: AssetInfo;
-  quoteAsset?: AssetInfo;
-  marketSettings: MarketSettinsProps;
+  state: MarketCreatorState;
+  errors: Record<string, string[]>;
+  onConfirm: () => Promise<void>;
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { createMarket, humanizeErrors, createMarketWithManager } = useMarketContract();
-  const queryClient = useQueryClient();
 
-  const doCreateMarket = async () => {
-    if (!baseAsset || !quoteAsset) return;
-    console.log(baseAsset.address,
-      quoteAsset.address,
-      tokenTypeToAssetType(baseAsset.type),
-      tokenTypeToAssetType(quoteAsset.type),
-      marketSettings.permPut,
-      marketSettings.permSwap,
-      (commission || 0) * 100,
-      marketSettings.mediatorPool?.id ?? 0,);
+  function canCreate(open: boolean) {
+    if (Object.keys(errors).length === 0) {
+      setOpen(open);
+    }
+  }
 
+  async function handleSubmit() {
+    setLoading(true);
     try {
-      setLoading(true);
-      if (marketSettings.marketManager) {
-        await createMarketWithManager(
-          baseAsset.address,
-          quoteAsset.address,
-          tokenTypeToAssetType(baseAsset.type),
-          tokenTypeToAssetType(quoteAsset.type),
-          marketSettings.permPut,
-          marketSettings.permSwap,
-          (commission || 0) * 100,
-          marketSettings.mediatorPool?.id ?? 0,
-          marketSettings.marketManager,
-        );
-      } else {
-        await createMarket(
-          baseAsset.address,
-          quoteAsset.address,
-          tokenTypeToAssetType(baseAsset.type),
-          tokenTypeToAssetType(quoteAsset.type),
-          marketSettings.permPut,
-          marketSettings.permSwap,
-          (commission || 0) * 100,
-          marketSettings.mediatorPool?.id ?? 0,
-        );
-      }
-      await delay(5000);
-
-      queryClient.refetchQueries({ queryKey: ["getMarkets"] }).catch(logError);
-      setOpen(false);
-    } catch (error) {
-      const msg = humanizeErrors(error);
-      logError(error);
+      await onConfirm();
     } finally {
       setLoading(false);
     }
-  };
-
+  }
   return (
     <Modal
       open={open}
-      onOpenChange={(open) => setOpen(open)}
+      onOpenChange={canCreate}
       triggerClassName="w-full"
       triggerComponent={
         <Button variant={"secondary"} className="btn">
@@ -98,16 +56,16 @@ export function CreateMarketButton({
               <div className="flex gap-14">
                 <AssetOverview
                   title="Base Asset"
-                  asset={baseAsset?.symbol ?? ""}
-                  assetImage={baseAsset?.logoURI ?? ""}
+                  asset={state.baseToken?.symbol ?? ""}
+                  assetImage={state.baseToken?.logoURI ?? ""}
                   inputWrapperClassName="bg-black-coral/10 gap-1.5"
                   labelClassName="text-lotion/60 font-normal"
                   className="w-32"
                 />
                 <AssetOverview
                   title={"Quote Asset"}
-                  asset={quoteAsset?.symbol ?? ""}
-                  assetImage={quoteAsset?.logoURI ?? ""}
+                  asset={state.quoteToken?.symbol ?? ""}
+                  assetImage={state.quoteToken?.logoURI ?? ""}
                   inputWrapperClassName="bg-black-coral/10 gap-1.5"
                   labelClassName="text-lotion/60 font-normal"
                   className="w-32"
@@ -117,13 +75,15 @@ export function CreateMarketButton({
                 <div className="flex w-32 flex-col gap-2">
                   <Label className="text-sm tracking-wider text-lotion/60">Commission</Label>
                   <div className="flex w-[89px] items-center justify-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                    <Label className="text-center text-base text-gray-100">{commission}%</Label>
+                    <Label className="text-center text-base text-gray-100">{state.commission}%</Label>
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
                   <Label className="text-sm tracking-wider text-lotion/60">Market Manager</Label>
                   <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                    <Label className="text-base text-gray-100">{marketSettings.marketManager ?? "Not set"}</Label>
+                    <Label className="text-base text-gray-100">
+                      {state.marketManager ? state.marketManager : "Not set"}
+                    </Label>
                   </div>
                 </div>
               </div>
@@ -131,32 +91,32 @@ export function CreateMarketButton({
             <div className="flex flex-col gap-4 border-t border-gunmetal/40 px-5 py-3">
               <div className="flex items-center justify-between">
                 <Label className="text-lotion/60">Anyone can add liquidity</Label>
-                <Switch checked={marketSettings.permPut} />
+                <Switch checked={state.permPut} />
               </div>
               <div className="flex items-center justify-between">
                 <Label className="text-lotion/60">Anyone can swap</Label>
-                <Switch checked={marketSettings.permSwap} />
+                <Switch checked={state.permSwap} />
               </div>
               <div className="flex items-center justify-between">
                 <Label className="text-lotion/60">Select Mediator Pool</Label>
                 <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                  <Label className="text-base text-gray-100">{marketSettings.mediatorPool?.name ?? "Not set"}</Label>
+                  <Label className="text-base text-gray-100">{state.mediatorPool?.name ?? "Not set"}</Label>
                 </div>
               </div>
             </div>
 
             {!loading && (
               <div className="block w-full px-5 pb-3 lg:hidden">
-                <Button onClick={() => doCreateMarket()} variant={"secondary"} className="btn w-full font-semibold">
+                <Button onClick={handleSubmit} variant={"secondary"} className="btn w-full font-semibold">
                   Confirm
                 </Button>
               </div>
             )}
-            {loading && <LoadingIndicator />}
+            {loading && <LoadingIndicator className="pb-3"/>}
           </div>
           {!loading && (
             <Button
-              onClick={() => doCreateMarket()}
+              onClick={handleSubmit}
               variant={"secondary"}
               className="btn mt-2 hidden w-full text-lg font-semibold lg:block"
             >
