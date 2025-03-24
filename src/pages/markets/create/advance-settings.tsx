@@ -6,10 +6,10 @@ import { Label } from "@/components/ui/label.tsx";
 import { Switch } from "@/components/ui/switch.tsx";
 import { cn } from "@/libs/utils.ts";
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
-import SelectMediatorPool from "./select-mediator-pool";
-import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
 import { AlertTriangleIcon } from "lucide-react";
+import { useRef, useState } from "react";
+import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
+import SelectMediatorPool from "./select-mediator-pool";
 
 export function AdvanceSettings({
   state,
@@ -77,11 +77,12 @@ export function AdvanceSettings({
             <Input
               type="text"
               placeholder="0x000"
-              className="!font-poppins"
-              hideSuffix
+              className="pr-4 !font-poppins !text-sm"
+              containerClassName="rounded-2xl"
               onChange={({ currentTarget }) => {
                 setState((prev) => ({ ...prev, marketManager: currentTarget.value }));
               }}
+              hideSuffix
             />
             {errors.marketManager?.[0] && (
               <span className="mt-2 flex items-center gap-1 text-xs tracking-wide text-red-500">

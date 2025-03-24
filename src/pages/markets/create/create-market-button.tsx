@@ -129,7 +129,7 @@ export function CreateMarketButton({
             className="btn mt-2 hidden w-full gap-1 text-lg font-semibold lg:flex"
           >
             {loading && <Loader2 className="animate-spin" />}
-            {!loading ? "Confirm" : "Confirming..."}
+            {!loading ? "Confirm" : "Creating..."}
           </Button>
         </div>
       }

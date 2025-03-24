@@ -76,7 +76,6 @@ export default function useMarketCreatorLogic() {
       manager?: string;
     }) => {
       if (!params.manager) {
-        console.log("A")
         return createMarket(
           params.baseAddress,
           params.quoteAddress,
@@ -88,7 +87,6 @@ export default function useMarketCreatorLogic() {
           params.poolId,
         );
       } else {
-        console.log("B")
         return createMarketWithManager(
           params.baseAddress,
           params.quoteAddress,

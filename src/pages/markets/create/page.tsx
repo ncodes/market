@@ -1,11 +1,11 @@
 import { AssetButton } from "@/components/AssetButton.tsx";
 import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
+import { Skeleton } from "@/components/ui/skeleton.tsx";
 import PageLayout from "@/layouts/PageLayout.tsx";
 import { AdvanceSettings } from "./advance-settings.tsx";
 import { CommisionInput } from "./commission-input.tsx";
 import { CreateMarketButton } from "./create-market-button.tsx";
-import { Skeleton } from "@/components/ui/skeleton.tsx";
 import useMarketCreatorLogic from "./hooks/useMarketCreatorLogic.ts";
 
 export default function CreateMarketPage() {
@@ -27,7 +27,7 @@ export default function CreateMarketPage() {
                     <InfoLabel text="Base Asset" info="This is the base asset" />
                     <AssetButton
                       text={state.baseToken?.symbol ?? ""}
-                      selectAsset={(asset) => onTokenSelect(asset, {base: true})}
+                      selectAsset={(asset) => onTokenSelect(asset, { base: true })}
                       assetImage={state.baseToken?.logoURI ?? ""}
                       className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                       textClassName="text-cool-grey"
@@ -39,20 +39,25 @@ export default function CreateMarketPage() {
                     <AssetButton
                       text={state.quoteToken?.symbol ?? ""}
                       assetImage={state.quoteToken?.logoURI ?? ""}
-                      selectAsset={(asset) => onTokenSelect(asset, {base: false})}
+                      selectAsset={(asset) => onTokenSelect(asset, { base: false })}
                       className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                       textClassName="text-cool-grey"
                       assetClassName="w-8 h-8"
                     />
                   </div>
                 </div>
-                <CommisionInput className="mt-4" setCommission={setCommission} commission={state.commission} errors={errors}/>
+                <CommisionInput
+                  className="mt-4"
+                  setCommission={setCommission}
+                  commission={state.commission}
+                  errors={errors}
+                />
               </div>
-              <div className="flex w-full flex-col gap-4 px-5 pb-3 pt-3 md:px-5">
-                <AdvanceSettings state={state} setState={setState} errors={errors}/>
+              <div className="flex w-full flex-col gap-4 px-5 pb-1 pt-3 md:px-5">
+                <AdvanceSettings state={state} setState={setState} errors={errors} />
               </div>
             </div>
-            <CreateMarketButton state={state} onConfirm={onConfirm} errors={errors}/>
+            <CreateMarketButton state={state} onConfirm={onConfirm} errors={errors} />
           </div>
         )}
       </div>
