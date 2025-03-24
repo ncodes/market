@@ -5,8 +5,8 @@ import { useState } from "react";
 import { Switch } from "../../../components/ui/switch";
 import { AssetOverview } from "./asset-overview";
 import CloseIcon from "@/components/CloseIcon";
-import LoadingIndicator from "@/components/LoadingIndicator";
 import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
+import { Loader } from "lucide-react";
 
 export function CreateMarketButton({
   state,
@@ -110,24 +110,27 @@ export function CreateMarketButton({
               </div>
             </div>
 
-            {!loading && (
-              <div className="block w-full px-5 pb-3 lg:hidden">
-                <Button onClick={handleSubmit} variant={"secondary"} className="btn w-full font-semibold">
-                  Confirm
-                </Button>
-              </div>
-            )}
-            {loading && <LoadingIndicator className="pb-3" />}
+            <div className="block w-full px-5 pb-3 lg:hidden">
+              <Button
+                disabled={loading}
+                onClick={handleSubmit}
+                variant={"secondary"}
+                className="btn flex w-full gap-1 font-semibold"
+              >
+                Confirm
+                {loading && <Loader />}
+              </Button>
+            </div>
           </div>
-          {!loading && (
-            <Button
-              onClick={handleSubmit}
-              variant={"secondary"}
-              className="btn mt-2 hidden w-full text-lg font-semibold lg:block"
-            >
-              Confirm
-            </Button>
-          )}
+          <Button
+            disabled={loading}
+            onClick={handleSubmit}
+            variant={"secondary"}
+            className="btn mt-2 hidden w-full gap-1 text-lg font-semibold lg:flex"
+          >
+            Confirm
+            {loading && <Loader />}
+          </Button>
         </div>
       }
     />
