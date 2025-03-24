@@ -31,7 +31,10 @@ export function CreateMarketButton({
   async function handleSubmit() {
     setLoading(true);
     try {
-      await onConfirm();
+      const { marketId } = await onConfirm();
+      if (marketId) {
+        setOpen(false);
+      }
     } finally {
       setLoading(false);
     }

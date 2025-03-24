@@ -58,14 +58,10 @@ function tokenTypeToAssetType(type: string) {
  */
 export default function useMarketCreatorLogic() {
   const [state, setState] = useState<MarketCreatorState>(defaultState);
-  const { chainInfo, getChainInfo, switchNetwork } = useConnectorContext();
+  const { getChainInfo, switchNetwork } = useConnectorContext();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { createMarket, createMarketWithManager, humanizeErrors } = useMarketContract();
   const { selectedChain } = useStore();
-
-  useEffect(() => {
-    console.log(chainInfo);
-  }, [chainInfo]);
 
   const mutCreateMarket = useMutation({
     mutationFn: async (params: {
@@ -123,7 +119,7 @@ export default function useMarketCreatorLogic() {
     const tokenLists = TokenLists[defaultChain.queryName];
     const eth = tokenLists.tokens.find((token) => token.symbol === "ETH");
     const join = tokenLists.tokens.find((token) => token.symbol === "JOIN");
-    
+
     setState((prev) => ({
       ...prev,
       baseToken: eth,
@@ -169,7 +165,7 @@ export default function useMarketCreatorLogic() {
 
     try {
       await switchNetwork(selectedChain.chainId);
-      
+
       const [, txReceipt] = await mutCreateMarket.mutateAsync({
         baseAddress: state.baseToken?.address as `0x${string}`,
         quoteAddress: state.quoteToken?.address as `0x${string}`,
@@ -190,7 +186,14 @@ export default function useMarketCreatorLogic() {
 
       toast.success("Market Created", { description: "Your market was created successfully", position: "top-right" });
 
-      setState((prev) => ({ ...prev, commission: 0, marketManager: undefined, permPut: false, permSwap: false }));
+      try {
+        const tokenLists = TokenLists[defaultChain.queryName]
+        const eth = tokenLists.tokens.find((token) => token.symbol === "ETH");
+        const join = tokenLists.tokens.find((token) => token.symbol === "JOIN");
+
+        setState((prev) => ({ ...prev, baseToken: eth, quoteToken: join, commission: 0, marketManager: undefined, permPut: false, permSwap: false }));
+      } catch (error) { }
+
       return { marketId: event.args.id };
     } catch (error) {
       const msg = humanizeErrors(error);
