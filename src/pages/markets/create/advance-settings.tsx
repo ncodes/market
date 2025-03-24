@@ -72,7 +72,7 @@ export function AdvanceSettings({
               onMediatorPoolSelected={(value) => setState((prev) => ({ ...prev, mediatorPool: value }))}
             />
           </div>
-          <div className="flex w-full flex-col gap-1 pr-2">
+          <div className="flex w-full flex-col gap-1 pr-0">
             <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
             <Input
               type="text"
