@@ -57,9 +57,13 @@ function tokenTypeToAssetType(type: string) {
  */
 export default function useMarketCreatorLogic() {
   const [state, setState] = useState<MarketCreatorState>(defaultState);
-  const { getChainInfo } = useConnectorContext();
+  const { chainInfo, getChainInfo } = useConnectorContext();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { createMarket, createMarketWithManager, humanizeErrors } = useMarketContract();
+
+  useEffect(() => {
+    console.log(chainInfo);
+  }, [chainInfo]);
 
   const mutCreateMarket = useMutation({
     mutationFn: async (params: {
@@ -193,5 +197,5 @@ export default function useMarketCreatorLogic() {
     }
   }
 
-  return { state, setState, onTokenSelect, errors, onConfirm, mutCreateMarket, setCommission};
+  return { state, setState, onTokenSelect, errors, onConfirm, mutCreateMarket, setCommission };
 }

@@ -26,7 +26,11 @@ export default function Modal({
   if (isDesktop) {
     return (
       <Dialog open={open} modal={true} onOpenChange={onOpenChange}>
-        {triggerComponent && <DialogTrigger className={triggerClassName}>{triggerComponent}</DialogTrigger>}
+        {triggerComponent && (
+          <DialogTrigger asChild className={triggerClassName}>
+            {triggerComponent}
+          </DialogTrigger>
+        )}
         <DialogContent className={cn("border-none bg-transparent px-0 py-0", desktopClassName)} hideCloseButton>
           {content}
         </DialogContent>
