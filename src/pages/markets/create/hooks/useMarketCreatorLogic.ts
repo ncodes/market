@@ -117,7 +117,7 @@ export default function useMarketCreatorLogic() {
     const tokenLists = TokenLists[defaultChain.queryName];
     const eth = tokenLists.tokens.find((token) => token.symbol === "ETH");
     const join = tokenLists.tokens.find((token) => token.symbol === "JOIN");
-    console.log(defaultChain, tokenLists.tokens, eth, join);
+    
     setState((prev) => ({
       ...prev,
       baseToken: eth,

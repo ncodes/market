@@ -11,11 +11,8 @@ import { useEffect, useState } from "react";
 import CloseIcon from "./CloseIcon";
 import Modal from "./Modal";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { useQuery } from "@tanstack/react-query";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
-import { useAssetService } from "@/hooks/services/backend/useAssetService";
 import { shortenAddress } from "@/libs/helpers";
-import Chains from "@jointlabs/meta";
+import Chains, { TokenList, TokenLists } from "@jointlabs/meta";
 import useStore from "@/hooks/store/useStore";
 
 export function AssetButton({
@@ -35,37 +32,30 @@ export function AssetButton({
   textClassName?: string;
   assetClassName?: string;
   networkClassName?: string;
-  selectAsset?: (asset: AssetInfo) => void;
+  selectAsset?: (asset: TokenList.Token) => void;
 }) {
   const [open, setOpen] = useState(false);
-  const { connected } = useConnectorContext();
-  const { getList } = useAssetService();
-  const [assets, setAssets] = useState<AssetInfo[]>([]);
+  const [assets, setAssets] = useState<TokenList.Token[]>([]);
   const { selectedChain } = useStore();
 
-  const fetchedAssets = useQuery({
-    queryKey: ["getList", { network: selectedChain.queryName }],
-    queryFn: getList,
-    enabled: connected,
-  });
-
   useEffect(() => {
-    if (fetchedAssets.data) {
-      setAssets(fetchedAssets.data);
-    }
-  }, [fetchedAssets.data]);
+    const tokenLists = TokenLists[selectedChain.queryName];
+    setAssets(tokenLists.tokens);
+  }, [selectedChain]);
 
   function handleSearchInput({ currentTarget }: React.ChangeEvent<HTMLInputElement>) {
+    const tokenLists = TokenLists[selectedChain.queryName];
     const { value } = currentTarget;
+
     if (value) {
-      const filteredAssets = fetchedAssets.data?.filter(
+      const filteredAssets = tokenLists.tokens.filter(
         (asset) =>
-          asset.name.toLowerCase().includes(value.toLowerCase()) ||
-          asset.symbol.toLowerCase().includes(value.toLowerCase()),
+          asset.name?.toLowerCase().includes(value.toLowerCase()) ||
+          asset.symbol?.toLowerCase().includes(value.toLowerCase()),
       );
       setAssets(filteredAssets ?? []);
     } else {
-      setAssets(fetchedAssets.data ?? []);
+      setAssets(tokenLists.tokens);
     }
   }
 
@@ -129,9 +119,9 @@ function AssetTile({
   selectAsset,
   setOpen,
 }: {
-  asset: AssetInfo;
+  asset: TokenList.Token;
   setOpen: (open: boolean) => void;
-  selectAsset?: (asset: AssetInfo) => void;
+  selectAsset?: (asset: TokenList.Token) => void;
 }) {
   return (
     <Button
@@ -144,12 +134,12 @@ function AssetTile({
     >
       <div className="group flex w-full cursor-pointer items-center justify-between px-3 py-2 hover:bg-eerie-black">
         <div className="flex cursor-pointer items-center gap-2">
-          <Avatar src={asset.logoURI} className="h-8 w-8 cursor-pointer" />
+          <Avatar src={asset.logoURI ?? ""} className="h-8 w-8 cursor-pointer" />
           <div className="flex flex-col gap-1">
             <Label className="text-lg font-light tracking-wider text-anti-flash-white">{asset.name}</Label>
             <span className="flex items-center gap-2">
               <label className="text-sm font-normal text-cool-grey">{asset.symbol}</label>
-              <span className="text-xs text-cool-grey/40">{shortenAddress(asset.address)}</span>
+              <span className="text-xs text-cool-grey/40">{shortenAddress(asset.address ?? "")}</span>
             </span>
           </div>
         </div>
