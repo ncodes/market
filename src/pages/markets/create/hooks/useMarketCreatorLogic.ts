@@ -1,5 +1,6 @@
 import { useConnectorContext } from "@/hooks/connectors/useConnectorContext";
 import useMarketContract from "@/hooks/services/contracts/useMarketContract";
+import useStore from "@/hooks/store/useStore";
 import { logError } from "@/libs/helpers";
 import { defaultChain } from "@/libs/utils";
 import { AssetType } from "@/types/enums";
@@ -57,9 +58,10 @@ function tokenTypeToAssetType(type: string) {
  */
 export default function useMarketCreatorLogic() {
   const [state, setState] = useState<MarketCreatorState>(defaultState);
-  const { chainInfo, getChainInfo } = useConnectorContext();
+  const { chainInfo, getChainInfo, switchNetwork } = useConnectorContext();
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const { createMarket, createMarketWithManager, humanizeErrors } = useMarketContract();
+  const { selectedChain } = useStore();
 
   useEffect(() => {
     console.log(chainInfo);
@@ -166,6 +168,8 @@ export default function useMarketCreatorLogic() {
     if (!state.baseToken || !state.quoteToken) return { marketId: null };
 
     try {
+      await switchNetwork(selectedChain.chainId);
+      
       const [, txReceipt] = await mutCreateMarket.mutateAsync({
         baseAddress: state.baseToken?.address as `0x${string}`,
         quoteAddress: state.quoteToken?.address as `0x${string}`,
