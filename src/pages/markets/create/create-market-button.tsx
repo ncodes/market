@@ -1,12 +1,12 @@
+import CloseIcon from "@/components/CloseIcon";
 import Modal from "@/components/Modal";
 import { Button } from "@/components/ui/button.tsx";
 import { Label } from "@/components/ui/label.tsx";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Switch } from "../../../components/ui/switch";
 import { AssetOverview } from "./asset-overview";
-import CloseIcon from "@/components/CloseIcon";
 import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
-import { Loader } from "lucide-react";
 
 export function CreateMarketButton({
   state,
@@ -117,8 +117,8 @@ export function CreateMarketButton({
                 variant={"secondary"}
                 className="btn flex w-full gap-1 font-semibold"
               >
+                {loading && <Loader2 className="animate-spin" />}
                 Confirm
-                {loading && <Loader />}
               </Button>
             </div>
           </div>
@@ -128,8 +128,8 @@ export function CreateMarketButton({
             variant={"secondary"}
             className="btn mt-2 hidden w-full gap-1 text-lg font-semibold lg:flex"
           >
-            Confirm
-            {loading && <Loader />}
+            {loading && <Loader2 className="animate-spin" />}
+            {!loading ? "Confirm" : "Confirming..."}
           </Button>
         </div>
       }

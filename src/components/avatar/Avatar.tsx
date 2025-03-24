@@ -17,8 +17,12 @@ export function Avatar({
 }) {
   return (
     <UIAvatar className={cn("flex w-auto items-center", rootClassName)}>
-      <AvatarImage src={src} className={cn("w-[30px]", className)} />
-      {fallback && <AvatarFallback className={cn("w-[30px]", fallbackClassName)}>{fallback}</AvatarFallback>}
+      {!!src && <AvatarImage src={src} className={cn("h-[30px] w-[30px] rounded-full", className)} />}
+      {(fallback || !src) && (
+        <AvatarFallback className={cn("h-[30px] w-[30px] overflow-hidden text-xs", fallbackClassName)}>
+          {fallback}
+        </AvatarFallback>
+      )}
     </UIAvatar>
   );
 }

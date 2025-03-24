@@ -5,15 +5,15 @@ import IconDropDown from "@/components/icons/IconDropDown";
 import { IconSearch } from "@/components/icons/IconSearch";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import useStore from "@/hooks/store/useStore";
+import { shortenAddress } from "@/libs/helpers";
 import { cn } from "@/libs/utils";
+import Chains, { TokenList, TokenLists } from "@jointlabs/meta";
 import { CheckCircle2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import CloseIcon from "./CloseIcon";
 import Modal from "./Modal";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { shortenAddress } from "@/libs/helpers";
-import Chains, { TokenList, TokenLists } from "@jointlabs/meta";
-import useStore from "@/hooks/store/useStore";
 
 export function AssetButton({
   text,
@@ -91,7 +91,7 @@ export function AssetButton({
             <Label className="text-lg font-normal tracking-wider text-lotion md:text-xl">Select a token</Label>
             <CloseIcon setOpen={setOpen} />
           </div>
-          <div className="flex h-fit justify-between border-y border-eerie-black px-3 py-2">
+          <div className="flex h-fit justify-between gap-2 border-y border-eerie-black px-3 py-2">
             <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">
               <IconSearch className="opacity-40" />
               <input
@@ -134,9 +134,9 @@ function AssetTile({
     >
       <div className="group flex w-full cursor-pointer items-center justify-between px-3 py-2 hover:bg-eerie-black">
         <div className="flex cursor-pointer items-center gap-2">
-          <Avatar src={asset.logoURI ?? ""} className="h-8 w-8 cursor-pointer" />
+          <Avatar src={asset.logoURI ?? ""} fallback={asset.symbol} className="h-8 w-8 cursor-pointer" />
           <div className="flex flex-col gap-1">
-            <Label className="text-lg font-light tracking-wider text-anti-flash-white">{asset.name}</Label>
+            <Label className="text-sm tracking-wider text-anti-flash-white">{asset.name}</Label>
             <span className="flex items-center gap-2">
               <label className="text-sm font-normal text-cool-grey">{asset.symbol}</label>
               <span className="text-xs text-cool-grey/40">{shortenAddress(asset.address ?? "")}</span>
@@ -164,7 +164,7 @@ export function NetworkSelectorButton({ text, className, imgClassName }: Network
       <PopoverTrigger>
         <Button
           variant={"ghost"}
-          className={cn("rounded-2xl p-2 pl-3 hover:bg-eerie-black", className, {
+          className={cn("h-auto rounded-full p-2 hover:bg-eerie-black", className, {
             "!bg-eerie-black": open,
             "!bg-transparent": !open,
           })}
