@@ -1,5 +1,6 @@
-export enum AppPages {
-    SWAP = "/swap",
-    CREATE_LIQUIDITY = "/create/liquidity",
-    CREATE_MARKET = "/create/market"
+export const AppPages = {
+    swap: "/swap",
+    createLiquidity: "/create/liquidity",
+    createMarket: "/create/market",
+    viewMarket: (marketId: string) => `/market/view/${marketId}`,
 }

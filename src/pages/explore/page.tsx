@@ -54,7 +54,7 @@ export default function ExplorePage() {
                 <div className="hidden items-center gap-2 lg:flex">
                   {shouldAddLiquidity(currentTab) && (
                     <Button
-                      onClick={() => navigate(AppPages.CREATE_LIQUIDITY)}
+                      onClick={() => navigate(AppPages.createLiquidity)}
                       variant={"secondary"}
                       className="h-[30px] bg-white py-0 text-sm font-semibold text-gunmetal"
                     >
@@ -169,7 +169,7 @@ function MoreButton() {
         align="end"
       >
         <Button
-          onClick={() => navigate(AppPages.CREATE_LIQUIDITY)}
+          onClick={() => navigate(AppPages.createLiquidity)}
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
         >

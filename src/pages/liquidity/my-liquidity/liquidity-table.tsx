@@ -80,7 +80,7 @@ function MoreButton() {
         <SelectChainButton />
         <SelectStatusButton />
         <Button
-          onClick={() => navigate(AppPages.CREATE_LIQUIDITY)}
+          onClick={() => navigate(AppPages.createLiquidity)}
           variant={"ghost"}
           className="group h-auto w-full justify-between rounded-xl p-2 px-2 py-2 pr-0 font-light text-cool-grey hover:bg-eerie-black hover:text-white"
         >

@@ -9,6 +9,8 @@ import { AssetOverview } from "./asset-overview";
 import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
 import { shortenAddress } from "@/libs/helpers";
 import InfoLabel from "@/components/InfoLabel";
+import { useNavigate } from "react-router-dom";
+import { AppPages } from "@/libs/pages";
 
 export function CreateMarketButton({
   state,
@@ -23,6 +25,7 @@ export function CreateMarketButton({
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   function canCreate(open: boolean) {
     if (Object.keys(errors).length === 0) {
@@ -40,6 +43,7 @@ export function CreateMarketButton({
       const { marketId } = await onConfirm();
       if (marketId) {
         setOpen(false);
+        navigate(AppPages.viewMarket(marketId));
       }
     } finally {
       setLoading(false);
