@@ -15,12 +15,12 @@ export function isOnchain(assetType: string): boolean {
 
 /**
  * Determines if two assets can interact with each other
- * @param {string} assetTypeA - The type of the first asset
- * @param {string} assetTypeB - The type of the second asset
+ * @param {string} typeA - The type of the first asset
+ * @param {string} typeB - The type of the second asset
  * @returns {boolean} True if at least one asset is off-chain, false if both are on-chain
  */
-export function isInteractive(assetTypeA: string, assetTypeB: string): boolean {
-  const isAssetAOnchain = isOnchain(assetTypeA);
-  const isAssetBOnchain = isOnchain(assetTypeB);
+export function isPairInteractive(typeA: string, typeB: string): boolean {
+  const isAssetAOnchain = isOnchain(typeA);
+  const isAssetBOnchain = isOnchain(typeB);
   return !isAssetAOnchain || !isAssetBOnchain;
 }
