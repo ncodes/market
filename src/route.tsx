@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/market/view",
+    path: "/market/view/:marketId",
     element: <Layout page={<ViewMarketPage />} />,
     errorElement: <ErrorPage />,
   },

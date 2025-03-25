@@ -13,6 +13,7 @@ export default function Input({
   onChange,
   value,
   readOnly,
+  containerClassName,
 }: {
   type?: string;
   suffix?: string | React.ReactNode;
@@ -24,6 +25,7 @@ export default function Input({
   value?: string | number;
   readOnly?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  containerClassName?: string;
 }) {
   const childrenArray = React.Children.toArray(children);
   const leftLabel = children ? childrenArray.find((child: any) => child.type === LeftLabel) : null;
@@ -31,7 +33,12 @@ export default function Input({
 
   return (
     <div>
-      <div className="flex h-11 w-full items-center rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30">
+      <div
+        className={cn(
+          "flex h-11 w-full items-center rounded-3xl bg-black-coral/20 pl-1 transition-all duration-500 focus-within:bg-black-coral/30 hover:bg-black-coral/30",
+          containerClassName,
+        )}
+      >
         <input
           onChange={onChange}
           type={type || "number"}

@@ -1,13 +1,13 @@
-import { Button } from "../ui/button";
-import LogoMark from "../icons/LogoMark";
-import { ChevronDown } from "lucide-react";
-import { cn } from "@/libs/utils";
-import { useRef, useState } from "react";
-import { Label } from "../ui/label";
-import { motion } from "framer-motion";
 import { DiscordIcon, TelegramIcon, XIcon as TwitterIcon } from "@/assets";
-import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
+import { cn } from "@/libs/utils";
+import { motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useRef, useState } from "react";
 import CloseIcon from "../CloseIcon";
+import LogoMark from "../icons/LogoMark";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 
 export default function MobileHeader() {
   const [open, setOpen] = useState(false);
@@ -15,8 +15,7 @@ export default function MobileHeader() {
   return (
     <div className="flex md:hidden">
       <Sheet open={open} onOpenChange={(open) => setOpen(open)}>
-        <SheetTrigger>
-          {" "}
+        <SheetTrigger asChild>
           <Button
             onClick={() => setOpen(false)}
             className="m-0 h-auto justify-start gap-1 rounded-none bg-transparent p-0 text-start hover:bg-transparent"
@@ -33,7 +32,7 @@ export default function MobileHeader() {
           side={"bottom"}
         >
           <div className="flex items-center justify-end px-5 pt-4">
-            <CloseIcon setOpen={setOpen}/>
+            <CloseIcon setOpen={setOpen} />
           </div>
           <div className="h-[80vh] overflow-y-auto">
             <div className="flex h-fit w-full flex-col gap-3 px-5">
