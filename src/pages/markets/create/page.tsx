@@ -3,11 +3,11 @@ import InfoLabel from "@/components/InfoLabel.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { Skeleton } from "@/components/ui/skeleton.tsx";
 import PageLayout from "@/layouts/PageLayout.tsx";
+import { isPairInteractive } from "@/libs/asset.ts";
 import { AdvanceSettings } from "./advance-settings.tsx";
 import { CommisionInput } from "./commission-input.tsx";
 import { CreateMarketButton } from "./create-market-button.tsx";
 import useMarketCreatorLogic from "./hooks/useMarketCreatorLogic.ts";
-import { isInteractive } from "@/libs/asset.ts";
 
 export default function CreateMarketPage() {
   const { state, setState, onTokenSelect, errors, onConfirm, setCommission } = useMarketCreatorLogic();
@@ -59,7 +59,7 @@ export default function CreateMarketPage() {
                   state={state}
                   setState={setState}
                   errors={errors}
-                  isInteractive={isInteractive(state.baseToken?.type ?? "", state.quoteToken?.type ?? "")}
+                  isInteractive={isPairInteractive(state.baseToken?.type ?? "", state.quoteToken?.type ?? "")}
                 />
               </div>
             </div>
