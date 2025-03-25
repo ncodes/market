@@ -7,6 +7,8 @@ import { useState } from "react";
 import { Switch } from "../../../components/ui/switch";
 import { AssetOverview } from "./asset-overview";
 import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
+import { shortenAddress } from "@/libs/helpers";
+import InfoLabel from "@/components/InfoLabel";
 
 export function CreateMarketButton({
   state,
@@ -24,6 +26,10 @@ export function CreateMarketButton({
 
   function canCreate(open: boolean) {
     if (Object.keys(errors).length === 0) {
+      if (open === false && loading) {
+        return;
+      }
+
       setOpen(open);
     }
   }
@@ -49,13 +55,13 @@ export function CreateMarketButton({
           Create
         </Button>
       }
-      desktopClassName="w-[450px]"
+      desktopClassName="w-full md:max-w-full lg:max-w-[450px]"
       content={
-        <div className="w-full">
+        <div className="w-full md:max-w-full lg:max-w-[450px]">
           <div className="mb-1 w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins md:rounded-b-3xl">
             <div className="flex items-center justify-between border-b border-gunmetal/50 px-5 py-4">
               <Label className="text-xl font-semibold text-lotion lg:text-2xl">Confirm Market Creation</Label>
-              <CloseIcon setOpen={setOpen} />
+              <CloseIcon setOpen={loading ? () => {} : setOpen} />
             </div>
             <div className="flex flex-col gap-5 px-6 py-4">
               <div className="flex gap-14">
@@ -84,10 +90,14 @@ export function CreateMarketButton({
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <Label className="text-sm tracking-wider text-lotion/60">Market Manager</Label>
+                  <InfoLabel
+                    text="Market Manager"
+                    info={state.marketManager ? state.marketManager : "Not set"}
+                    popupClassName="w-max px-2 pr-5 box-content"
+                  />
                   <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
                     <Label className="text-base text-gray-100">
-                      {state.marketManager ? state.marketManager : "Not set"}
+                      {state.marketManager ? shortenAddress(state.marketManager) : "Not set"}
                     </Label>
                   </div>
                 </div>

@@ -15,10 +15,12 @@ export function AdvanceSettings({
   state,
   errors,
   setState,
+  isInteractive,
 }: {
   state: MarketCreatorState;
   errors: Record<string, string[]>;
   setState: React.Dispatch<React.SetStateAction<MarketCreatorState>>;
+  isInteractive: boolean;
 }) {
   const [isOpened, setIsOpened] = useState(false);
   const contentHeight = useRef<HTMLDivElement>(null);
@@ -66,12 +68,14 @@ export function AdvanceSettings({
               }}
             />
           </div>
-          <div className="flex w-full justify-between">
-            <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />
-            <SelectMediatorPool
-              onMediatorPoolSelected={(value) => setState((prev) => ({ ...prev, mediatorPool: value }))}
-            />
-          </div>
+          {isInteractive && (
+            <div className="flex w-full justify-between">
+              <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />
+              <SelectMediatorPool
+                onMediatorPoolSelected={(value) => setState((prev) => ({ ...prev, mediatorPool: value }))}
+              />
+            </div>
+          )}
           <div className="flex w-full flex-col gap-1 pr-0">
             <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
             <Input

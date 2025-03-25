@@ -7,6 +7,7 @@ import { AdvanceSettings } from "./advance-settings.tsx";
 import { CommisionInput } from "./commission-input.tsx";
 import { CreateMarketButton } from "./create-market-button.tsx";
 import useMarketCreatorLogic from "./hooks/useMarketCreatorLogic.ts";
+import { isInteractive } from "@/libs/asset.ts";
 
 export default function CreateMarketPage() {
   const { state, setState, onTokenSelect, errors, onConfirm, setCommission } = useMarketCreatorLogic();
@@ -54,7 +55,12 @@ export default function CreateMarketPage() {
                 />
               </div>
               <div className="flex w-full flex-col gap-4 px-5 pb-1 pt-3 md:px-5">
-                <AdvanceSettings state={state} setState={setState} errors={errors} />
+                <AdvanceSettings
+                  state={state}
+                  setState={setState}
+                  errors={errors}
+                  isInteractive={isInteractive(state.baseToken?.type ?? "", state.quoteToken?.type ?? "")}
+                />
               </div>
             </div>
             <CreateMarketButton state={state} onConfirm={onConfirm} errors={errors} />
