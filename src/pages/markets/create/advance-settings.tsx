@@ -24,7 +24,6 @@ export function AdvanceSettings({
 }) {
   const [isOpened, setIsOpened] = useState(false);
   const contentHeight = useRef<HTMLDivElement>(null);
-  const [animCount, setAnimCount] = useState(0);
 
   return (
     <motion.div className={cn("relative w-full overflow-hidden py-0 pt-0")}>
@@ -37,17 +36,13 @@ export function AdvanceSettings({
         <IconDropDown className={cn("transition-transform", isOpened ? "rotate-180" : "")} />
       </Button>
       <motion.div
-        initial={{ opacity: 0, visibility: "hidden", position: "absolute" }}
+        initial={{ opacity: 0, height: 0, visibility: "hidden" }}
         animate={{
-          height: isOpened ? contentHeight.current?.clientHeight : "0",
+          height: isOpened ? "auto" : 0,
           opacity: isOpened ? [0, 0.5, 1] : 0,
           visibility: isOpened ? "visible" : "hidden",
-          position: animCount === 0 ? (isOpened ? "relative" : "absolute") : "relative",
         }}
-        transition={{ duration: 0.3, ease: "linear" }}
-        onAnimationComplete={() => {
-          setAnimCount((prev) => prev + 1);
-        }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
         <div ref={contentHeight} className="flex w-full flex-col gap-4 py-2">
           <div className="flex w-full justify-between">

@@ -8,9 +8,9 @@ import { Switch } from "../../../components/ui/switch";
 import { AssetOverview } from "./asset-overview";
 import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
 import { shortenAddress } from "@/libs/helpers";
-import InfoLabel from "@/components/InfoLabel";
 import { useNavigate } from "react-router-dom";
 import { AppPages } from "@/libs/pages";
+import { ToolTip } from "@/components/ToolTip";
 
 export function CreateMarketButton({
   state,
@@ -94,16 +94,18 @@ export function CreateMarketButton({
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <InfoLabel
-                    text="Market Manager"
-                    info={state.marketManager ? state.marketManager : "Not set"}
-                    popupClassName="w-max px-2 pr-5 box-content"
-                  />
-                  <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                    <Label className="text-base text-gray-100">
-                      {state.marketManager ? shortenAddress(state.marketManager) : "Not set"}
-                    </Label>
-                  </div>
+                  <Label className="text-sm tracking-wider text-lotion/60">Market Manager</Label>
+                  <ToolTip
+                    tip={state.marketManager ? state.marketManager : "Not set"}
+                    className="opacity-50 hover:opacity-100"
+                    className2="w-max px-2 pr-5 box-content"
+                  >
+                    <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
+                      <Label className="text-base text-gray-100">
+                        {state.marketManager ? shortenAddress(state.marketManager) : "Not set"}
+                      </Label>
+                    </div>
+                  </ToolTip>
                 </div>
               </div>
             </div>
