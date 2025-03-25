@@ -63,7 +63,7 @@ export function AssetButton({
     <Modal
       open={open}
       onOpenChange={(open) => setOpen(open)}
-      desktopClassName="w-[500px] h-[600px]"
+      desktopClassName="w-[450px] h-[500px]"
       triggerComponent={
         <Button
           className={cn(
