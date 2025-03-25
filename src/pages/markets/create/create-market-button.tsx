@@ -11,6 +11,7 @@ import { shortenAddress } from "@/libs/helpers";
 import { useNavigate } from "react-router-dom";
 import { AppPages } from "@/libs/pages";
 import { ToolTip } from "@/components/ToolTip";
+import { isPairInteractive } from "@/libs/asset";
 
 export function CreateMarketButton({
   state,
@@ -118,12 +119,14 @@ export function CreateMarketButton({
                 <Label className="text-lotion/60">Anyone can swap</Label>
                 <Switch checked={state.permSwap} />
               </div>
-              <div className="flex items-center justify-between">
-                <Label className="text-lotion/60">Select Mediator Pool</Label>
-                <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                  <Label className="text-base text-gray-100">{state.mediatorPool?.name ?? "Not set"}</Label>
+              {isPairInteractive(state.baseToken?.type ?? "", state.quoteToken?.type ?? "") && (
+                <div className="flex items-center justify-between">
+                  <Label className="text-lotion/60">Select Mediator Pool</Label>
+                  <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
+                    <Label className="text-base text-gray-100">{state.mediatorPool?.name ?? "Not set"}</Label>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
 
             <div className="block w-full px-5 pb-3 lg:hidden">
