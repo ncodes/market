@@ -71,7 +71,7 @@ export default function MobileHeader() {
   );
 }
 
-function MobileMenuItem({ text, url }: { text: string; url: string }) {
+function MobileMenuItem({ text }: { text: string; url: string }) {
   return (
     <Button
       variant={"link"}

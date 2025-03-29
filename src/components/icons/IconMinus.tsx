@@ -9,7 +9,7 @@ export default function IconMinus(props: React.SVGProps<SVGSVGElement>) {
         rx=".667"
         transform="matrix(1 0 0 -1 0 16)"
         fill="#FFF"
-        fill-rule="evenodd"
+        fillRule="evenodd"
       />
     </svg>
   );

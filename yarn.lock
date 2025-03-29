@@ -617,10 +617,10 @@
     wrap-ansi "^8.1.0"
     wrap-ansi-cjs "npm:wrap-ansi@^7.0.0"
 
-"@jointlabs/meta@^0.0.19":
-  version "0.0.19"
-  resolved "https://registry.yarnpkg.com/@jointlabs/meta/-/meta-0.0.19.tgz#49eeb5f9730defa7b9af1f2dbf2248de59eb66ce"
-  integrity sha512-oD7KNDU6a4XS6mgcsTwvDxyvKXrv6UwWOYPmm51iR4lzUOqKBPlXFFcx8fEZ86mnpVp2JY3JA+UTBvHXPXv+kw==
+"@jointlabs/meta@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@jointlabs/meta/-/meta-0.0.23.tgz#a10c5436e61068e8fbd64d1aab4fb4fb4e44f47a"
+  integrity sha512-oZsoe0AdpqTlzTmVZFKxPs6yimh2c7Vw9LtQNaE117OAslw+Ba8xdWjBv3ABotb1TFOdBNc4tWlZJUr4H/cBnQ==
   dependencies:
     "@typechain/ethers-v6" "^0.5.1"
     lodash "^4.17.21"

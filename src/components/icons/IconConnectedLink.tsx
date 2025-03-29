@@ -1,7 +1,7 @@
 function IconConnectedLink(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width="25" height="24" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <path d="M.392 0h24v24h-24z" />
         <path
           d="m10.27 12.707-2.12 2.121a1 1 0 1 0 1.414 1.415l2.12-2.122.708.707a2 2 0 0 1 0 2.829l-2.828 2.828a2 2 0 0 1-2.829 0l-2.828-2.828a2 2 0 0 1 0-2.829L6.735 12a2 2 0 0 1 2.829 0l.707.707z"

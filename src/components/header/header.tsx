@@ -1,14 +1,12 @@
-import { SearchBar } from "@/components/SearchBar";
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
 import Logo from "../icons/Logo";
+import { SearchBar } from "../searchBar";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
-import RegionSelectorButton from "./RegionSelectorButton";
-import SettingsButton from "./SettingsButton";
-import { Button } from "../ui/button";
 import MobileHeader from "./MobileHeader";
-import { Search } from "lucide-react";
+import RegionSelectorButton from "./RegionSelectorButton";
 import { SearchButton } from "./SearchButton";
+import SettingsButton from "./SettingsButton";
 
 export interface MenuItem {
   title: string;
@@ -51,7 +49,7 @@ export function Header() {
       <SearchBar />
       <div className="relative -top-1 flex w-fit items-center space-x-3">
         <div className="flex xl:hidden">
-          <SearchButton/>
+          <SearchButton />
         </div>
         <RegionSelectorButton />
         <SettingsButton />

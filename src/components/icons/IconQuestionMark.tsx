@@ -1,7 +1,7 @@
 export default function IconQuestionMark(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width="25" height="24" viewBox="0 0 25 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g transform="translate(.5)" fill="none" fill-rule="evenodd">
+      <g transform="translate(.5)" fill="none" fillRule="evenodd">
         <path d="M0 0h24v24H0z" />
         <circle fill="#8F90A6" opacity=".3" cx="12" cy="12" r="10" />
         <path

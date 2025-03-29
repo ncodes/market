@@ -1,3 +1,5 @@
+import { TokenList } from "@jointlabs/meta";
+
 /**
  * List of supported on-chain asset types
  * @type {string[]}
@@ -19,8 +21,8 @@ export function isOnchain(assetType: string): boolean {
  * @param {string} typeB - The type of the second asset
  * @returns {boolean} True if at least one asset is off-chain, false if both are on-chain
  */
-export function isPairInteractive(typeA: string, typeB: string): boolean {
-  const isAssetAOnchain = isOnchain(typeA);
-  const isAssetBOnchain = isOnchain(typeB);
+export function isPairInteractive(tokenA: TokenList.Token, tokenB: TokenList.Token): boolean {
+  const isAssetAOnchain = isOnchain(tokenA.type);
+  const isAssetBOnchain = isOnchain(tokenB.type);
   return !isAssetAOnchain || !isAssetBOnchain;
 }

@@ -1,18 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useConnectorContext } from "../hooks/connectors/useConnectorContext";
-import { useMiscService } from "../hooks/services/backend/useMiscService";
 import { useUserService } from "../hooks/services/backend/useUserService";
 import useStore from "../hooks/store/useStore";
 import { useSession } from "../hooks/useSession";
 
 export default function useLayout() {
   const { token, setAccessToken } = useSession();
-  const { getRequestCountryCode } = useMiscService();
+  // const { getRequestCountryCode } = useMiscService();
   const { getUser } = useUserService();
   const { address, chainInfo } = useConnectorContext();
   const setUser = useStore((state) => state.setUser);
-  const setBrowserCountryCode = useStore((state) => state.setBrowserCountryCode);
+  // const setBrowserCountryCode = useStore((state) => state.setBrowserCountryCode);
 
   useEffect(() => {
     if (!token) setUser(undefined);
@@ -40,7 +39,7 @@ export default function useLayout() {
 
   // const getCountryCode = useQuery({
   //   queryKey: ["getCountryCode", {}],
-  //   queryFn: getRequestCountryCode,
+  // queryFn: getRequestCountryCode,
   //   enabled: true,
   //   refetchOnWindowFocus: false,
   //   refetchOnMount: false,
