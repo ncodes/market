@@ -8,19 +8,19 @@ import { cn } from "@/libs/utils.ts";
 import { motion } from "framer-motion";
 import { AlertTriangleIcon } from "lucide-react";
 import { useRef, useState } from "react";
-import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
 import SelectMediatorPool from "./select-mediator-pool";
+import { MarketCreatorState } from "./useMarketCreatorLogic";
 
 export function AdvanceSettings({
   state,
   errors,
   setState,
-  isInteractive,
+  isMarketInteractive,
 }: {
   state: MarketCreatorState;
   errors: Record<string, string[]>;
   setState: React.Dispatch<React.SetStateAction<MarketCreatorState>>;
-  isInteractive: boolean;
+  isMarketInteractive: boolean;
 }) {
   const [isOpened, setIsOpened] = useState(false);
   const contentHeight = useRef<HTMLDivElement>(null);
@@ -32,7 +32,7 @@ export function AdvanceSettings({
         className="flex w-full justify-between text-nowrap bg-transparent p-0 hover:bg-transparent"
         onClick={() => setIsOpened((prev) => !prev)}
       >
-        <Label className="font-poppins text-sm font-semibold text-cool-grey lg:text-base">Advanced Settings</Label>
+        <Label className="font-poppins text-sm text-cool-grey">Advanced Settings</Label>
         <IconDropDown className={cn("transition-transform", isOpened ? "rotate-180" : "")} />
       </Button>
       <motion.div
@@ -63,7 +63,7 @@ export function AdvanceSettings({
               }}
             />
           </div>
-          {isInteractive && (
+          {isMarketInteractive && (
             <div className="flex w-full justify-between">
               <InfoLabel text="Select Mediator Pool" info="Select Mediator Pool" className="text-sm" />
               <SelectMediatorPool
@@ -72,7 +72,7 @@ export function AdvanceSettings({
             </div>
           )}
           <div className="flex w-full flex-col gap-1 pr-0">
-            <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-1" />
+            <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-2" />
             <Input
               type="text"
               placeholder="0x000"

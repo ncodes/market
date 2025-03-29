@@ -4,11 +4,11 @@ import CreateMarketPage from "@/pages/markets/create/page.tsx";
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./errors/error-page";
 import Layout from "./layouts/Layout";
+import ExplorePage from "./pages/explore/page";
 import LandingPage from "./pages/landing";
-import SwapPage from "./pages/swap/swap";
 import ViewLiquidityPage from "./pages/liquidity/view/page";
 import ViewMarketPage from "./pages/markets/view/page";
-import ExplorePage from "./pages/explore/page";
+import SwapPage from "./pages/swap/swap";
 
 const router = createBrowserRouter([
   {
@@ -22,12 +22,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/create/liquidity",
+    path: "/liquidity/create",
     element: <Layout page={<CreateLiquidityPage />} />,
     errorElement: <ErrorPage />,
   },
   {
-    path: "/create/market",
+    path: "/market/create",
     element: <Layout page={<CreateMarketPage />} />,
     errorElement: <ErrorPage />,
   },

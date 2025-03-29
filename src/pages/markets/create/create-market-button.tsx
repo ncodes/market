@@ -1,28 +1,29 @@
 import CloseIcon from "@/components/CloseIcon";
 import Modal from "@/components/Modal";
+import { ToolTip } from "@/components/ToolTip";
 import { Button } from "@/components/ui/button.tsx";
 import { Label } from "@/components/ui/label.tsx";
+import { isPairInteractive } from "@/libs/asset";
+import { shortenAddress } from "@/libs/helpers";
+import { AppPages } from "@/libs/pages";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
-import { Switch } from "../../../components/ui/switch";
-import { AssetOverview } from "./asset-overview";
-import { MarketCreatorState } from "./hooks/useMarketCreatorLogic";
-import { shortenAddress } from "@/libs/helpers";
 import { useNavigate } from "react-router-dom";
-import { AppPages } from "@/libs/pages";
-import { ToolTip } from "@/components/ToolTip";
-import { isPairInteractive } from "@/libs/asset";
+import { Switch } from "../../../components/ui/switch";
+import { cn } from "../../../libs/utils";
+import { AssetOverview } from "./asset-overview";
+import { MarketCreatorState } from "./useMarketCreatorLogic";
 
 export function CreateMarketButton({
   state,
   errors,
-  onConfirm,
+  handleCreateMarket: onConfirm,
+  disabled,
 }: {
   state: MarketCreatorState;
   errors: Record<string, string[]>;
-  onConfirm: () => Promise<{
-    marketId: string | null;
-  }>;
+  disabled: boolean;
+  handleCreateMarket: () => Promise<string | null>;
 }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -41,7 +42,7 @@ export function CreateMarketButton({
   async function handleSubmit() {
     setLoading(true);
     try {
-      const { marketId } = await onConfirm();
+      const marketId = await onConfirm();
       if (marketId) {
         setOpen(false);
         navigate(AppPages.viewMarket(marketId));
@@ -56,7 +57,7 @@ export function CreateMarketButton({
       onOpenChange={canCreate}
       triggerClassName="w-full"
       triggerComponent={
-        <Button variant={"secondary"} className="btn">
+        <Button variant={"secondary"} className="btn" disabled={disabled}>
           Create
         </Button>
       }
@@ -102,8 +103,12 @@ export function CreateMarketButton({
                     className2="w-max px-2 pr-5 box-content"
                   >
                     <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                      <Label className="text-base text-gray-100">
-                        {state.marketManager ? shortenAddress(state.marketManager) : "Not set"}
+                      <Label
+                        className={cn("w-full text-base text-gray-100", {
+                          "flex items-center justify-center": !state.marketManager,
+                        })}
+                      >
+                        {state.marketManager ? shortenAddress(state.marketManager) : "-"}
                       </Label>
                     </div>
                   </ToolTip>
@@ -119,11 +124,17 @@ export function CreateMarketButton({
                 <Label className="text-lotion/60">Anyone can swap</Label>
                 <Switch checked={state.permSwap} />
               </div>
-              {isPairInteractive(state.baseToken?.type ?? "", state.quoteToken?.type ?? "") && (
+              {!!state.baseToken && !!state.quoteToken && isPairInteractive(state.baseToken, state.quoteToken) && (
                 <div className="flex items-center justify-between">
                   <Label className="text-lotion/60">Select Mediator Pool</Label>
                   <div className="flex items-center rounded-full bg-black-coral/10 p-2 px-[14px]">
-                    <Label className="text-base text-gray-100">{state.mediatorPool?.name ?? "Not set"}</Label>
+                    <Label
+                      className={cn("w-full text-base text-gray-100", {
+                        "flex items-center justify-center": !state.marketManager,
+                      })}
+                    >
+                      {state.mediatorPool?.name ?? "-"}
+                    </Label>
                   </div>
                 </div>
               )}

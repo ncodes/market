@@ -1,13 +1,13 @@
 export default function IconSwap(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
-      <g fill="none" fill-rule="evenodd">
+      <g fill="none" fillRule="evenodd">
         <path d="M0 0h24v24H0z" />
         <rect fill="#8DE969" opacity=".3" transform="rotate(-90 13 6)" x="12" width="2" height="12" rx="1" />
         <path
           d="M9.707 8.293a1 1 0 0 1-1.414 1.414l-3-3a1 1 0 0 1 0-1.414l3-3a1 1 0 0 1 1.414 1.414L7.414 6l2.293 2.293z"
           fill="#8DE969"
-          fill-rule="nonzero"
+          fillRule="nonzero"
         />
         <rect
           fill="#8DE969"
@@ -22,7 +22,7 @@ export default function IconSwap(props: React.SVGProps<SVGSVGElement>) {
         <path
           d="M14.293 20.293a1 1 0 0 0 1.414 1.414l3-3a1 1 0 0 0 0-1.414l-3-3a1 1 0 0 0-1.414 1.414L16.586 18l-2.293 2.293z"
           fill="#8DE969"
-          fill-rule="nonzero"
+          fillRule="nonzero"
         />
       </g>
     </svg>

@@ -116,6 +116,7 @@ export default function useMarketCreatorLogic() {
   // Set the default base and quote tokens
   useEffect(() => {
     if (!defaultChain) return;
+
     const tokenLists = TokenLists[defaultChain.queryName];
     const eth = tokenLists.tokens.find((token) => token.symbol === "ETH");
     const join = tokenLists.tokens.find((token) => token.symbol === "JOIN");
@@ -133,17 +134,13 @@ export default function useMarketCreatorLogic() {
    * @param meta - The metadata of the selected token
    */
   function onTokenSelect(token: any, meta: Record<string, any>) {
-    if (meta.base) {
-      setState((prev) => ({
-        ...prev,
-        baseToken: token,
-      }));
-    } else {
-      setState((prev) => ({
-        ...prev,
-        quoteToken: token,
-      }));
-    }
+    setState((prev) => {
+      if (meta.base) {
+        return { ...prev, baseToken: token };
+      } else {
+        return { ...prev, quoteToken: token };
+      }
+    });
   }
 
   /**
@@ -158,10 +155,10 @@ export default function useMarketCreatorLogic() {
   }
 
   /**
-   * onConfirm handles the confirmation of the market creation
+   * handleCreateMarket handles the confirmation of the market creation
    */
-  async function onConfirm() {
-    if (!state.baseToken || !state.quoteToken) return { marketId: null };
+  async function handleCreateMarket() {
+    if (!state.baseToken || !state.quoteToken) return null;
 
     try {
       await switchNetwork(selectedChain.chainId);
@@ -171,8 +168,8 @@ export default function useMarketCreatorLogic() {
         quoteAddress: state.quoteToken?.address as `0x${string}`,
         baseType: tokenTypeToAssetType(state.baseToken.type!),
         quoteType: tokenTypeToAssetType(state.quoteToken.type!),
-        permSwap: false,
-        permPut: false,
+        permSwap: state.permSwap,
+        permPut: state.permPut,
         commission: state.commission || 0,
         poolId: 0,
         manager: state.marketManager,
@@ -186,23 +183,29 @@ export default function useMarketCreatorLogic() {
 
       toast.success("Market Created", { description: "Your market was created successfully", position: "top-right" });
 
-      try {
-        const tokenLists = TokenLists[defaultChain.queryName]
-        const eth = tokenLists.tokens.find((token) => token.symbol === "ETH");
-        const join = tokenLists.tokens.find((token) => token.symbol === "JOIN");
+      const tokenLists = TokenLists[defaultChain.queryName];
+      const eth = tokenLists.tokens.find((token) => token.symbol === "ETH");
+      const join = tokenLists.tokens.find((token) => token.symbol === "JOIN");
 
-        setState((prev) => ({ ...prev, baseToken: eth, quoteToken: join, commission: 0, marketManager: undefined, permPut: false, permSwap: false }));
-      } catch (error) { }
+      setState((prev) => ({
+        ...prev,
+        baseToken: eth,
+        quoteToken: join,
+        commission: 0,
+        marketManager: undefined,
+        permPut: false,
+        permSwap: false,
+      }));
 
-      return { marketId: event.args.id };
+      return event.args.id;
     } catch (error) {
       const msg = humanizeErrors(error);
       toast.error("Market Creation Error", { description: msg, position: "top-right" });
       logError(error);
 
-      return { marketId: null };
+      return null;
     }
   }
 
-  return { state, setState, onTokenSelect, errors, onConfirm, mutCreateMarket, setCommission };
+  return { state, setState, onTokenSelect, errors, handleCreateMarket, mutCreateMarket, setCommission };
 }
