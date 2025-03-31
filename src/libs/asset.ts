@@ -1,3 +1,4 @@
+import { AssetType } from "@/types/enums";
 import { TokenList } from "@jointlabs/meta";
 
 /**
@@ -25,4 +26,20 @@ export function isPairInteractive(tokenA: TokenList.Token, tokenB: TokenList.Tok
   const isAssetAOnchain = isOnchain(tokenA.type);
   const isAssetBOnchain = isOnchain(tokenB.type);
   return !isAssetAOnchain || !isAssetBOnchain;
+}
+
+/**
+ * Checks if an asset is a synthetic
+ * @param assetType The asset type
+ */
+export function isSynth(assetType: AssetType) {
+	return assetType == AssetType.SYNTH;
+}
+
+/**
+ * Checks if an asset is an ERC20
+ * @param assetType The asset type
+ */
+export function isERC20(assetType: AssetType) {
+	return assetType == AssetType.ERC20;
 }

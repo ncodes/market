@@ -1,6 +1,6 @@
 export const AppPages = {
     swap: "/swap",
-    createLiquidity: "/create/liquidity",
-    createMarket: "/create/market",
+    createLiquidity: "/liquidity/create",
+    createMarket: "/market/create",
     viewMarket: (marketId: string) => `/market/view/${marketId}`,
 }

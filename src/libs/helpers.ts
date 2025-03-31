@@ -8,6 +8,8 @@ import prettyBytes from "pretty-bytes";
 import { RequestError } from "./RequestError.ts";
 import { AssetType } from '../types/enums.ts';
 
+export type TokenType = 'ERC20' | 'SYNTHETIC' | 'ERC721' | 'ERC1155'|'NATIVE';
+
 export function isDev() {
   return import.meta.env.VITE_ENV === "development";
 }
@@ -326,7 +328,7 @@ export function toAbr(str: string): string {
  * Return AssetType equivalent of a token type
  * @param tokenType
  */
-export function tokenTypeToAssetType(tokenType: 'ERC20' | 'SYNTHETIC' | 'ERC721' | 'ERC1155'|'NATIVE') {
+export function tokenTypeToAssetType(tokenType: TokenType) {
 	if (tokenType == 'ERC20') return AssetType.ERC20;
 	if (tokenType == 'SYNTHETIC') return AssetType.SYNTH;
 	if (tokenType == 'ERC721') return AssetType.ERC721;
