@@ -1,7 +1,7 @@
+import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
-import { handleAxiosError } from "../../../libs/helpers.ts";
-import { useConnectorContext } from "@/hooks/connectors/useConnectorContext.tsx";
+import { handleAxiosError } from "../../../libs/request";
 
 /**
  * useAssetService provides access to v1/assets endpoint
@@ -15,7 +15,7 @@ export function useAssetService() {
   async function getList(ctx: QueryFunctionContext<[string, { network: string }]>): Promise<AssetInfo[]> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const resp = await axios({
         method: "get",

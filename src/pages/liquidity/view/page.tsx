@@ -1,10 +1,11 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
-import SelectDayVolume from "@/components/SelectDayVolume";
-import SwapModal from "@/components/SwapModal";
-import { Avatar } from "@/components/avatar/Avatar";
+import { Avatar } from "@/components/avatar/avatar";
 import IconActive from "@/components/icons/IconActive";
 import IconLock from "@/components/icons/IconLock";
 import IconOpenLink from "@/components/icons/IconOpenLink";
+import SelectDayVolume from "@/components/select-day-volume";
+import SwapModal from "@/components/swap-modal";
+import TabHeader from "@/components/tab-header";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -23,7 +24,6 @@ import UpdatePrice from "./options/update-price";
 import UpdateTarget from "./options/update-target";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
-import TabHeader from "@/components/TabHeader";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -158,7 +158,7 @@ function MoreButton() {
 
   return (
     <Popover onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           variant={"secondary"}
           className="hidden h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70 xs:hidden sm:flex"

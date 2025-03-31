@@ -106,12 +106,9 @@ function SelectVolume() {
         hideCaret
         className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
       >
-        <Button
-          variant={"ghost"}
-          className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey"
-        >
+        <span className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey">
           Volume <IconDropDown />
-        </Button>
+        </span>
       </SelectTrigger>
       <SelectContent className="border-eerie-black bg-chinese-black">
         {[1, 2, 3, 4, 5].map((item) => (

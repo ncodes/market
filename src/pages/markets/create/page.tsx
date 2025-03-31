@@ -1,16 +1,16 @@
-import { AssetButton } from "@/components/AssetButton.tsx";
-import InfoLabel from "@/components/InfoLabel.tsx";
-import { Label } from "@/components/ui/label.tsx";
-import { Skeleton } from "@/components/ui/skeleton.tsx";
-import PageLayout from "@/layouts/PageLayout.tsx";
-import { isPairInteractive } from "@/libs/asset.ts";
-import { AdvanceSettings } from "./advance-settings.tsx";
+import { AssetButton } from "@/components/asset-button";
+import InfoLabel from "@/components/info-label";
+import { Label } from "@/components/ui/label";
+import { Skeleton } from "@/components/ui/skeleton";
+import PageLayout from "@/layouts/PageLayout";
+import { isPairInteractive } from "@/libs/asset";
+import { AdvanceSettings } from "./advance-settings";
 import { CommisionInput } from "./commission-input.tsx";
 import { CreateMarketButton } from "./create-market-button.tsx";
-import useMarketCreatorLogic from "./useMarketCreatorLogic.ts";
+import useMarketCreator from "./useMarketCreator.ts";
 
 export default function CreateMarketPage() {
-  const { state, setState, onTokenSelect, errors, handleCreateMarket, setCommission } = useMarketCreatorLogic();
+  const { state, setState, onTokenSelect, errors, handleCreateMarket, setCommission } = useMarketCreator();
 
   return (
     <PageLayout title="Swap">
@@ -24,7 +24,7 @@ export default function CreateMarketPage() {
               </div>
               <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-3 py-5 md:px-3">
                 <div className="flex w-full flex-col gap-5 xs:flex-row">
-                  <div className="flex w-full flex-col gap-1">
+                  <div className="flex w-full flex-col gap-2">
                     <InfoLabel text="Base Asset" info="This is the base asset" />
                     <AssetButton
                       text={state.baseToken?.symbol ?? ""}
@@ -35,7 +35,7 @@ export default function CreateMarketPage() {
                       assetClassName="w-8 h-8"
                     />
                   </div>
-                  <div className="flex w-full flex-col gap-1">
+                  <div className="flex w-full flex-col gap-2">
                     <InfoLabel text="Quote Asset" info="This is the base asset" />
                     <AssetButton
                       text={state.quoteToken?.symbol ?? ""}
@@ -54,7 +54,7 @@ export default function CreateMarketPage() {
                   errors={errors}
                 />
               </div>
-              <div className="flex w-full flex-col gap-4 px-3 pb-1 pt-3 md:px-3">
+              <div className="flex w-full flex-col gap-4 px-3 pb-3 pt-3 md:px-3">
                 <AdvanceSettings
                   state={state}
                   setState={setState}

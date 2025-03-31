@@ -1,4 +1,4 @@
-import { isEqlStr } from "@/libs/helpers.ts";
+import { isEqlStr } from "@/libs/string";
 
 /**
  * TokenInfo describes an ERC20-like token EVM chain

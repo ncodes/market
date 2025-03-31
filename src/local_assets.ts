@@ -1,5 +1,5 @@
 import { addTokenToLocalhost } from "@jointlabs/meta";
-import { isLocal } from "./libs/helpers";
+import { isLocal } from "./libs/env";
 
 if (isLocal()) {
   addTokenToLocalhost([

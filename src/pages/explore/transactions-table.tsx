@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "@/components/data-table";
 import { transactionsColumns, TransactionsTableProps } from "./columns";
 
 function getData(): TransactionsTableProps[] {

@@ -1,5 +1,3 @@
-import { defaultChain } from "@/libs/utils";
-import { ChainInfo } from "@jointlabs/meta";
 import { create } from "zustand";
 export interface IStore {
   user?: User;
@@ -16,9 +14,6 @@ export interface IStore {
 
   openAdjustAmount: boolean;
   setOpenAdjustAmount: (open: boolean) => void;
-
-  selectedChain: ChainInfo;
-  setSelectedChain: (chain: ChainInfo) => void;
 }
 
 const useStore = create<IStore>((set) => ({
@@ -36,9 +31,6 @@ const useStore = create<IStore>((set) => ({
 
   openAdjustAmount: false,
   setOpenAdjustAmount: (open: boolean) => set({ openAdjustAmount: open }),
-
-  selectedChain: defaultChain,
-  setSelectedChain: (chain: ChainInfo) => set({ selectedChain: chain }),
 }));
 
 export default useStore;

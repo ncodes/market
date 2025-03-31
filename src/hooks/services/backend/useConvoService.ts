@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -62,7 +62,7 @@ export function useConvoService() {
    */
   async function areConvosMuted(ctx: QueryFunctionContext<[string, AreConvosMutedParams]>): Promise<boolean> {
     try {
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
@@ -94,7 +94,7 @@ export function useConvoService() {
    */
   async function toggleConvosMuteStatus(params: ToggleConvosMuteStateParams) {
     try {
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
 

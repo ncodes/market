@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -42,7 +42,7 @@ export function useMiscService() {
   async function getCryptoRate(ctx: QueryFunctionContext<[string, GetCryptoRateParams]>): Promise<number> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const resp = await axios({
         method: "get",
@@ -62,7 +62,7 @@ export function useMiscService() {
   async function getSynthRate(ctx: QueryFunctionContext<[string, GetSynthRateParams]>): Promise<number> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const resp = await axios({
         method: "get",
@@ -85,7 +85,7 @@ export function useMiscService() {
     try {
       const [, params] = ctx.queryKey;
       const { network } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const apiUrl = getChainInfo().apiUrl;
       const resp = await axios({
@@ -109,7 +109,7 @@ export function useMiscService() {
     try {
       const [, params] = ctx.queryKey;
       const { name } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const apiUrl = getChainInfo().apiUrl;
       const resp = await axios({
@@ -133,7 +133,7 @@ export function useMiscService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, address } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const apiUrl = getChainInfo().apiUrl;
       const resp = await axios({

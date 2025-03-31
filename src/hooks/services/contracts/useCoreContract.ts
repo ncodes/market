@@ -1,10 +1,8 @@
+import { Structs, StructsLib } from "@/typechain/Core";
 import { BigNumberish, ZeroAddress } from "ethers";
 import { Address } from "viem";
-import { toBigInt } from "../../../libs/helpers.ts";
-import * as CoreTypes from "../../../typechain/Core.ts";
-import { StructsLib } from "../../../typechain/Core.ts";
+import { toBigInt } from "../../../libs/numbers";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
-import OrderStruct = CoreTypes.Structs.OrderStruct;
 
 /**
  * Providers utilities for reading and writing to the Core contract
@@ -273,7 +271,7 @@ export default function useCoreContract() {
    * Get an order
    * @param orderId The order ID
    */
-  async function getOrder(orderId: bigint): Promise<OrderStruct> {
+  async function getOrder(orderId: bigint): Promise<Structs.OrderStruct> {
     return readContract("core", "getOrder", [orderId]);
   }
 

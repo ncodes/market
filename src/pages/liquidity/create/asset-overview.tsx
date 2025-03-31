@@ -1,5 +1,5 @@
-import AssetAvatar from "@/components/avatar/AssetAvatar.tsx";
-import { Label } from "@/components/ui/label.tsx";
+import AssetAvatar from "@/components/avatar/asset-avatar";
+import { Label } from "@/components/ui/label";
 import { cn } from "../../../libs/utils";
 
 export function AssetOverview({

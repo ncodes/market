@@ -1,7 +1,7 @@
-import { getChains } from "@jointlabs/meta";
+import { ChainInfo, getChains } from "@jointlabs/meta";
 import moment from "moment";
 import { Chain, hardhat } from "viem/chains";
-import { isProd } from "../../libs/helpers";
+import { isProd } from "../../libs/env";
 
 /**
  * Create message to signed by a wallet
@@ -27,9 +27,13 @@ Timestamp: ${moment().toISOString()}`;
 }
 
 export function getSupportedChains(): Chain[] {
+  let chains = getChains().map((chain) => chain.chain);
+  if (isProd()) chains = chains.filter((chain) => chain.id !== hardhat.id);
+  return chains as Chain[];
+}
+
+export function getSupportedChainInfo(): ChainInfo[] {
   let chains = getChains();
-  if (isProd()) {
-    chains = chains.filter((chain) => chain.id !== hardhat.id);
-  }
+  if (isProd()) chains = chains.filter((chain) => chain.chainId !== hardhat.id);
   return chains;
 }

@@ -1,10 +1,10 @@
+import CloseIcon from "@/components/close-icon";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ChevronRight } from "lucide-react";
 import { useState } from "react";
-import { PriceInput } from "../../create/price-input";
-import Modal from "@/components/Modal";
-import CloseIcon from "@/components/CloseIcon";
+import { PriceInput } from "../../create/inputs";
 
 export default function UpdatePrice() {
   const [open, setOpen] = useState(false);
@@ -29,7 +29,7 @@ export default function UpdatePrice() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Adjust Price"}
               </Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             <div className="mb-6 flex flex-col gap-3 px-5 py-[14px] pb-0">
               <Label className="text-sm font-light text-cool-grey">
@@ -73,7 +73,17 @@ export default function UpdatePrice() {
                   </div>
                 </div>
               )}
-              {!isSubmitted && <PriceInput />}
+              {!isSubmitted && (
+                <PriceInput
+                  value=""
+                  baseSymbol=""
+                  priceSymbol=""
+                  errors={{}}
+                  onChange={() => {}}
+                  onAutoPriceChange={() => {}}
+                  onKeyUp={() => {}}
+                />
+              )}
             </div>
             <div className="flex w-full px-5 pb-3 lg:hidden">
               <Button

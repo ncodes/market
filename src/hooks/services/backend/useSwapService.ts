@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -40,7 +40,7 @@ export function useSwapService() {
     try {
       const [id, params] = ctx.queryKey;
       const { network, limit, swapFilter, offset } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/swaps`,
@@ -106,7 +106,7 @@ export function useSwapService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, orderId } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios<{ data: Event[] }>({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/swaps/${orderId}/events`,

@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -133,7 +133,7 @@ export function useUserService() {
   async function getEnergonBalance(ctx: QueryFunctionContext<[string, { address: string }]>): Promise<string> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const resp = await axios({
         url: `${getChainInfo().apiUrl}/v1/users/energon-balance/${params.address}`,
@@ -157,7 +157,7 @@ export function useUserService() {
   ): Promise<{ count: number; totalPoints: string }> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const resp = await axios({
         url: `${getChainInfo().apiUrl}/v1/users/nft-info/${params.address}`,
@@ -181,7 +181,7 @@ export function useUserService() {
   ): Promise<{ points: number; actualPoints: number }> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const resp = await axios({
         url: `${getChainInfo().apiUrl}/v1/users/galxe-points/${params.address}`,

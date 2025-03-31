@@ -124,4 +124,8 @@
   .btn {
     @apply h-auto w-full py-2.5 text-xl font-semibold lg:text-lg;
   }
+  
+  .input-text-bold {
+    @apply font-bold tracking-widest;
+  }
 }

@@ -1,5 +1,5 @@
+import Swap from "@/components/swap";
 import PageLayout from "@/layouts/PageLayout";
-import Swap from "@/components/Swap";
 
 export default function SwapPage() {
   return (

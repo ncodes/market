@@ -1,4 +1,4 @@
-import { DataTable } from "@/components/DataTable";
+import { DataTable } from "@/components/data-table";
 import { liquidityColumns, LiquidyTableProps } from "./columns";
 
 function getData(): LiquidyTableProps[] {

@@ -1,12 +1,12 @@
 import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
 import Logo from "../icons/Logo";
-import { SearchBar } from "../searchBar";
+import { SearchBar } from "../search-bar";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
-import { CustomNavigationMenu } from "./CustomNavigationMenu";
-import MobileHeader from "./MobileHeader";
-import RegionSelectorButton from "./RegionSelectorButton";
-import { SearchButton } from "./SearchButton";
-import SettingsButton from "./SettingsButton";
+import { CustomNavigationMenu } from "./custom-navigation-menu";
+import MobileHeader from "./mobile-header";
+import RegionSelectorButton from "./region-selector-button";
+import { SearchButton } from "./search-button";
+import SettingsButton from "./settings-button";
 
 export interface MenuItem {
   title: string;

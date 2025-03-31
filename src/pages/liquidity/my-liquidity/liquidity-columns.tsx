@@ -1,13 +1,13 @@
 "use client";
 
 import { SolanaIcon, USDCIcon } from "@/assets";
-import { Avatar } from "@/components/avatar/Avatar";
+import { Avatar } from "@/components/avatar/avatar";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 import { Label } from "@/components/ui/label";
 import { ColumnDef } from "@tanstack/react-table";
-import EmojiAvatar from "../../../components/avatar/EmojiAvatar";
+import EmojiAvatar from "../../../components/avatar/emoji-avatar";
 import { AvatarSize } from "../../../components/avatar/useAvatar";
-import { shortenAddress } from "../../../libs/helpers";
+import { shortenAddress } from "../../../libs/string";
 
 export type LiquidityProps = {
   id: string;
@@ -30,7 +30,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
     accessorKey: "market",
     header: "Market",
     cell: (props) => (
-      <div className="flex items-center py-1.5 min-w-36">
+      <div className="flex min-w-36 items-center py-1.5">
         <div className="flex">
           <div className="relative w-12">
             <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6 z-[1]" />
@@ -49,7 +49,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
       const { value } = props.getValue() as any;
 
       return (
-        <div className="flex items-center gap-2 min-w-26">
+        <div className="min-w-26 flex items-center gap-2">
           <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
           <Label className="text-sm font-light text-gray-200">{value}</Label>
           {/* <Label className="text-xs text-cool-grey">{info}</Label> */}
@@ -65,7 +65,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
       const { value, info } = props.getValue() as any;
 
       return (
-        <div className="flex flex-row items-start lg:items-center gap-1 min-w-[180px]">
+        <div className="flex min-w-[180px] flex-row items-start gap-1 lg:items-center">
           <span className="flex items-center gap-1">
             <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
             <Label className="text-sm font-light">{value}</Label>
@@ -82,7 +82,7 @@ export const liquidityColumns: ColumnDef<LiquidityProps>[] = [
     header: "Status",
     cell: (_) => (
       <div className="flex w-11 items-center justify-center">
-        <div className="bg-go-green h-2 w-2 rounded-full"></div>
+        <div className="h-2 w-2 rounded-full bg-go-green"></div>
       </div>
     ),
   },

@@ -1,4 +1,4 @@
-import { toBigInt } from "../../../libs/helpers.ts";
+import { toBigInt } from "../../../libs/numbers";
 import { AssetType } from "../../../types/enums.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
 

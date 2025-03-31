@@ -1,14 +1,21 @@
 import { USDCIcon } from "@/assets";
-import Modal from "@/components/Modal";
+import CloseIcon from "@/components/close-icon";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { AssetOverview } from "@/pages/liquidity/create/asset-overview.tsx";
+import { Loader } from "lucide-react";
 import { useState } from "react";
-import { ToolTip } from "../../../components/ToolTip";
+import { ToolTip } from "../../../components/tool-tip";
 import { Switch } from "../../../components/ui/switch";
-import CloseIcon from "@/components/CloseIcon";
 
-export function CreateLiquidityButton() {
+export function CreateLiquidityButton({
+  selectedMarketExists,
+  isLoadingSelectedMarket,
+}: {
+  selectedMarketExists: boolean;
+  isLoadingSelectedMarket: boolean;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -17,8 +24,9 @@ export function CreateLiquidityButton() {
       onOpenChange={(open) => setOpen(open)}
       triggerClassName="w-full"
       triggerComponent={
-        <Button variant={"secondary"} className="btn">
-          Create
+        <Button variant={"secondary"} className="btn gap-1" disabled={!selectedMarketExists || isLoadingSelectedMarket}>
+          {!isLoadingSelectedMarket ? "" : <Loader className="duration-2000 h-5 w-5 animate-spin" />}
+          {!isLoadingSelectedMarket ? <>{selectedMarketExists ? "Create" : "No market found"}</> : "Fetching market..."}
         </Button>
       }
       content={
@@ -26,7 +34,7 @@ export function CreateLiquidityButton() {
           <div className="w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins md:rounded-b-3xl">
             <div className="flex items-center justify-between border-b border-eerie-black px-5 py-4">
               <Label className="text-xl font-semibold text-lotion lg:text-2xl">Confirm Liqudity Creation</Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             <div className="flex flex-col gap-4 px-6 py-4">
               <div className="flex gap-14">

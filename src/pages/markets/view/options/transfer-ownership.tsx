@@ -1,8 +1,8 @@
-import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import EmojiAvatar from "@/components/avatar/emoji-avatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
-import CloseIcon from "@/components/CloseIcon";
-import Input from "@/components/Input";
-import Modal from "@/components/Modal";
+import CloseIcon from "@/components/close-icon";
+import Input from "@/components/input";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
@@ -33,7 +33,7 @@ export default function TransferOwnership() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm Transfer" : "Transfer Ownership"}
               </Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             <div className="mb-6 flex flex-col gap-3 px-5 py-[14px] pb-0">
               <Label className="text-sm font-light text-cool-grey">

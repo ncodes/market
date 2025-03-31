@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import axios, { AxiosProgressEvent } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
 import { useSession } from "../../useSession.ts";

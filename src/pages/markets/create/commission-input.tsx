@@ -1,9 +1,9 @@
 import { Label } from "@/components/ui/label.tsx";
 import { Slider } from "@/components/ui/slider.tsx";
-import { cn } from "@/libs/utils.ts";
+import { cn, sanitizeNumberFromInput } from "@/libs/utils.ts";
 import { AlertTriangleIcon } from "lucide-react";
 import { useRef, useState } from "react";
-import InfoLabel from "../../../components/InfoLabel";
+import InfoLabel from "../../../components/info-label";
 
 export function CommisionInput({
   className,
@@ -18,21 +18,10 @@ export function CommisionInput({
   const [commission, setCommission] = useState("");
   const spanRef = useRef<HTMLSpanElement | null>(null);
 
-  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-    const sanitizeValue = (val: string) => {
-      return val
-        .replace(/-/g, "") // Remove minus signs
-        .replace(/[^\d.]/g, "") // Remove non-numeric chars except decimal
-        .replace(/(\..*)\./g, "$1"); // Allow only one decimal point
-    };
-
-    let sanitizedValue = sanitizeValue(event.target.value);
-    if (parseFloat(sanitizedValue) > 30) {
-      sanitizedValue = "30";
-    }
-
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const sanitizedValue = sanitizeNumberFromInput(e.target.value, { max: 30 });
     setCommission(sanitizedValue);
-    onChange(parseFloat(sanitizedValue === "" ? "0" : sanitizedValue));
+    onChange(parseFloat(sanitizedValue));
   }
 
   return (

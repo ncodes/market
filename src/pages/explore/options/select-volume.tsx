@@ -1,5 +1,5 @@
-import CloseIcon from "@/components/CloseIcon";
-import Modal from "@/components/Modal";
+import CloseIcon from "@/components/close-icon";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
@@ -27,10 +27,10 @@ export function SelectVolumeButton() {
         <div className="flex w-full flex-col overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
           <div className="flex h-fit items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Volume</Label>
-            <CloseIcon setOpen={setOpen}/>
+            <CloseIcon setOpen={setOpen} />
           </div>
-          
-          <div className="border-t border-eerie-black flex w-full flex-col px-0 gap-2 py-3">
+
+          <div className="flex w-full flex-col gap-2 border-t border-eerie-black px-0 py-3">
             {["7 Day", "30 Day", "All Time"].map((volume, index) => (
               <VolumeTile
                 key={index}
