@@ -128,4 +128,8 @@
   .input-text-bold {
     @apply font-bold tracking-widest;
   }
+  
+  .input-error {
+    @apply border border-red-500 bg-red-500/20 [&>input]:text-red-500;
+  }
 }

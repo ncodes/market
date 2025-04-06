@@ -15,12 +15,14 @@ export function AdvanceSettings({
   errors,
   onPauseChange,
   onTargetChange,
+  onTargetKeyUp,
 }: {
   pause: boolean;
   target: string;
   errors: Record<string, string[]>;
   onPauseChange: (pause: boolean) => void;
   onTargetChange: (target: string) => void;
+  onTargetKeyUp: () => void;
 }) {
   const [isOpened, setIsOpened] = useState(false);
   const contentHeight = useRef<HTMLDivElement>(null);
@@ -63,6 +65,8 @@ export function AdvanceSettings({
               hideSuffix
               defaultValue={target}
               onChange={(value) => onTargetChange(value)}
+              onKeyUp={onTargetKeyUp}
+              containerClassName={cn("input-text-bold", { "input-error": !!errors.target?.[0] })}
             >
               <LeftLabel
                 label={

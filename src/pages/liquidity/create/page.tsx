@@ -1,5 +1,5 @@
 import PageLayout from "@/layouts/PageLayout.tsx";
-import { sanitizeNumberFromInput } from "@/libs/utils.ts";
+import { cn, sanitizeNumberFromInput } from "@/libs/utils.ts";
 import { AlertTriangleIcon } from "lucide-react";
 import { AssetButton } from "../../../components/asset-button.tsx";
 import IconQuestionMark from "../../../components/icons/IconQuestionMark.tsx";
@@ -31,6 +31,15 @@ export default function CreateLiquidityPage() {
   function handlePriceChange(value: string) {
     const sanitizedValue = sanitizeNumberFromInput(value, { max: undefined, defaultValue: "" });
     setState((prev) => ({ ...prev, price: sanitizedValue }));
+  }
+
+  function handleTargetChange(value: string) {
+    const sanitizedValue = sanitizeNumberFromInput(value, { max: undefined, defaultValue: "" });
+    setState((prev) => ({ ...prev, target: sanitizedValue }));
+  }
+
+  function handleMarginChange(value: number) {
+    setState((prev) => ({ ...prev, margin: value }));
   }
 
   return (
@@ -73,7 +82,7 @@ export default function CreateLiquidityPage() {
                   defaultValue={amount ?? ""}
                   onChange={handleAmountChange}
                   suffix={baseToken?.symbol ?? ""}
-                  className="input-text-bold"
+                  containerClassName={cn("input-text-bold", { "input-error": !!errors.amount?.[0] })}
                   onKeyUp={() => {
                     validate("amount");
                   }}
@@ -132,6 +141,7 @@ export default function CreateLiquidityPage() {
                 onKeyUp={() => {
                   validate("price");
                 }}
+                onMarginChange={handleMarginChange}
               />
             </div>
 
@@ -141,7 +151,10 @@ export default function CreateLiquidityPage() {
                 pause={pause}
                 errors={errors}
                 onPauseChange={(pause) => setState((prev) => ({ ...prev, pause }))}
-                onTargetChange={(target) => setState((prev) => ({ ...prev, target }))}
+                onTargetChange={handleTargetChange}
+                onTargetKeyUp={() => {
+                  validate("target");
+                }}
               />
             </div>
           </div>

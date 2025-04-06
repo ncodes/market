@@ -15,6 +15,7 @@ export function PriceInput({
   errors,
   onAutoPriceChange,
   onChange,
+  onMarginChange,
   onKeyUp,
 }: {
   value: string;
@@ -23,6 +24,7 @@ export function PriceInput({
   errors: Record<string, string[]>;
   onChange: (value: string) => void;
   onAutoPriceChange: (autoPrice: boolean) => void;
+  onMarginChange: (value: number) => void;
   onKeyUp: () => void;
 }) {
   const [auto, setAuto] = useState(false);
@@ -96,6 +98,7 @@ export function PriceInput({
           disabled={auto}
           className="text-white"
           onKeyUp={onKeyUp}
+          containerClassName={cn("input-text-bold", { "input-error": !!errors.price?.[0] })}
         >
           <LeftLabel
             label={
@@ -124,24 +127,29 @@ export function PriceInput({
             setAnimCount((prev) => prev + 1);
           }}
         >
-          <MarginInput className="mt-4" />
+          <MarginInput className="mt-4" onChange={onMarginChange} />
         </motion.div>
       </div>
     </motion.div>
   );
 }
 
-function MarginInput({ className, ref }: { className?: string; ref?: React.LegacyRef<HTMLDivElement> }) {
-  const [margin, setMargin] = useState(0);
+function MarginInput({ className, onChange }: { className?: string; onChange: (value: number) => void }) {
+  const [margin, setMargin] = useState("");
+
+  function getMargin() {
+    return parseFloat(margin);
+  }
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.currentTarget.value;
-    const sanitizedValue = sanitizeNumberFromInput(value, { max: 20, defaultValue: "0", allowNegative: true });
-    setMargin(() => parseFloat(sanitizedValue));
+    const sanitizedValue = sanitizeNumberFromInput(value, { min: -20, max: 20, defaultValue: "", allowNegative: true });
+    setMargin(sanitizedValue);
+    onChange(parseFloat(sanitizedValue));
   }
 
   return (
-    <div className={cn("flex w-full items-center gap-5", className)} ref={ref}>
+    <div className={cn("flex w-full items-center gap-5", className)}>
       <div className="flex w-fit flex-col gap-1 pr-2">
         <InfoLabel
           text="Margin"
@@ -151,6 +159,7 @@ function MarginInput({ className, ref }: { className?: string; ref?: React.Legac
           <div className="relative mr-4 inline-flex gap-0.5">
             <input
               type="number"
+              placeholder="0"
               className="w-[30px] border-none bg-transparent text-right text-base font-semibold text-anti-flash-white outline-none"
               value={margin}
               onChange={handleInput}
@@ -162,20 +171,20 @@ function MarginInput({ className, ref }: { className?: string; ref?: React.Legac
       <div className="flex w-full flex-col gap-6">
         <div className="mt-5 flex flex-col gap-3">
           <Slider
-            defaultValue={[margin]}
+            defaultValue={[getMargin()]}
             max={20}
             step={1}
             min={-20}
             onValueChange={(value) => setMargin(value[0])}
-            value={[margin]}
+            value={[getMargin()]}
             className="border-none bg-transparent"
             rangeClassName={cn(
               "bg-screaming-green h-[6px] border-none transition-all duration-500",
-              margin >= 0 ? "bg-screaming-green" : "bg-red-500",
+              getMargin() >= 0 ? "bg-screaming-green" : "bg-red-500",
             )}
             trackClassName={cn(
               "bg-screaming-green border-none transition-all duration-500",
-              margin >= 0 ? "bg-screaming-green" : "bg-red-500",
+              getMargin() >= 0 ? "bg-screaming-green" : "bg-red-500",
             )}
             thumbClassName="border-white bg-gray-100"
           />

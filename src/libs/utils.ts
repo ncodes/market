@@ -9,9 +9,9 @@ export function cn(...inputs: ClassValue[]) {
 
 export function sanitizeNumberFromInput(
   value: string,
-  options: { max?: number; defaultValue?: string; allowNegative?: boolean },
+  options: { max?: number; min?: number; defaultValue?: string; allowNegative?: boolean },
 ) {
-  const { max, defaultValue, allowNegative } = options;
+  const { max, min, defaultValue, allowNegative } = options;
 
   let sanitizedValue = value
     .replace(/[^\d.-]/g, "") // Remove non-numeric chars except decimal
@@ -25,6 +25,8 @@ export function sanitizeNumberFromInput(
 
   if (max && parseFloat(sanitizedValue) > max) {
     sanitizedValue = max.toString();
+  } else if (min && parseFloat(sanitizedValue) < min) {
+    sanitizedValue = min.toString();
   } else if (sanitizedValue) {
     sanitizedValue = parseFloat(sanitizedValue).toString();
   }

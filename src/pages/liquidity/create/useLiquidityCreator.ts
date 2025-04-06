@@ -70,8 +70,7 @@ export default function useLiquidityCreator() {
       },
     ],
     queryFn: listMarkets,
-    // enabled: !!state.baseToken?.address && !!state.quoteToken?.address && !!chainInfo,
-    enabled: false,
+    enabled: !!state.baseToken?.address && !!state.quoteToken?.address && !!chainInfo,
   });
 
   const mutCreateLiquidity = useMutation({
@@ -124,13 +123,6 @@ export default function useLiquidityCreator() {
     }));
   }, [chainInfo]);
 
-  //
-  // useEffect(() => {
-  //   if (state.amount == undefined) return;
-  //   console.log("amount", state.amount == "");
-  //   validate("amount");
-  // }, [state.amount]);
-
   /**
    * Function to handle the selection of a token
    * @param token - The token that was selected
@@ -146,6 +138,10 @@ export default function useLiquidityCreator() {
     });
   }
 
+  /**
+   * Validate the state and return the errors for the given field
+   * @param field - The field to return the errors for
+   */
   function validate(field: string) {
     const result = schema.safeParse(state);
     const errs = !result.success ? result.error.flatten().fieldErrors : {};
