@@ -52,7 +52,7 @@ export function useMarketService() {
         headers,
       });
 
-      return Promise.resolve({ markets: resp.data.data, meta: resp.data.meta });
+      return Promise.resolve({ markets: resp.data.data || [], meta: resp.data.meta });
     } catch (e) {
       return Promise.reject(handleAxiosError(e as never));
     }

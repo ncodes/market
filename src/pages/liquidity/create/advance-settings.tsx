@@ -52,21 +52,27 @@ export function AdvanceSettings({
         }}
       >
         <div ref={contentHeight} className="flex w-full flex-col gap-4">
-          <div className="mt-1 flex w-full flex-col gap-1">
+          <div className="mt- flex w-full justify-between">
+            <InfoLabel
+              text="Pause"
+              info="Pause immediately after creation. Useful when you don't want to start accepting swaps immediately."
+            />
+            <Switch checked={pause} onCheckedChange={onPauseChange} />
+          </div>
+          <div className="flex w-full flex-col gap-1 pb-1">
             <InfoLabel
               text="Target"
               info="Specify the target of this liquidity. Only the provided address will be able to swap."
-              className="mb-1"
+              className="mb-2"
             />
             <Input
               type="text"
               placeholder="Enter address (0x000...)"
-              className="!font-poppins"
-              hideSuffix
               defaultValue={target}
               onChange={(value) => onTargetChange(value)}
               onKeyUp={onTargetKeyUp}
               containerClassName={cn("input-text-bold", { "input-error": !!errors.target?.[0] })}
+              hideSuffix
             >
               <LeftLabel
                 label={
@@ -81,13 +87,6 @@ export function AdvanceSettings({
                 }
               />
             </Input>
-          </div>
-          <div className="mt- flex w-full justify-between">
-            <InfoLabel
-              text="Pause"
-              info="Pause immediately after creation. Useful when you don't want to start accepting swaps immediately."
-            />
-            <Switch checked={pause} onCheckedChange={onPauseChange} />
           </div>
         </div>
       </motion.div>

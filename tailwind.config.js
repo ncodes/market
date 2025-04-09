@@ -25,19 +25,13 @@ export default {
     },
     extend: {
       colors: {
-        "byzantine-blue": "#1F54DA",
-        "alice-blue": "#E3EEF7",
         "light-green": "#8DE969",
         "screaming-green": "#A1FF7C",
-        "ragoon-green": "#1D1C1C", // for border
         "eerie-black": "#181b23", // for background
         onyx: "#0F1013", // for gradient
         boulder: "#777777", // for text
         "baltic-sea": "#262931", // for background (card)
         "bright-gray": "#3C4051", // for background (card)
-        mirage: "#17181D", // for background (card)
-
-        // Latest
         "raisin-black": "#1c1c28",
         gunmetal: "#28293d",
         "black-coral": "#555770",
@@ -52,9 +46,7 @@ export default {
         "ufo-green": "#39d98a",
         "sunset-orange": "#ff5c5c",
         "coral-red": "#ff3b3b",
-
         "pastel-green": "#8de969",
-        // Adjusted
         "chinese-black": "#11131b",
 
         border: "hsl(var(--border))",

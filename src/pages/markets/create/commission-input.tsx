@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label.tsx";
 import { Slider } from "@/components/ui/slider.tsx";
-import { cn, sanitizeNumberFromInput } from "@/libs/utils.ts";
+import { cn, sanitizeNumber } from "@/libs/utils.ts";
 import { AlertTriangleIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import InfoLabel from "../../../components/info-label";
@@ -19,7 +19,7 @@ export function CommisionInput({
   const spanRef = useRef<HTMLSpanElement | null>(null);
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const sanitizedValue = sanitizeNumberFromInput(e.target.value, { max: 30 });
+    const sanitizedValue = sanitizeNumber(e.target.value, { max: 30 });
     setCommission(sanitizedValue);
     onChange(parseFloat(sanitizedValue));
   }

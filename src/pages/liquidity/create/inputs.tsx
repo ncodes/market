@@ -1,7 +1,7 @@
 import InfoLabel from "@/components/info-label";
 import Input, { LeftLabel } from "@/components/input";
 import { Button } from "@/components/ui/button.tsx";
-import { cn, sanitizeNumberFromInput } from "@/libs/utils.ts";
+import { cn, sanitizeNumber } from "@/libs/utils.ts";
 import { motion } from "framer-motion";
 import { AlertTriangleIcon } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -10,18 +10,24 @@ import { Slider } from "../../../components/ui/slider";
 
 export function PriceInput({
   value,
+  margin,
   baseSymbol,
   priceSymbol,
   errors,
+  initialPrice,
+  isCreated,
   onAutoPriceChange,
   onChange,
   onMarginChange,
   onKeyUp,
 }: {
-  value: string;
+  value?: string;
   baseSymbol: string;
   priceSymbol: string;
   errors: Record<string, string[]>;
+  initialPrice: number | undefined;
+  margin: number | undefined;
+  isCreated: boolean;
   onChange: (value: string) => void;
   onAutoPriceChange: (autoPrice: boolean) => void;
   onMarginChange: (value: number) => void;
@@ -34,6 +40,15 @@ export function PriceInput({
     onAutoPriceChange(auto);
   }, [auto]);
 
+  useEffect(() => {
+    if (!initialPrice) return;
+    onChange(initialPrice.toFixed());
+  }, [initialPrice]);
+
+  useEffect(() => {
+    if (isCreated) setAuto(false);
+  }, [isCreated]);
+
   return (
     <motion.div className={cn("relative w-full overflow-hidden py-0 pt-0")}>
       <div className="flex w-full flex-col gap-1">
@@ -42,8 +57,8 @@ export function PriceInput({
             text={auto ? "Initial price" : "Price"}
             info={
               auto
-                ? `The initial price of 1 ${baseSymbol} in ${priceSymbol}`
-                : `Set the price of 1 ${baseSymbol} in ${priceSymbol}`
+                ? `The initial amount of ${priceSymbol} to be paid for 1 ${baseSymbol}.`
+                : `The amount of ${priceSymbol} to be paid for 1 ${baseSymbol}.`
             }
           />
 
@@ -76,27 +91,20 @@ export function PriceInput({
             </Button>
           </div>
         </div>
-        {!auto && (
-          <p className="pb-1 text-xs font-light tracking-wider text-cool-grey">
-            Set the price of <i>1 {baseSymbol}</i> in the <i>{priceSymbol}</i> asset. You are responsible for updating
-            the price during the lifetime of the liquidity.
-          </p>
-        )}
-
-        {auto && (
-          <p className="pb-1 text-xs font-light tracking-wider text-cool-grey">
-            Prices sync automatically with market rates. You can modify your margin settings at any time to optimize
-            your price position.
-          </p>
-        )}
 
         <Input
           type="text"
-          defaultValue={value}
+          value={value}
+          readOnly={auto}
+          number={{
+            min: 0,
+            allowNegative: false,
+            defaultValue: "",
+          }}
           onChange={onChange}
           suffix={priceSymbol}
           disabled={auto}
-          className="text-white"
+          className="input-number text-white"
           onKeyUp={onKeyUp}
           containerClassName={cn("input-text-bold", { "input-error": !!errors.price?.[0] })}
         >
@@ -114,6 +122,20 @@ export function PriceInput({
           />
         </Input>
 
+        {!auto && (
+          <p className="pb-1 text-xs font-light leading-5 tracking-wider text-cool-grey">
+            Your desired amount of {priceSymbol} per {baseSymbol}. <br />
+            You are responsible for updating the price over time.
+          </p>
+        )}
+
+        {auto && (
+          <p className="pb-1 text-xs font-light leading-5 tracking-wider text-cool-grey">
+            Price will be updated frequently to reflect the market rate. Adjust your margin to optimize your price
+            position.
+          </p>
+        )}
+
         <motion.div
           initial={{ opacity: 0, visibility: "hidden", position: "absolute" }}
           animate={{
@@ -127,23 +149,35 @@ export function PriceInput({
             setAnimCount((prev) => prev + 1);
           }}
         >
-          <MarginInput className="mt-4" onChange={onMarginChange} />
+          <MarginInput className="mt-4" onChange={onMarginChange} value={margin} />
         </motion.div>
       </div>
     </motion.div>
   );
 }
 
-function MarginInput({ className, onChange }: { className?: string; onChange: (value: number) => void }) {
+function MarginInput({
+  className,
+  onChange,
+  value,
+}: {
+  className?: string;
+  onChange: (value: number) => void;
+  value: string | undefined;
+}) {
   const [margin, setMargin] = useState("");
 
+  useEffect(() => {
+    setMargin(value || "");
+  }, [value]);
+
   function getMargin() {
-    return parseFloat(margin);
+    return parseFloat(margin || "0");
   }
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.currentTarget.value;
-    const sanitizedValue = sanitizeNumberFromInput(value, { min: -20, max: 20, defaultValue: "", allowNegative: true });
+    const sanitizedValue = sanitizeNumber(value, { min: -20, max: 20, defaultValue: "", allowNegative: true });
     setMargin(sanitizedValue);
     onChange(parseFloat(sanitizedValue));
   }
@@ -175,7 +209,10 @@ function MarginInput({ className, onChange }: { className?: string; onChange: (v
             max={20}
             step={1}
             min={-20}
-            onValueChange={(value) => setMargin(value[0])}
+            onValueChange={(value) => {
+              setMargin(value[0].toString());
+              onChange(value[0]);
+            }}
             value={[getMargin()]}
             className="border-none bg-transparent"
             rangeClassName={cn(

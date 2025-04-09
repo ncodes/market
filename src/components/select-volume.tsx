@@ -7,7 +7,6 @@ export default function SelectVolume({text, className}: {text?: string, classNam
     return (
       <Select>
         <SelectTrigger
-          hideCaret
           className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
           asChild
         >

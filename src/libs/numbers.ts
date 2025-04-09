@@ -112,10 +112,11 @@ export function toDec(val: string | number | bigint | Decimal) {
 export function formatToHighDenom(
   v: bigint | string | Decimal,
   decimals = 18,
-  format?: string | number,
+  format?: string,
   places?: number,
   approxAt = 0,
 ) {
+  v = v || "0";
   const hd = toHD(v, decimals);
   if (!approxAt || toDec(hd).lt(approxAt)) return formatToMoney(hd, format, places);
   return approxNumber(hd, places);
@@ -127,12 +128,11 @@ export function formatToHighDenom(
  * @param format - The format to use
  * @param places - Decimal places to use when v is a decimal number
  */
-export function formatToMoney(v: string | number, format?: string | number, places = 6) {
-  if (!v) return;
+export function formatToMoney(v: string | number, format?: string, places = 6) {
   if (toDec(v).lt(1)) return trimZeros(toDec(v).toFixed(places));
   const param = typeof v === "number" ? v.toLocaleString() : v;
   const fmt = format || (typeof v === "number" ? "0,0.[00]" : "0,0.[0000]");
-  return numeral(param).format(fmt.toString()) !== "NaN" ? numeral(param).format(fmt.toString()) : 0;
+  return numeral(param).format(fmt.toString()) !== "NaN" ? numeral(param).format(fmt.toString()) : "0";
 }
 
 /**

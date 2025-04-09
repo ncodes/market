@@ -1,4 +1,4 @@
-import { cn } from "@/libs/utils.ts";
+import { cn, sanitizeNumber } from "@/libs/utils.ts";
 import React, { ReactNode, memo, useEffect, useState } from "react";
 import { Label } from "./ui/label";
 
@@ -10,28 +10,38 @@ const Input = memo(function Input({
   placeholder,
   className,
   disabled,
-  onChange,
-  onKeyDown,
-  onKeyUp,
   defaultValue,
   readOnly,
   containerClassName,
+  number,
+  value,
+  onChange,
+  onKeyDown,
+  onKeyUp,
 }: {
   type?: string;
   suffix?: string | React.ReactNode;
   children?: ReactNode;
   hideSuffix?: boolean;
   placeholder?: string;
+  value?: string;
   className?: string;
+  number?: {
+    min?: number;
+    max?: number;
+    defaultValue?: string;
+    allowNegative?: boolean;
+    allowDecimal?: boolean;
+  };
   disabled?: boolean;
   defaultValue?: string;
   readOnly?: boolean;
+  containerClassName?: string;
   onChange?: (value: string) => void;
   onKeyDown?: () => void;
   onKeyUp?: () => void;
-  containerClassName?: string;
 }) {
-  const [val, setVal] = useState(defaultValue);
+  const [val, setVal] = useState(defaultValue ?? "");
   const childrenArray = React.Children.toArray(children);
   const leftLabel = children ? childrenArray.find((child: any) => child.type === LeftLabel) : null;
   const rightLabel = children ? childrenArray.find((child: any) => child.type === RightLabel) : null;
@@ -41,6 +51,10 @@ const Input = memo(function Input({
   useEffect(() => {
     onChange?.(val ?? "");
   }, [val]);
+
+  useEffect(() => {
+    setVal(value || "");
+  }, [value]);
 
   return (
     <div>
@@ -58,7 +72,17 @@ const Input = memo(function Input({
       >
         <input
           onChange={(e) => {
-            setVal(e.target.value);
+            if (number) {
+              const sanitizedValue = sanitizeNumber(e.target.value, {
+                defaultValue: "",
+                allowNegative: number.allowNegative ?? false,
+                min: number.min,
+                max: number.max,
+              });
+              setVal(sanitizedValue);
+            } else {
+              setVal(e.target.value);
+            }
           }}
           type={type || "number"}
           value={val}

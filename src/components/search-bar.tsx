@@ -1,6 +1,6 @@
 import { EthereumIcon, USDTIcon } from "@/assets";
-import { Overlay } from "@/components/overlay";
 import { IconSearch } from "@/components/icons/IconSearch";
+import { Overlay } from "@/components/overlay";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

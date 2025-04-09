@@ -22,7 +22,7 @@ export function AssetOverview({
       <Label className={cn("text-sm tracking-wide text-lotion/80", labelClassName)}>{title}</Label>
       <div className={cn("flex w-[125px] items-center rounded-3xl bg-black-coral/30 px-1", inputWrapperClassName)}>
         <AssetAvatar assetImage={assetImage} className="h-8 w-8" />
-        <Label className="font-inter text-base font-semibold text-gray-100">{asset}</Label>
+        <Label className="font-inter text-base font-semibold tracking-wider text-gray-100">{asset}</Label>
       </div>
     </div>
   );

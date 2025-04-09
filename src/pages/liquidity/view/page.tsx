@@ -13,7 +13,7 @@ import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import useStore from "@/hooks/store/useStore";
 import PageLayout from "@/layouts/PageLayout";
 import { cn } from "@/libs/utils";
-import { ChevronDown, ChevronRight, Settings } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
@@ -50,6 +50,7 @@ export default function ViewLiquidityPage() {
                   <IconActive /> Active
                 </Label>
               </div>
+
               <div className="flex items-center gap-2">
                 <Label className="hidden items-center gap-1 text-xs font-semibold tracking-wider text-cool-grey md:flex">
                   <IconLock /> Permissioned
@@ -105,13 +106,14 @@ export default function ViewLiquidityPage() {
               </Tabs>
             </div>
           </div>
+
           <div className="flex w-full max-w-full flex-col gap-6 lg:max-w-[400px]">
             <LiquiditySwap />
             <div className="flex w-full flex-col gap-4 py-2">
               <Label className="text-xl font-medium text-lotion">Links</Label>
               <div className="flex w-full flex-col gap-4">
-                {[1, 2, 3, 4].map((_) => (
-                  <div className="flex w-full justify-between tracking-wide">
+                {[1, 2, 3, 4].map((_, index) => (
+                  <div key={index} className="flex w-full justify-between tracking-wide">
                     <div className="flex items-center">
                       <div className="relative w-10">
                         <Avatar
@@ -166,10 +168,6 @@ function MoreButton() {
         >
           Manage
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
-        </Button>
-
-        <Button variant={"ghost"} className="block p-0 hover:bg-transparent hover:text-white sm:hidden">
-          <Settings className="h-5 w-5" />
         </Button>
       </PopoverTrigger>
       <PopoverContent

@@ -1,5 +1,4 @@
 import AssetAvatar from "@/components/avatar/asset-avatar";
-import { Avatar } from "@/components/avatar/avatar";
 import IconArrowRight from "@/components/icons/IconArrowRight";
 import IconDropDown from "@/components/icons/IconDropDown";
 import { IconSearch } from "@/components/icons/IconSearch";
@@ -7,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { shortenAddress } from "@/libs/string";
 import { cn } from "@/libs/utils";
-import { TokenList, TokenLists } from "@jointlabs/meta";
+import { ChainInfo, TokenList, TokenLists } from "@jointlabs/meta";
 import { CheckCircle2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { getSupportedChainInfo } from "../hooks/connectors/common";
 import { useConnectorContext } from "../hooks/connectors/useConnectorContext";
 import CloseIcon from "./close-icon";
@@ -24,7 +23,8 @@ export function AssetButton({
   textClassName,
   assetClassName,
   networkClassName,
-  selectAsset,
+  onSelectAsset,
+  onChainSelected,
 }: {
   text: string;
   assetImage: string;
@@ -33,11 +33,13 @@ export function AssetButton({
   textClassName?: string;
   assetClassName?: string;
   networkClassName?: string;
-  selectAsset?: (asset: TokenList.Token) => void;
+  onSelectAsset?: (asset: TokenList.Token) => void;
+  onChainSelected?: (chain: ChainInfo) => void;
 }) {
   const { chainInfo } = useConnectorContext();
   const [open, setOpen] = useState(false);
   const [assets, setAssets] = useState<TokenList.Token[]>([]);
+  const [selectedChain, setSelectedChain] = useState<ChainInfo | undefined>(chainInfo);
 
   useEffect(() => {
     if (!chainInfo) return;
@@ -90,11 +92,11 @@ export function AssetButton({
       }
       content={
         <div className="flex w-full flex-col overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
-          <div className="flex h-fit items-center justify-between px-5 py-3">
-            <Label className="text-lg font-normal tracking-wider text-lotion md:text-xl">Select a token</Label>
+          <div className="flex h-fit items-center justify-between px-5 py-3 pr-3">
+            <Label className="text-lg font-semibold tracking-wider text-lotion md:text-2xl">Select a token</Label>
             <CloseIcon setOpen={setOpen} />
           </div>
-          <div className="flex h-fit justify-between gap-2 border-y border-eerie-black px-3 py-2">
+          <div className="flex h-fit justify-between gap-2 border-y border-eerie-black px-3 py-2 pr-1">
             <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">
               <IconSearch className="opacity-40" />
               <input
@@ -104,11 +106,22 @@ export function AssetButton({
                 onChange={handleSearchInput}
               />
             </div>
-            <NetworkSelectorButton />
+            <NetworkSelectorButton
+              onChainSelected={(chainInfo) => {
+                onChainSelected?.(chainInfo);
+                setSelectedChain(chainInfo);
+              }}
+            />
           </div>
           <div className="flex h-[70vh] w-full flex-col overflow-y-auto px-0">
             {assets.map((asset, index) => (
-              <AssetTile key={index} asset={asset} selectAsset={selectAsset} setOpen={setOpen} />
+              <AssetTile
+                key={index}
+                asset={asset}
+                chainImg={selectedChain?.logo}
+                selectAsset={onSelectAsset}
+                setOpen={setOpen}
+              />
             ))}
           </div>
         </div>
@@ -121,8 +134,10 @@ function AssetTile({
   asset,
   selectAsset,
   setOpen,
+  chainImg,
 }: {
   asset: TokenList.Token;
+  chainImg: ReactNode;
   setOpen: (open: boolean) => void;
   selectAsset?: (asset: TokenList.Token) => void;
 }) {
@@ -137,11 +152,16 @@ function AssetTile({
     >
       <div className="group flex w-full cursor-pointer items-center justify-between px-3 py-2 hover:bg-eerie-black">
         <div className="flex cursor-pointer items-center gap-2">
-          <Avatar src={asset.logoURI ?? ""} fallback={asset.symbol} className="h-8 w-8 cursor-pointer" />
+          <AssetAvatar
+            assetImage={asset.logoURI ?? ""}
+            networkImage={chainImg}
+            assetImageFallback={asset.symbol}
+            className="h-8 w-8 cursor-pointer"
+          />
           <div className="flex flex-col gap-1">
-            <Label className="text-sm tracking-wider text-anti-flash-white">{asset.name}</Label>
+            <Label className="text-sm font-semibold tracking-wider text-anti-flash-white">{asset.name}</Label>
             <span className="flex items-center gap-2">
-              <label className="text-sm font-normal text-cool-grey">{asset.symbol}</label>
+              <label className="text-xs font-normal text-cool-grey">{asset.symbol}</label>
               <span className="text-xs text-cool-grey/40">{shortenAddress(asset.address ?? "")}</span>
             </span>
           </div>
@@ -152,16 +172,30 @@ function AssetTile({
   );
 }
 
-interface NetworkSelectorButtonProps {
+export function NetworkSelectorButton({
+  text,
+  className,
+  imgClassName,
+  disableAutoSwitch,
+  onChainSelected,
+}: {
   text?: string;
   className?: string;
   imgClassName?: string;
-}
-
-export function NetworkSelectorButton({ text, className, imgClassName }: NetworkSelectorButtonProps) {
+  disableAutoSwitch?: boolean;
+  onChainSelected?: (chain: ChainInfo) => void;
+}) {
   const [open, setOpen] = useState(false);
+  const [selectedChain, setSelectedChain] = useState<ChainInfo | undefined>();
   const { chainInfo, switchNetwork } = useConnectorContext();
   const supportedChains = getSupportedChainInfo();
+
+  useEffect(() => {
+    if (!selectedChain) return;
+    if (!disableAutoSwitch && selectedChain) switchNetwork(selectedChain.chainId);
+    onChainSelected?.(selectedChain);
+    setOpen(false);
+  }, [selectedChain]);
 
   if (!chainInfo) return null;
 
@@ -180,7 +214,7 @@ export function NetworkSelectorButton({ text, className, imgClassName }: Network
               {chainInfo.displayName}
             </Label>
           )}
-          <chainInfo.logoPath className={cn("h-7 w-7", imgClassName)} />
+          {chainInfo?.logo({ width: 25, height: 25 })}
           <span className="hidden xs:block">{text}</span>
           <IconDropDown
             className={cn("h-6 w-6 shrink-0 opacity-60 transition-all duration-300", open && "rotate-180")}
@@ -196,15 +230,13 @@ export function NetworkSelectorButton({ text, className, imgClassName }: Network
             <Button
               key={index}
               onClick={() => {
-                switchNetwork(chain.chainId).then(() => {
-                  setOpen(false);
-                });
+                setSelectedChain(chain);
               }}
               variant={"ghost"}
               className="m-0 flex h-auto w-full items-center justify-between rounded-xl p-[0.5rem] text-left hover:bg-eerie-black"
             >
               <span className="flex items-center gap-2">
-                <chain.logoPath className="h-[22px] w-auto" />
+                {(chain?.logo as any)({ width: 25, height: 22 })}
                 <Label className="cursor-pointer font-poppins text-sm font-light tracking-wide text-anti-flash-white">
                   {chain.displayName.toLowerCase() === "all" ? "All networks" : chain.displayName}
                 </Label>

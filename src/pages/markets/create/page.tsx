@@ -19,16 +19,16 @@ export default function CreateMarketPage() {
         {!state.isLoading && (
           <div className="mt-5 w-full max-w-sm lg:mt-10 lg:max-w-md">
             <div className="mb-2 w-full rounded-3xl border border-eerie-black bg-chinese-black">
-              <div className="flex items-center gap-4 border-b border-eerie-black px-3 py-4 md:px-3">
+              <div className="flex items-center gap-4 border-b border-eerie-black px-3 py-4 md:px-5">
                 <Label className="text-xl font-semibold text-lotion lg:text-2xl">Create Market</Label>
               </div>
-              <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-3 py-5 md:px-3">
+              <div className="flex w-full flex-col gap-4 border-b border-eerie-black px-3 py-5 md:px-5">
                 <div className="flex w-full flex-col gap-5 xs:flex-row">
                   <div className="flex w-full flex-col gap-2">
                     <InfoLabel text="Base Asset" info="This is the base asset" />
                     <AssetButton
                       text={state.baseToken?.symbol ?? ""}
-                      selectAsset={(asset) => onTokenSelect(asset, { base: true })}
+                      onSelectAsset={(asset) => onTokenSelect(asset, { base: true })}
                       assetImage={state.baseToken?.logoURI ?? ""}
                       className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                       textClassName="text-cool-grey"
@@ -40,7 +40,7 @@ export default function CreateMarketPage() {
                     <AssetButton
                       text={state.quoteToken?.symbol ?? ""}
                       assetImage={state.quoteToken?.logoURI ?? ""}
-                      selectAsset={(asset) => onTokenSelect(asset, { base: false })}
+                      onSelectAsset={(asset) => onTokenSelect(asset, { base: false })}
                       className="h-11 w-full bg-black-coral/20 pl-1.5 hover:bg-black-coral/30"
                       textClassName="text-cool-grey"
                       assetClassName="w-8 h-8"
@@ -54,7 +54,7 @@ export default function CreateMarketPage() {
                   errors={errors}
                 />
               </div>
-              <div className="flex w-full flex-col gap-4 px-3 pb-3 pt-3 md:px-3">
+              <div className="flex w-full flex-col gap-4 px-3 pb-3 pt-3 md:px-5">
                 <AdvanceSettings
                   state={state}
                   setState={setState}

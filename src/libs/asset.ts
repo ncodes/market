@@ -18,8 +18,18 @@ export function tokenTypeToAssetType(tokenType: "ERC20" | "SYNTHETIC" | "ERC721"
  * Check if a token represnts a native token
  * @param token - The token
  */
-export function isNative(token: TokenList.Token) {
-  return tokenTypeToAssetType(token.type) == AssetType.NATIVE;
+export function isNative(token?: TokenList.Token) {
+  if (!token) return false;
+  return tokenTypeToAssetType(token.type) == AssetType.NATIVE || !!token.native;
+}
+
+/**
+ * Check if a token represents an ERC20 token
+ * @param token - The token
+ */
+export function isErc20(token?: TokenList.Token) {
+  if (!token) return false;
+  return tokenTypeToAssetType(token.type) == AssetType.ERC20;
 }
 
 /**

@@ -7,31 +7,35 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function sanitizeNumberFromInput(
+export function sanitizeNumber(
   value: string,
   options: { max?: number; min?: number; defaultValue?: string; allowNegative?: boolean },
 ) {
   const { max, min, defaultValue, allowNegative } = options;
 
-  let sanitizedValue = value
+  let newVal = value
     .replace(/[^\d.-]/g, "") // Remove non-numeric chars except decimal
     .replace(/(\..*)\./g, "$1"); // Allow only one decimal point
 
-  if (sanitizedValue.includes("-")) {
-    if (!allowNegative || sanitizedValue[0] !== "-") {
-      sanitizedValue = sanitizedValue.replace(/-/g, ""); // Remove minus signs
-    }
+  // Remove negative sign if it's not allowed
+  if (newVal.includes("-") && (!allowNegative || newVal[0] !== "-")) {
+    newVal = newVal.replace(/-/g, "");
   }
 
-  if (max && parseFloat(sanitizedValue) > max) {
-    sanitizedValue = max.toString();
-  } else if (min && parseFloat(sanitizedValue) < min) {
-    sanitizedValue = min.toString();
-  } else if (sanitizedValue) {
-    sanitizedValue = parseFloat(sanitizedValue).toString();
+  // Clamp the value if it's outside the min or max
+  if (max && parseFloat(newVal) > max) {
+    newVal = max.toString();
+  } else if (min && parseFloat(newVal) < min) {
+    newVal = min.toString();
   }
 
-  return sanitizedValue === "" ? (defaultValue ?? "0") : sanitizedValue;
+  // Return the value if it ends with a decimal point.
+  // This is to prevent the value from being truncated too early.
+  if (newVal.endsWith(".")) {
+    return newVal;
+  }
+
+  return newVal === "" ? (defaultValue ?? "0") : newVal;
 }
 
 /**

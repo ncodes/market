@@ -3,12 +3,6 @@ import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
 
-export interface GetCryptoRateParams {
-  net: string;
-  symbolOrAddress: string;
-  symbol: string;
-}
-
 export interface GetMediatorPoolsParams {
   network: string;
 }
@@ -38,15 +32,16 @@ export function useMiscService() {
 
   /**
    * Get crypto USD rate
+   * @param ctx The query function context
+   * @returns The crypto rate in USD
    */
-  async function getCryptoRate(ctx: QueryFunctionContext<[string, GetCryptoRateParams]>): Promise<number> {
+  async function getCryptoRate(ctx: QueryFunctionContext<[string, { net: string; address: string }]>) {
     try {
       const [, params] = ctx.queryKey;
       const headers: { [key: string]: string | undefined } = {};
-
       const resp = await axios({
         method: "get",
-        url: `${getChainInfo().apiUrl}/v1/misc/crypto-rate/${params.net}/${params.symbolOrAddress}`,
+        url: `${getChainInfo().apiUrl}/v1/misc/crypto-rate/${params.net}/${params.address}`,
         headers,
       } as AxiosRequestConfig);
 

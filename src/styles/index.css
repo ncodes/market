@@ -21,8 +21,8 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
 
-    --primary: 223 75% 49%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 103 100% 74%;
+    --primary-foreground: 103 0% 0%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -114,7 +114,7 @@
   }
 
   .input {
-    @apply w-full border-none !bg-transparent transition-all duration-300 font-dosis text-lg outline-none placeholder:font-poppins placeholder:text-cool-grey active:border-none active:outline-none;
+    @apply w-full border-none !bg-transparent transition-all duration-300 text-[17px] font-normal outline-none placeholder:font-poppins placeholder:text-cool-grey active:border-none active:outline-none;
   }
   
   .reset-btn {
@@ -131,5 +131,9 @@
   
   .input-error {
     @apply border border-red-500 bg-red-500/20 [&>input]:text-red-500;
+  }
+  
+  .input-number {
+    @apply font-dosis font-bold;
   }
 }

@@ -46,6 +46,9 @@ function tokenTypeToAssetType(type: string) {
       return AssetType.ERC721;
     case "ERC1155":
       return AssetType.ERC1155;
+    case "SYNTH":
+    case "SYNTHETIC":
+      return AssetType.SYNTH;
     default:
       return AssetType.NATIVE;
   }

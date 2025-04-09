@@ -102,10 +102,7 @@ function ChartFilter({ text, isActive }: { text: string; isActive?: boolean }) {
 function SelectVolume() {
   return (
     <Select>
-      <SelectTrigger
-        hideCaret
-        className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
-      >
+      <SelectTrigger className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none">
         <span className="flex items-center font-light text-cool-grey hover:bg-transparent hover:text-cool-grey">
           Volume <IconDropDown />
         </span>

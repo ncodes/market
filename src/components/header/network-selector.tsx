@@ -84,7 +84,7 @@ export function NetworkSelector() {
             },
           )}
         >
-          {state.curChain?.logoPath({ width: 25, height: 25 })}
+          {state.curChain?.logo({ width: 25, height: 25 })}
           <ChevronDownIcon className={cn("h-5 w-5 transition-all duration-300", { "rotate-180": state.open })} />
         </div>
       </DropdownMenuTrigger>
@@ -128,7 +128,7 @@ function Item({ chainId, onClick }: { chainId: number; onClick?: () => void }) {
       onClick={onClick}
     >
       <div className="flex items-center space-x-2">
-        <div className="rounded-2xl">{chain?.logoPath({ width: 25, height: 25 })}</div>
+        <div className="rounded-2xl">{(chain?.logo as any)({ width: 25, height: 25 })}</div>
         <div className="text-sm font-medium text-gray-100">{chain?.displayName}</div>
       </div>
     </Button>
