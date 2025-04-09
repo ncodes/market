@@ -2,12 +2,12 @@ import theme from "@/hooks/connectors/components/theme.ts";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { ReactNode } from "react";
-import { Chain, HttpTransport, http } from "viem";
+import { HttpTransport, http } from "viem";
 import { arbitrum, hardhat } from "viem/chains";
 import { WagmiProvider, createConfig } from "wagmi";
 import { coinbaseWallet, walletConnect } from "wagmi/connectors";
 import { AppIcon, AppName, AppUrl, InfuraId, WalletConnectId } from "../../../constants.ts";
-import { isLocal } from "../../../libs/helpers.ts";
+import { isLocal } from "../../../libs/env.ts";
 import { getSupportedChains } from "../common.ts";
 import { ConnectorContext } from "../context";
 import useConnector from "../useConnector";
@@ -32,7 +32,7 @@ if (isLocal()) {
 const defaultCfg = getDefaultConfig({
   walletConnectProjectId: WalletConnectId,
   appName: AppName,
-  chains: getSupportedChains() as unknown as readonly [Chain, ...Chain[]],
+  chains: getSupportedChains(),
   appDescription: "Swop allows you to swap tokens with regular people.",
   appUrl: AppUrl,
   appIcon: AppIcon,
@@ -42,9 +42,7 @@ const defaultCfg = getDefaultConfig({
 defaultCfg.connectors = [coinbaseWallet(), walletConnect({ projectId: WalletConnectId })];
 
 const config = createConfig(defaultCfg);
-
 const lastChainId = localStorage.getItem("lastChainId");
-
 const queryClient = new QueryClient();
 
 export default function ConnectorProvider({ children }: ConnectorProviderProps) {

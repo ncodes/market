@@ -1,10 +1,11 @@
 import { SolanaIcon, USDCIcon } from "@/assets";
-import SelectDayVolume from "@/components/SelectDayVolume";
-import SwapModal from "@/components/SwapModal";
-import { Avatar } from "@/components/avatar/Avatar";
+import { Avatar } from "@/components/avatar/avatar";
 import IconActive from "@/components/icons/IconActive";
 import IconLock from "@/components/icons/IconLock";
 import IconOpenLink from "@/components/icons/IconOpenLink";
+import SelectDayVolume from "@/components/select-day-volume";
+import SwapModal from "@/components/swap-modal";
+import TabHeader from "@/components/tab-header";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -12,7 +13,7 @@ import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import useStore from "@/hooks/store/useStore";
 import PageLayout from "@/layouts/PageLayout";
 import { cn } from "@/libs/utils";
-import { ChevronDown, ChevronRight, Settings } from "lucide-react";
+import { ChevronDown, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import LiquidityChart from "./chart";
@@ -23,7 +24,6 @@ import UpdatePrice from "./options/update-price";
 import UpdateTarget from "./options/update-target";
 import LiquiditySwap from "./swap";
 import LiquidityTransactions from "./transactions";
-import TabHeader from "@/components/TabHeader";
 
 export default function ViewLiquidityPage() {
   const { setOpenAdjustAmount } = useStore();
@@ -50,6 +50,7 @@ export default function ViewLiquidityPage() {
                   <IconActive /> Active
                 </Label>
               </div>
+
               <div className="flex items-center gap-2">
                 <Label className="hidden items-center gap-1 text-xs font-semibold tracking-wider text-cool-grey md:flex">
                   <IconLock /> Permissioned
@@ -105,13 +106,14 @@ export default function ViewLiquidityPage() {
               </Tabs>
             </div>
           </div>
+
           <div className="flex w-full max-w-full flex-col gap-6 lg:max-w-[400px]">
             <LiquiditySwap />
             <div className="flex w-full flex-col gap-4 py-2">
               <Label className="text-xl font-medium text-lotion">Links</Label>
               <div className="flex w-full flex-col gap-4">
-                {[1, 2, 3, 4].map((_) => (
-                  <div className="flex w-full justify-between tracking-wide">
+                {[1, 2, 3, 4].map((_, index) => (
+                  <div key={index} className="flex w-full justify-between tracking-wide">
                     <div className="flex items-center">
                       <div className="relative w-10">
                         <Avatar
@@ -158,7 +160,7 @@ function MoreButton() {
 
   return (
     <Popover onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           variant={"secondary"}
           className="hidden h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70 xs:hidden sm:flex"
@@ -166,10 +168,6 @@ function MoreButton() {
         >
           Manage
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
-        </Button>
-
-        <Button variant={"ghost"} className="block p-0 hover:bg-transparent hover:text-white sm:hidden">
-          <Settings className="h-5 w-5" />
         </Button>
       </PopoverTrigger>
       <PopoverContent

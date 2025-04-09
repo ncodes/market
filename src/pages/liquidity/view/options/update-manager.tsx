@@ -1,9 +1,9 @@
-import CloseIcon from "@/components/CloseIcon";
-import InfoLabel from "@/components/InfoLabel";
-import Input from "@/components/Input";
-import Modal from "@/components/Modal";
-import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import EmojiAvatar from "@/components/avatar/emoji-avatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
+import CloseIcon from "@/components/close-icon";
+import InfoLabel from "@/components/info-label";
+import Input from "@/components/input";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ChevronRight } from "lucide-react";
@@ -32,7 +32,7 @@ export default function UpdateManager() {
               <Label className="max-w-[250px] text-base font-semibold text-lotion lg:text-xl">
                 {isSubmitted ? "Confirm" : "Update Liquidity Manager"}
               </Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             {!isSubmitted && (
               <div className="mb-6 flex flex-col gap-5 px-5 py-[14px] pb-0">

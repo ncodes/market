@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosResponse } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -50,7 +50,7 @@ export function useInstructionsService() {
    */
   async function updateInstructions(body: Partial<UpdateInstructionsBody>): Promise<InstructionsWithGrantSigResponse> {
     try {
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
@@ -79,7 +79,7 @@ export function useInstructionsService() {
   ): Promise<InstructionsResponse | undefined> {
     try {
       const [, body] = ctx.queryKey;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
 
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;

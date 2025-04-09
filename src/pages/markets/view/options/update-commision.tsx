@@ -1,7 +1,7 @@
-import CloseIcon from "@/components/CloseIcon";
-import InfoLabel from "@/components/InfoLabel";
-import Input from "@/components/Input";
-import Modal from "@/components/Modal";
+import CloseIcon from "@/components/close-icon";
+import InfoLabel from "@/components/info-label";
+import Input from "@/components/input";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ChevronRight } from "lucide-react";
@@ -31,7 +31,7 @@ export default function UpdateCommision() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Update Commission"}
               </Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             {!isSubmitted && (
               <div className="mb-8 flex flex-col gap-2 px-5 py-[14px] pb-0">
@@ -43,11 +43,11 @@ export default function UpdateCommision() {
               <div className="mb-8 flex gap-[30px] px-5 py-[14px] pb-0">
                 <div className="flex w-full flex-col gap-2">
                   <Label className="text-sm font-light text-cool-grey">Old Commission</Label>
-                  <Input className="text-cool-grey" value={"20%"} type="text" />
+                  <Input className="text-cool-grey" defaultValue={"20%"} type="text" />
                 </div>
                 <div className="flex w-full flex-col gap-2">
                   <Label className="text-sm font-light text-white">New Commission</Label>
-                  <Input className="text-white" value={"20%"} type="text" />
+                  <Input className="text-white" defaultValue={"20%"} type="text" />
                 </div>
               </div>
             )}

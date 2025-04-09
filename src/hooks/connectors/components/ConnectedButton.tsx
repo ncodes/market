@@ -1,13 +1,13 @@
-import CloseIcon from "@/components/CloseIcon.tsx";
-import TabHead from "@/components/TabHead.tsx";
-import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import EmojiAvatar from "@/components/avatar/emoji-avatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
-import IconArrowRight from "@/components/icons/IconArrowRight.tsx";
-import IconBought from "@/components/icons/IconBought.tsx";
-import IconMinus from "@/components/icons/IconMinus.tsx";
+import CloseIcon from "@/components/close-icon";
+import IconArrowRight from "@/components/icons/IconArrowRight";
+import IconBought from "@/components/icons/IconBought";
+import IconMinus from "@/components/icons/IconMinus";
 import IconPlus from "@/components/icons/IconPlus.tsx";
 import IconSold from "@/components/icons/IconSold.tsx";
 import IconUpdatedMarket from "@/components/icons/IconUpdatedMarket.tsx";
+import TabHead from "@/components/tab-head";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog.tsx";
 import { Label } from "@/components/ui/label.tsx";
@@ -15,7 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs.tsx";
 import { transactions } from "@/libs/data.ts";
-import { shortenAddress, shortenAddress2 } from "@/libs/helpers.ts";
+import { shortenAddress, shortenAddress2 } from "@/libs/string.ts";
 import { cn } from "@/libs/utils.ts";
 import { TransactionType } from "@/libs/wallets.ts";
 import { CheckIcon, ChevronDown, Copy, ListFilter, Power } from "lucide-react";
@@ -72,7 +72,7 @@ export const ConnectedButton = ({
 
   return (
     <Sheet open={openSheet} onOpenChange={(open) => setOpenSheet(open)}>
-      <SheetTrigger>
+      <SheetTrigger asChild>
         <Button
           variant={"ghost"}
           className={cn(
@@ -202,7 +202,7 @@ function TypesButton() {
 
   return (
     <Popover open={open} onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           className={cn(
             "flex h-[30px] items-center gap-1 bg-transparent px-3 py-0 text-cool-grey hover:bg-eerie-black",

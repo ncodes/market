@@ -11,10 +11,12 @@ export default function VolumeFilter() {
 
   return (
     <Popover onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           variant={"ghost"}
-          className={cn("gap-1 rounded-2xl px-3 hover:bg-eerie-black hover:text-white w-fit flex", { "bg-eerie-black": open })}
+          className={cn("flex w-fit gap-1 rounded-2xl px-3 hover:bg-eerie-black hover:text-white", {
+            "bg-eerie-black": open,
+          })}
         >
           1D Volume{" "}
           <IconDropDown

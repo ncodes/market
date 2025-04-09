@@ -1,6 +1,6 @@
-import InfoLabel from "@/components/InfoLabel.tsx";
-import Input from "@/components/Input.tsx";
 import IconDropDown from "@/components/icons/IconDropDown.tsx";
+import InfoLabel from "@/components/info-label";
+import Input from "@/components/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label.tsx";
 import { Switch } from "@/components/ui/switch.tsx";
@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 import { AlertTriangleIcon } from "lucide-react";
 import { useRef, useState } from "react";
 import SelectMediatorPool from "./select-mediator-pool";
-import { MarketCreatorState } from "./useMarketCreatorLogic";
+import { MarketCreatorState } from "./useMarketCreator";
 
 export function AdvanceSettings({
   state,
@@ -75,11 +75,10 @@ export function AdvanceSettings({
             <InfoLabel text="Set Market Manager" info="Set Market Manager" className="mb-2" />
             <Input
               type="text"
-              placeholder="0x000"
-              className="pr-4 !font-poppins !text-sm"
-              containerClassName="rounded-2xl"
-              onChange={({ currentTarget }) => {
-                setState((prev) => ({ ...prev, marketManager: currentTarget.value }));
+              placeholder="Enter address (0x0000...)"
+              className="pr-4 !font-poppins !text-[17px]"
+              onChange={(value) => {
+                setState((prev) => ({ ...prev, marketManager: value }));
               }}
               hideSuffix
             />

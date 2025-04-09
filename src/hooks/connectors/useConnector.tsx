@@ -1,9 +1,10 @@
-import { logError } from "@/libs/helpers.ts";
+import { logError } from "@/libs/logging";
 import { ChainInfo, ContractNames, getChain } from "@jointlabs/meta";
 import { useEffect, useState } from "react";
 import { Address, Chain, PublicClient, TransactionReceipt, createPublicClient, erc20Abi, http } from "viem";
 import { arbitrum } from "viem/chains";
 import { useAccount, useChainId, useDisconnect, useSignMessage, useSwitchChain, useWalletClient } from "wagmi";
+import { DefaultNetwork } from "../../constants.ts";
 import { IConnector } from "./interface.ts";
 
 /**
@@ -11,9 +12,8 @@ import { IConnector } from "./interface.ts";
  * @returns
  */
 export default function useConnector() {
-  const envDefaultChain = import.meta.env.VITE_DEFAULT_NETWORK;
-  const defaultChain = (getChain(envDefaultChain) ?? getChain(arbitrum.id))?.chainId;
-  const [chainInfo, setChainInfo] = useState<ChainInfo | undefined>(getChain(envDefaultChain) ?? getChain(arbitrum.id));
+  const defaultChain = (getChain(DefaultNetwork) ?? getChain(arbitrum.id))?.chainId;
+  const [chainInfo, setChainInfo] = useState<ChainInfo | undefined>(getChain(defaultChain as number));
   const [connected, setConnected] = useState<boolean | undefined>(undefined);
   const [address, setAddress] = useState<`0x${string}` | undefined>(undefined);
   const [ready, setReady] = useState(false);
@@ -110,9 +110,8 @@ export default function useConnector() {
       if (!connected) return Promise.reject(new Error("not connected to a wallet"));
       if (!switchChain) return Promise.reject(new Error("switch function not set"));
       switchChain({ chainId: id });
-      return Promise.resolve();
     } catch (error) {
-      return Promise.reject(error);
+      return error;
     }
   }
 

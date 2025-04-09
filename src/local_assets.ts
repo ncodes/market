@@ -1,5 +1,5 @@
 import { addTokenToLocalhost } from "@jointlabs/meta";
-import { isLocal } from "./libs/helpers";
+import { isLocal } from "./libs/env";
 
 if (isLocal()) {
   addTokenToLocalhost([
@@ -13,6 +13,7 @@ if (isLocal()) {
       logoURI:
         "https://assets-cdn.trustwallet.com/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png",
       price: 0,
+      nativeWrapper: true,
     },
     {
       asset: "0000",

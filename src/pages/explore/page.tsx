@@ -1,6 +1,6 @@
-import { NetworkSelectorButton } from "@/components/AssetButton";
-import TabHeader from "@/components/TabHeader";
+import { NetworkSelectorButton } from "@/components/asset-button";
 import { IconSearch } from "@/components/icons/IconSearch";
+import TabHeader from "@/components/tab-header";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import {
@@ -158,7 +158,7 @@ function MoreButton() {
 
   return (
     <Popover onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button variant={"ghost"} className="p-0 hover:bg-transparent hover:text-white">
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
         </Button>

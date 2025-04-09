@@ -1,19 +1,20 @@
-import { SolanaIcon, USDCIcon } from "@/assets";
-import { NetworkSelectorButton } from "@/components/AssetButton";
-import SwapModal from "@/components/SwapModal";
-import { Avatar } from "@/components/avatar/Avatar";
-import IconOpenLink from "@/components/icons/IconOpenLink";
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import PageLayout from "@/layouts/PageLayout";
 import { cn } from "@/libs/utils";
+import { Tabs } from "@radix-ui/react-tabs";
 import { ChevronDown, Settings } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { SolanaIcon, USDCIcon } from "../../../assets";
+import { NetworkSelectorButton } from "../../../components/asset-button";
+import { Avatar } from "../../../components/avatar/avatar";
+import IconOpenLink from "../../../components/icons/IconOpenLink";
+import TabHeader from "../../../components/tab-header";
+import { Label } from "../../../components/ui/label";
+import { TabsContent, TabsList } from "../../../components/ui/tabs";
+import LiquidityTable from "../../liquidity/my-liquidity/liquidity-table";
 import LiquidityChart from "./chart";
-import LiquidityTable from "./liquidity-table";
 import MarketStats from "./market-stats";
 import AddProvider from "./options/add-provider";
 import AddSwapper from "./options/add-swapper";
@@ -22,7 +23,6 @@ import TransferOwnership from "./options/transfer-ownership";
 import UpdateCommision from "./options/update-commision";
 import LiquiditySwap from "./swap";
 import TransactionsTable from "./transactions-table";
-import TabHeader from "@/components/TabHeader";
 
 export default function ViewMarketPage() {
   return (
@@ -114,9 +114,10 @@ export default function ViewMarketPage() {
             </div>
           </div>
         </div>
-        <div className="fixed bottom-0 z-50 flex w-full justify-center px-2 pb-4 xs:px-5 xl:hidden">
+
+        {/* <div className="fixed bottom-0 z-50 flex w-full justify-center px-2 pb-4 xs:px-5 xl:hidden">
           <SwapModal />
-        </div>
+        </div> */}
       </div>
     </PageLayout>
   );
@@ -127,7 +128,7 @@ function ManageButton() {
 
   return (
     <Popover open={open} onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button
           variant={"secondary"}
           className="hidden h-[30px] gap-2 bg-white px-3 pl-5 text-sm font-semibold hover:bg-white/70 xs:hidden sm:flex"
@@ -135,9 +136,6 @@ function ManageButton() {
         >
           Manage
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
-        </Button>
-
-        <Button variant={"ghost"} className="block p-0 hover:bg-transparent hover:text-white sm:hidden">
           <Settings className="h-5 w-5" />
         </Button>
       </PopoverTrigger>

@@ -1,7 +1,8 @@
-import { handleAxiosError, toLD } from "@/libs/helpers.ts";
-import { SwapSide } from "@/pages/swap/types.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
+import { toLD } from "../../../libs/numbers";
+import { SwapSide } from "../../../libs/side";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 export interface ListLiquidityParams {
@@ -95,7 +96,7 @@ export function useLiquidityService() {
     >,
   ): Promise<FillResult> {
     try {
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const [, , params] = ctx.queryKey;
       const { network, marketAddress, address, decimals } = params;
 
@@ -132,7 +133,7 @@ export function useLiquidityService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, market, provider, lid } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/liquidities/${market}/${provider}/${lid}`,
@@ -155,7 +156,7 @@ export function useLiquidityService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, market, provider, lid } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios<{ data: Event[] }>({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/liquidities/${market}/${provider}/${lid}/events`,

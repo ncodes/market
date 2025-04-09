@@ -1,7 +1,7 @@
-import { Avatar } from "@/components/avatar/Avatar";
-import CloseIcon from "@/components/CloseIcon";
+import { Avatar } from "@/components/avatar/avatar";
+import CloseIcon from "@/components/close-icon";
 import { IconSearch } from "@/components/icons/IconSearch";
-import Modal from "@/components/Modal";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/libs/utils";
@@ -30,7 +30,7 @@ export function SelectChainButton() {
         <div className="flex w-full flex-col overflow-hidden rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black md:rounded-b-3xl">
           <div className="flex h-fit items-center justify-between px-5 py-3">
             <Label className="text-[18px] font-normal tracking-wider text-lotion">Choose Chain</Label>
-            <CloseIcon setOpen={setOpen}/>
+            <CloseIcon setOpen={setOpen} />
           </div>
           <div className="flex h-fit justify-between border-y border-eerie-black px-3 py-2">
             <div className="flex h-11 w-full items-center justify-between gap-1 rounded-3xl bg-eerie-black px-3 py-1">

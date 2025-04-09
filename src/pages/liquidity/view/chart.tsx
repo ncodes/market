@@ -1,5 +1,5 @@
 "use client";
-import SelectVolume from "@/components/SelectVolume";
+import SelectVolume from "@/components/select-volume";
 import { Button } from "@/components/ui/button";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Label } from "@/components/ui/label";

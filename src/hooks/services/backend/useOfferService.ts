@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -51,7 +51,7 @@ export function useOfferService() {
     try {
       const [id, params] = ctx.queryKey;
       const { network, limit, offerFilter, offset } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/offers`,
@@ -85,7 +85,7 @@ export function useOfferService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, offerId, limit, offset } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/offers/${offerId}/events`,
@@ -114,7 +114,7 @@ export function useOfferService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, offerId } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/offers/${offerId}`,
@@ -140,7 +140,7 @@ export function useOfferService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, marketAddress, provider, lid } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
       const resp = await axios({
@@ -174,7 +174,7 @@ export function useOfferService() {
   }): Promise<void> {
     try {
       const { network, marketAddress, provider, lid } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
       const resp = await axios({

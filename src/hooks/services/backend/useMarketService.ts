@@ -1,11 +1,10 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { AssetType } from "@/types/enums.ts";
 import { TokenList } from "@jointlabs/meta";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
 
-export type ListMarketsIDs = "getMarkets" | "searchMarkets" | "getMarketsByCreator" | "getMarketsByAddresses";
 export interface ListMarketsParams {
   network: string;
   marketFilter: MarketFilter;
@@ -35,12 +34,12 @@ export function useMarketService() {
    * Get markets
    */
   async function listMarkets(
-    ctx: QueryFunctionContext<[ListMarketsIDs, ListMarketsParams]>,
+    ctx: QueryFunctionContext<[string, ListMarketsParams]>,
   ): Promise<{ markets: Market[]; meta: { queryCount: number } }> {
     try {
-      const [id, params] = ctx.queryKey;
+      const [, params] = ctx.queryKey;
       const { network, marketFilter, limit, offset } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/markets`,
@@ -49,13 +48,11 @@ export function useMarketService() {
           net: network,
           offset,
           limit,
-          creator:
-            id == "getMarketsByCreator" && params.connectedAddress ? params.connectedAddress : marketFilter.creator,
         },
         headers,
       });
 
-      return Promise.resolve({ markets: resp.data.data, meta: resp.data.meta });
+      return Promise.resolve({ markets: resp.data.data || [], meta: resp.data.meta });
     } catch (e) {
       return Promise.reject(handleAxiosError(e as never));
     }
@@ -68,7 +65,7 @@ export function useMarketService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, market } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/markets/${market}`,
@@ -105,7 +102,7 @@ export function useMarketService() {
     try {
       const [, base, quote, params] = ctx.queryKey;
       const { network, creator } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/markets/${base.address}/${quote.address}`,
@@ -131,7 +128,7 @@ export function useMarketService() {
     try {
       const [, params] = ctx.queryKey;
       const { network, limit } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios<{ data: Market[] }>({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/markets/top`,

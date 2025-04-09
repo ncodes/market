@@ -1,17 +1,17 @@
-import { NetworkSelectorButton } from "@/components/AssetButton";
-import { DataTable } from "@/components/DataTable";
-import InfoLabel from "@/components/InfoLabel";
+import { NetworkSelectorButton } from "@/components/asset-button";
+import { DataTable } from "@/components/data-table";
+import InfoLabel from "@/components/info-label";
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { AppPages } from "@/libs/pages";
 import { cn } from "@/libs/utils";
 import { SelectChainButton } from "@/pages/explore/options/select-chain";
 import { ChevronDown, Plus } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { LiquidityProps, liquidityColumns } from "./liquidity-columns";
 import { SelectStatusButton } from "./options/select-volume";
 import StatusFilter from "./status-filter";
-import { useNavigate } from "react-router-dom";
-import { AppPages } from "@/libs/pages";
 
 function getData(): LiquidityProps[] {
   return Array.from({ length: 10 }, (_, i) => i + 1).map((value) => ({
@@ -67,7 +67,7 @@ function MoreButton() {
 
   return (
     <Popover onOpenChange={(open) => setOpen(open)}>
-      <PopoverTrigger>
+      <PopoverTrigger asChild>
         <Button variant={"ghost"} className="p-0 hover:bg-transparent hover:text-white">
           <ChevronDown className={cn("size-6 transition-all duration-300", { "rotate-180": open })} />
         </Button>

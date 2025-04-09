@@ -1,10 +1,7 @@
-import { BigNumberish, ZeroAddress } from "ethers";
+import { Structs, StructsLib } from "@/typechain/Core";
+import { ZeroAddress } from "ethers";
 import { Address } from "viem";
-import { toBigInt } from "../../../libs/helpers.ts";
-import * as CoreTypes from "../../../typechain/Core.ts";
-import { StructsLib } from "../../../typechain/Core.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
-import OrderStruct = CoreTypes.Structs.OrderStruct;
 
 /**
  * Providers utilities for reading and writing to the Core contract
@@ -41,26 +38,37 @@ export default function useCoreContract() {
    */
   async function updateFungibleLiquidity(
     market: string,
-    lid: BigNumberish,
+    lid: bigint,
+    amount: bigint,
+    price: bigint,
     deduct: boolean,
     target: Address,
-    amount: string,
-    price: string,
-    wantOrIds: BigNumberish[] = [],
-    wantAndIds: BigNumberish[] = [],
-    limits: [BigNumberish, BigNumberish, BigNumberish, BigNumberish, BigNumberish] = [0, 0, 0, 0, 0],
+    wantOrIds: bigint[] = [],
+    wantAndIds: bigint[] = [],
+    timeToPay: bigint = 0n,
+    expireAt: bigint = 0n,
+    pause: boolean = false,
+    usePriceFromRegistry: boolean = false,
+    priceScaleBps: bigint = 0n,
+    ethDeposit?: bigint,
   ) {
-    const res = await simulateAndWriteContract("core", "updateFungibleLiquidity", [
-      market,
-      lid,
-      deduct,
+    const params: StructsLib.UpdateFungibleLiquidityParamsStruct = {
+      marketId: market,
       target,
-      [toBigInt(amount), toBigInt(price)],
+      lid,
+      amount,
+      price,
       wantOrIds,
       wantAndIds,
-      limits,
-    ]);
-    return res[0];
+      timeToPay,
+      expireAt,
+      pause,
+      usePriceFromRegistry,
+      priceScaleBps,
+      deduct,
+    };
+
+    return simulateAndWriteContract("core", "updateFungibleLiquidity", [params], ethDeposit, true, 1);
   }
 
   /**
@@ -80,12 +88,12 @@ export default function useCoreContract() {
     marketId: string,
     provider: string,
     recipient = ZeroAddress,
-    lid: BigNumberish,
-    amount: BigNumberish,
-    maxPrice: BigNumberish,
-    ids: BigNumberish[] = [],
-    txDeadline: BigNumberish,
-    operator: BigNumberish = 0,
+    lid: bigint,
+    amount: bigint,
+    maxPrice: bigint,
+    ids: bigint[] = [],
+    txDeadline: bigint,
+    operator: bigint = 0n,
     marketMgrData: string,
     ethDeposit?: bigint,
   ) {
@@ -121,12 +129,12 @@ export default function useCoreContract() {
     marketId: string,
     provider: string,
     recipient: string | undefined,
-    lid: BigNumberish,
-    amount: BigNumberish,
-    price: BigNumberish,
-    ids: BigNumberish[] = [],
-    txDeadline: BigNumberish,
-    operator: BigNumberish = "0",
+    lid: bigint,
+    amount: bigint,
+    price: bigint,
+    ids: bigint[] = [],
+    txDeadline: bigint,
+    operator: bigint = 0n,
   ) {
     return await simulateAndWriteContract("core", "createOffer", [
       marketId,
@@ -142,6 +150,16 @@ export default function useCoreContract() {
   }
 
   /**
+   * Count the number of liquidity owned by an address in a market
+   * @param marketAddress The market address
+   * @param providerAddress The provider address
+   * @returns The number of liquidity
+   */
+  async function countLiquidity(marketAddress: string, providerAddress: string): Promise<bigint> {
+    return readContract("core", "countLiquidity", [marketAddress, providerAddress]);
+  }
+
+  /**
    * Update an offer
    * @param offerId The offer ID
    * @param amount The updated amount
@@ -150,13 +168,7 @@ export default function useCoreContract() {
    * @param txDeadline The transaction deadline
    * @returns
    */
-  async function updateOffer(
-    offerId: bigint,
-    amount: BigNumberish,
-    price: BigNumberish,
-    ids: BigNumberish[] = [],
-    txDeadline: BigNumberish,
-  ) {
+  async function updateOffer(offerId: bigint, amount: bigint, price: bigint, ids: bigint[] = [], txDeadline: bigint) {
     return await simulateAndWriteContract("core", "updateOffer", [offerId, amount, price, ids, txDeadline]);
   }
 
@@ -202,7 +214,7 @@ export default function useCoreContract() {
    * @param lid The liquidity ID
    * @param swapBadges The swap badges
    */
-  async function setSwapBadgeForLiquidity(market: string, lid: BigNumberish, swapBadges: string[][]) {
+  async function setSwapBadgeForLiquidity(market: string, lid: bigint, swapBadges: string[][]) {
     const res = await simulateAndWriteContract("core", "setSwapBadgeForLiquidity", [market, lid, swapBadges]);
     return res[0];
   }
@@ -221,8 +233,8 @@ export default function useCoreContract() {
     provider: string,
     lid: number,
     taker: string,
-    orderAmt: BigNumberish,
-    orderPrice: BigNumberish,
+    orderAmt: bigint,
+    orderPrice: bigint,
   ): Promise<{
     protocolFee: bigint;
     marketFee: bigint;
@@ -273,7 +285,7 @@ export default function useCoreContract() {
    * Get an order
    * @param orderId The order ID
    */
-  async function getOrder(orderId: bigint): Promise<OrderStruct> {
+  async function getOrder(orderId: bigint): Promise<Structs.OrderStruct> {
     return readContract("core", "getOrder", [orderId]);
   }
 
@@ -287,7 +299,6 @@ export default function useCoreContract() {
    */
   function humanizeErrors(error: { message: string } | unknown): string {
     if (error instanceof Error) {
-      // setSwapBadgeForLiquidity
       if (error.message.includes("OC: ZERO_LIQ")) return "Cannot perform action on empty liquidity";
 
       // updateFungibleLiquidity: MKT_BADGE_REQ
@@ -318,6 +329,8 @@ export default function useCoreContract() {
 
       if (error.message.includes("OC: LOW_DEPOSIT")) return `Insufficient balance`;
 
+      if (error.message.includes("PR: STALE_PRICE")) return `Registry price is stale. Contact support for assistance.`;
+
       // Common
       if (error.message.includes("OC: AMOUNT_REQ")) return "Amount is required";
       if (error.message.includes("ERC20: transfer amount exceeds balance")) return "Insufficient balance";
@@ -347,6 +360,7 @@ export default function useCoreContract() {
     unacceptOffer,
     executeOffer,
     updateOffer,
+    countLiquidity,
     state,
   };
 }

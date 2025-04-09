@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -74,7 +74,7 @@ export function useNotificationService() {
    */
   async function getNotifications(ctx: QueryFunctionContext<[string, NotificationParams]>): Promise<Notification[]> {
     const [, params] = ctx.queryKey;
-    const headers = { "Content-Type": "application/json" };
+    const headers: { [key: string]: string | undefined } = { "Content-Type": "application/json" };
     const token = getAccessToken(address);
     headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
@@ -96,7 +96,7 @@ export function useNotificationService() {
   async function countNotifications(ctx: QueryFunctionContext<[string, CountParams]>): Promise<number> {
     try {
       const [, params] = ctx.queryKey;
-      const headers = { "Content-Type": "application/json" };
+      const headers: { [key: string]: string | undefined } = { "Content-Type": "application/json" };
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
@@ -120,7 +120,7 @@ export function useNotificationService() {
    */
   async function markNotificationsAsRead(params: MarkReadParams): Promise<void> {
     try {
-      const headers = { "Content-Type": "application/json" };
+      const headers: { [key: string]: string | undefined } = { "Content-Type": "application/json" };
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
 
@@ -142,7 +142,7 @@ export function useNotificationService() {
    */
   async function updateSettings(params: NotificationSettings): Promise<void> {
     try {
-      const headers = { "Content-Type": "application/json" };
+      const headers: { [key: string]: string | undefined } = { "Content-Type": "application/json" };
       const token = getAccessToken(address);
       headers["authorization"] = token ? `Bearer ${token}` : undefined;
 

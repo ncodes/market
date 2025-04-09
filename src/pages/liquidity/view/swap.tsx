@@ -1,6 +1,6 @@
 import IconLiquidity from "@/components/icons/IconLiquidity";
 import IconSwap from "@/components/icons/IconSwap";
-import Swap from "@/components/Swap";
+import Swap from "@/components/swap";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function LiquiditySwap() {

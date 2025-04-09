@@ -1,4 +1,4 @@
-import { handleAxiosError } from "@/libs/helpers.ts";
+import { handleAxiosError } from "@/libs/request";
 import { QueryFunctionContext } from "@tanstack/react-query";
 import axios, { AxiosRequestConfig } from "axios";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
@@ -35,7 +35,7 @@ export function useTicketService() {
     try {
       const [id, params] = ctx.queryKey;
       const { network, limit, ticketFilter, offset } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/tickets`,
@@ -74,7 +74,7 @@ export function useTicketService() {
     try {
       const [, params] = ctx.queryKey;
       const { net, owner } = params;
-      const headers = {};
+      const headers: { [key: string]: string | undefined } = {};
       const resp = await axios({
         method: "get",
         url: `${getChainInfo().apiUrl}/v1/tickets/stats`,

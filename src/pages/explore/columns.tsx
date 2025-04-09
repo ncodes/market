@@ -1,17 +1,17 @@
 "use client";
 import { SolanaIcon, USDCIcon } from "@/assets";
-import WaveformChart from "@/components/WaveformChart";
-import { Avatar } from "@/components/avatar/Avatar";
+import { Avatar } from "@/components/avatar/avatar";
 import IconTriangleDown from "@/components/icons/IconTriangleDown";
 import IconTriangleUp from "@/components/icons/IconTriangleUp";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import WaveformChart from "@/components/waveform-chart";
 import { cn } from "@/libs/utils";
 import { ColumnDef } from "@tanstack/react-table";
 import { ChevronRight } from "lucide-react";
-import EmojiAvatar from "../../components/avatar/EmojiAvatar";
+import EmojiAvatar from "../../components/avatar/emoji-avatar";
 import { AvatarSize } from "../../components/avatar/useAvatar";
-import { shortenAddress } from "../../libs/helpers";
+import { shortenAddress } from "../../libs/string";
 
 export type TokenTableProps = {
   sn: number;
@@ -73,7 +73,7 @@ export const tokenColumns: ColumnDef<TokenTableProps>[] = [
     accessorKey: "name",
     header: "Token Name",
     cell: (props) => (
-      <div className="flex w-20 lg:w-32 items-center gap-1 py-1.5 min-w-[100px]">
+      <div className="flex w-20 min-w-[100px] items-center gap-1 py-1.5 lg:w-32">
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <Label className="text-sm font-light text-gray-300">{props.getValue() as any}</Label>
       </div>
@@ -83,7 +83,7 @@ export const tokenColumns: ColumnDef<TokenTableProps>[] = [
     accessorKey: "price",
     header: "Price",
     cell: (props) => (
-      <div className="flex w-20 lg:w-32 items-center gap-1 py-1.5">
+      <div className="flex w-20 items-center gap-1 py-1.5 lg:w-32">
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <Label className="text-sm font-light text-white">{props.getValue() as any}</Label>
       </div>
@@ -96,7 +96,7 @@ export const tokenColumns: ColumnDef<TokenTableProps>[] = [
       const { value, isPositive } = props.getValue() as any;
 
       return (
-        <div className="flex items-center py-1.5 min-w-[90px]">
+        <div className="flex min-w-[90px] items-center py-1.5">
           {isPositive ? <IconTriangleUp /> : <IconTriangleDown />}
           <Label className={cn("text-sm font-light", { "text-coral-red": !isPositive, "text-go-green": isPositive })}>
             {value}
@@ -112,7 +112,7 @@ export const tokenColumns: ColumnDef<TokenTableProps>[] = [
       const { value, isPositive } = props.getValue() as any;
 
       return (
-        <div className="flex items-center py-1.5 min-w-[100px]">
+        <div className="flex min-w-[100px] items-center py-1.5">
           {isPositive ? <IconTriangleUp /> : <IconTriangleDown />}
           <Label className={cn("text-sm font-light", { "text-coral-red": !isPositive, "text-go-green": isPositive })}>
             {value}
@@ -206,7 +206,11 @@ export const liquidityColumns: ColumnDef<LiquidyTableProps>[] = [
   {
     accessorKey: "lastSwapAt",
     header: "Last Swap Time",
-    cell: (props) => <div className="min-w-[120px]"><span className="text-sm font-light text-gray-500">{props.getValue() as any}</span></div>,
+    cell: (props) => (
+      <div className="min-w-[120px]">
+        <span className="text-sm font-light text-gray-500">{props.getValue() as any}</span>
+      </div>
+    ),
   },
   {
     accessorKey: "action",
@@ -250,7 +254,11 @@ export const marketsColumns: ColumnDef<MarketsProps>[] = [
   {
     accessorKey: "feePct",
     header: "Fee",
-    cell: (props) => <div className="min-w-16"><span className="text-xs text-gray-400">{props.getValue() as string}</span></div>,
+    cell: (props) => (
+      <div className="min-w-16">
+        <span className="text-xs text-gray-400">{props.getValue() as string}</span>
+      </div>
+    ),
   },
   {
     accessorKey: "tvl",
@@ -286,13 +294,17 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
   {
     accessorKey: "time",
     header: "Time",
-    cell: (props) => <div className="min-w-20"><span className="text-xs font-light text-gray-500">{props.getValue() as any}</span></div>,
+    cell: (props) => (
+      <div className="min-w-20">
+        <span className="text-xs font-light text-gray-500">{props.getValue() as any}</span>
+      </div>
+    ),
   },
   {
     accessorKey: "type",
     header: "Type",
     cell: (props) => (
-      <div className="flex items-center gap-1 py-1.5 mr-4">
+      <div className="mr-4 flex items-center gap-1 py-1.5">
         <div className="flex items-center gap-1.5">
           <Label className="text-sm font-light text-gray-400">Swap</Label>
           <Label className="text-sm font-semibold text-white">{(props.getValue() as any).from}</Label>
@@ -314,7 +326,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     accessorKey: "base",
     header: "Base Amount",
     cell: (props) => (
-      <div className="flex items-center gap-1 min-w-28 mr-3">
+      <div className="mr-3 flex min-w-28 items-center gap-1">
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <Label className="text-nowrap text-sm font-light text-white">{props.getValue() as any}</Label>
       </div>
@@ -324,7 +336,7 @@ export const transactionsColumns: ColumnDef<TransactionsTableProps>[] = [
     accessorKey: "quote",
     header: "Quote Amount",
     cell: (props) => (
-      <div className="flex items-center gap-1 min-w-28 mr-3">
+      <div className="mr-3 flex min-w-28 items-center gap-1">
         <Avatar src={USDCIcon} className="h-6 w-6 shadow-sm drop-shadow-sm" rootClassName="h-6 w-6" />
         <Label className="text-nowrap text-sm font-light text-white">{props.getValue() as any}</Label>
       </div>

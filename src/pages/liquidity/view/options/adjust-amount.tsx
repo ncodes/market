@@ -1,12 +1,12 @@
-import AssetField from "@/components/AssetField";
-import CloseIcon from "@/components/CloseIcon";
-import InfoLabel from "@/components/InfoLabel";
-import Modal from "@/components/Modal";
+import AssetField from "@/components/asset-field";
+import CloseIcon from "@/components/close-icon";
+import InfoLabel from "@/components/info-label";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import useStore from "@/hooks/store/useStore";
-import { formatToMoney } from "@/libs/helpers";
+import { formatToMoney } from "@/libs/numbers";
 import { cn } from "@/libs/utils";
 import { useState } from "react";
 
@@ -27,7 +27,7 @@ export default function AdjustAmount() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Adjust Amount"}
               </Label>
-              <CloseIcon setOpen={setOpenAdjustAmount}/>
+              <CloseIcon setOpen={setOpenAdjustAmount} />
             </div>
             <div className="flex flex-col gap-3 px-5 py-[14px] pb-[17px]">
               <Label className="text-sm font-light text-cool-grey">Add or Remove Liquidity</Label>

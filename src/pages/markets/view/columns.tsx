@@ -1,6 +1,6 @@
 "use client";
 import { SolanaIcon, USDCIcon } from "@/assets";
-import { Avatar } from "@/components/avatar/Avatar";
+import { Avatar } from "@/components/avatar/avatar";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ColumnDef } from "@tanstack/react-table";

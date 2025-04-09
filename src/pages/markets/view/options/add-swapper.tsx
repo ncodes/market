@@ -1,10 +1,10 @@
-import EmojiAvatar from "@/components/avatar/EmojiAvatar";
+import EmojiAvatar from "@/components/avatar/emoji-avatar";
 import { AvatarSize } from "@/components/avatar/useAvatar";
-import CloseIcon from "@/components/CloseIcon";
+import CloseIcon from "@/components/close-icon";
 import IconMinus from "@/components/icons/IconMinus";
-import InfoLabel from "@/components/InfoLabel";
-import Input from "@/components/Input";
-import Modal from "@/components/Modal";
+import InfoLabel from "@/components/info-label";
+import Input from "@/components/input";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ChevronRight } from "lucide-react";
@@ -36,7 +36,7 @@ export default function AddSwapper() {
               <Label className="text-base font-semibold text-lotion lg:text-2xl">
                 {isSubmitted ? "Confirm" : "Add Swapper"}
               </Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             <div className="h-full max-h-[85vh] w-full overflow-y-auto">
               {!isSubmitted && (
@@ -45,10 +45,10 @@ export default function AddSwapper() {
                   <div className="flex flex-col gap-2">
                     <InfoLabel text="Address" info="Address" className="text-sm font-light text-light-periwinkle" />
                     <Input
-                      onChange={({ currentTarget }) => {
-                        setAddressValue(currentTarget.value);
+                      onChange={(value) => {
+                        setAddressValue(value);
                       }}
-                      value={addressValue}
+                      defaultValue={addressValue}
                       suffix={
                         <Button
                           variant={"secondary"}

@@ -1,5 +1,5 @@
-import CloseIcon from "@/components/CloseIcon";
-import Modal from "@/components/Modal";
+import CloseIcon from "@/components/close-icon";
+import Modal from "@/components/modal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
@@ -30,7 +30,7 @@ export default function PauseLiquidity() {
           <div className="rounded-b-none rounded-t-3xl border border-gunmetal bg-chinese-black md:rounded-b-3xl">
             <div className="flex w-full justify-between border-b border-gunmetal/40 px-5 py-3">
               <Label className="text-base font-semibold text-lotion lg:text-2xl">Pause Liquidity</Label>
-              <CloseIcon setOpen={setOpen}/>
+              <CloseIcon setOpen={setOpen} />
             </div>
             <div className="mb-3 flex flex-col gap-3 px-5 py-[14px] pb-0">
               {!isSubmitted && (

@@ -1,9 +1,9 @@
-import { toDec } from "@/libs/helpers.ts";
-import { isNative } from "@/pages/swap/common/utils.ts";
+import { toDec } from "@/libs/numbers";
+import { LiquidityStruct, RouteStruct } from "@/typechain/Router.ts";
 import { TokenList } from "@jointlabs/meta";
 import { ZeroAddress } from "ethers";
-import { SideQuote } from "../../../pages/swap/types/types.ts";
-import { LiquidityStruct, RouteStruct } from "../../../typechain/Router.ts";
+import { isNative } from "../../../libs/asset.ts";
+import { SideQuote } from "../../../libs/side.ts";
 import { useConnectorContext } from "../../connectors/useConnectorContext";
 
 /**

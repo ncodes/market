@@ -1,18 +1,18 @@
-import CloseIcon from "@/components/CloseIcon";
-import Modal from "@/components/Modal";
-import { ToolTip } from "@/components/ToolTip";
+import { ConfirmModalHeader } from "@/components/confirm-modal-header";
+import Modal from "@/components/modal";
+import { ToolTip } from "@/components/tool-tip";
 import { Button } from "@/components/ui/button.tsx";
 import { Label } from "@/components/ui/label.tsx";
 import { isPairInteractive } from "@/libs/asset";
-import { shortenAddress } from "@/libs/helpers";
 import { AppPages } from "@/libs/pages";
+import { shortenAddress } from "@/libs/string";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "../../../components/ui/switch";
 import { cn } from "../../../libs/utils";
 import { AssetOverview } from "./asset-overview";
-import { MarketCreatorState } from "./useMarketCreatorLogic";
+import { MarketCreatorState } from "./useMarketCreator";
 
 export function CreateMarketButton({
   state,
@@ -65,10 +65,12 @@ export function CreateMarketButton({
       content={
         <div className="w-full md:max-w-full lg:max-w-[450px]">
           <div className="mb-1 w-full rounded-b-none rounded-t-3xl border border-eerie-black bg-chinese-black font-poppins md:rounded-b-3xl">
-            <div className="flex items-center justify-between border-b border-gunmetal/50 px-5 py-4">
-              <Label className="text-xl font-semibold text-lotion lg:text-2xl">Confirm Market Creation</Label>
-              <CloseIcon setOpen={loading ? () => {} : setOpen} />
-            </div>
+            <ConfirmModalHeader
+              loading={loading}
+              setOpen={() => setOpen(false)}
+              title="Confirm Market Creation"
+              description="Verify the details, then click 'Confirm' to proceed."
+            />
             <div className="flex flex-col gap-5 px-6 py-4">
               <div className="flex gap-14">
                 <AssetOverview
