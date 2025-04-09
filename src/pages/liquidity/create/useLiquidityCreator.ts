@@ -178,8 +178,7 @@ export default function useLiquidityCreator() {
           nativeBaseAsset ? BigInt(amount) : undefined,
         );
       } else {
-        const core = chainInfo?.contracts?.core;
-        const numLiq = await countLiquidity(marketAddress, core?.address as `0x${string}`);
+        const numLiq = await countLiquidity(marketAddress, address as `0x${string}`);
 
         return coreUpdateFL(
           marketAddress,

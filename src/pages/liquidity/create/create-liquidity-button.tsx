@@ -116,7 +116,7 @@ export function CreateLiquidityButton({
                     <img src={base.logoURI} className="size-8" />
                     <Label className="flex gap-1.5 text-base text-gray-100">
                       <span className="font-dosis">{formatToMoney(amount || "0")}</span>
-                      <span className="font-semibold text-gray-500">{base.symbol}</span>
+                      <span className="font-semibold text-gray-100">{base.symbol}</span>
                     </Label>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ export function CreateLiquidityButton({
                     <img src={quote.logoURI} className="size-8" />
                     <Label className="flex gap-1.5 text-base text-gray-100">
                       <span className="font-dosis">{price ? formatToMoney(price || "0") : "-"}</span>
-                      <span className="font-semibold text-gray-500">{quote.symbol}</span>
+                      <span className="font-semibold text-gray-100">{quote.symbol}</span>
                     </Label>
                   </div>
                 </div>
