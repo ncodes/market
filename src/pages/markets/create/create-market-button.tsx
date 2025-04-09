@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label.tsx";
 import { isPairInteractive } from "@/libs/asset";
 import { AppPages } from "@/libs/pages";
 import { shortenAddress } from "@/libs/string";
-import { Loader2 } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "../../../components/ui/switch";
@@ -57,7 +57,7 @@ export function CreateMarketButton({
       onOpenChange={canCreate}
       triggerClassName="w-full"
       triggerComponent={
-        <Button variant={"secondary"} className="btn" disabled={disabled}>
+        <Button className="btn" disabled={disabled}>
           Create
         </Button>
       }
@@ -149,8 +149,8 @@ export function CreateMarketButton({
                 variant={"secondary"}
                 className="btn flex w-full gap-1 font-semibold"
               >
-                {loading && <Loader2 className="animate-spin" />}
-                Confirm
+                {loading && <Loader className="animate-spin" />}
+                Confirm & Sign
               </Button>
             </div>
           </div>
@@ -160,8 +160,8 @@ export function CreateMarketButton({
             variant={"secondary"}
             className="btn mt-2 hidden w-full gap-1 text-lg font-semibold lg:flex"
           >
-            {loading && <Loader2 className="animate-spin" />}
-            {!loading ? "Confirm" : "Creating..."}
+            {loading && <Loader className="animate-spin" />}
+            {!loading ? "Confirm & Sign" : "Signing..."}
           </Button>
         </div>
       }

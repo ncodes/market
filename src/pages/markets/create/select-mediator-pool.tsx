@@ -23,7 +23,7 @@ export default function SelectMediatorPool({
       }}
     >
       <SelectTrigger
-        className="w-fit border-none p-0 outline-none focus:ring-0 active:border-none active:outline-none"
+        className="w-fit gap-2 rounded-full border-none px-4 text-gray-100 outline-none focus:ring-0 active:border-none active:outline-none"
         asChild
       >
         <Button className="bg-black-coral/20 hover:bg-black-coral/30">
