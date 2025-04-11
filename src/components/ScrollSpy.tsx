@@ -44,10 +44,17 @@ export default function ScrollSpy({ sections, title, label }: ScrollSpyLayoutPro
   }, [sections]);
 
   return (
-    <div className="relative flex w-full">
-      <main className="flex-1">
+    <div className="relative flex w-full flex-col md:flex-row">
+      <div className="w-full block md:hidden">
         {label && <Label className="mb-2 text-[10px] font-light text-white">{label}</Label>}
-        {title && <h1 className="mb-11 font-poppins text-[43px] font-extralight text-white">{title}</h1>}
+        {title && <h1 className="mb-11 font-poppins text-[28px] font-extralight text-white md:text-[43px]">{title}</h1>}
+      </div>
+      <aside className="block md:hidden top-0 mb-12 h-fit w-full">
+        <ScrollOptions activeId={activeId} sections={sections} />
+      </aside>
+      <main className="flex-1">
+        {label && <Label className="hidden md:block mb-2 text-[10px] font-light text-white">{label}</Label>}
+        {title && <h1 className="hidden md:block mb-11 font-poppins text-[43px] font-extralight text-white">{title}</h1>}
         {sections.map((s) => (
           <section key={s.id} id={s.id} className="mb-16 scroll-mt-20 leading-3">
             <h2 className="mb-4 text-sm font-bold">{s.label}</h2>
@@ -55,24 +62,30 @@ export default function ScrollSpy({ sections, title, label }: ScrollSpyLayoutPro
           </section>
         ))}
       </main>
-      <aside className="sticky top-0 h-fit w-64 mb-12">
-        <ScrollArea className="">
-          <nav className="space-y-2">
-            {sections.map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                className={cn(
-                  "block cursor-pointer text-right font-poppins text-[10px] text-white/80 transition",
-                  activeId === s.id && "font-bold text-white",
-                )}
-              >
-                {s.label}
-              </a>
-            ))}
-          </nav>
-        </ScrollArea>
+      <aside className="hidden md:block sticky top-0 mb-12 h-fit w-64">
+        <ScrollOptions activeId={activeId} sections={sections} />
       </aside>
     </div>
+  );
+}
+
+function ScrollOptions({ sections, activeId }: { sections: ScrollSpaySectionProps[]; activeId: string }) {
+  return (
+    <ScrollArea className="">
+      <nav className="space-y-2">
+        {sections.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className={cn(
+              "block cursor-pointer text-left md:text-right font-poppins text-[10px] text-white/80 transition",
+              activeId === s.id && "font-bold text-white",
+            )}
+          >
+            {s.label}
+          </a>
+        ))}
+      </nav>
+    </ScrollArea>
   );
 }

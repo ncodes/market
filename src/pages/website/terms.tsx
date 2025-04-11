@@ -5,7 +5,7 @@ import { privacyPolicySections } from "@/libs/data";
 export default function TermsOfServicePage() {
   return (
     <WebsiteLayout title="Terms of Service">
-      <div className="mt-16 w-full px-28">
+      <div className="mt-4 md:mt-16 w-full px-4 md:px-28">
         <ScrollSpy sections={privacyPolicySections} title="Terms of Service" label="LEGAL" />
       </div>
     </WebsiteLayout>

@@ -2,6 +2,7 @@ import { ConnectButton } from "../../hooks/connectors/components/ConnectButton";
 import Logo from "../icons/Logo";
 import { NavigationMenu, NavigationMenuList } from "../ui/navigation-menu";
 import { CustomNavigationMenu } from "./CustomNavigationMenu";
+import MobileHeader from "./MobileHeader";
 import RegionSelectorButton from "./RegionSelectorButton";
 import SettingsButton from "./SettingsButton";
 
@@ -47,12 +48,13 @@ export function WebsiteHeader() {
   }
 
   return (
-    <header className="relative flex w-full select-none items-center p-4">
-      <div className="w-1/3">
+    <header className="relative flex w-full select-none items-center p-4 justify-between md:justify-normal">
+      <div className="hidden w-1/3 md:flex">
         <Logo />
       </div>
+      <MobileHeader />
 
-      <div className="flex w-1/3 justify-center">
+      <div className="flex w-fit md:w-1/3 justify-center">
         <nav className="relative -top-0.5 left-2 hidden text-sm font-normal tracking-wider md:flex">
           <NavigationMenu
             onValueChange={onNavChange}

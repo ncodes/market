@@ -5,7 +5,7 @@ import { privacyPolicySections } from "@/libs/data";
 export default function PrivacyPolicyPage() {
   return (
     <WebsiteLayout title="Privacy Policy">
-      <div className="w-full px-28 mt-16">
+      <div className="mt-4 w-full px-4 md:mt-16 md:px-28">
         <ScrollSpy sections={privacyPolicySections} title="Privacy Policy" label="LEGAL" />
       </div>
     </WebsiteLayout>

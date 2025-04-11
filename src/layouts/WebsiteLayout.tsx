@@ -40,16 +40,16 @@ export default function WebsiteLayout({ children, title }: PageLayoutProps) {
 function Footer() {
   return (
     <div className="relative mt-14 w-full overflow-hidden pb-24">
-      <div className="flex h-fit w-full items-start justify-between px-28">
-        <div className="flex w-fit flex-col gap-12">
-          <div className="flex flex-col gap-4">
+      <div className="flex flex-col md:flex-row h-fit w-full items-center gap-9 md:gap-0 md:items-start justify-center md:justify-between px-28">
+        <div className="flex w-fit flex-col gap-8 md:gap-12">
+          <div className="flex flex-col gap-4 items-center md:items-start">
             <div className="flex items-center gap-2">
               <LogoMark />
               <WordMark />
             </div>
             <Label className="text-xs font-light text-cool-grey">© 2025 - All rights reserved</Label>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-3 mt-2 md:mt-0">
             <a href="#">
               <img src={GithubIcon} alt="" className="h-4 w-auto" />
             </a>
@@ -70,8 +70,8 @@ function Footer() {
             </a>
           </div>
         </div>
-        <div className="flex flex-col gap-2">
-          <h3 className="p-0 text-sm font-medium text-white">Company</h3>
+        <div className="flex flex-col gap-4 md:gap-[10px] items-center md:items-start">
+          <h3 className="p-0 text-sm font-medium text-white mt-4 md:mt-0">Company</h3>
           <Link to={"#"} className="text-xs font-light text-cool-grey">
             About
           </Link>
@@ -85,7 +85,7 @@ function Footer() {
             FAQs
           </Link>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4 md:gap-[10px] items-center md:items-start">
           <h3 className="p-0 text-sm font-medium text-white">Protocol</h3>
           <Link to={"#"} className="text-xs font-light text-cool-grey">
             Trade
@@ -103,7 +103,7 @@ function Footer() {
             Disputes
           </Link>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4 md:gap-[10px] items-center md:items-start">
           <h3 className="p-0 text-sm font-medium text-white">Developers</h3>
           <Link to={"#"} className="text-xs font-light text-cool-grey">
             Documentation
@@ -112,7 +112,7 @@ function Footer() {
             Github
           </Link>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-4 md:gap-[10px] items-center md:items-start">
           <h3 className="p-0 text-sm font-medium text-white">Legal</h3>
           <Link to={"#"} className="text-xs font-light text-cool-grey">
             Protocol Disclaimer
