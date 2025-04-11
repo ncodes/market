@@ -3,7 +3,7 @@ import { cn } from "@/libs/utils";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { useRef, useState } from "react";
-import CloseIcon from "../CloseIcon";
+import CloseIcon from "../close-icon";
 import LogoMark from "../icons/LogoMark";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";

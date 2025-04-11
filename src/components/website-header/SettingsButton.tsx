@@ -8,7 +8,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { Sheet, SheetContent, SheetTrigger } from "../ui/sheet";
 import { Button } from "../ui/button";
 import Icon3Dots from "../icons/Icon3Dots";
-import CloseIcon from "../CloseIcon";
+import CloseIcon from "../close-icon";
 
 export default function SettingsButton() {
   const [open, setOpen] = useState(false);
