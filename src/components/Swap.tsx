@@ -17,6 +17,7 @@ interface SwapProps {
   networkClassName?: string;
   rootClassName?: string;
   closeButton?: React.ReactNode;
+  showDarkButton?: boolean;
 }
 
 export default function Swap({
@@ -27,6 +28,7 @@ export default function Swap({
   networkClassName,
   rootClassName,
   closeButton,
+  showDarkButton,
 }: SwapProps) {
   const { openSwapConfirmation, setOpenSwapConfirmation } = useStore();
 
@@ -99,13 +101,22 @@ export default function Swap({
       </div>
       {!showEmbeddedButton && (
         <div className="mt-3">
-          <ConnectButton
-            className="h-auto w-full py-2 text-lg"
-            hideIcon
-            hideOnConnected
-            showSwapButton
-            onSwapClick={performSwap}
-          />
+          {!showDarkButton && (
+            <ConnectButton
+              className="h-auto w-full py-2 text-lg"
+              hideIcon
+              hideOnConnected
+              showSwapButton
+              onSwapClick={performSwap}
+            />
+          )}
+          {showDarkButton && (
+            <Button className="flex h-[35px] w-full items-center rounded-full bg-[linear-gradient(90deg,#fafff5,#4a7e31,#3b7420,#5c8b46,#ffffff)] p-[0.5px]">
+              <div className="cursor-pointer flex h-full w-full items-center justify-center rounded-full bg-gradient-to-b from-[#0e1409] via-[#123100] to-[#273600] text-xs font-semibold text-white transition duration-300 hover:brightness-110">
+                Connect Wallet
+              </div>
+            </Button>
+          )}
         </div>
       )}
 
