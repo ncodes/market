@@ -5,15 +5,18 @@ import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "./errors/error-page";
 import Layout from "./layouts/Layout";
 import ExplorePage from "./pages/explore/page";
-import LandingPage from "./pages/landing";
 import ViewLiquidityPage from "./pages/liquidity/view/page";
 import ViewMarketPage from "./pages/markets/view/page";
 import SwapPage from "./pages/swap/swap";
+import PrivacyPolicyPage from "./pages/website/privacy-policy";
+import TermsOfServicePage from "./pages/website/terms";
+import WebsiteHomePage from "./pages/website/home";
+import WebsiteTradePage from "./pages/website/trade";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout page={<LandingPage />} />,
+    element: <Layout page={<WebsiteHomePage />} />,
     errorElement: <ErrorPage />,
   },
   {
@@ -49,6 +52,21 @@ const router = createBrowserRouter([
   {
     path: "/explore",
     element: <Layout page={<ExplorePage />} />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/privacy-policy",
+    element: <Layout page={<PrivacyPolicyPage />} />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/terms",
+    element: <Layout page={<TermsOfServicePage />} />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/trade",
+    element: <Layout page={<WebsiteTradePage />} />,
     errorElement: <ErrorPage />,
   },
 ]);

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -116,11 +116,11 @@
   .input {
     @apply w-full border-none !bg-transparent transition-all duration-300 text-[17px] font-normal outline-none placeholder:font-poppins placeholder:text-cool-grey active:border-none active:outline-none;
   }
-  
+
   .reset-btn {
-    @apply h-auto p-0 m-0 rounded-none bg-transparent hover:bg-transparent;
+    @apply m-0 h-auto rounded-none bg-transparent p-0 hover:bg-transparent;
   }
-  
+
   .btn {
     @apply h-auto w-full py-2.5 text-xl font-semibold lg:text-lg;
   }
@@ -135,5 +135,32 @@
   
   .input-number {
     @apply font-dosis font-bold;
+  }
+  
+  .custom-border-image {
+    border-image-source: linear-gradient(91deg, rgba(230, 247, 147, 0) 18%, #d6f274 51%, rgba(200, 237, 90, 0) 80%);
+    border-image-slice: 1;
+  }
+
+  .custom-outline-rounded {
+    position: relative;
+    z-index: 0;
+    border-radius: 9999px;
+  }
+  
+  .custom-outline-rounded::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 0.3px;
+    border-radius: 9999px;
+    background: linear-gradient(to bottom, #6dd400, #f7b500);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: -1;
   }
 }

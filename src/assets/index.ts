@@ -9,6 +9,7 @@ export { default as FranceFlagIcon } from "@/assets/flags/france.svg";
 export { default as GermanFlagIcon } from "@/assets/flags/germany.svg";
 export { default as NigeriaFlagIcon } from "@/assets/flags/nigeria.svg";
 export { default as UKFlagIcon } from "@/assets/flags/uk.svg";
+export {default as USAFlagIcon} from "@/assets/flags/usa.png";
 export { default as SolanaIcon } from "@/assets/solana.webp";
 export { default as TelegramIcon } from "@/assets/telegram.svg";
 export { default as USDCIcon } from "@/assets/usdc.webp";
@@ -16,6 +17,7 @@ export { default as XIcon } from "@/assets/x.svg";
 export { default as USDTIcon } from "@/assets/usdt.png";
 export {default as OPIcon} from "@/assets/optimism.png";
 export {default as ConnectIcon} from "@/assets/connect.png";
+export {default as CardanoIcon} from "@/assets/cardano.png";
 
 // Wallets
 export { default as CoinbaseIcon } from "@/assets/wallet_icons/coinbasewallet.svg";

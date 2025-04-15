@@ -49,6 +49,11 @@ export default {
         "pastel-green": "#8de969",
         "chinese-black": "#11131b",
 
+        "chinese-green": "#c8ed5a",
+        'rich-black': "#030507",
+        "light-silver": "#d8d8d8",
+        "charcoal": "#2f3f4f",
+        
         border: "hsl(var(--border))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -104,10 +109,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        'scroll-left': {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'scroll-left': 'scroll-left 40s linear infinite',
       },
       fontFamily: {
         poppins: ["Poppins", ...defaultTheme.fontFamily.sans],
