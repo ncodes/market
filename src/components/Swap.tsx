@@ -111,7 +111,7 @@ export default function Swap({
             />
           )}
           {showDarkButton && (
-            <Button className="flex h-[35px] w-full items-center rounded-full bg-[linear-gradient(90deg,#fafff5,#4a7e31,#3b7420,#5c8b46,#ffffff)] p-[0.5px]">
+            <Button className="flex h-[45px] md:h-[35px] w-full items-center rounded-full bg-[linear-gradient(90deg,#fafff5,#4a7e31,#3b7420,#5c8b46,#ffffff)] p-[0.5px]">
               <div className="cursor-pointer flex h-full w-full items-center justify-center rounded-full bg-gradient-to-b from-[#0e1409] via-[#123100] to-[#273600] text-xs font-semibold text-white transition duration-300 hover:brightness-110">
                 Connect Wallet
               </div>

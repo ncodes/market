@@ -26,23 +26,23 @@ import React from "react";
 export default function WebsiteHomePage() {
   return (
     <WebsiteLayout title="Terms of Service">
-      <div className="relative -z-10 mt-12 h-[40px] w-full">
-        <div className="absolute -top-40 left-0 right-0 flex justify-center">
+      <div className="hidden md:block relative -z-10 mt-1 md:mt-12 h-[40px] w-full">
+        <div className="hidden absolute -top-40 left-0 right-0 md:flex justify-center">
           <img src={UpPattern} alt="" className="h-auto w-[1200px]" />
         </div>
       </div>
       <div className="relative w-full">
-        <div className="flex w-full justify-center">
-          <div className="max-w-md">
+        <div className="px-4 flex w-full justify-center">
+          <div className="max-w-full md:max-w-md">
             <Swap showDarkButton />
           </div>
         </div>
-        <img src={DroidPattern} alt="" className="absolute right-0 top-0 h-auto w-[80px]" />
-        <img src={DroidPattern} alt="" className="absolute -bottom-10 left-0 h-auto w-[80px] scale-x-[-1]" />
+        <img src={DroidPattern} alt="" className="hidden md:block absolute right-0 top-0 h-auto w-[80px]" />
+        <img src={DroidPattern} alt="" className="hidden md:block absolute -bottom-10 left-0 h-auto w-[80px] scale-x-[-1]" />
       </div>
       <div className="relative w-full">
-        <div className="relative h-[200px] w-full overflow-hidden">
-          <div className="absolute -top-40 left-0 right-0 flex justify-center">
+        <div className="hidden md:block relative h-[200px] w-full overflow-hidden">
+          <div className="hidden absolute -top-40 left-0 right-0 md:flex justify-center">
             <img src={DownPattern} alt="" className="h-auto w-[1200px]" />
           </div>
         </div>
@@ -66,9 +66,9 @@ export default function WebsiteHomePage() {
         </div>
       </div>
 
-      <div className="mt-16 w-full px-28">
+      <div className="mt-44 md:mt-16 w-full px-4 md:px-28">
         <div className="flex w-full flex-col items-center gap-5">
-          <h1 className="text-center text-[60px] font-semibold leading-[60px] text-white">
+          <h1 className="text-center text-[28px] md:text-[60px] font-semibold leading-[25px] md:leading-[60px] text-white">
             P2P
             <br />
             Reimagined
@@ -77,15 +77,15 @@ export default function WebsiteHomePage() {
             Billions lost to CEX hacks and shutdowns. Joint lets you trade P2P with full control, security, and freedom.
           </Label>
         </div>
-        <div className="mt-[31px] flex w-full gap-2">
-          <div className="relative mt-[26px] flex h-auto flex-1 rounded-xl bg-chinese-black p-6">
+        <div className="mt-[31px] flex flex-col md:flex-row w-full gap-2">
+          <div className="relative mt-[26px] flex h-[250px] md:h-auto flex-auto md:flex-1 rounded-xl bg-chinese-black p-6">
             <Label className="max-w-[230px] text-wrap text-lg font-semibold leading-6 text-light-periwinkle">
               Say goodbye to exchange hacks, frozen funds, and KYC traps.
             </Label>
             <img src={ArcPattern} alt="" className="absolute bottom-0 left-0 h-auto w-[310px]" />
             <img src={LShapePattern} alt="" className="absolute bottom-0 right-0 w-1/2" />
           </div>
-          <div className="flex w-1/3 flex-col gap-4">
+          <div className="flex w-full md:w-1/3 flex-col gap-4">
             <div className="w-full">
               <img src={DroidLightPattern} alt="" className="h-auto w-full" />
             </div>
@@ -100,7 +100,7 @@ export default function WebsiteHomePage() {
           </div>
         </div>
       </div>
-      <div className="mt-20 w-full px-28">
+      <div className="mt-20 w-full px-4 md:px-28">
         <div className="flex w-full flex-col items-center gap-5">
           <h1 className="text-center text-[60px] font-semibold leading-[60px] text-white">P2P</h1>
           <Label className="w-full max-w-md text-center text-xs text-light-periwinkle">
@@ -163,9 +163,9 @@ export default function WebsiteHomePage() {
           </Label>
         </div>
         <div className="mb-16 flex w-full justify-center">
-          <div className="relative flex w-fit flex-col gap-[135px]">
-            <div className="flex w-fit gap-[135px]">
-              <div className="relative flex h-[335px] w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black p-4 pr-6">
+          <div className="relative flex w-full md:w-fit flex-col gap-8 md:gap-[135px]">
+            <div className="flex flex-col md:flex-row w-full md:w-fit gap-8 md:gap-[135px]">
+              <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black p-4 pr-6">
                 <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
@@ -173,7 +173,7 @@ export default function WebsiteHomePage() {
                 <img src={ArcPattern} alt="" className="absolute bottom-0 right-0 scale-x-[-1]" />
                 <img src={DroidPattern} alt="" className="absolute right-0 top-5 h-auto w-[98px]" />
               </div>
-              <div className="relative flex h-[335px] w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black pb-4 pl-8 pr-4">
+              <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black pb-4 pl-8 pr-4">
                 <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
@@ -182,13 +182,13 @@ export default function WebsiteHomePage() {
                 <img src={DroidPattern} alt="" className="absolute -left-3 top-5 h-auto w-[98px] scale-x-[-1]" />
               </div>
             </div>
-            <div className="absolute bottom-0 left-0 right-0 top-0 z-[1] flex items-center justify-center">
+            <div className="hidden absolute bottom-0 left-0 right-0 top-0 z-[1] md:flex items-center justify-center">
               <div className="relative h-[240px] w-[240px]">
                 <img src={JointXPattern} alt="" />
               </div>
             </div>
-            <div className="flex w-fit gap-[135px]">
-              <div className="relative flex h-[335px] w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black p-4 pr-6">
+            <div className="flex flex-col md:flex-row w-full md:w-fit gap-8 md:gap-[135px]">
+              <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black p-4 pr-6">
                 <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
@@ -196,7 +196,7 @@ export default function WebsiteHomePage() {
                 <img src={ArcPattern} alt="" className="absolute bottom-0 right-0" />
                 <img src={DroidPattern} alt="" className="absolute right-0 top-10 h-auto w-[98px]" />
               </div>
-              <div className="relative flex h-[335px] w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black pb-4 pl-8 pr-4">
+              <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black pb-4 pl-8 pr-4">
                 <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
