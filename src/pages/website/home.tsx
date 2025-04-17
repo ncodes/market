@@ -68,18 +68,18 @@ export default function WebsiteHomePage() {
 
       <div className="mt-44 md:mt-16 w-full px-4 md:px-28">
         <div className="flex w-full flex-col items-center gap-5">
-          <h1 className="text-center text-[28px] md:text-[60px] font-semibold leading-[25px] md:leading-[60px] text-white">
+          <h1 className="text-center text-[28px] md:text-[60px] font-bold leading-[25px] md:leading-[60px] text-white">
             P2P
             <br />
             Reimagined
           </h1>
-          <Label className="w-full max-w-md text-center text-xs text-light-periwinkle">
+          <Label className="w-full max-w-md text-center text-[12px] font-light text-light-periwinkle">
             Billions lost to CEX hacks and shutdowns. Joint lets you trade P2P with full control, security, and freedom.
           </Label>
         </div>
         <div className="mt-[31px] flex flex-col md:flex-row w-full gap-2">
           <div className="relative mt-[26px] flex h-[250px] md:h-auto flex-auto md:flex-1 rounded-xl bg-chinese-black p-6">
-            <Label className="max-w-[230px] text-wrap text-lg font-semibold leading-6 text-light-periwinkle">
+            <Label className="max-w-[230px] text-wrap text-sm font-semibold leading-6 text-light-periwinkle">
               Say goodbye to exchange hacks, frozen funds, and KYC traps.
             </Label>
             <img src={ArcPattern} alt="" className="absolute bottom-0 left-0 h-auto w-[310px]" />
@@ -102,8 +102,8 @@ export default function WebsiteHomePage() {
       </div>
       <div className="mt-20 w-full px-4 md:px-28">
         <div className="flex w-full flex-col items-center gap-5">
-          <h1 className="text-center text-[60px] font-semibold leading-[60px] text-white">P2P</h1>
-          <Label className="w-full max-w-md text-center text-xs text-light-periwinkle">
+          <h1 className="text-center text-[60px] font-bold leading-[60px] text-white">P2P</h1>
+          <Label className="w-full max-w-md text-center text-[12px] font-light text-light-periwinkle">
             Billions lost to CEX hacks and shutdowns. Joint lets you trade P2P with full control, security, and freedom.
           </Label>
         </div>
@@ -158,7 +158,7 @@ export default function WebsiteHomePage() {
           </div>
         </div>
         <div className="mb-[61px] mt-[35px] flex justify-center">
-          <Label className="w-full max-w-[250px] text-center text-xs text-cool-grey">
+          <Label className="w-full max-w-[250px] text-center text-xs font-light text-cool-grey">
             Billions lost to CEX hacks and shutdowns. Joint lets you trade P2P with full control, security, and freedom.
           </Label>
         </div>
@@ -166,7 +166,7 @@ export default function WebsiteHomePage() {
           <div className="relative flex w-full md:w-fit flex-col gap-8 md:gap-[135px]">
             <div className="flex flex-col md:flex-row w-full md:w-fit gap-8 md:gap-[135px]">
               <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black p-4 pr-6">
-                <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
+                <Label className="text-sm font-bold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
                 <img src={ArcPattern} alt="" className="absolute left-0 top-0 scale-y-[-1]" />
@@ -174,7 +174,7 @@ export default function WebsiteHomePage() {
                 <img src={DroidPattern} alt="" className="absolute right-0 top-5 h-auto w-[98px]" />
               </div>
               <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black pb-4 pl-8 pr-4">
-                <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
+                <Label className="text-sm font-bold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
                 <img src={ArcPattern} alt="" className="absolute right-0 top-0 scale-x-[-1] scale-y-[-1]" />
@@ -189,7 +189,7 @@ export default function WebsiteHomePage() {
             </div>
             <div className="flex flex-col md:flex-row w-full md:w-fit gap-8 md:gap-[135px]">
               <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black p-4 pr-6">
-                <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
+                <Label className="text-sm font-bold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
                 <img src={ArcPattern} alt="" className="absolute left-0 top-0 scale-x-[-1] scale-y-[-1]" />
@@ -197,7 +197,7 @@ export default function WebsiteHomePage() {
                 <img src={DroidPattern} alt="" className="absolute right-0 top-10 h-auto w-[98px]" />
               </div>
               <div className="relative flex h-[435px] md:h-[335px] w-full  md:w-[225px] items-end overflow-hidden rounded-xl bg-chinese-black pb-4 pl-8 pr-4">
-                <Label className="text-sm font-semibold leading-5 text-light-periwinkle">
+                <Label className="text-sm font-bold leading-5 text-light-periwinkle">
                   Say goodbye to exchange hacks, frozen funds, and KYC traps.
                 </Label>
                 <img src={ArcPattern} alt="" className="absolute right-0 top-0 scale-y-[-1]" />

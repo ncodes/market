@@ -57,8 +57,8 @@ export default function ScrollSpy({ sections, title, label }: ScrollSpyLayoutPro
         {title && <h1 className="hidden md:block mb-11 font-poppins text-[43px] font-extralight text-white">{title}</h1>}
         {sections.map((s) => (
           <section key={s.id} id={s.id} className="mb-16 scroll-mt-20 leading-3">
-            <h2 className="mb-4 text-sm font-bold">{s.label}</h2>
-            <Label className="text-sm font-light">{s.content}</Label>
+            <h2 className="mb-4 text-sm font-medium">{s.label}</h2>
+            <Label className="text-[12px] font-extralight leading-6">{s.content}</Label>
           </section>
         ))}
       </main>
