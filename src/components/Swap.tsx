@@ -18,6 +18,9 @@ interface SwapProps {
   rootClassName?: string;
   closeButton?: React.ReactNode;
   showDarkButton?: boolean;
+  headerClassName?: string;
+  assetSelectClassName?: string;
+  arrowIconClassName?: string;
 }
 
 export default function Swap({
@@ -29,6 +32,9 @@ export default function Swap({
   rootClassName,
   closeButton,
   showDarkButton,
+  headerClassName,
+  assetSelectClassName,
+  arrowIconClassName,
 }: SwapProps) {
   const { openSwapConfirmation, setOpenSwapConfirmation } = useStore();
 
@@ -49,7 +55,9 @@ export default function Swap({
         )}
       >
         {!hideHeader && (
-          <div className="flex w-full justify-between border-b border-eerie-black/50 py-2 pl-5 pr-3">
+          <div
+            className={cn("flex w-full justify-between border-b border-eerie-black/50 py-2 pl-5 pr-3", headerClassName)}
+          >
             <Label className="text-2xl font-medium tracking-wider text-white">Swap</Label>
             <div className="flex gap-3">
               <SwapSettings />
@@ -64,13 +72,13 @@ export default function Swap({
             assetImage={USDCIcon}
             networkImage={SolanaIcon}
             text="USDC"
-            className="border-b border-eerie-black"
+            className={cn("border-b border-eerie-black", assetSelectClassName)}
             inputClassName={inputClassName}
             assetClassName={assetClassName}
             networkClassName={networkClassName}
           />
 
-          <div className="absolute -mt-4 flex w-full justify-center">
+          <div className={cn("absolute -mt-4 flex w-full justify-center", arrowIconClassName)}>
             <div className="z-[1] flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gunmetal">
               <IconNavigationArrows />
             </div>
@@ -82,6 +90,7 @@ export default function Swap({
             assetImage={BNBIcon}
             networkImage={BSCIcon}
             text="USDC"
+            className={assetSelectClassName}
             inputClassName={inputClassName}
             assetClassName={assetClassName}
             networkClassName={networkClassName}
@@ -111,8 +120,8 @@ export default function Swap({
             />
           )}
           {showDarkButton && (
-            <Button className="flex h-[45px] md:h-[35px] w-full items-center rounded-full bg-[linear-gradient(90deg,#fafff5,#4a7e31,#3b7420,#5c8b46,#ffffff)] p-[0.5px]">
-              <div className="cursor-pointer flex h-full w-full items-center justify-center rounded-full bg-gradient-to-b from-[#0e1409] via-[#123100] to-[#273600] text-xs font-semibold text-white transition duration-300 hover:brightness-110">
+            <Button className="flex h-[45px] w-full cursor-pointer items-center rounded-full bg-[linear-gradient(90deg,#fafff5,#4a7e31,#3b7420,#5c8b46,#ffffff)] p-[0.5px] shadow-[0_7.5px_7.5px_2.5px_rgba(0,0,0,0.7),_inset_0_0_12px_0_rgba(36,61,85,0.66)]">
+              <div className="flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-gradient-to-b from-[#0e1409] via-[#123100] to-[#273600] font-medium text-white transition duration-300 hover:brightness-110">
                 Connect Wallet
               </div>
             </Button>
