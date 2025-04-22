@@ -26,17 +26,17 @@ import React from "react";
 export default function WebsiteHomePage() {
   return (
     <WebsiteLayout title="Terms of Service">
-      <div className="relative flex h-fit md:h-screen w-full items-center justify-center">
+      <div className="relative flex h-fit w-full items-center justify-center md:h-screen">
         <div className="absolute top-0 -z-10 hidden h-[40px] w-full md:block">
           <div className="absolute -top-28 left-0 right-0 hidden justify-center md:flex">
             <img src={UpPattern} alt="" className="h-auto w-[1200px]" />
           </div>
         </div>
 
-        <div className="relative mb-0 md:mb-40 w-full">
+        <div className="relative mb-0 w-full md:mb-40">
           <div className="flex w-full justify-center px-4">
             <div className="max-w-full md:max-w-lg">
-              <Swap showDarkButton headerClassName="py-5" assetSelectClassName="my-4" arrowIconClassName="-mt-8"/>
+              <Swap showDarkButton headerClassName="py-5" assetSelectClassName="my-4" arrowIconClassName="-mt-8" />
             </div>
           </div>
 
@@ -52,7 +52,7 @@ export default function WebsiteHomePage() {
           </div>
         </div>
 
-        <div className="hidden md:block absolute bottom-0 w-full -z-[1]">
+        <div className="absolute bottom-0 -z-[1] hidden w-full md:block">
           <div className="relative hidden h-[400px] w-full overflow-hidden md:block">
             <div className="absolute -top-0 left-0 right-0 hidden justify-center md:flex">
               <img src={DownPattern} alt="" className="h-auto w-[1200px]" />
@@ -86,7 +86,7 @@ export default function WebsiteHomePage() {
             <br />
             Reimagined
           </h1>
-          <Label className="w-full max-w-[260px] md:max-w-md text-center text-[12px] font-light text-light-periwinkle">
+          <Label className="w-full max-w-[260px] text-center text-[12px] font-light text-light-periwinkle md:max-w-md">
             Billions lost to CEX hacks and shutdowns. Joint lets you trade P2P with full control, security, and freedom.
           </Label>
         </div>
@@ -113,7 +113,7 @@ export default function WebsiteHomePage() {
           </div>
         </div>
       </div>
-      <div className="mt-20 w-full px-4 md:px-28">
+      <div className="mt-20 h-fit w-full px-4 md:h-[calc(100vh-200px)] md:px-28 flex flex-col justify-center">
         <div className="flex w-full flex-col items-center gap-5">
           <h1 className="text-center text-[60px] font-bold leading-[60px] text-white">P2P</h1>
           <Label className="w-full max-w-md text-center text-[12px] font-light text-light-periwinkle">
@@ -121,56 +121,58 @@ export default function WebsiteHomePage() {
           </Label>
         </div>
         <div className="mt-3 flex w-full justify-center">
-          <div className="relative flex w-full md:w-fit gap-0 justify-between md:gap-[125px]">
-            <div className="mt-14 flex h-fit flex-col gap-3 rounded-3xl bg-raisin-black p-2">
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={BitcoinIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">Bitcoin</Label>
+          <div className="relative flex w-full justify-between gap-0 md:w-fit md:gap-[195px]">
+            <div className="mt-16 flex h-fit flex-col gap-3 rounded-3xl bg-raisin-black p-2 py-4">
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={BitcoinIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">Bitcoin</Label>
               </div>
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={EthereumIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">Ethereum</Label>
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={EthereumIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">Ethereum</Label>
               </div>
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={SolanaIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">Solana</Label>
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={SolanaIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">Solana</Label>
               </div>
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={CardanoIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">Cardano</Label>
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={CardanoIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">Cardano</Label>
               </div>
             </div>
 
-            <div className="mb-14 flex h-fit flex-col gap-3 rounded-3xl bg-raisin-black p-2">
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={USDTIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">USDT</Label>
+            <div className="mb-16 flex h-fit flex-col gap-3 rounded-3xl bg-raisin-black p-2 py-4">
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={USDTIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">USDT</Label>
               </div>
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={UKFlagIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">GBP</Label>
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={UKFlagIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">GBP</Label>
               </div>
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={NigeriaFlagIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">NGN</Label>
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={NigeriaFlagIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">NGN</Label>
               </div>
-              <div className="flex w-[128px] items-center gap-3 rounded-full bg-rich-black p-2">
-                <Avatar src={USAFlagIcon} className="h-[26px] w-[26px]" rootClassName="w-[26px] h-[26px]" />
-                <Label className="text-xs font-light text-white">USD</Label>
+              <div className="flex w-[148px] items-center gap-3 rounded-full bg-rich-black p-2">
+                <Avatar src={USAFlagIcon} className="h-[36px] w-[36px]" rootClassName="h-[36px] w-[36px]" />
+                <Label className="text-sm font-light text-white">USD</Label>
               </div>
             </div>
             <div className="absolute bottom-0 left-0 right-0 top-0 flex flex-col justify-between">
-              <div className="h-[79px] w-full bg-gradient-to-b from-vampire-black/90 to-vampire-black/0"></div>
-              <div className="custom-outline-rounded flex h-[53px] w-full items-center justify-center rounded-full">
-                <div className="flex h-5 w-16 items-center justify-center rounded-full border-[0.6px] border-charcoal bg-[rgba(216,216,216,0.07)]">
-                  <Label className="text-xs font-light text-white">P2P</Label>
+              <div className="h-[69px] w-full bg-gradient-to-b from-vampire-black/90 to-vampire-black/0"></div>
+              <div className="custom-outline-rounded flex h-[63px] w-full items-center justify-center rounded-full">
+                <div className="flex items-center justify-center rounded-full border-[0.6px] border-charcoal bg-[rgba(216,216,216,0.07)] px-6 py-[2px]">
+                  <Label className="text-sm font-light text-white">P2P</Label>
                 </div>
               </div>
-              <div className="h-[79px] w-full bg-gradient-to-b from-vampire-black/0 to-vampire-black/90"></div>
+              <div className="h-[69px] w-full bg-gradient-to-b from-vampire-black/0 to-vampire-black/90"></div>
             </div>
           </div>
         </div>
-        <div className="mb-[61px] mt-[35px] flex justify-center">
+      </div>
+      <div className="w-full px-4 md:px-28">
+      <div className="mb-[61px] mt-[35px] flex justify-center">
           <Label className="w-full max-w-[250px] text-center text-xs font-light text-cool-grey">
             Billions lost to CEX hacks and shutdowns. Joint lets you trade P2P with full control, security, and freedom.
           </Label>
